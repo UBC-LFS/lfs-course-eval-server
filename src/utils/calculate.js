@@ -1,7 +1,12 @@
 import R from 'ramda'
 
-const calculateAvg = (arr) => R.mean(arr)
+const avg = (arr) => R.mean(arr)
+
+const median = (arr) => R.median(arr)
+
+//const dispersion = (arr) => 
 
 export {
-    calculateAvg
+    avg,
+    median
 }
