@@ -7,3 +7,4 @@ describe('calculateAvg', () => {
         assert.deepEqual(1, calculate.avg([1]))
     })
 })
+

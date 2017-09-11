@@ -4,9 +4,12 @@ const avg = (arr) => R.mean(arr)
 
 const median = (arr) => R.median(arr)
 
-//const dispersion = (arr) => 
+const percentFavourable = (arr) => {
+
+} 
 
 export {
     avg,
-    median
+    median,
+    percentFavourable
 }
