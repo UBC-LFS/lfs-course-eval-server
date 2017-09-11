@@ -60,26 +60,30 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
+var _fetch = __webpack_require__(6);
+
+document.addEventListener('DOMContentLoaded', function () {
+    (0, _fetch.fetchJSON)('test');
 });
-// this is where the API call to get the data will go
 
-var testFunction = function testFunction() {
-    console.log('hi');
-};
+/***/ }),
 
-exports.default = testFunction;
+/***/ 6:
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/justinlee/Documents/lfs-course-eval-client/src/api/fetch.js'");
 
 /***/ })
-/******/ ]);
+
+/******/ });

@@ -18,6 +18,11 @@ routes.get('/', (req, res) => {
  * create different/better error handlers depending on
  * your use case.
  */
+
+ routes.get('/test', (req, res) => {
+   
+ })
+
 routes.get('/list', (req, res, next) => {
   const { title } = req.query;
 
