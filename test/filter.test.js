@@ -124,5 +124,8 @@ describe('filterByYearAndTerm', () => {
         assert.deepEqual(filter2016W1(input), output)
         const filter2017W2 = filter.byYearAndTerm(2017, 'W2')
         assert.deepEqual(filter2017W2(input), [{term: '2017W2', courseNum: 'LFSLC 100 001'}])
+
+        const filterBy2020W1 = filter.byYearAndTerm(2020, 'W1')
+        assert.deepEqual(filterBy2020W1(input), [])
     })
 })
