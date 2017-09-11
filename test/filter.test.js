@@ -77,11 +77,33 @@ describe('filterByInstructor', () => {
         assert.deepEqual(filterJustinLee(input), [])
     })
 })
-// describe('filterByDept', () => {
-//     it('takes a dept and filters an array of objects to return only objects with that dept', () => {
-
-//     })
-// })
+describe('filterByDept', () => {
+    it('takes a dept and filters an array of objects to return only objects with that dept', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', deptName: 'APBI'}
+        ]
+        const outputAPBI = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', deptName: 'APBI'}
+        ]
+        const filterByAPBI = filter.byDept('APBI')
+        assert.deepEqual(filterByAPBI(input), outputAPBI)
+        
+        const outputLFS = [
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'}
+        ]
+        const filterByLFS = filter.byDept('LFS')
+        assert.deepEqual(filterByLFS(input), outputLFS)
+    })
+})
 describe('filterByYearAndTerm', () => {
     it('takes a year and term and filters an array of objects to return only objects with that year and term', () => {
         const input = [
@@ -100,5 +122,7 @@ describe('filterByYearAndTerm', () => {
         ]
         const filter2016W1 = filter.byYearAndTerm(2016, 'W1')
         assert.deepEqual(filter2016W1(input), output)
+        const filter2017W2 = filter.byYearAndTerm(2017, 'W2')
+        assert.deepEqual(filter2017W2(input), [{term: '2017W2', courseNum: 'LFSLC 100 001'}])
     })
 })
