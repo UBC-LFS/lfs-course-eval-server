@@ -1,7 +1,7 @@
 import R from 'ramda'
 import * as get from './get'
 
-const byTerm = (arr) => {
+const byYearThenTerm = (arr) => {
     const order = {
          'S1': 0,
          'SA': 1,
@@ -30,6 +30,6 @@ const byInstructorLastName = (arr) => {
 }
 
 export {
-    byTerm,
+    byYearThenTerm,
     byInstructorLastName
 }
