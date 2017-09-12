@@ -21,13 +21,13 @@ routes.get('/', (req, res) => {
 
  routes.get('/data', (req, res) => {
    const data = [
-     { Instructor: "Susan Boyle", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
-     { Instructor: "David Festerman", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 5, DispersionIndex: 0.8, ClassSize: 100, Responses: 40, PercentFavourable: 0.72 },
-     { Instructor: "Santa Claus", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 4, DispersionIndex: 0.10, ClassSize: 400, Responses: 399, PercentFavourable: 0.99 },
-     { Instructor: "Blossom", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 5, DispersionIndex: 0.45, ClassSize: 20, Responses: 20, PercentFavourable: 0.80},
-     { Instructor: "Bubbles", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 4, DispersionIndex: 0.5, ClassSize: 70, Responses: 20, PercentFavourable: 0.46 },
-     { Instructor: "Buttercup", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 1, DispersionIndex: 0.90, ClassSize: 650, Responses: 500, PercentFavourable: 0.16 },
-     
+     { Instructor: "Susan Boyle", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 66 },
+     { Instructor: "David Festerman", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 5, DispersionIndex: 0.8, ClassSize: 100, Responses: 40, PercentFavourable: 72 },
+     { Instructor: "Santa Claus", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 4, DispersionIndex: 0.10, ClassSize: 400, Responses: 399, PercentFavourable: 99 },
+     { Instructor: "Blossom", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 5, DispersionIndex: 0.45, ClassSize: 20, Responses: 20, PercentFavourable: 80},
+     { Instructor: "", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 4, DispersionIndex: 0.5, ClassSize: 70, Responses: 20, PercentFavourable: 46 },
+     { Instructor: "Buttercup", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 1, DispersionIndex: 0.90, ClassSize: 650, Responses: 500, PercentFavourable: 16 },
+    
    ]
    res.send(data)
   })
