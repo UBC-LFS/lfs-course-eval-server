@@ -105,7 +105,51 @@ describe('filterByDept', () => {
         assert.deepEqual(filterByLFS(input), outputLFS)
     })
 })
-describe('filterPipeline', () => {
+describe('filterByYearAndTerm', () => {
+    it('takes a year and term and filters an array of objects to return only objects with that year and term', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001'},
+            {term: '2016W1', courseNum: 'LFSLC 200 001'},
+            {term: '2016W1', courseNum: 'LFSLC 300 001'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001'},
+        ]
+        const output = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001'},
+            {term: '2016W1', courseNum: 'LFSLC 200 001'},
+            {term: '2016W1', courseNum: 'LFSLC 300 001'}
+        ]
+        const filter2016W1 = filter.byYearAndTerm(2016, 'W1')
+        assert.deepEqual(filter2016W1(input), output)
+        const filter2017W2 = filter.byYearAndTerm(2017, 'W2')
+        assert.deepEqual(filter2017W2(input), [{term: '2017W2', courseNum: 'LFSLC 100 001'}])
+
+        const filterBy2020W1 = filter.byYearAndTerm(2020, 'W1')
+        assert.deepEqual(filterBy2020W1(input), [])
+    })
+})
+describe('filterByCourseNum', () => {
+    it('takes an array of objects and returns only objects that contain the specified course num', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI'}
+        ]
+        const output = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI'}
+        ]
+        const filterByLFSLC200001 = filter.byCourseNum('LFSLC 200 001')
+        assert.deepEqual(filterByLFSLC200001(input), output)
+    })
+})
+describe('filterByMany', () => {
     it('takes an arbitrary length of filters and returns thoes filters piped', () => {
         const input = [
             {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
@@ -123,6 +167,6 @@ describe('filterPipeline', () => {
         assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
 
         const filterByYear2017S1 = R.pipe(filter.byYear(2017), filter.byTerm('S1'))
-        assert.deepEqual(filterByYear2017S1(input), output2017LFS)
+        assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
     })
 })

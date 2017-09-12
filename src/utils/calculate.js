@@ -25,6 +25,10 @@ const percentileRankingOfInstrutor = (instructorName, arr) => {
 
 }
 
+const dispersionIndexOfCourse = (courseNum, year, term, arr) => {
+    
+}
+
 export {
     avg,
     median,
