@@ -19,8 +19,12 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 
- routes.get('/test', (req, res) => {
+ routes.get('/dashboard', (req, res) => {
+   res.send({data: [{hello: 'test'}]})
+ })
+ routes.get('/courseData', (req, res) => {
    
+  res.send({data: [{hello: 'test'}]})
  })
 
 routes.get('/list', (req, res, next) => {

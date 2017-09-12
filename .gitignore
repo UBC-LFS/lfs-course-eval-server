@@ -64,3 +64,5 @@ typings/
 # Custom
 .idea
 dist
+
+public/scripts/bundle.js
