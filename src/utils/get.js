@@ -6,9 +6,18 @@ const sliceTerm = (yearWithTerm) => yearWithTerm.slice(4,6)
 // takes an array of objects, returns array of specified UMI
 const arrayOfUmi = (umi) => R.map(x => x[umi])
 
+const arrayOfGender = R.map(x => x.gender)
+
+const percentFromDecimal = (decimal) => decimal * 100 + '%'
+
+const instructorFirstName = () => {
+
+}
 
 export {
     sliceYear,
     sliceTerm,
-    arrayOfUmi
+    arrayOfUmi,
+    arrayOfGender,
+    percentFromDecimal
 }

@@ -33,3 +33,27 @@ describe('getArrayOfUmi', () => {
         assert.deepEqual(getUMI5(input), outputUMI5)
     })
 })
+
+describe('getArrayOfGender', () => {
+    it('takes an array of objects and returns the genders', () => {
+        const input = [
+            { gender: 'Male', UMI6: 5 },
+            { gender: 'Male', UMI6: 2 },
+            { gender: 'Female', UMI6: 5 },
+            { gender: 'Male', UMI6: 5 },
+            { gender: 'Female', UMI6: 5 },
+            { gender: 'Female', UMI6: 3 },
+            { gender: 'Male', UMI6: 1 },
+        ]
+        const output = ['Male', 'Male', 'Female', 'Male', 'Female', 'Female', 'Male']
+        assert.deepEqual(get.arrayOfGender()(input), output)
+    })
+})
+
+describe('getPercentFromDecimal', () => {
+    it('takes a decimal and converts to percent', () => {
+        assert.deepEqual(get.percentFromDecimal(0.5), '50%')
+        assert.deepEqual(get.percentFromDecimal(0.12345), '12.345%')
+    })
+})
+

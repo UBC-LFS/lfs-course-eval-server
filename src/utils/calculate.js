@@ -10,8 +10,17 @@ const percentFavourable = (arr) => {
     return fourAndFive.length / arr.length
 } 
 
+const percentGender = (gender, arr) => {
+    const countOfSpecifiedGender = arr.filter(x => x.gender === gender).length
+    return countOfSpecifiedGender / arr.length
+}
+
+const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
+
 export {
     avg,
     median,
-    percentFavourable
+    percentFavourable,
+    percentGender,
+    toTwoDecimal
 }

@@ -29,3 +29,35 @@ describe('calculatePercentFavourable', () => {
         assert.deepEqual(0.1, calculate.percentFavourable([2,2,1,2,3,4,3,3,3,2]))
     })
 })
+
+describe('calculatePercentGender', () => {
+    it('takes an array of objects and returns the percentage of gender for specified gender', () => {
+        const input = [
+            { gender: 'Male', UMI6: 5 },
+            { gender: 'Male', UMI6: 2 },
+            { gender: 'Female', UMI6: 5 },
+            { gender: 'Male', UMI6: 5 },
+            { gender: 'Female', UMI6: 5 },
+            { gender: 'Female', UMI6: 3 },
+            { gender: 'Male', UMI6: 1 },
+        ]
+        assert.deepEqual(calculate.percentGender('Male', input), 4/7)
+        assert.deepEqual(calculate.percentGender('Female', input), 3/7)
+
+    })
+})
+
+describe('calculateToTwoDecimal', () => {
+    it('takes a decimal and returns to only two decimal places', () => {
+        assert.deepEqual(calculate.toTwoDecimal(0.00001), 0)
+        assert.deepEqual(calculate.toTwoDecimal(0.1), 0.1)
+        assert.deepEqual(calculate.toTwoDecimal(0.11), 0.11)
+        assert.deepEqual(calculate.toTwoDecimal(0.105), 0.11)
+        assert.deepEqual(calculate.toTwoDecimal(0.105), 0.11)
+        assert.deepEqual(calculate.toTwoDecimal(0.1000), 0.1)
+        assert.deepEqual(calculate.toTwoDecimal(0.10001), 0.1)
+        assert.deepEqual(calculate.toTwoDecimal(0.5), 0.5)
+        assert.deepEqual(calculate.toTwoDecimal(0.55), 0.55)
+        assert.deepEqual(calculate.toTwoDecimal(0.555), 0.56)
+    })
+})
