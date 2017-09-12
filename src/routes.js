@@ -19,9 +19,30 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 
- routes.get('/test', (req, res) => {
-   
+ routes.get('/data', (req, res) => {
+   const data = [
+     { Instructor: "Susan Boyle", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     { Instructor: "David Festerman", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     { Instructor: "Santa Claus", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     { Instructor: "Blossom", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     { Instructor: "Bubbles", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     { Instructor: "Buttercup", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 0.66 },
+     
+   ]
+   res.send(data)
  })
+ routes.get('/dashboard', (req, res) => {
+  const data = [
+    { dispersion: 0.3, classSize: 50, umi6: 3 },
+    { dispersion: 0.7, classSize: 70, umi6: 1 },
+    { dispersion: 0.3, classSize: 50, umi6: 4 },
+    { dispersion: 0.1, classSize: 50, umi6: 4 },
+    { dispersion: 0.35, classSize: 30, umi6: 5 },
+    { dispersion: 0.37, classSize: 20, umi6: 4 },
+  ]
+  res.send(data)
+})
+
 
 routes.get('/list', (req, res, next) => {
   const { title } = req.query;
