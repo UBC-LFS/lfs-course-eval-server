@@ -18,3 +18,14 @@ describe('calculateMedian', () => {
     })
 })
 
+describe('calculatePercentFavourable', () => {
+    it('takes an array of numbers ranging from 1-5 and returns the percent of numbers greater than or equal to 4', () => {
+        assert.deepEqual(0.5, calculate.percentFavourable([1,2,3,4,5,5]))
+        assert.deepEqual(1, calculate.percentFavourable([4,5,5]))
+        assert.deepEqual(0, calculate.percentFavourable([1,2,3]))
+        assert.deepEqual(0, calculate.percentFavourable([]))
+        assert.deepEqual(0.8, calculate.percentFavourable([4,4,4,4,1]))
+        assert.deepEqual(0.2, calculate.percentFavourable([2,2,2,2,5]))
+        assert.deepEqual(0.1, calculate.percentFavourable([2,2,1,2,3,4,3,3,3,2]))
+    })
+})
