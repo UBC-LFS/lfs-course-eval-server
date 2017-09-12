@@ -5,7 +5,8 @@ const avg = (arr) => R.mean(arr)
 const median = (arr) => R.median(arr)
 
 const percentFavourable = (arr) => {
-
+    const fourAndFive = arr.filter(x => x >= 4)
+    return fourAndFive.length / arr.length
 } 
 
 export {
