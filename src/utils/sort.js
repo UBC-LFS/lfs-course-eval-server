@@ -20,9 +20,16 @@ const byTerm = (arr) => {
 }
 
 const byInstructorLastName = (arr) => {
-
+    return arr.sort((a, b) => {
+        const aLastName = get.instructorLastName(a.instructor).toLowerCase() 
+        const bLastName = get.instructorLastName(b.instructor).toLowerCase()
+        if (aLastName < bLastName) return -1
+        if (aLastName > bLastName) return 1
+        return 0
+    })
 }
 
 export {
-    byTerm
+    byTerm,
+    byInstructorLastName
 }
