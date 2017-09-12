@@ -57,3 +57,17 @@ describe('getPercentFromDecimal', () => {
     })
 })
 
+describe('getInstructorFirstName', () => {
+    it('takes a name and returns the first name', () => {
+        assert.deepEqual(get.instructorFirstName('Doe, John'), 'John')
+        assert.deepEqual(get.instructorFirstName('Doe, John A'), 'John')
+    })
+})
+
+
+describe('getInstructorLastName', () => {
+    it('takes a name and returns the first name', () => {
+        assert.deepEqual(get.instructorLastName('Doe, John'), 'Doe')
+        assert.deepEqual(get.instructorLastName('Doe, John A'), 'Doe')
+    })
+})

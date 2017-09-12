@@ -10,14 +10,15 @@ const arrayOfGender = R.map(x => x.gender)
 
 const percentFromDecimal = (decimal) => decimal * 100 + '%'
 
-const instructorFirstName = () => {
-
-}
+const instructorFirstName = (name) => name.split(' ')[1]
+const instructorLastName = (name) => name.split(',')[0]
 
 export {
     sliceYear,
     sliceTerm,
     arrayOfUmi,
     arrayOfGender,
-    percentFromDecimal
+    percentFromDecimal,
+    instructorFirstName,
+    instructorLastName
 }

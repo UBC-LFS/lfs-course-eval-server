@@ -1,3 +1,6 @@
+import R from 'ramda'
+import * as get from './get'
+
 const byTerm = (arr) => {
     const order = {
          'S1': 0,
@@ -9,17 +12,15 @@ const byTerm = (arr) => {
          'WC': 6
     } 
     return R.sort((a,b) => {
-         if (a.slice(0, 4) === b.slice(0, 4)) {
-              return (order[a.slice(4, 6)] < order[b.slice(4, 6)]) ? -1 : 
-                     (order[a.slice(4, 6)] > order[b.slice(4, 6)]) ? 1 : 0 
-         } else {
-              return (a.slice(0,4) < b.slice(0,4) ? -1 : 1)
-         }
+         if (get.sliceYear(a) === get.sliceYear(b)) {
+              return (order[get.sliceTerm(a)] < order[get.sliceTerm(b)]) ? -1 : 
+                     (order[get.sliceTerm(a)] > order[get.sliceTerm(b)]) ? 1 : 0 
+         } else return (get.sliceYear(a) < get.sliceYear(b) ? -1 : 1)
     }, arr)
 }
 
 const byInstructorLastName = (arr) => {
-    
+
 }
 
 export {
