@@ -30,7 +30,7 @@ routes.get('/', (req, res) => {
      
    ]
    res.send(data)
- })
+  })
  routes.get('/dashboard', (req, res) => {
   const data = [
     { dispersion: 0.3, classSize: 50, umi6: 3 },
@@ -59,4 +59,4 @@ routes.get('/list', (req, res, next) => {
   res.render('index', { title });
 });
 
-export default routes;
+export default routes
