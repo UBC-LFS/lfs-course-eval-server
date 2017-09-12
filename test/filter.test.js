@@ -1,5 +1,6 @@
 import assert from 'assert'
 import * as filter from '../src/utils/filter'
+import R from 'ramda'
 
 describe('filterByYear', () => {
     it('takes a year and filters an array of objects to return only objects with that year', () => {
@@ -127,5 +128,26 @@ describe('filterByYearAndTerm', () => {
 
         const filterBy2020W1 = filter.byYearAndTerm(2020, 'W1')
         assert.deepEqual(filterBy2020W1(input), [])
+    })
+})
+describe('filterByMany', () => {
+    it('takes an arbitrary length of filters and returns thoes filters piped', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', deptName: 'APBI'}
+        ]
+        const output2017LFS = [
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS'},
+        ]
+        const filterByYear2017AndLFS = R.pipe(filter.byYear(2017), filter.byDept('LFS'))
+        assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
+
+        const filterByYear2017S1 = R.pipe(filter.byYear(2017), filter.byTerm('S1'))
+        assert.deepEqual(filterByYear2017S1(input), output2017LFS)
     })
 })

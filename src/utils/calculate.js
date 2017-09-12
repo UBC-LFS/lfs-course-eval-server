@@ -17,10 +17,20 @@ const percentGender = (gender, arr) => {
 
 const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
+const percentileRankingOfCourse = (courseName, arr) => {
+
+}
+
+const percentileRankingOfInstrutor = (instructorName, arr) => {
+
+}
+
 export {
     avg,
     median,
     percentFavourable,
     percentGender,
-    toTwoDecimal
+    toTwoDecimal,
+    percentileRankingOfCourse,
+    percentileRankingOfInstrutor
 }
