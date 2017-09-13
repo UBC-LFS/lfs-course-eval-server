@@ -1,4 +1,5 @@
 import { Router } from 'express';
+require('dotenv').config()
 
 const routes = Router();
 
@@ -6,6 +7,9 @@ const routes = Router();
  * GET home page
  */
 routes.get('/', (req, res) => {
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.sendFile(path.join(__dirname, '../public/scripts/bundle.js'))
+  }
   res.render('index', { title: 'Express Babel' });
 });
 
