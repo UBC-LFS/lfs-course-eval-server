@@ -10,7 +10,9 @@ const routes = Router();
 //   res.sendFile(path.join(__dirname, '../public/scripts/bundle.js'))
 // }
 routes.get('/', (req, res) => {
-  res.render('index', { title: 'Express Babel' });
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.render('index', { title: 'Express Babel', append: '/courseval' });
+   } else res.render('index', { title: 'Express Babel' });
 });
 
 /**

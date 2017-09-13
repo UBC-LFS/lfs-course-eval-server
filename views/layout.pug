@@ -2,8 +2,10 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/styles/style.css')
+    if foo === undefined
+      - append = ''
+    link(rel='stylesheet', href= append + '/styles/style.css')
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
-    script(src="/scripts/bundle.js")
+    script(src= append + "/scripts/bundle.js")
   body
     block content
