@@ -6,10 +6,10 @@ const routes = Router();
 /**
  * GET home page
  */
+// if (process.env.BUILD === 'PRODUCTION') {
+//   res.sendFile(path.join(__dirname, '../public/scripts/bundle.js'))
+// }
 routes.get('/', (req, res) => {
-  if (process.env.BUILD === 'PRODUCTION') {
-    res.sendFile(path.join(__dirname, '../public/scripts/bundle.js'))
-  }
   res.render('index', { title: 'Express Babel' });
 });
 
