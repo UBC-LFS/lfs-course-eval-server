@@ -93,3 +93,21 @@ describe('calculateUMIAvgOfCourse', () => {
         assert.deepEqual(calculate.umiAvgOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 4.5)
     })
 })
+
+describe('calculatePercentileRankingOfInstructor', () => {
+    it('takes instructorName, umi, and array and returns the percentileRanking of given instructor', () => {
+        const input1 = [
+            {instructor: 'Justin Lee', UMI6: 4},
+            {instructor: 'Justin Lee', UMI6: 5},
+            {instructor: 'Justin Lee', UMI6: 3},
+            {instructor: 'Clara Chu', UMI6: 5},
+            {instructor: 'Patrick Lin', UMI6: 3},
+            {instructor: 'Soo Kim', UMI6: 4},
+            {instructor: 'Patrick Lin', UMI6: 4}
+        ]
+        assert.deepEqual(calculate.umiAvgOfInstructor('Justin Lee', 'UMI6', input1), 4)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Clara Chu', 'UMI6', input1), 5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Patrick Lin', 'UMI6', input1), 3.5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Soo Kim', 'UMI6', input1), 4)
+    })
+})

@@ -42,8 +42,19 @@ const dispersionIndexOfInstructor = (instructorName, arr) => {
 
 }
 
-const percentileRankingOfInstrutor = (instructorName, arr) => {
-    
+// this won't work when instructors have the same name. probably will need to group by instructor PUID
+const percentileRankingOfInstrutor = (instructorName, umi, arr) => {
+    const arrOfInstructorUMI = get.arrayOfUmi(umi, filter.byInstructor(instructorName)(arr))
+    const arrWithoutInstructor = get.arrayOfUmi(umi, (R.filter(x => x.instructor !== instructorName)(arr)))
+
+    const umiAvgOfInstructor = avg(arrWithInstructor)
+    const umiAvgOfEveryoneElse = avg(arrWithInstructor)
+
+    return R.pipe(
+
+        x => toTwoDecimal(x),
+        x => get.percentFromDecimal(x)
+    )
 }
 
 const umiAvgOfInstructor = (instructorName, umi, arr) => 
