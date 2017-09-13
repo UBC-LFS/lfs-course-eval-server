@@ -65,4 +65,3 @@ typings/
 .idea
 dist
 
-public/scripts/bundle.js
