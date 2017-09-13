@@ -61,3 +61,21 @@ describe('calculateToTwoDecimal', () => {
         assert.deepEqual(calculate.toTwoDecimal(0.555), 0.56)
     })
 })
+
+describe('calculateUMIAvgOfInstructor', () => {
+    it('takes instructorName, umi, and array and returns the UMI average for the specified UMI', () => {
+        const input1 = [
+            {instructor: 'Justin Lee', UMI6: 4},
+            {instructor: 'Justin Lee', UMI6: 5},
+            {instructor: 'Justin Lee', UMI6: 3},
+            {instructor: 'Clara Chu', UMI6: 5},
+            {instructor: 'Patrick Lin', UMI6: 3},
+            {instructor: 'Soo Kim', UMI6: 4},
+            {instructor: 'Patrick Lin', UMI6: 4}
+        ]
+        assert.deepEqual(calculate.umiAvgOfInstructor('Justin Lee', 'UMI6', input1), 4)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Clara Chu', 'UMI6', input1), 5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Patrick Lin', 'UMI6', input1), 3.5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Soo Kim', 'UMI6', input1), 4)
+    })
+})

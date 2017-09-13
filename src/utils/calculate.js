@@ -1,8 +1,12 @@
 import R from 'ramda'
+import * as get from './get'
+import * as filter from './filter'
 
 const avg = (arr) => R.mean(arr)
 
 const median = (arr) => R.median(arr)
+
+const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
 const percentFavourable = (arr) => {
     if (arr.length === 0) return 0
@@ -15,19 +19,29 @@ const percentGender = (gender, arr) => {
     return countOfSpecifiedGender / arr.length
 }
 
-const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
 const percentileRankingOfCourse = (courseName, arr) => {
-
-}
-
-const percentileRankingOfInstrutor = (instructorName, arr) => {
 
 }
 
 const dispersionIndexOfCourse = (courseNum, year, term, arr) => {
     
 }
+
+const dispersionIndexOfInstructor = (instructorName, arr) => {
+
+}
+
+const percentileRankingOfInstrutor = (instructorName, arr) => {
+    
+}
+
+const umiAvgOfInstructor = (instructorName, umi, arr) => 
+    R.pipe(
+        filter.byInstructor(instructorName),
+        get.arrayOfUmi(umi),
+        x => avg(x)
+    )(arr)
 
 export {
     avg,
@@ -36,5 +50,8 @@ export {
     percentGender,
     toTwoDecimal,
     percentileRankingOfCourse,
-    percentileRankingOfInstrutor
+    percentileRankingOfInstrutor,
+    dispersionIndexOfCourse,
+    dispersionIndexOfInstructor,
+    umiAvgOfInstructor
 }
