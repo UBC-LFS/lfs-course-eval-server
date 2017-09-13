@@ -10,6 +10,7 @@ const bySpecificCourse = (courseNum, year, term) => R.filter(x => x.courseNum ==
 const byYearAndTerm = (year, term) => R.pipe(byYear(year), byTerm(term))
 
 
+
 export {
     byYear,
     byTerm,
