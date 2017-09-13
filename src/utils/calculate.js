@@ -20,13 +20,21 @@ const percentGender = (gender, arr) => {
 }
 
 
-const percentileRankingOfCourse = (courseName, arr) => {
-
+const percentileRankingOfCourse = (courseNum, year, term, arr) => {
+     
 }
 
 const dispersionIndexOfCourse = (courseNum, year, term, arr) => {
     
 }
+
+const umiAvgOfCourse = (courseNum, year, term, umi, arr) => 
+    R.pipe(
+        filter.bySpecificCourse(courseNum, year, term),
+        get.arrayOfUmi(umi),
+        x => avg(x)
+    )(arr)
+
 
 const dispersionIndexOfInstructor = (instructorName, arr) => {
 
@@ -53,5 +61,6 @@ export {
     percentileRankingOfInstrutor,
     dispersionIndexOfCourse,
     dispersionIndexOfInstructor,
-    umiAvgOfInstructor
+    umiAvgOfInstructor,
+    umiAvgOfCourse
 }
