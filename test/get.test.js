@@ -15,7 +15,7 @@ describe('getSliceTerm', () => {
     })
 })
 
-describe('getArrayOfUmi', () => {
+describe('getarrayOfUMI', () => {
     it('takes an array of objects and returns the UMI values of the specified UMI', () => {
         const input = [
             {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
@@ -26,10 +26,10 @@ describe('getArrayOfUmi', () => {
             {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
         ]
         const outputUMI6 = [6,6,6,6,6,6]
-        const getUMI6 = get.arrayOfUmi('UMI6')
+        const getUMI6 = get.arrayOfUMI('UMI6')
         assert.deepEqual(getUMI6(input), outputUMI6)
         const outputUMI5 = [5,5,5,5,5,5]
-        const getUMI5 = get.arrayOfUmi('UMI5')
+        const getUMI5 = get.arrayOfUMI('UMI5')
         assert.deepEqual(getUMI5(input), outputUMI5)
     })
 })

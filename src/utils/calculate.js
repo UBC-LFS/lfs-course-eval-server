@@ -21,31 +21,49 @@ const percentGender = (gender, arr) => {
     return countOfSpecifiedGender / arr.length
 }
 
+// calculate UMI dispersion
+const dispersionIndex = (arr, umi) => {
+    const arrOfUMI = get.arrayOfUMI(umi)(arr)
+    const numberOfResponses = arrOfUMI.length
+    const countUMI = R.countBy(x => x, arrOfUMI)
+
+    const keysInCountUMI = R.keys(countUMI).sort()
+    const numberOfKeys = keysInCountUMI.length
+    // calculate proportion
+    for (let umiKey in countUMI) {
+        countUMI[umiKey] = {
+            count: countUMI[umiKey],
+            proportion: countUMI[umiKey]/numberOfResponses
+        }
+    }
+    
+    // calculate 1 - cumulativeProportion
+    for (let umiKey in countUMI) {
+        if (umiKey === keysInCountUMI[0]) {
+            countUMI[umiKey].oneMinusCumulativeProportion = 1 - countUMI[umiKey].proportion
+        } else countUMI[umiKey].oneMinusCumulativeProportion = (1 - (countUMI[umiKey].proportion + countUMI[keysInCountUMI[numberOfKeys-1]].proportion))
+    }
+
+    console.log(countUMI)
+}
 
 const percentileRankingOfCourse = (courseNum, year, term, arr) => {
      
 }
 
-const dispersionIndexOfCourse = (courseNum, year, term, arr) => {
-    
-}
-
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) => 
     R.pipe(
         filter.bySpecificCourse(courseNum, year, term),
-        get.arrayOfUmi(umi),
+        get.arrayOfUMI(umi),
         x => avg(x)
     )(arr)
 
 
-const dispersionIndexOfInstructor = (instructorName, arr) => {
-
-}
 
 // this won't work when instructors have the same name. probably will need to group by instructor PUID
 const percentileRankingOfInstrutor = (instructorName, umi, arr) => {
-    const arrOfInstructorUMI = get.arrayOfUmi(umi, filter.byInstructor(instructorName)(arr))
-    const arrWithoutInstructor = get.arrayOfUmi(umi, (R.filter(x => x.instructor !== instructorName)(arr)))
+    const arrOfInstructorUMI = get.arrayOfUMI(umi, filter.byInstructor(instructorName)(arr))
+    const arrWithoutInstructor = get.arrayOfUMI(umi, (R.filter(x => x.instructor !== instructorName)(arr)))
 
     const umiAvgOfInstructor = avg(arrWithInstructor)
     const umiAvgOfEveryoneElse = avg(arrWithInstructor)
@@ -60,7 +78,7 @@ const percentileRankingOfInstrutor = (instructorName, umi, arr) => {
 const umiAvgOfInstructor = (instructorName, umi, arr) => 
     R.pipe(
         filter.byInstructor(instructorName),
-        get.arrayOfUmi(umi),
+        get.arrayOfUMI(umi),
         x => avg(x)
     )(arr)
 
@@ -72,8 +90,7 @@ export {
     toTwoDecimal,
     percentileRankingOfCourse,
     percentileRankingOfInstrutor,
-    dispersionIndexOfCourse,
-    dispersionIndexOfInstructor,
+    dispersionIndex,
     umiAvgOfInstructor,
     umiAvgOfCourse
 }

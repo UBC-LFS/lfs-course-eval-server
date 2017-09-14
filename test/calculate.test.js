@@ -111,3 +111,30 @@ describe('calculatePercentileRankingOfInstructor', () => {
         assert.deepEqual(calculate.umiAvgOfInstructor('Soo Kim', 'UMI6', input1), 4)
     })
 })
+
+describe('calculateDispersionIndex', () => {
+    it('takes an array of specified UMI scores and calculates the dispersion index of 0', () => {
+        const dispersion0Input = [
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+        ]
+        //assert.deepEqual(calculate.dispersionIndex(dispersion0Input, 'UMI6'), 0)
+        
+    })
+    it('takes an array of specified UMI scores and calculates the dispersion index of 1', () => {
+        const dispersion1Input = [
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersion1Input, 'UMI6'), 1)
+    })
+})
