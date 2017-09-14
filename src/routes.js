@@ -18,8 +18,7 @@ routes.get('/', (req, res) => {
  * create different/better error handlers depending on
  * your use case.
  */
-
- routes.get('/data', (req, res) => {
+ routes.get('/data/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
    const data = [
      { Instructor: "Susan Boyle", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 66 },
      { Instructor: "David Festerman", CourseSection: "APSCI101", QuestionCode: "IUMI06-5", Avg: 5, DispersionIndex: 0.8, ClassSize: 100, Responses: 40, PercentFavourable: 72 },
