@@ -61,3 +61,53 @@ describe('calculateToTwoDecimal', () => {
         assert.deepEqual(calculate.toTwoDecimal(0.555), 0.56)
     })
 })
+
+describe('calculateUMIAvgOfInstructor', () => {
+    it('takes instructorName, umi, and array and returns the UMI average for the specified UMI', () => {
+        const input1 = [
+            {instructor: 'Justin Lee', UMI6: 4},
+            {instructor: 'Justin Lee', UMI6: 5},
+            {instructor: 'Justin Lee', UMI6: 3},
+            {instructor: 'Clara Chu', UMI6: 5},
+            {instructor: 'Patrick Lin', UMI6: 3},
+            {instructor: 'Soo Kim', UMI6: 4},
+            {instructor: 'Patrick Lin', UMI6: 4}
+        ]
+        assert.deepEqual(calculate.umiAvgOfInstructor('Justin Lee', 'UMI6', input1), 4)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Clara Chu', 'UMI6', input1), 5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Patrick Lin', 'UMI6', input1), 3.5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Soo Kim', 'UMI6', input1), 4)
+    })
+})
+
+describe('calculateUMIAvgOfCourse', () => {
+    it('takes as input courseNum, year, tem, umi, and arr and returns the UMI average of the course', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 5},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 1}
+        ]
+        assert.deepEqual(calculate.umiAvgOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 4.5)
+    })
+})
+
+describe('calculatePercentileRankingOfInstructor', () => {
+    it('takes instructorName, umi, and array and returns the percentileRanking of given instructor', () => {
+        const input1 = [
+            {instructor: 'Justin Lee', UMI6: 4},
+            {instructor: 'Justin Lee', UMI6: 5},
+            {instructor: 'Justin Lee', UMI6: 3},
+            {instructor: 'Clara Chu', UMI6: 5},
+            {instructor: 'Patrick Lin', UMI6: 3},
+            {instructor: 'Soo Kim', UMI6: 4},
+            {instructor: 'Patrick Lin', UMI6: 4}
+        ]
+        assert.deepEqual(calculate.umiAvgOfInstructor('Justin Lee', 'UMI6', input1), 4)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Clara Chu', 'UMI6', input1), 5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Patrick Lin', 'UMI6', input1), 3.5)
+        assert.deepEqual(calculate.umiAvgOfInstructor('Soo Kim', 'UMI6', input1), 4)
+    })
+})

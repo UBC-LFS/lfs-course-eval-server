@@ -7,6 +7,7 @@ import routes from './routes';
 const app = express();
 app.disable('x-powered-by');
 
+
 // View engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');

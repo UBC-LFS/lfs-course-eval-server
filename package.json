@@ -20,6 +20,7 @@
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
     "test": "jest --watch",
+    "test-server": "jest",
     "lint": "esw -w src test"
   },
   "keywords": [
