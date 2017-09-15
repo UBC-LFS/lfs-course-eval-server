@@ -26,34 +26,25 @@ const dispersionIndex = (arr, umi) => {
     const arrOfUMI = get.arrayOfUMI(umi)(arr)
     const numberOfResponses = arrOfUMI.length
     const dispersionObj = R.countBy(x => x, arrOfUMI)
-    // add 0 for all non-existant response values 
 
+    // for 5 point Likert scale
     for (let i  = 1; i <= 5; i++) {
         const key = String(i)
+        const prevKey = String(i-1)
+
         if (!dispersionObj.hasOwnProperty(key)) dispersionObj[key] = { count: 0, proportion: 0 }
-        else dispersionObj[key]proportion = 
-    }
-
-    console.log(dispersionObj)
-    // console.log(countUMI)
-
-    // const keysInCountUMI = R.keys(countUMI).sort()
-    // const numberOfKeys = keysInCountUMI.length
-    // // calculate proportion
-    // for (let umiKey in countUMI) {
-    //     countUMI[umiKey] = {
-    //         count: countUMI[umiKey],
-    //         proportion: countUMI[umiKey]/numberOfResponses
-    //     }
-    // }
+        else dispersionObj[key] = {
+            count: dispersionObj[key],
+            proportion: dispersionObj[key] / numberOfResponses
+        }
+        if (i === 1) dispersionObj[key].cumulativeProp = dispersionObj[key].proportion
+        else dispersionObj[key].cumulativeProp = dispersionObj[prevKey].cumulativeProp + dispersionObj[key].proportion
     
-    // // calculate 1 - cumulativeProportion
-    // for (let umiKey in countUMI) {
-    //     if (umiKey === keysInCountUMI[0]) {
-    //         countUMI[umiKey].oneMinusCumulativeProportion = 1 - countUMI[umiKey].proportion
-    //     } else countUMI[umiKey].oneMinusCumulativeProportion = (1 - (countUMI[umiKey].proportion + countUMI[keysInCountUMI[numberOfKeys-1]].proportion))
-    // }
-
+        dispersionObj[key].oneMinusF = 1 - dispersionObj[key].cumulativeProp
+        dispersionObj[key].finalF = dispersionObj[key].cumulativeProp * dispersionObj[key].oneMinusF
+    }
+    
+    return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
 }
 
 const percentileRankingOfCourse = (courseNum, year, term, arr) => {
