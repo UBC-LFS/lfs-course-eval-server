@@ -46,6 +46,7 @@ const dispersionIndex = (arr, umi) => {
     return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
 }
 
+// doesn't yet account for ties, this implementation I think is incorrect?
 const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     const arrayOfCoursesAndAvg = []
 
@@ -64,6 +65,8 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     allCourseNames.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
 
     arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
+
+
     console.log(arrayOfCoursesAndAvg)
     return R.inc(R.findIndex(R.propEq('courseNum', courseNum))(arrayOfCoursesAndAvg)) / arrayOfCoursesAndAvg.length
 }
