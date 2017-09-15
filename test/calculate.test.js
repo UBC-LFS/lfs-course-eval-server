@@ -253,5 +253,6 @@ describe('calculatePercentileRankingOfCourse', () => {
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
         ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 100)
     })
 })
