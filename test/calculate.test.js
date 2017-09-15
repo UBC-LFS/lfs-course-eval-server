@@ -159,6 +159,63 @@ describe('calculateDispersionIndex', () => {
         assert.deepEqual(calculate.dispersionIndex(dispersionInput1, 'UMI1'), 1)
     })
     it('works for in between max-min dispersion index', () => {
-        
+        const dispersionInput = [
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 2},
+            {UMI6: 2},
+            {UMI6: 3},
+            {UMI6: 3},
+            {UMI6: 4},
+            {UMI6: 4},
+            {UMI6: 5},
+            {UMI6: 5},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput,'UMI6'), 0.8)
+        const dispersionInput1 = [
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 3},
+            {UMI6: 4},
+            {UMI6: 4},
+            {UMI6: 5},
+            {UMI6: 5},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput1,'UMI6'), 0.8999999999999999)
+        const dispersionInput2 = [
+            {UMI6: 1},
+            {UMI6: 2},
+            {UMI6: 2},
+            {UMI6: 3},
+            {UMI6: 3},
+            {UMI6: 3},
+            {UMI6: 4},
+            {UMI6: 4},
+            {UMI6: 4},
+            {UMI6: 4},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput2,'UMI6'), 0.54)
+        const dispersionInput3 = [
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 1},
+            {UMI6: 3},
+            {UMI6: 3},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+            {UMI6: 5},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput3,'UMI6'), 0.96)
+    })
+    it('works for very large number of inputs', () => {
+        const dispersionInput = [{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5}]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0)
+        const dispersionInput2 = [{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput2,'UMI6'), 0.96)
     })
 })
