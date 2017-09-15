@@ -114,7 +114,7 @@ describe('calculatePercentileRankingOfInstructor', () => {
 
 describe('calculateDispersionIndex', () => {
     it('takes an array of specified UMI scores and calculates the dispersion index of 0', () => {
-        const dispersion0Input = [
+        const dispersionInput = [
             {UMI6: 5},
             {UMI6: 5},
             {UMI6: 5},
@@ -123,11 +123,11 @@ describe('calculateDispersionIndex', () => {
             {UMI6: 5},
             {UMI6: 5},
         ]
-        //assert.deepEqual(calculate.dispersionIndex(dispersion0Input, 'UMI6'), 0)
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0)
         
     })
     it('takes an array of specified UMI scores and calculates the dispersion index of 1', () => {
-        const dispersion1Input = [
+        const dispersionInput = [
             {UMI6: 1},
             {UMI6: 1},
             {UMI6: 1},
@@ -135,6 +135,30 @@ describe('calculateDispersionIndex', () => {
             {UMI6: 5},
             {UMI6: 5},
         ]
-        assert.deepEqual(calculate.dispersionIndex(dispersion1Input, 'UMI6'), 1)
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 1)
+    })
+    it('works for other values of UMI other than UMI6', () => {
+        const dispersionInput0 = [
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5},
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput0, 'UMI1'), 0)
+        const dispersionInput1 = [
+            {UMI1: 1},
+            {UMI1: 1},
+            {UMI1: 1},
+            {UMI1: 5},
+            {UMI1: 5},
+            {UMI1: 5}
+        ]
+        assert.deepEqual(calculate.dispersionIndex(dispersionInput1, 'UMI1'), 1)
+    })
+    it('works for in between max-min dispersion index', () => {
+        
     })
 })
