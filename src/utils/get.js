@@ -8,7 +8,6 @@ const arrayOfUMI = (umi) =>  R.pipe(
         R.map(R.prop(umi))
     )
 
-
 const arrayOfGender = R.map(R.prop('gender'))
 
 const percentFromDecimal = (decimal) => decimal * 100 + '%'

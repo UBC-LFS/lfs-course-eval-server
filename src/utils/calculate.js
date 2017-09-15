@@ -2,7 +2,6 @@ import R from 'ramda'
 import * as get from './get'
 import * as filter from './filter'
 
-
 const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
 // all inputs below take an array of objects as the last argument
@@ -47,7 +46,7 @@ const dispersionIndex = (arr, umi) => {
     return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
 }
 
-const percentileRankingOfCourse = (courseNum, year, term, arr) => {
+const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
      
 }
 

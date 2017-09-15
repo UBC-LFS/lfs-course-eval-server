@@ -243,3 +243,15 @@ describe('calculateDispersionIndex', () => {
         assert.deepEqual(calculate.dispersionIndex(input1, 'UMI1'), 1)
     })
 })
+
+describe('calculatePercentileRankingOfCourse', () => {
+    it('takes as input courseNum, year, term, umi, arr and returns the percentile ranking of that course compared to all others by average UMI score of the specified umi', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+        ]
+    })
+})
