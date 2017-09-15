@@ -64,8 +64,8 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     allCourseNames.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
 
     arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
-
     console.log(arrayOfCoursesAndAvg)
+    return R.inc(R.findIndex(R.propEq('courseNum', courseNum))(arrayOfCoursesAndAvg)) / arrayOfCoursesAndAvg.length
 }
 
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) => 
