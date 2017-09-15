@@ -218,4 +218,28 @@ describe('calculateDispersionIndex', () => {
         const dispersionInput2 = [{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 1},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 3},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},{UMI6: 5},]
         assert.deepEqual(calculate.dispersionIndex(dispersionInput2,'UMI6'), 0.96)
     })
+    it('works on regular input arrays', () => {
+        const input = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 1}
+        ]
+        assert.deepEqual(calculate.dispersionIndex(input, 'UMI1'), 0)
+        const input1 = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 5},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 5},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 5},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI6: 5},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI3: 5},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI4: 5},
+            {term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI12: 5}
+        ]
+        assert.deepEqual(calculate.dispersionIndex(input1, 'UMI1'), 1)
+    })
 })
