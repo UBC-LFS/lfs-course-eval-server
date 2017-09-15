@@ -58,8 +58,6 @@ const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
         x => avg(x)
     )(arr)
 
-
-
 // this won't work when instructors have the same name. probably will need to group by instructor PUID
 const percentileRankingOfInstrutor = (instructorName, umi, arr) => {
     const arrOfInstructorUMI = get.arrayOfUMI(umi, filter.byInstructor(instructorName)(arr))
