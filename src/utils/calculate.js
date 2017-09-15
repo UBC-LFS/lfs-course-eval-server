@@ -25,26 +25,35 @@ const percentGender = (gender, arr) => {
 const dispersionIndex = (arr, umi) => {
     const arrOfUMI = get.arrayOfUMI(umi)(arr)
     const numberOfResponses = arrOfUMI.length
-    const countUMI = R.countBy(x => x, arrOfUMI)
+    const dispersionObj = R.countBy(x => x, arrOfUMI)
+    // add 0 for all non-existant response values 
 
-    const keysInCountUMI = R.keys(countUMI).sort()
-    const numberOfKeys = keysInCountUMI.length
-    // calculate proportion
-    for (let umiKey in countUMI) {
-        countUMI[umiKey] = {
-            count: countUMI[umiKey],
-            proportion: countUMI[umiKey]/numberOfResponses
-        }
+    for (let i  = 1; i <= 5; i++) {
+        const key = String(i)
+        if (!dispersionObj.hasOwnProperty(key)) dispersionObj[key] = { count: 0, proportion: 0 }
+        else dispersionObj[key]proportion = 
     }
+
+    console.log(dispersionObj)
+    // console.log(countUMI)
+
+    // const keysInCountUMI = R.keys(countUMI).sort()
+    // const numberOfKeys = keysInCountUMI.length
+    // // calculate proportion
+    // for (let umiKey in countUMI) {
+    //     countUMI[umiKey] = {
+    //         count: countUMI[umiKey],
+    //         proportion: countUMI[umiKey]/numberOfResponses
+    //     }
+    // }
     
-    // calculate 1 - cumulativeProportion
-    for (let umiKey in countUMI) {
-        if (umiKey === keysInCountUMI[0]) {
-            countUMI[umiKey].oneMinusCumulativeProportion = 1 - countUMI[umiKey].proportion
-        } else countUMI[umiKey].oneMinusCumulativeProportion = (1 - (countUMI[umiKey].proportion + countUMI[keysInCountUMI[numberOfKeys-1]].proportion))
-    }
+    // // calculate 1 - cumulativeProportion
+    // for (let umiKey in countUMI) {
+    //     if (umiKey === keysInCountUMI[0]) {
+    //         countUMI[umiKey].oneMinusCumulativeProportion = 1 - countUMI[umiKey].proportion
+    //     } else countUMI[umiKey].oneMinusCumulativeProportion = (1 - (countUMI[umiKey].proportion + countUMI[keysInCountUMI[numberOfKeys-1]].proportion))
+    // }
 
-    console.log(countUMI)
 }
 
 const percentileRankingOfCourse = (courseNum, year, term, arr) => {
@@ -72,7 +81,7 @@ const percentileRankingOfInstrutor = (instructorName, umi, arr) => {
 
         x => toTwoDecimal(x),
         x => get.percentFromDecimal(x)
-    )
+    )(arr)
 }
 
 const umiAvgOfInstructor = (instructorName, umi, arr) => 

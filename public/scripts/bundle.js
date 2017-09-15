@@ -13865,8 +13865,26 @@ var _drawGraph2 = _interopRequireDefault(_drawGraph);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var loadData = function loadData(url, filterSettings, chartKey) {
+var fetchJSON = function fetchJSON(url) {
+    return fetch(url).then(function (response) {
+        return response.json();
+    });
+};
+var filterString = '';
+var createFilterString = function createFilterString(filterSettings) {
+    var keyArray = Object.keys(filterSettings);
+    for (var i = 0; i < keyArray.length; i++) {
+        var filterValue = filterSettings[keyArray[i]];
+        if ((typeof filterValue === 'undefined' ? 'undefined' : _typeof(filterValue)) !== 'object') {
+            filterString = filterString + '/' + filterValue;
+        } else {
+            createFilterString(filterValue);
+        }
+    }
+    return filterString;
+};
 
+var loadData = function loadData(url, filterSettings, chartKey) {
     var filterSettingsConstant = {
         time: {
             year: '2016',
@@ -13885,24 +13903,6 @@ var loadData = function loadData(url, filterSettings, chartKey) {
     fetchJSON(url).then(function (x) {
         return (0, _drawGraph2.default)(x);
     });
-};
-var fetchJSON = function fetchJSON(url) {
-    return fetch(url).then(function (response) {
-        return response.json();
-    });
-};
-var filterString = '';
-var createFilterString = function createFilterString(filterSettings) {
-    var keyArray = Object.keys(filterSettings);
-    for (var i = 0; i < keyArray.length; i++) {
-        var filterValue = filterSettings[keyArray[i]];
-        if ((typeof filterValue === 'undefined' ? 'undefined' : _typeof(filterValue)) !== 'object') {
-            filterString = filterString + '/' + filterValue;
-        } else {
-            createFilterString(filterValue);
-        }
-    }
-    return filterString;
 };
 exports.loadData = loadData;
 
