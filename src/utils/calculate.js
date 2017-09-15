@@ -47,13 +47,25 @@ const dispersionIndex = (arr, umi) => {
 }
 
 const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
-    const umiAvgOfCourse = R.pipe(
+    const arrayOfCoursesAndAvg = []
+
+    const umiAvgOfCourse = (courseNum) => R.pipe(
         filter.bySpecificCourse(courseNum, year, term),
         get.arrayOfUMI(umi),
         x => avg(x)
     )(arr)
+    
+    const allCourseNames = R.pipe(
+        filter.byYearAndTerm(year, term),
+        R.map(x => x.courseNum),
+        R.uniq()
+    )(arr)
 
-    console.log(umiAvgOfCourse)
+    allCourseNames.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
+
+    arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
+
+    console.log(arrayOfCoursesAndAvg)
 }
 
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) => 

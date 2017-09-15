@@ -252,6 +252,15 @@ describe('calculatePercentileRankingOfCourse', () => {
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3},
+            {term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
         ]
         assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 100)
     })
