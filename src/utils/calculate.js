@@ -46,7 +46,7 @@ const dispersionIndex = (arr, umi) => {
     return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
 }
 
-// doesn't yet account for ties, this implementation I think is incorrect?
+// maybe percentile ranking shouldn't be concerned with year and term, and should just be given an appropriately filtered arr to begin with...
 const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     const arrayOfCoursesAndAvg = []
 
@@ -74,7 +74,7 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     
     // subtract -1 at the end because it'll match with itself and return 1.
     const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg === umiAvgOfThisCourse).length - 1
-    
+
     const result =  R.divide(
                 R.add(numberOfCoursesBelowUMIAverageOfCourse, 
                     R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
