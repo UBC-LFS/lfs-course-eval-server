@@ -265,9 +265,9 @@ describe('calculatePercentileRankingOfCourse', () => {
             {term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
             {term: '2017W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.33)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 123 002', 2016, 'W1', 'UMI1', input), 0.67)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 0.01)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.5)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 123 002', 2016, 'W1', 'UMI1', input), 0.83)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 0.17)
     })
     it('can handle no inputs', () => {
         const emptyInput = []
@@ -279,42 +279,42 @@ describe('calculatePercentileRankingOfCourse', () => {
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.01)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
 
         fewInputs = [
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
             {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
 
         fewInputs = [
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
             {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 5}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.01)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
 
         fewInputs = [
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
             {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.50)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.75)
     })
     it('can handle inputs with multiple UMIs', () => {
         let fewInputs = [
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
-            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
-
-            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5}
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5},
+            
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
 
         fewInputs = [
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
-            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5},
             
-            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5}
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI5', fewInputs), 0.01)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI5', fewInputs), 0.5)
     })
     it('can handle large number of inputs', () => {
         let largeInputs = [
@@ -369,7 +369,7 @@ describe('calculatePercentileRankingOfCourse', () => {
 
             {term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.4)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
         largeInputs = [
             //average is 3
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
@@ -423,7 +423,7 @@ describe('calculatePercentileRankingOfCourse', () => {
 
             {term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI1: 3},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.42)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
         largeInputs = [
             //average is 3
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
@@ -477,7 +477,7 @@ describe('calculatePercentileRankingOfCourse', () => {
 
             {term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI1: 3},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.42)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
         largeInputs = [
             //average is 3
             {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
@@ -531,6 +531,21 @@ describe('calculatePercentileRankingOfCourse', () => {
 
             {term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI3: 3},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.4)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
+        largeInputs = [
+            //average is 3
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+            
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1},
+
+            {term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 5},
+
+            {term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5},
+
+            {term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI3: 5},
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.3)
     })
 })
