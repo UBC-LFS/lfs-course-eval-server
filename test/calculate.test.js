@@ -269,7 +269,52 @@ describe('calculatePercentileRankingOfCourse', () => {
         assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 123 002', 2016, 'W1', 'UMI1', input), 0.67)
         assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 0.01)
     })
-    it('can calculate correctly for large number of inputs', () => {
-        
+    it('can handle no inputs', () => {
+        const emptyInput = []
+        expect((function () { calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', emptyInput) })).toThrow('No valid courses in array')
     })
+    it('can handle extremely few inputs', () => {
+        let fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.01)
+
+        fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
+
+        fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 5}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.01)
+
+        fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.50)
+    })
+    it('can handle inputs with multiple UMIs', () => {
+        let fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
+
+        fewInputs = [
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+            
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5}
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI5', fewInputs), 0.01)
+    })
+    
 })

@@ -65,19 +65,16 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     )(arr)
 
     allCourseNums.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
+    
+    if (arrayOfCoursesAndAvg.length === 0) throw 'No valid courses in array'
 
     arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
-
-    console.log(arrayOfCoursesAndAvg)
 
     const numberOfCoursesBelowUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg < umiAvgOfThisCourse).length
     
     // subtract -1 at the end because it'll match with itself and return 1.
     const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg === umiAvgOfThisCourse).length - 1
-
-    console.log('B', numberOfCoursesBelowUMIAverageOfCourse)
-    console.log('A', numberOfCoursesWithExactlyTheSameUMIAverageOfCourse)
-
+    
     const result =  R.divide(
                 R.add(numberOfCoursesBelowUMIAverageOfCourse, 
                     R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
