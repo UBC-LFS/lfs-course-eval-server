@@ -71,8 +71,6 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
 
     arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
 
-    console.log(arrayOfCoursesAndAvg, courseNum)
-
     const numberOfCoursesBelowUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg < umiAvgOfThisCourse).length
    
     const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg === umiAvgOfThisCourse).length 
