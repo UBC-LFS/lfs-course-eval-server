@@ -265,8 +265,11 @@ describe('calculatePercentileRankingOfCourse', () => {
             {term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
             {term: '2017W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
         ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 2/3)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 1/3)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2017, 'W1', 'UMI1', input), 1)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.33)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 123 002', 2016, 'W1', 'UMI1', input), 0.67)
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 0.01)
+    })
+    it('can calculate correctly for large number of inputs', () => {
+        
     })
 })

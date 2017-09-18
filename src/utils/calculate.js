@@ -56,19 +56,36 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
         x => avg(x)
     )(arr)
     
-    const allCourseNames = R.pipe(
+    const umiAvgOfThisCourse = umiAvgOfCourse(courseNum)
+
+    const allCourseNums = R.pipe(
         filter.byYearAndTerm(year, term),
         R.map(x => x.courseNum),
         R.uniq()
     )(arr)
 
-    allCourseNames.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
+    allCourseNums.map(x => arrayOfCoursesAndAvg.push({ courseNum: x, avg: umiAvgOfCourse(x)}))
 
     arrayOfCoursesAndAvg.sort((a, b) => a.avg - b.avg)
 
-
     console.log(arrayOfCoursesAndAvg)
-    return R.inc(R.findIndex(R.propEq('courseNum', courseNum))(arrayOfCoursesAndAvg)) / arrayOfCoursesAndAvg.length
+
+    const numberOfCoursesBelowUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg < umiAvgOfThisCourse).length
+    
+    // subtract -1 at the end because it'll match with itself and return 1.
+    const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = arrayOfCoursesAndAvg.filter(x => x.avg === umiAvgOfThisCourse).length - 1
+
+    console.log('B', numberOfCoursesBelowUMIAverageOfCourse)
+    console.log('A', numberOfCoursesWithExactlyTheSameUMIAverageOfCourse)
+
+    const result =  R.divide(
+                R.add(numberOfCoursesBelowUMIAverageOfCourse, 
+                    R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
+                , arrayOfCoursesAndAvg.length)
+    
+    if (result === 0) return 0.01
+    if (result > 0.99) return 0.99
+    else return Math.round(result*100)/100
 }
 
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) => 
