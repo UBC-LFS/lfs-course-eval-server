@@ -316,5 +316,113 @@ describe('calculatePercentileRankingOfCourse', () => {
         ]
         assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI5', fewInputs), 0.01)
     })
-    
+    it('can handle large number of inputs', () => {
+        let largeInputs = [
+
+            //average is 3
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+            
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2},
+
+            {term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4},
+
+            {term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5},
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.4)
+        largeInputs = [
+            //average is 3
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4},
+            {term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5},
+
+            {term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1},
+            
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2},
+
+            {term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4},
+
+            {term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5},
+
+            {term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI1: 3},
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.42)
+    })
 })
