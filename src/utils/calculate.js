@@ -60,6 +60,7 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
 
     const allCourseNums = R.pipe(
         filter.byYearAndTerm(year, term),
+        R.filter(R.has(umi)),
         R.map(x => x.courseNum),
         R.uniq()
     )(arr)
