@@ -24,8 +24,8 @@ const percentGender = (gender, arr) => {
 const dispersionIndex = (arr, umi) => {
     const arrOfUMI = get.arrayOfUMI(umi)(arr)
     const numberOfResponses = arrOfUMI.length
+    if (numberOfResponses === 0) throw 'No valid courses in array'    
     const dispersionObj = R.countBy(x => x, arrOfUMI)
-
     // for 5 point Likert scale
     for (let i  = 1; i <= 5; i++) {
         const key = String(i)
