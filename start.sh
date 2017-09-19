@@ -1,5 +1,7 @@
 #!/bin/bash
 
+pm2 delete lfs-course-eval
+
 source .env
 
 npm install
