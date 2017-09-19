@@ -13842,7 +13842,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 document.addEventListener('DOMContentLoaded', function () {
     //load first chart upon entering the page
-    dataService.loadData('data', '', 'c1');
+    dataService.loadData('data', undefined, 'c1');
 }); //import { getData } from './controller/controller'
 
 /***/ }),
@@ -13870,6 +13870,7 @@ var fetchJSON = function fetchJSON(url) {
         return response.json();
     });
 };
+
 var filterString = '';
 var createFilterString = function createFilterString(filterSettings) {
     var keyArray = Object.keys(filterSettings);
@@ -13884,8 +13885,8 @@ var createFilterString = function createFilterString(filterSettings) {
     return filterString;
 };
 
-var loadData = function loadData(url, filterSettings, chartKey) {
-    var filterSettingsConstant = {
+var loadData = function loadData(url) {
+    var filterSettings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
         time: {
             year: '2016',
             term: 'all'
@@ -13897,13 +13898,17 @@ var loadData = function loadData(url, filterSettings, chartKey) {
         classSizeMin: 0,
         classSizeMax: 300 // [min, max]
     };
-    url = url + '/' + chartKey + createFilterString(filterSettingsConstant);
+    var chartKey = arguments[2];
+
+
+    url = url + '/' + chartKey + createFilterString(filterSettings);
     console.log(url);
     //Temporary filter settings, change to real filters once applied
     fetchJSON(url).then(function (x) {
         return (0, _drawGraph2.default)(x);
     });
 };
+
 exports.loadData = loadData;
 
 /***/ }),
