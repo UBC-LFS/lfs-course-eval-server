@@ -171,6 +171,11 @@ describe('filterByMany', () => {
     })
 })
 describe('filterByClassSize', () => {
+    it('can handle empty array', () => {
+        let input = []
+        const filterByClassSize = filter.byClassSize(2, 6)
+        assert.deepEqual(filterByClassSize(input), [])
+    })
     it('takes as input a min and max and returns only objects with classSize greater than or equal to min, and less than or equal to max', () => {
         let input = [
             {classSize: 0},
@@ -200,6 +205,13 @@ describe('filterByClassSize', () => {
     })
 })
 describe('filterByToggle', () => {
+    it('can handle empty array', () => {
+        const input = []
+        const filterBelowMin = filter.byToggle(true)
+        const dontFilterBelowMin = filter.byToggle(false)
+        assert.deepEqual(filterBelowMin(input), [])
+        assert.deepEqual(dontFilterBelowMin(input), [])
+    })
     it('takes as input a removeBelowMin boolean and returns everything if false, and returns only meetsMin === 1 if true', () => {
         let input = [
             {someData: 'a', meetsMin: 0},
