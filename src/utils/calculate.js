@@ -92,9 +92,9 @@ const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
         x => avg(x)
     )(arr)
 
-const umiAvgOfInstructor = (instructorName, umi, arr) => 
+const umiAvgOfInstructor = (instructorID, umi, arr) => 
     R.pipe(
-        filter.byInstructor(instructorName),
+        filter.byInstructor(instructorID),
         get.arrayOfUMI(umi),
         x => avg(x)
     )(arr)
