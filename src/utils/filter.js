@@ -14,8 +14,7 @@ const byMinClassSize = (size) => R.filter(x => x.classSize >= size)
 const byMaxClassSize = (size) => R.filter(x => x.classSize <= size)
 const byToggle = (removeBelowMin) => R.filter(x => {
     if (!removeBelowMin) return true
-    else return
-    x.meetsMin === 1
+    else return x.meetsMin === 1
 })
 export {
     byYear,

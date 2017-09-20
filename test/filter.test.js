@@ -170,3 +170,47 @@ describe('filterByMany', () => {
         assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
     })
 })
+describe('filterByClassSize', () => {
+    it('takes as input a min and max and returns only objects with classSize greater than or equal to min, and less than or equal to max', () => {
+        let input = [
+            {classSize: 0},
+            {classSize: 1},
+            {classSize: 2},
+            {classSize: 3},
+            {classSize: 4},
+            {classSize: 5},
+            {classSize: 6},
+            {classSize: 7},
+            {classSize: 8},
+            {classSize: 9},
+            {classSize: 10},
+        ]
+        let output = [
+            {classSize: 4},
+            {classSize: 5},
+            {classSize: 6}
+        ]
+        const filterByClassSizeGreaterThan3AndLessThan7 = filter.byClassSize(4, 6)
+        assert.deepEqual(filterByClassSizeGreaterThan3AndLessThan7(input), output)
+        const filterByClassSizeGreaterThan0AndLessThan5 = filter.byClassSize(1, 4)
+        assert.deepEqual(filterByClassSizeGreaterThan0AndLessThan5(input), [{classSize: 1},{classSize: 2},{classSize: 3},{classSize: 4}])
+        // should return empty array for impossible inputs
+        const filterImpossibleRange = filter.byClassSize(7, 3)
+        assert.deepEqual(filterImpossibleRange(input), [])
+    })
+})
+describe('filterByToggle', () => {
+    it('takes as input a removeBelowMin boolean and returns everything if false, and returns only meetsMin === 1 if true', () => {
+        let input = [
+            {someData: 'a', meetsMin: 0},
+            {someData: 'b', meetsMin: 0},
+            {someData: 'c', meetsMin: 1},
+            {someData: 'd', meetsMin: 0},
+            {someData: 'e', meetsMin: 1},
+        ]
+        const filterBelowMin = filter.byToggle(true)
+        assert.deepEqual(filterBelowMin(input), [{someData: 'c', meetsMin: 1}, {someData: 'e', meetsMin: 1}])
+        const dontFilterBelowMin = filter.byToggle(false)
+        assert.deepEqual(dontFilterBelowMin(input), input)
+    })
+})
