@@ -27,25 +27,9 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
-  handleGraphAPI(req.params.chartKey, req.params)
+  handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
   //const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
   //readCSV('mockRawData.csv', (data) => console.log(data))
-
-  if (chartKey === "c1") {
-
-
-    //const data  = []  
-    //d3.csv('./data/mockAggregatedData.csv', function(dat){data = dat})
-    const data = [
-      { Instructor: "Susan Boyle", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 3, DispersionIndex: 0.3, ClassSize: 50, Responses: 30, PercentFavourable: 66 },
-      { Instructor: "David Festerman", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 5, DispersionIndex: 0.8, ClassSize: 100, Responses: 40, PercentFavourable: 72 },
-      { Instructor: "Santa Claus", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 4, DispersionIndex: 0.10, ClassSize: 400, Responses: 399, PercentFavourable: 99 },
-      { Instructor: "Blossom", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 5, DispersionIndex: 0.45, ClassSize: 20, Responses: 20, PercentFavourable: 80 },
-      { Instructor: "", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 4, DispersionIndex: 0.5, ClassSize: 70, Responses: 20, PercentFavourable: 46 },
-      { Instructor: "Buttercup", CourseSection: "APSCI101", QuestionCode: "UMI6", Avg: 1, DispersionIndex: 0.90, ClassSize: 650, Responses: 500, PercentFavourable: 16 },
-    ]
-    res.send(data)
-  }
 })
 routes.get('/dashboard', (req, res) => {
   const data = [

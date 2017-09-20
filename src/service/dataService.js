@@ -14,7 +14,6 @@ const filterDataByFilterSettings = ({ chartKey, year, term, code, courseLevel, d
         console.log(data)
         return data
     }
-
     return new Promise((resolve, reject) => {
         // specify what file or eventually DB to connect to
         readCSV('mockRawData.csv', (data) => {

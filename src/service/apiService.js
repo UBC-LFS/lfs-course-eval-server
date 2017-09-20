@@ -4,7 +4,7 @@ import { filterDataByFilterSettings } from './dataService'
 const handleGraphAPI = (chartKey, params) => {
 
 
-    filterDataByFilterSettings(params)
+    return filterDataByFilterSettings(params)
 
 
     //package up data to send to server
