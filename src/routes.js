@@ -26,10 +26,9 @@ routes.get('/', (req, res) => {
  * create different/better error handlers depending on
  * your use case.
  */
-routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
+routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
-  //const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
-  //readCSV('mockRawData.csv', (data) => console.log(data))
+
 })
 routes.get('/dashboard', (req, res) => {
   const data = [

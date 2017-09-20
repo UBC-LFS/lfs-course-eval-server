@@ -13889,11 +13889,10 @@ var loadData = function loadData(url) {
     var filterSettings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
         time: {
             year: '2016',
-            term: 'all'
+            term: '2016W2'
         },
-        courseLevel: 'all',
-        department: 'all',
-        questionCode: 'UMI6',
+        courseNum: 'LFSLC 100 001',
+        department: 'LFS',
         toggleBelowMin: false,
         classSizeMin: 0,
         classSizeMax: 300 // [min, max]
