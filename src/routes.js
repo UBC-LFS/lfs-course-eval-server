@@ -11,8 +11,8 @@ const routes = Router();
 // }
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
-    res.render('index', { title: 'Express Babel', append: '/courseval' });
-  } else res.render('index', { title: 'Express Babel' });
+    res.render('index', { title: 'Courseval Visualization', append: '/courseval' });
+  } else res.render('index', { title: 'Courseval Visualization' });
 });
 
 /**
