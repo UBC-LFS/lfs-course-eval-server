@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handleGraphApi } from './service/apiService'
+import { handleGraphAPI } from './service/apiService'
 
 require('dotenv').config()
 
@@ -27,7 +27,7 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
-  handleGraphApi(req.params.chartKey, req.params)
+  handleGraphAPI(req.params.chartKey, req.params)
   //const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
   //readCSV('mockRawData.csv', (data) => console.log(data))
 
