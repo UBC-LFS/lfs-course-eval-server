@@ -3,7 +3,7 @@ import * as get from './get'
 
 const byYear = (year) => R.filter(x => get.sliceYear(x.term) === year)
 const byTerm = (term) => R.filter(x => get.sliceTerm(x.term) === term)
-const byInstructor = (instructor) => R.filter(x => x.instructor === instructor)
+const byInstructor = (instructorID) => R.filter(x => x.id === instructorID)
 const byDept = (dept) => R.filter(x => x.deptName === dept)
 const byCourseNum = (courseNum) => R.filter(x => x.courseNum === courseNum)
 const bySpecificCourse = (courseNum, year, term) => R.filter(x => x.courseNum === courseNum && x.term === year + term)

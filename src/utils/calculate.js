@@ -79,7 +79,7 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
                 R.add(numberOfCoursesBelowUMIAverageOfCourse, 
                     R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
                 , arrayOfCoursesAndAvg.length)
-    if (result < 0) throw 'Looks like there is an error with the percentile ranking calculation'
+    if (result < 0 || result > 1) throw 'Looks like there is an error with the percentile ranking calculation'
     if (result < 0.01) return 0.01
     if (result > 0.99) return 0.99
     else return Math.round(result*100)/100
@@ -92,9 +92,9 @@ const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
         x => avg(x)
     )(arr)
 
-const umiAvgOfInstructor = (instructorName, umi, arr) => 
+const umiAvgOfInstructor = (instructorID, umi, arr) => 
     R.pipe(
-        filter.byInstructor(instructorName),
+        filter.byInstructor(instructorID),
         get.arrayOfUMI(umi),
         x => avg(x)
     )(arr)

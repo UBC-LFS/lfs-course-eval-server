@@ -55,26 +55,26 @@ describe('filterByTerm', () => {
 describe('filterByInstructor', () => {
     it('takes an instructor and filters an array of objects to return only objects with that instructor', () => {
         const input = [
-            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe'},
-            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe'},
-            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe'},
-            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John'},
-            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John'},
-            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob'}
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', id: '0987654321'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', id: '0987654321'},
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', id: '1234567ABC'}
         ]
         const outputJohnDoe = [
-            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe'},
-            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe'},
-            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe'}
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'},
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'},
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', id: 'ABCDEFGABEGDF'}
         ]
-        const filterJohnDoe = filter.byInstructor('John Doe')
+        const filterJohnDoe = filter.byInstructor('ABCDEFGABEGDF')
         assert.deepEqual(filterJohnDoe(input), outputJohnDoe)
 
-        const outputAliceBob = [{term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob'}]
-        const filterAliceBob = filter.byInstructor('Alice Bob')
+        const outputAliceBob = [{term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', id: '1234567ABC'}]
+        const filterAliceBob = filter.byInstructor('1234567ABC')
         assert.deepEqual(filterAliceBob(input), outputAliceBob)
 
-        const filterJustinLee = filter.byInstructor('Justin Lee')
+        const filterJustinLee = filter.byInstructor('AB1')
         assert.deepEqual(filterJustinLee(input), [])
     })
 })
