@@ -2,11 +2,24 @@ import * as filter from '../utils/filter'
 import readCSV from './readCSV'
 
 const filterDataByFilterSettings = ({ chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax }) => {
+    // what to do with chartkey?
+
     // filter according to params sent by client
+    const filterPipeline = (data) => {
+        // filters go in here
+        return R.pipe(
 
+        )
+    }
 
-    // specify what file or eventually DB to connect to
-    readCSV('mockRawData.csv', (data) => console.log(data))
+    return new Promise((resolve, reject) => {
+        // specify what file or eventually DB to connect to
+        readCSV('mockRawData.csv', (data) => {
+            if (data) {
+                resolve(filterPipeline(data))
+            } else reject(data)
+        })
+    })
 }
 
 export {
