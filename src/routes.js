@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import readCSV from './service/readCSV'
+import { handleGraphApi } from './service/apiService'
 
 require('dotenv').config()
 
@@ -27,8 +27,9 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
-  const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
-  readCSV('mockRawData.csv', (data) => console.log(data))
+  handleGraphApi(req.params)
+  //const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
+  //readCSV('mockRawData.csv', (data) => console.log(data))
 
   if (chartKey === "c1") {
 
