@@ -27,7 +27,7 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
-  handleGraphApi(req.params)
+  handleGraphApi(req.params.chartKey, req.params)
   //const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
   //readCSV('mockRawData.csv', (data) => console.log(data))
 

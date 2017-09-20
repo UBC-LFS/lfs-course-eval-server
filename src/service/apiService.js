@@ -1,6 +1,9 @@
 import { filterDataByFilterSettings } from './dataService'
 
-const handleGraphApi = (params) => {
+// maybe handle graph key handling here
+const handleGraphApi = (chartKey, params) => {
+    
+
     filterDataByFilterSettings(params)
 
 
