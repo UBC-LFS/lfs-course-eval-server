@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import readCSV from './service/readCSV'
+
 require('dotenv').config()
 
 const routes = Router();
@@ -26,8 +28,11 @@ routes.get('/', (req, res) => {
  */
 routes.get('/data/:chartKey/:year/:term/:courseLevel/:department/:questionCode/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
   const { chartKey, year, term, code, courseLevel, dept, toggle, minClassSize, classSizeMax } = req.params
+  readCSV('mockRawData.csv', (data) => console.log(data))
 
   if (chartKey === "c1") {
+
+
     //const data  = []  
     //d3.csv('./data/mockAggregatedData.csv', function(dat){data = dat})
     const data = [
