@@ -27,6 +27,7 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:classSizeMin/:classSizeMax', (req, res) => {
+  console.log(req.params)
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 
 })

@@ -207,8 +207,8 @@ describe('filterByClassSize', () => {
 describe('filterByToggle', () => {
     it('can handle empty array', () => {
         const input = []
-        const filterBelowMin = filter.byToggle(true)
-        const dontFilterBelowMin = filter.byToggle(false)
+        const filterBelowMin = filter.byToggleBelowMin('true')
+        const dontFilterBelowMin = filter.byToggleBelowMin('false')
         assert.deepEqual(filterBelowMin(input), [])
         assert.deepEqual(dontFilterBelowMin(input), [])
     })
@@ -220,9 +220,9 @@ describe('filterByToggle', () => {
             {someData: 'd', meetsMin: 0},
             {someData: 'e', meetsMin: 1},
         ]
-        const filterBelowMin = filter.byToggle(true)
+        const filterBelowMin = filter.byToggleBelowMin('true')
         assert.deepEqual(filterBelowMin(input), [{someData: 'c', meetsMin: 1}, {someData: 'e', meetsMin: 1}])
-        const dontFilterBelowMin = filter.byToggle(false)
+        const dontFilterBelowMin = filter.byToggleBelowMin('false')
         assert.deepEqual(dontFilterBelowMin(input), input)
     })
 })
