@@ -259,7 +259,10 @@ describe('filterByToggle', () => {
     })})
     describe('selectFields', () => {        
     it('can handle empty array', () => {
-        let input = []
+        let input = [            { "questionCode": "UMI6" },
+        { "questionCode": "UMI6" },
+        { "questionCode": "UMI6" },
+    ]
         const selectInstructor = filter.selectFields("UMI6", ["instructor"])
         assert.deepEqual(selectInstructor(input), input)
     })
@@ -270,26 +273,33 @@ describe('filterByToggle', () => {
             { "instructor": "'John Doe'", "courseNum": "LFSLC 100 001", "UMI6Avg": 2, "UMI6Dispersion": 0.2, "UMI6PercentFavourable": 90, "classSize": 90, "percentResponses": "30%" }
         ]
         let output1 = [
-            { "instructor": "'John Doe'" },
-            { "instructor": "'John Doe'" },
-            { "instructor": "'John Doe'" },
+            { "instructor": "'John Doe'", "questionCode": "UMI6" },
+            { "instructor": "'John Doe'", "questionCode": "UMI6" },
+            { "instructor": "'John Doe'", "questionCode": "UMI6" },
         ]
         const selectInstructor = filter.selectFields("UMI6", ["instructor"])
         assert.deepEqual(selectInstructor(input1), output1)
         let output2 = [
-            {}, {}, {}
+            { "questionCode": "UMI6" },
+            { "questionCode": "UMI6" },
+            { "questionCode": "UMI6" },
         ]
         const selectNonExistentField = filter.selectFields("UMI6", ["test"])
         assert.deepEqual(selectNonExistentField(input1), output2)
         let output3 = [
-            { "Avg": 4 },
-            { "Avg": 3 },
-            { "Avg": 2 },
+            { "Avg": 4, "questionCode": "UMI6" },
+            { "Avg": 3, "questionCode": "UMI6" },
+            { "Avg": 2, "questionCode": "UMI6" },
         ]
         const selectExAndNonExistentFields = filter.selectFields("UMI6", ["test", "Avg"])
         assert.deepEqual(selectExAndNonExistentFields(input1), output3)
+        let output4 = [
+            { "questionCode": "UMI5" },
+            { "questionCode": "UMI5" },
+            { "questionCode": "UMI5" },
+        ]
         const selectNonExistentQC = filter.selectFields("UMI5", ["Avg"])
-        assert.deepEqual(selectNonExistentQC(input1), output2)
+        assert.deepEqual(selectNonExistentQC(input1), output4)
         
     })
 })
