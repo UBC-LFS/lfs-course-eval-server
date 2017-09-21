@@ -1,18 +1,25 @@
 import * as filter from '../utils/filter'
+import * as calculate from '../utils/calculate'
 import * as get from '../utils/get'
 import readCSV from './readCSV'
 import R from 'ramda'
 
 const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax }, chartMapping) => {
-    const filterPipeline = (data) => R.pipe(
+    const filterPipeline = (data) => {
+    R.pipe(
             filter.byYear(year),
-            filter.byTerm(get.sliceTerm(term)),
+            filter.byTerm(term),
             filter.byCourseNum(courseNum),
             filter.byDept(department),
             filter.byClassSize(classSizeMin, classSizeMax),
             filter.byToggleBelowMin(toggleBelowMin),
             filter.selectFields(questionCode, chartMapping["Fields"])
         )(data)
+    if (chartKey==='dashboard'){
+        data["AvgRating"] = calculate.questionAvg(data)
+        data["AvgClassSize"] = calculate.avgByField(data,"classSize")
+    }
+    }
 
     return new Promise((resolve, reject) => {
         // specify what file or eventually DB to connect to

@@ -13834,16 +13834,15 @@ module.exports = _curry2(function where(spec, testObj) {
 "use strict";
 
 
-var _dataService = __webpack_require__(290);
+var _controller = __webpack_require__(784);
 
-var dataService = _interopRequireWildcard(_dataService);
+var _controller2 = _interopRequireDefault(_controller);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
-    //load first chart upon entering the page
-    dataService.loadData('data', undefined, 'c1');
-}); //import { getData } from './controller/controller'
+   (0, _controller2.default)();
+});
 
 /***/ }),
 /* 290 */
@@ -13855,15 +13854,8 @@ document.addEventListener('DOMContentLoaded', function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.loadData = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _drawGraph = __webpack_require__(291);
-
-var _drawGraph2 = _interopRequireDefault(_drawGraph);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var fetchJSON = function fetchJSON(url) {
     return fetch(url).then(function (response) {
@@ -13885,8 +13877,8 @@ var createFilterString = function createFilterString(filterSettings) {
     return filterString;
 };
 
-var loadData = function loadData(url) {
-    var filterSettings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+var loadData = function loadData() {
+    var filterSettings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         time: {
             year: '2016',
             term: '2016W2'
@@ -13898,144 +13890,29 @@ var loadData = function loadData(url) {
         classSizeMin: 0,
         classSizeMax: 300 // [min, max]
     };
-    var chartKey = arguments[2];
+    var chartKey = arguments[1];
 
-
-    url = url + '/' + chartKey + createFilterString(filterSettings);
+    var url = '';
+    if (chartKey !== 'dashboard') {
+        url = 'data/' + chartKey + createFilterString(filterSettings);
+    } else {
+        url = 'dashboard/' + createFilterString(filterSettings);
+    }
     console.log(url);
     //Temporary filter settings, change to real filters once applied
-    fetchJSON(url).then(function (x) {
-        return (0, _drawGraph2.default)(x);
-    });
+    //fetchJSON(url).then(x => drawUMIvsDispersion(x))
+    return fetchJSON(url);
+};
+
+var loadFilterData = function loadFilterData() {
+    return fetchJSON('filterData');
 };
 
 exports.loadData = loadData;
+exports.loadFilterData = loadFilterData;
 
 /***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _d = __webpack_require__(154);
-
-var d3 = _interopRequireWildcard(_d);
-
-var _d3Tip = __webpack_require__(581);
-
-var _d3Tip2 = _interopRequireDefault(_d3Tip);
-
-var _constants = __webpack_require__(582);
-
-var _questionDefinitions = __webpack_require__(583);
-
-var questionDefinitions = _interopRequireWildcard(_questionDefinitions);
-
-var _util = __webpack_require__(584);
-
-var util = _interopRequireWildcard(_util);
-
-var _ramda = __webpack_require__(585);
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-d3.tip = _d3Tip2.default;
-
-
-var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
-    var graph = document.getElementById('UMIvsDispersionGraph');
-    var graphWidth = $('#UMIvsDispersionGraph').width();
-    console.log(array);
-    var svg = d3.select('#UMIvsDispersionGraph').append('svg').attr('style', 'display: block; margin: auto; margin-top: 30px;').attr('width', '100%').attr('height', _constants.height).attr('viewBox', '0 0 ' + Math.min(graphWidth, _constants.height) + ' ' + 700).attr('preserveAspectRatio', 'xMinYMin');
-
-    var g = svg.append('g').attr("transform", "translate(" + _constants.margin.left + "," + _constants.margin.top + ")");
-
-    var x = d3.scaleLinear().rangeRound([0, graphWidth]);
-    var y = d3.scaleLinear().rangeRound([_constants.height, 0]);
-
-    x.domain([0, 0.8]);
-    y.domain([2, 5]);
-
-    g.append('g').attr("class", "axis axis--y").call(d3.axisLeft(y).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.9em").attr("text-anchor", "end").attr('fill', '#000').text("Likert Scale");
-
-    g.append('g').attr("class", "axis axis--x").attr("transform", "translate(0," + _constants.height + ")").call(d3.axisBottom(x));
-
-    var umiDots = g.append('g').attr('id', 'umiDots');
-
-    var courseInfoTip = d3.tip().html(function (d) {
-        return "<div class='d3ToolTip'>" + "<p>instructor: " + d.instructor + "</p>" + "<p>Section: " + d.courseNum + "</p>" + "<p>Question Code: " + d.questionCode + ' "' + questionDefinitions["codesAndDef"][d.questionCode] + '"' + "</p>" + "<p>Average: " + util.roundToTwoDecimal(d.Avg) + "</p>" + "<p>Dispersion Index: " + util.roundToTwoDecimal(d.Dispersion) + "</p>" + "<p>Class Size: " + d.classSize + "</p>" + "<p>Response Rate: " + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + "</p>" + "<p>Percent Favourable: " + util.roundToTwoDecimal(d.PercentFavourable) + '%' + "</p>" + "</div>";
-    }).direction(function (d) {
-        if (x(d.Dispersion) < 200) return 'e';else return 'n';
-    });
-
-    umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
-        return x(Math.min(d['Dispersion'], 0.8));
-    }).attr('cy', function (d) {
-        return y(Math.max(d['Avg'], 2));
-    }).attr('r', function (d) {
-        return Math.pow(Math.log(d['classSize']), 1.7);
-    }).style('fill', function (d) {
-        if (d['PercentFavourable'] >= 90) {
-            return _constants.percentFavourableColor6.first;
-        } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
-            return _constants.percentFavourableColor6.second;
-        } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
-            return _constants.percentFavourableColor6.third;
-        } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
-            return _constants.percentFavourableColor6.fourth;
-        } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
-            return _constants.percentFavourableColor6.fifth;
-        } else return _constants.percentFavourableColor6.sixth;
-    }).attr('class', function (d) {
-        if (util.stripMiddleName(d.instructor) === name) {
-            return 'pulse';
-        }
-    }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
-
-    // set circles for the instructor 
-    umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
-        return util.stripMiddleName(x.instructor) === name;
-    }, array)).enter().append('circle').attr('cx', function (d) {
-        return x(Math.min(d['Dispersion'], 0.8));
-    }).attr('cy', function (d) {
-        return y(Math.max(d['Avg'], 2));
-    }).attr('r', function (d) {
-        return Math.pow(Math.log(d['classSize']), 1.7);
-    }).style('fill', function (d) {
-        if (d['PercentFavourable'] >= 90) {
-            return _constants.percentFavourableColor6.first;
-        } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
-            return _constants.percentFavourableColor6.second;
-        } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
-            return _constants.percentFavourableColor6.third;
-        } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
-            return _constants.percentFavourableColor6.fourth;
-        } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
-            return _constants.percentFavourableColor6.fifth;
-        } else return _constants.percentFavourableColor6.sixth;
-    }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
-
-    // append animation
-    var pulseList = document.getElementsByClassName('pulse');
-    Array.prototype.map.call(pulseList, function (x) {
-        x.innerHTML = '<animate attributeType="SVG" attributeName="r" begin="0s" dur="1.5s" repeatCount="indefinite" from="0%" to="10%"/><animate attributeType="CSS" attributeName="stroke-width" begin="0s"  dur="1.5s" repeatCount="indefinite" from="3%" to="0%" /><animate attributeType="CSS" attributeName="opacity" begin="0s"  dur="1.5s" repeatCount="indefinite" from="1" to="0"/>';
-    });
-
-    svg.call(courseInfoTip);
-};
-
-exports.default = drawUMIvsDispersion;
-
-/***/ }),
+/* 291 */,
 /* 292 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -27647,9 +27524,11 @@ var stripMiddleName = function stripMiddleName(name) {
         return splitName.join(" ");
     } else return name;
 };
+
 var roundToTwoDecimal = function roundToTwoDecimal(x) {
     return Math.round(x * 100) / 100;
 };
+
 exports.stripMiddleName = stripMiddleName;
 exports.roundToTwoDecimal = roundToTwoDecimal;
 
@@ -35314,6 +35193,318 @@ module.exports = _curry3(function zipWith(fn, a, b) {
   return rv;
 });
 
+
+/***/ }),
+/* 784 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _dataService = __webpack_require__(290);
+
+var _drawChart = __webpack_require__(785);
+
+var _drawChart2 = _interopRequireDefault(_drawChart);
+
+var _questionDefinitions = __webpack_require__(583);
+
+var _questionDefinitions2 = _interopRequireDefault(_questionDefinitions);
+
+var _get = __webpack_require__(786);
+
+var get = _interopRequireWildcard(_get);
+
+var _ramda = __webpack_require__(585);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var controller = function controller() {
+    var filterSetting = {
+        time: {
+            year: '2016',
+            term: 'W2'
+        },
+        courseNum: 'LFSLC 100 001',
+        department: 'LFS',
+        toggleBelowMin: true,
+        questionCode: 'UMI6',
+        classSizeMin: 0,
+        classSizeMax: 300,
+        courseLevel: 'all'
+        // initial draw
+    };chart1Controller(filterSetting);
+    // chart2Controller and chart3Controller will go here
+    dashboardController();
+    initEventListenerController();
+    eventListeners(filterSetting, function (newFilter) {
+        // call chart controller here
+    });
+};
+
+var initEventListenerController = function initEventListenerController() {
+    var filterData = (0, _dataService.loadFilterData)();
+    filterData.then(function (data) {
+        return initEventListeners(data);
+    });
+};
+
+var chart1Controller = function chart1Controller(filterSettings) {
+    var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
+    chart1Data.then(function (data) {
+        return initEventListeners(data);
+    });
+};
+
+var yearSelection = document.getElementById('yearSelection');
+var termSelection = document.getElementById('termSelection');
+var courseLevelSelection = document.getElementById('courseLevelSelection');
+var deptSelection = document.getElementById('deptSelection');
+var questionCodeSelection = document.getElementById('questionCodeSelection');
+var toggleBelowMinSelection = document.getElementById('toggleBelowMinSelection');
+var classSizeMin = document.getElementById('classSizeMin');
+var classSizeMax = document.getElementById('classSizeMax');
+
+var eventListeners = function eventListeners(filterSetting, callback) {
+    yearSelection.addEventListener('change', function () {
+        filterSetting.time.year = this.value;
+        callback(filterSetting);
+    });
+    termSelection.addEventListener('change', function () {
+        filterSetting.time.term = this.value;
+        callback(filterSetting);
+    });
+    courseLevelSelection.addEventListener('change', function () {
+        filterSetting.courseLevel = this.value;
+        callback(filterSetting);
+    });
+    deptSelection.addEventListener('change', function () {
+        filterSetting.department = this.value;
+        callback(filterSetting);
+    });
+    questionCodeSelection.addEventListener('change', function () {
+        filterSetting.questionCode = this.value;
+        callback(filterSetting);
+    });
+    toggleBelowMinSelection.addEventListener('change', function () {
+        if (toggleBelowMinSelection.checked) {
+            filterSetting.toggleBelowMin = true;
+        } else filterSetting.toggleBelowMin = false;
+        callback(filterSetting);
+    });
+    classSizeMin.addEventListener('change', function () {
+        filterSetting.classSizeMin = this.value;
+        callback(filterSetting);
+    });
+    classSizeMax.addEventListener('change', function () {
+        filterSetting.classSizeMax = this.value;
+        callback(filterSetting);
+    });
+};
+
+var initEventListeners = function initEventListeners(data) {
+    yearSelection.innerHTML = data.years.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    // need to set current value below
+    // yearSelection.value = 
+
+    // make sure to add "all" into data.terms on server
+    termSelection.innerHTML = data.terms.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    termSelection.value = 'all';
+
+    // make sure to add "all" into data.courseLevelSelection on server
+    courseLevelSelection.innerHTML = data.courseLevelSelection.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    courseLevelSelection.value = 'all';
+
+    questionCodeSelection.innerHTML = data.questionCodeSelection.map(function (x) {
+        return '<option value="' + x + '">' + x + ": " + _questionDefinitions2.default[x] + '</option>';
+    }).join(' ');
+    questionCodeSelection.value = 'UMI6';
+
+    // make sure to add "all" into data.courseLevelSelection on server
+    deptSelection.innerHTML = data.deptSelection.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    deptSelection.value = 'all';
+};
+
+var dashboardController = function dashboardController(filterSettings) {
+    var dashboardData = (0, _dataService.loadData)(undefined, 'dashboard');
+    dashboardData.then(function (data) {
+        return initEventListeners(data);
+    });
+};
+
+exports.default = controller;
+
+/***/ }),
+/* 785 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _d = __webpack_require__(154);
+
+var d3 = _interopRequireWildcard(_d);
+
+var _d3Tip = __webpack_require__(581);
+
+var _d3Tip2 = _interopRequireDefault(_d3Tip);
+
+var _constants = __webpack_require__(582);
+
+var _questionDefinitions = __webpack_require__(583);
+
+var questionDefinitions = _interopRequireWildcard(_questionDefinitions);
+
+var _util = __webpack_require__(584);
+
+var util = _interopRequireWildcard(_util);
+
+var _ramda = __webpack_require__(585);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+d3.tip = _d3Tip2.default;
+
+
+var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
+    var graph = document.getElementById('UMIvsDispersionGraph');
+    var graphWidth = $('#UMIvsDispersionGraph').width();
+    console.log(array);
+    var svg = d3.select('#UMIvsDispersionGraph').append('svg').attr('style', 'display: block; margin: auto; margin-top: 30px;').attr('width', '100%').attr('height', _constants.height).attr('viewBox', '0 0 ' + Math.min(graphWidth, _constants.height) + ' ' + 700).attr('preserveAspectRatio', 'xMinYMin');
+
+    var g = svg.append('g').attr("transform", "translate(" + _constants.margin.left + "," + _constants.margin.top + ")");
+
+    var x = d3.scaleLinear().rangeRound([0, graphWidth]);
+    var y = d3.scaleLinear().rangeRound([_constants.height, 0]);
+
+    x.domain([0, 0.8]);
+    y.domain([2, 5]);
+
+    g.append('g').attr("class", "axis axis--y").call(d3.axisLeft(y).ticks(10)).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", "0.9em").attr("text-anchor", "end").attr('fill', '#000').text("Likert Scale");
+
+    g.append('g').attr("class", "axis axis--x").attr("transform", "translate(0," + _constants.height + ")").call(d3.axisBottom(x));
+
+    var umiDots = g.append('g').attr('id', 'umiDots');
+
+    var courseInfoTip = d3.tip().html(function (d) {
+        return "<div class='d3ToolTip'>" + "<p>instructor: " + d.instructor + "</p>" + "<p>Section: " + d.courseNum + "</p>" + "<p>Question Code: " + d.questionCode + ' "' + questionDefinitions["codesAndDef"][d.questionCode] + '"' + "</p>" + "<p>Average: " + util.roundToTwoDecimal(d.Avg) + "</p>" + "<p>Dispersion Index: " + util.roundToTwoDecimal(d.Dispersion) + "</p>" + "<p>Class Size: " + d.classSize + "</p>" + "<p>Response Rate: " + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + "</p>" + "<p>Percent Favourable: " + util.roundToTwoDecimal(d.PercentFavourable) + '%' + "</p>" + "</div>";
+    }).direction(function (d) {
+        if (x(d.Dispersion) < 200) return 'e';else return 'n';
+    });
+
+    umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
+        return x(Math.min(d['Dispersion'], 0.8));
+    }).attr('cy', function (d) {
+        return y(Math.max(d['Avg'], 2));
+    }).attr('r', function (d) {
+        return Math.pow(Math.log(d['classSize']), 1.7);
+    }).style('fill', function (d) {
+        if (d['PercentFavourable'] >= 90) {
+            return _constants.percentFavourableColor6.first;
+        } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+            return _constants.percentFavourableColor6.second;
+        } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+            return _constants.percentFavourableColor6.third;
+        } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+            return _constants.percentFavourableColor6.fourth;
+        } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+            return _constants.percentFavourableColor6.fifth;
+        } else return _constants.percentFavourableColor6.sixth;
+    }).attr('class', function (d) {
+        if (util.stripMiddleName(d.instructor) === name) {
+            return 'pulse';
+        }
+    }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
+
+    // set circles for the instructor 
+    umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
+        return util.stripMiddleName(x.instructor) === name;
+    }, array)).enter().append('circle').attr('cx', function (d) {
+        return x(Math.min(d['Dispersion'], 0.8));
+    }).attr('cy', function (d) {
+        return y(Math.max(d['Avg'], 2));
+    }).attr('r', function (d) {
+        return Math.pow(Math.log(d['classSize']), 1.7);
+    }).style('fill', function (d) {
+        if (d['PercentFavourable'] >= 90) {
+            return _constants.percentFavourableColor6.first;
+        } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+            return _constants.percentFavourableColor6.second;
+        } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+            return _constants.percentFavourableColor6.third;
+        } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+            return _constants.percentFavourableColor6.fourth;
+        } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+            return _constants.percentFavourableColor6.fifth;
+        } else return _constants.percentFavourableColor6.sixth;
+    }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
+
+    // append animation
+    var pulseList = document.getElementsByClassName('pulse');
+    Array.prototype.map.call(pulseList, function (x) {
+        x.innerHTML = '<animate attributeType="SVG" attributeName="r" begin="0s" dur="1.5s" repeatCount="indefinite" from="0%" to="10%"/><animate attributeType="CSS" attributeName="stroke-width" begin="0s"  dur="1.5s" repeatCount="indefinite" from="3%" to="0%" /><animate attributeType="CSS" attributeName="opacity" begin="0s"  dur="1.5s" repeatCount="indefinite" from="1" to="0"/>';
+    });
+
+    svg.call(courseInfoTip);
+};
+
+exports.default = drawUMIvsDispersion;
+
+/***/ }),
+/* 786 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getTerms = exports.getDepts = undefined;
+
+var _ramda = __webpack_require__(585);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getDepts = function getDepts(data) {
+    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
+        return x.deptName;
+    })(data));
+};
+var getTerms = function getTerms(data) {
+    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
+        return x.term.slice(4, 6);
+    })(data));
+};
+
+exports.getDepts = getDepts;
+exports.getTerms = getTerms;
 
 /***/ })
 /******/ ]);
