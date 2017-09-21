@@ -14165,8 +14165,8 @@ var controller = function controller() {
         courseLevel: 'all'
         // initial draw
     };chart1Controller(filterSetting);
-    // chart2Controller and chart3Controller will go here
     dashboardController();
+
     initEventListenerController();
     eventListeners(filterSetting, function (newFilter) {
         // call chart controller here
@@ -14175,8 +14175,8 @@ var controller = function controller() {
 
 var initEventListenerController = function initEventListenerController() {
     var filterData = (0, _dataService.loadFilterData)();
-    filterData.then(function (data) {
-        return initEventListeners(data);
+    filterData.then(function (filterData) {
+        return initEventListeners(filterData);
     });
 };
 
@@ -14233,32 +14233,32 @@ var eventListeners = function eventListeners(filterSetting, callback) {
     });
 };
 
-var initEventListeners = function initEventListeners(data) {
-    yearSelection.innerHTML = data.years.map(function (x) {
+var initEventListeners = function initEventListeners(filterData) {
+    yearSelection.innerHTML = filterData.years.map(function (x) {
         return '<option value="' + x + '">' + x + '</option>';
     }).join(' ');
     // need to set current value below
     // yearSelection.value = 
 
     // make sure to add "all" into data.terms on server
-    termSelection.innerHTML = data.terms.map(function (x) {
+    termSelection.innerHTML = filterData.terms.map(function (x) {
         return '<option value="' + x + '">' + x + '</option>';
     }).join(' ');
     termSelection.value = 'all';
 
     // make sure to add "all" into data.courseLevelSelection on server
-    courseLevelSelection.innerHTML = data.courseLevelSelection.map(function (x) {
+    courseLevelSelection.innerHTML = filterData.courseLevels.map(function (x) {
         return '<option value="' + x + '">' + x + '</option>';
     }).join(' ');
     courseLevelSelection.value = 'all';
 
-    questionCodeSelection.innerHTML = data.questionCodeSelection.map(function (x) {
+    questionCodeSelection.innerHTML = filterData.questionCodes.map(function (x) {
         return '<option value="' + x + '">' + x + ": " + _questionDefinitions2.default[x] + '</option>';
     }).join(' ');
     questionCodeSelection.value = 'UMI6';
 
     // make sure to add "all" into data.courseLevelSelection on server
-    deptSelection.innerHTML = data.deptSelection.map(function (x) {
+    deptSelection.innerHTML = filterData.depts.map(function (x) {
         return '<option value="' + x + '">' + x + '</option>';
     }).join(' ');
     deptSelection.value = 'all';

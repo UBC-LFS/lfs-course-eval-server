@@ -25,6 +25,29 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
     })
 }
 
+const filterData = () => {
+    const filterObj = {
+        years: [],
+        terms: [],
+        courseLevels: [],
+        quetionCodes: [],
+        depts: []
+    }
+    
+    // const createFilterObj = (data) => {
+    //     const years = 
+    // }
+
+    return new Promise((resolve, reject) => {
+        readCSV('mockAggregatedData.csv', (data) => {
+            if (data) {
+                resolve(createFilterObj(data))
+            }
+        })
+    })
+}
+
 export {
-    filterDataByFilterSettings
+    filterDataByFilterSettings,
+    filterData
 }

@@ -71,3 +71,9 @@ describe('getInstructorLastName', () => {
         assert.deepEqual(get.instructorLastName('Doe, John A'), 'Doe')
     })
 })
+
+describe('getCourseLevel', () => {
+    it('takes a courseNUm and returns the level of the course', () => {
+        assert.deepEqual(get.courseLevel('LFSLC 100 001'), 100)
+    })
+})
