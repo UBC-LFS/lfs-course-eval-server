@@ -19,22 +19,26 @@ const courseLevel = (courseNum) => Math.floor(Number(courseNum.split(' ')[1])/10
 
 const uniqYears = R.pipe(
     R.map(x => sliceYear(x.term)),
-    R.uniq()
+    R.uniq(),
+    R.sort((a,b) => a-b)
 )
 
 const uniqTerms = R.pipe(
     R.map(x => sliceTerm(x.term)),
-    R.uniq()
+    R.uniq(),
+    R.sort((a,b) => a-b)
 )
 
 const uniqCourseLevels = R.pipe(
     R.map(x => courseLevel(x.courseNum)),
-    R.uniq()
+    R.uniq(),
+    R.sort((a,b) => a-b)
 )
 
 const uniqDept = R.pipe(
     R.map(x => x.deptName),
-    R.uniq()
+    R.uniq(),
+    R.sort((a,b) => a-b)
 )
 
 export {

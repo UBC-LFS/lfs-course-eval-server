@@ -1,5 +1,6 @@
 import assert from 'assert'
 import * as get from '../src/utils/get'
+import R from 'ramda'
 
 describe('getSliceYear', () => {
     it('gets the year from the specified term', () => {
@@ -75,5 +76,28 @@ describe('getInstructorLastName', () => {
 describe('getCourseLevel', () => {
     it('takes a courseNUm and returns the level of the course', () => {
         assert.deepEqual(get.courseLevel('LFSLC 100 001'), 100)
+        assert.deepEqual(get.courseLevel('LFSLC 168 001'), 100)
+        assert.deepEqual(get.courseLevel('LFSLC 199.98 001'), 100)
+        assert.deepEqual(get.courseLevel('LFSLC 289 001'), 200)
+    })
+})
+
+describe('getUniqYears', () => {
+    it('takes an array of courseObj and returns the uniq years', () => {
+        let input = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+            {term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+            {term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+            {term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+        ]
+        assert.deepEqual(get.uniqYears(input), [2016, 2017, 2019])
+        input = [
+            {term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+        ]
+        assert.deepEqual(get.uniqYears(input), [2016])
+        input = []
+        assert.deepEqual(get.uniqYears(input), [])
     })
 })
