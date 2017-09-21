@@ -6,20 +6,20 @@ import R from 'ramda'
 
 const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax }, chartMapping) => {
     const filterPipeline = (data) => {
-    R.pipe(
-            filter.byYear(year),
-            filter.byTerm(term),
-            filter.byCourseNum(courseNum),
-            filter.byDept(department),
-            filter.byClassSize(classSizeMin, classSizeMax),
-            filter.byToggleBelowMin(toggleBelowMin),
-            filter.selectFields(questionCode, chartMapping["Fields"])
-        )(data)
-    if (chartKey==='dashboard'){
-        data["AvgRating"] = calculate.questionAvg(data)
-        data["AvgClassSize"] = calculate.avgByField(data,"classSize")
-    }
-    return data
+        R.pipe(
+                filter.byYear(year),
+                filter.byTerm(term),
+                filter.byCourseNum(courseNum),
+                filter.byDept(department),
+                filter.byClassSize(classSizeMin, classSizeMax),
+                filter.byToggleBelowMin(toggleBelowMin),
+                filter.selectFields(questionCode, chartMapping["Fields"])
+            )(data)
+        if (chartKey==='dashboard'){
+            data["AvgRating"] = calculate.questionAvg(data)
+            data["AvgClassSize"] = calculate.avgByField(data,"classSize")
+        }
+        return data
     }
 
     return new Promise((resolve, reject) => {

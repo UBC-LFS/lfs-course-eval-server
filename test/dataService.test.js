@@ -9,7 +9,7 @@ describe('filterData', () => {
             courseLevels: [100],
             questionCodes: ['UMI1', 'UMI2', 'UMI3', 'UMI4', 'UMI5', 'UMI6'],
             depts: ['LFS']
-        }
-        DS.filterData().then(result => assert.deepEqual(result, output))
+        }      
+        return DS.filterData().then(result => assert.deepEqual(result, output))
     })
 })
