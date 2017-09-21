@@ -13893,7 +13893,8 @@ var loadData = function loadData(url) {
         },
         courseNum: 'LFSLC 100 001',
         department: 'LFS',
-        toggleBelowMin: false,
+        toggleBelowMin: true,
+        questionCode: 'UMI6',
         classSizeMin: 0,
         classSizeMax: 300 // [min, max]
     };
@@ -13971,17 +13972,17 @@ var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
     var umiDots = g.append('g').attr('id', 'umiDots');
 
     var courseInfoTip = d3.tip().html(function (d) {
-        return "<div class='d3ToolTip'>" + "<p>Instructor: " + d.Instructor + "</p>" + "<p>Section: " + d.CourseSection + "</p>" + "<p>Question Code: " + d.QuestionCode + ' "' + questionDefinitions["codesAndDef"][d.QuestionCode] + '"' + "</p>" + "<p>Average: " + util.roundToTwoDecimal(d.Avg) + "</p>" + "<p>Dispersion Index: " + util.roundToTwoDecimal(d.DispersionIndex) + "</p>" + "<p>Class Size: " + d.ClassSize + "</p>" + "<p>Response Rate: " + util.roundToTwoDecimal(d.Responses / d.ClassSize * 100) + '%' + "</p>" + "<p>Percent Favourable: " + util.roundToTwoDecimal(d.PercentFavourable) + '%' + "</p>" + "</div>";
+        return "<div class='d3ToolTip'>" + "<p>instructor: " + d.instructor + "</p>" + "<p>Section: " + d.courseNum + "</p>" + "<p>Question Code: " + d.questionCode + ' "' + questionDefinitions["codesAndDef"][d.questionCode] + '"' + "</p>" + "<p>Average: " + util.roundToTwoDecimal(d.Avg) + "</p>" + "<p>Dispersion Index: " + util.roundToTwoDecimal(d.Dispersion) + "</p>" + "<p>Class Size: " + d.classSize + "</p>" + "<p>Response Rate: " + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + "</p>" + "<p>Percent Favourable: " + util.roundToTwoDecimal(d.PercentFavourable) + '%' + "</p>" + "</div>";
     }).direction(function (d) {
-        if (x(d.DispersionIndex) < 200) return 'e';else return 'n';
+        if (x(d.Dispersion) < 200) return 'e';else return 'n';
     });
 
     umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
-        return x(Math.min(d['DispersionIndex'], 0.8));
+        return x(Math.min(d['Dispersion'], 0.8));
     }).attr('cy', function (d) {
         return y(Math.max(d['Avg'], 2));
     }).attr('r', function (d) {
-        return Math.pow(Math.log(d['ClassSize']), 1.7);
+        return Math.pow(Math.log(d['classSize']), 1.7);
     }).style('fill', function (d) {
         if (d['PercentFavourable'] >= 90) {
             return _constants.percentFavourableColor6.first;
@@ -13995,20 +13996,20 @@ var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
             return _constants.percentFavourableColor6.fifth;
         } else return _constants.percentFavourableColor6.sixth;
     }).attr('class', function (d) {
-        if (util.stripMiddleName(d.Instructor) === name) {
+        if (util.stripMiddleName(d.instructor) === name) {
             return 'pulse';
         }
     }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
 
     // set circles for the instructor 
     umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
-        return util.stripMiddleName(x.Instructor) === name;
+        return util.stripMiddleName(x.instructor) === name;
     }, array)).enter().append('circle').attr('cx', function (d) {
-        return x(Math.min(d['DispersionIndex'], 0.8));
+        return x(Math.min(d['Dispersion'], 0.8));
     }).attr('cy', function (d) {
         return y(Math.max(d['Avg'], 2));
     }).attr('r', function (d) {
-        return Math.pow(Math.log(d['ClassSize']), 1.7);
+        return Math.pow(Math.log(d['classSize']), 1.7);
     }).style('fill', function (d) {
         if (d['PercentFavourable'] >= 90) {
             return _constants.percentFavourableColor6.first;

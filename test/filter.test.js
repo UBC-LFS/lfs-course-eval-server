@@ -260,7 +260,7 @@ describe('filterByToggle', () => {
     describe('selectFields', () => {        
     it('can handle empty array', () => {
         let input = []
-        const selectInstructor = filter.selectFields(["instructor"])
+        const selectInstructor = filter.selectFields("UMI6", ["instructor"])
         assert.deepEqual(selectInstructor(input), input)
     })
     it('takes as input an array of fields and returns an object with only those indicated fields that do exist within the object', () => {
@@ -274,19 +274,22 @@ describe('filterByToggle', () => {
             { "instructor": "'John Doe'" },
             { "instructor": "'John Doe'" },
         ]
-        const selectInstructor = filter.selectFields(["instructor"])
+        const selectInstructor = filter.selectFields("UMI6", ["instructor"])
         assert.deepEqual(selectInstructor(input1), output1)
         let output2 = [
             {}, {}, {}
         ]
-        const selectNonExistentField = filter.selectFields(["test"])
+        const selectNonExistentField = filter.selectFields("UMI6", ["test"])
         assert.deepEqual(selectNonExistentField(input1), output2)
         let output3 = [
-            { "UMI6Avg": 4 },
-            { "UMI6Avg": 3 },
-            { "UMI6Avg": 2 },
+            { "Avg": 4 },
+            { "Avg": 3 },
+            { "Avg": 2 },
         ]
-        const selectExAndNonExistentFields = filter.selectFields(["test", "UMI6Avg"])
+        const selectExAndNonExistentFields = filter.selectFields("UMI6", ["test", "Avg"])
         assert.deepEqual(selectExAndNonExistentFields(input1), output3)
+        const selectNonExistentQC = filter.selectFields("UMI5", ["Avg"])
+        assert.deepEqual(selectNonExistentQC(input1), output2)
+        
     })
 })

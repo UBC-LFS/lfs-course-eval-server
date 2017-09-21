@@ -15,13 +15,15 @@ const byToggleBelowMin = (toggleBelowMin) => R.filter(x => {
     if (toggleBelowMin == 'true') return true
     else return x.meetsMin === 1
 })
-const selectFields = (fieldArray) => R.map(x => {
+const selectFields = (questionCode, fieldArray) => R.map(x => {
     const cleanedObj = {}
     for (let i = 0; i < fieldArray.length; i++) {
-        if (x.hasOwnProperty(fieldArray[i])) {
-            cleanedObj[fieldArray[i]] = x[fieldArray[i]]
-        }
+        let field = fieldArray[i]
+        let resultField = field
+        if (field === "Avg" || field === "Dispersion" || field === "PercentFavourable") { resultField = questionCode + field }
+        if (x.hasOwnProperty(resultField)) cleanedObj[field] = x[resultField]
     }
+    cleanedObj["questionCode"] = questionCode
     return cleanedObj
 })
 

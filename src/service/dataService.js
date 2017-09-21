@@ -3,7 +3,7 @@ import * as get from '../utils/get'
 import readCSV from './readCSV'
 import R from 'ramda'
 
-const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, classSizeMin, classSizeMax }, chartMapping) => {
+const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax }, chartMapping) => {
     const filterPipeline = (data) => R.pipe(
             filter.byYear(year),
             filter.byTerm(get.sliceTerm(term)),
@@ -11,7 +11,7 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
             filter.byDept(department),
             filter.byClassSize(classSizeMin, classSizeMax),
             filter.byToggleBelowMin(toggleBelowMin),
-            filter.selectFields(chartMapping["Fields"])
+            filter.selectFields(questionCode, chartMapping["Fields"])
         )(data)
 
     return new Promise((resolve, reject) => {
