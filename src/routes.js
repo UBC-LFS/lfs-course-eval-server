@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handleGraphAPI } from './service/apiService'
+import { handleGraphAPI, handleFilterData } from './service/apiService'
 
 require('dotenv').config()
 
@@ -27,10 +27,12 @@ routes.get('/', (req, res) => {
  * your use case.
  */
 routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:questionCode/:classSizeMin/:classSizeMax', (req, res) => {
-  console.log(req.params)
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 })
 
+routes.get('/filterData', (req, res) => {
+  handleFilterData().then()
+})
 
 
 routes.get('/list', (req, res, next) => {

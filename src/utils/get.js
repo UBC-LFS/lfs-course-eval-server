@@ -15,6 +15,28 @@ const percentFromDecimal = (decimal) => decimal * 100 + '%'
 const instructorFirstName = (name) => name.split(' ')[1]
 const instructorLastName = (name) => name.split(',')[0]
 
+const courseLevel = (courseNum) => Math.floor(Number(courseNum.split(' ')[1])/100)*100
+
+const uniqYears = R.pipe(
+    R.map(x => sliceYear(x.term)),
+    R.uniq()
+)
+
+const uniqTerms = R.pipe(
+    R.map(x => sliceTerm(x.term)),
+    R.uniq()
+)
+
+const uniqCourseLevels = R.pipe(
+    R.map(x => courseLevel(x.courseNum)),
+    R.uniq()
+)
+
+const uniqDept = R.pipe(
+    R.map(x => x.deptName),
+    R.uniq()
+)
+
 export {
     sliceYear,
     sliceTerm,
@@ -22,5 +44,10 @@ export {
     arrayOfGender,
     percentFromDecimal,
     instructorFirstName,
-    instructorLastName
+    instructorLastName,
+    courseLevel,
+    uniqYears,
+    uniqTerms,
+    uniqCourseLevels,
+    uniqDept
 }

@@ -3,4 +3,53 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  <div class="container">
+    <div class="settings-panel">
+      <div id="spinner"></div>
+      <div class="row" id="settings-panel">
+        <div class="col-md-6">
+          <div>
+            Time Period
+            <select id="yearSelection">
+            
+            </select>
+            <select id="termSelection">
+            
+            </select>
+          </div>
+          <div>
+            Course Level
+            <select id="courseLevelSelection">
+            
+            </select>
+          </div>
+          <div>
+            Department
+            <select id="deptSelection">
+            
+            </select>
+          </div>
+          <div>
+            Question Code
+            <select id="questionCodeSelection" style="width:300px;">
+            
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div>
+            Toggle below minimum <input type="checkbox" id="toggleBelowMinSelection">
+          </div>
+          <div>
+            Filter by minimum class size 
+            <form><input style="width: 50%;" type="range" id="classSizeMin" min="0" max="300" value="0" oninput="classSizeMin.value = classSizeMin.value"><output id="classSizeMin"></output></form>
+          </div>
+          <div>
+            Filter by maximum class size 
+            <form><input style="width: 50%;" type="range" id="classSizeMax" min="0" max="300" value="300" oninput="classSizeMin.value = classSizeMin.value"><output id="classSizeMax"></output></form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="UMIvsDispersionGraph" style="display: inline-block; width: 89%;"></div>
