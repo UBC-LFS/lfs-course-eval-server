@@ -1,5 +1,5 @@
-term, courseNum, courseName, deptName, instructor, id, gender, UMI1, UMI2, UMI3, UMI4, UMI5, UMI6
-2016W2, LFSLC 100 001, 'Introduction to LFS', LFS, 'John Doe', 'DQVA@$VAD1235DDGH', 'Male', 1, 2, 3, 4, 5, 1
-2016W2, LFSLC 100 001, 'Introduction to LFS', LFS, 'John Doe', 'DQVA@$VAD1235DDGH', 'Female', 2, 3, 5, 5, 5, 5
-2016W2, LFSLC 100 001, 'Introduction to LFS', LFS, 'John Doe', 'DQVA@$VAD1235DDGH', 'Male', 5, 3, 2, 5, 3, 5
-2016W2, LFSLC 100 001, 'Introduction to LFS', LFS, 'John Doe', 'DQVA@$VAD1235DDGH', 'Female', 1, 5, 3, 3, 4, 3
+term,courseNum,courseName,deptName,instructor,id,gender,UMI1,UMI2,UMI3,UMI4,UMI5,UMI6
+2016W2,LFSLC 100 001,'Introduction to LFS',LFS,'John Doe','DQVA@$VAD1235DDGH','Male',1,2,3,4,5,1
+2016W2,LFSLC 100 001,'Introduction to LFS',LFS,'John Doe','DQVA@$VAD1235DDGH','Female',2,3,5,5,5,5
+2016W2,LFSLC 100 001,'Introduction to LFS',LFS,'John Doe','DQVA@$VAD1235DDGH','Male',5,3,2,5,3,5
+2016W2,LFSLC 100 001,'Introduction to LFS',LFS,'John Doe','DQVA@$VAD1235DDGH','Female',1,5,3,3,4,3
