@@ -19,6 +19,7 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
         data["AvgRating"] = calculate.questionAvg(data)
         data["AvgClassSize"] = calculate.avgByField(data,"classSize")
     }
+    return data
     }
 
     return new Promise((resolve, reject) => {
