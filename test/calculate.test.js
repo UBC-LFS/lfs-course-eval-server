@@ -1,6 +1,28 @@
 import assert from 'assert'
 import * as calculate from '../src/utils/calculate'
 
+describe('calculateQuestionAvg', () => {
+    it('takes an array and returns the average rating of the array with consideration of class size', () => {
+        assert.deepEqual(2.5, calculate.questionAvg([{percentResponses: 1, classSize: 1, Avg: 3},
+        {percentResponses: 0.33, classSize: 3, Avg: 2}]))
+    })
+    it('takes a single value in an array and returns that average', () => {
+        assert.deepEqual(3, calculate.questionAvg([{percentResponses: 1, classSize: 1, Avg: 3}]))
+    })
+})
+describe('calculateAvgByField', () => {
+    it('takes an array and returns the average value of the specified field', () => {
+        const avgClassSize = calculate.avgByField([{percentResponses: 1, classSize: 1, Avg: 3},
+            {percentResponses: 0.33, classSize: 3, Avg: 2}], "classSize")
+            const avgAvg = calculate.avgByField([{percentResponses: 1, classSize: 1, Avg: 3},
+                {percentResponses: 0.33, classSize: 3, Avg: 2}], "Avg")
+        assert.deepEqual(2, avgClassSize)
+        assert.deepEqual(2.5,avgAvg)
+    })
+    it('takes a single value in an array and returns that average', () => {
+        assert.deepEqual(3, calculate.questionAvg([{percentResponses: 1, classSize: 1, Avg: 3}]))
+    })
+})
 describe('calculateAvg', () => {
     it('takes an array and returns the average of that array', () => {
         assert.deepEqual(3, calculate.avg([1,2,3,4,5]))
