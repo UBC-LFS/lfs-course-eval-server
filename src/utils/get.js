@@ -35,7 +35,7 @@ const uniqCourseLevels = R.pipe(
     R.sort((a,b) => a-b)
 )
 
-const uniqDept = R.pipe(
+const uniqDepts = R.pipe(
     R.map(x => x.deptName),
     R.uniq(),
     R.sort((a,b) => a-b)
@@ -53,5 +53,5 @@ export {
     uniqYears,
     uniqTerms,
     uniqCourseLevels,
-    uniqDept
+    uniqDepts
 }

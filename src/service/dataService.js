@@ -34,17 +34,15 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
 }
 
 const filterData = () => {
-    const filterObj = {
-        years: [],
-        terms: [],
-        courseLevels: [],
-        quetionCodes: [],
-        depts: []
-    }
-    
-    // const createFilterObj = (data) => {
-    //     const years = 
-    // }
+    const createFilterObj = (data) => (
+        {
+            years: get.uniqYears(data),
+            terms: get.uniqTerms(data),
+            courseLevels: get.uniqCourseLevels(data),
+            questionCodes: ['UMI1', 'UMI2', 'UMI3', 'UMI4', 'UMI5', 'UMI6'],
+            depts: get.uniqDepts(data)
+        }
+    )
 
     return new Promise((resolve, reject) => {
         readCSV('mockAggregatedData.csv', (data) => {
