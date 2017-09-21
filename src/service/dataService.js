@@ -1,4 +1,5 @@
 import * as filter from '../utils/filter'
+import * as get from '../utils/get'
 import readCSV from './readCSV'
 import R from 'ramda'
 
@@ -10,12 +11,12 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
         // filters go in here
         // TODO: fix filter function
         const filterData = R.pipe(
-            // filter.byYear(year),
-            // filter.byTerm(term),
-            // filter.byCourseNum(courseNum),
-            // filter.byDept(dept),
+            filter.byYear(year),
+            filter.byTerm(get.sliceTerm(term)),
+            filter.byCourseNum(courseNum),
+            filter.byDept(department),
             filter.byClassSize(classSizeMin, classSizeMax),
-            filter.byToggle(toggleBelowMin)
+            filter.byToggleBelowMin(toggleBelowMin)
         )(data)
         console.log(filterData)
         return filterData
