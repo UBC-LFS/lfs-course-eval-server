@@ -26,7 +26,6 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
         // specify what file or eventually DB to connect to
         readCSV(chartMapping["DataSource"], (data) => {
             if (data) {
-                console.log(filterPipeline(data))
                 resolve(filterPipeline(data))
             } else reject(data)
         })

@@ -14226,6 +14226,9 @@ var initEventListenerController = function initEventListenerController(filterSet
 
 var chartController = function chartController(filterSettings) {
     var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
+    chart1Data.then(function (data) {
+        return (0, _drawChart2.default)(data);
+    });
     // call chart2data, chart3data from here?
 };
 
