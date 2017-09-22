@@ -6,7 +6,7 @@ import R from 'ramda'
 
 const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax }, chartMapping) => {
     const filterPipeline = (data) => {
-        R.pipe(
+        let filteredData = R.pipe(
                 filter.byYear(year),
                 filter.byTerm(term),
                 filter.byCourseNum(courseNum),
@@ -16,17 +16,17 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
                 filter.selectFields(questionCode, chartMapping["Fields"])
             )(data)
         if (chartKey==='dashboard'){
-            data["AvgRating"] = calculate.questionAvg(data)
-            data["AvgClassSize"] = calculate.avgByField(data,"classSize")
+            filteredData["AvgRating"] = calculate.questionAvg(data)
+            filteredData["AvgClassSize"] = calculate.avgByField(data,"classSize")
         }
-        return data
+        return filteredData
     }
 
     return new Promise((resolve, reject) => {
         // specify what file or eventually DB to connect to
         readCSV(chartMapping["DataSource"], (data) => {
             if (data) {
-                console.log(data)
+                console.log(filterPipeline(data))
                 resolve(filterPipeline(data))
             } else reject(data)
         })

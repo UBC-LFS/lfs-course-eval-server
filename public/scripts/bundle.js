@@ -14224,8 +14224,9 @@ var initEventListenerController = function initEventListenerController(filterSet
     });
 };
 
-var chart1Controller = function chart1Controller(filterSettings) {
+var chartController = function chartController(filterSettings) {
     var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
+    // call chart2data, chart3data from here?
 };
 
 var dashboardController = function dashboardController(filterSettings) {
@@ -14259,7 +14260,7 @@ var controller = function controller() {
         classSizeMax: document.getElementById('classSizeMax')
 
         // initial draw
-    };chart1Controller(filterSetting);
+    };chartController(filterSetting);
     dashboardController();
 
     initEventListenerController(filterSetting, ids);
@@ -14307,7 +14308,7 @@ var loadData = function loadData() {
     var filterSettings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         time: {
             year: '2016',
-            term: '2016W2'
+            term: 'W2'
         },
         courseNum: 'LFSLC 100 001',
         department: 'LFS',
