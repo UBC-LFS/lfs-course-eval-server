@@ -12,7 +12,7 @@ const handleGraphAPI = (chartKey, params) => {
 }
 
 const handleFilterData = () => {
-    filterData()
+    return filterData()
 }
 
 export {

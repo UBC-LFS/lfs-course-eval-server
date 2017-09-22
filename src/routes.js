@@ -31,7 +31,7 @@ routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:
 })
 
 routes.get('/filterData', (req, res) => {
-  handleFilterData().then()
+  handleFilterData().then(x => res.send(x))
 })
 
 
