@@ -14115,7 +14115,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 document.addEventListener('DOMContentLoaded', function () {
    (0, _controller2.default)();
-});
+}, false);
 
 /***/ }),
 /* 292 */
@@ -14150,6 +14150,89 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var eventListeners = function eventListeners(filterSetting, ids, callback) {
+    ids.yearSelection.addEventListener('change', function () {
+        filterSetting.time.year = this.value;
+        callback(filterSetting);
+    });
+    ids.termSelection.addEventListener('change', function () {
+        filterSetting.time.term = this.value;
+        callback(filterSetting);
+    });
+    ids.courseLevelSelection.addEventListener('change', function () {
+        filterSetting.courseLevel = this.value;
+        callback(filterSetting);
+    });
+    ids.deptSelection.addEventListener('change', function () {
+        filterSetting.department = this.value;
+        callback(filterSetting);
+    });
+    ids.questionCodeSelection.addEventListener('change', function () {
+        filterSetting.questionCode = this.value;
+        callback(filterSetting);
+    });
+    ids.toggleBelowMinSelection.addEventListener('change', function () {
+        if (toggleBelowMinSelection.checked) {
+            filterSetting.toggleBelowMin = true;
+        } else filterSetting.toggleBelowMin = false;
+        callback(filterSetting);
+    });
+    ids.classSizeMin.addEventListener('change', function () {
+        filterSetting.classSizeMin = this.value;
+        callback(filterSetting);
+    });
+    ids.classSizeMax.addEventListener('change', function () {
+        filterSetting.classSizeMax = this.value;
+        callback(filterSetting);
+    });
+};
+
+var initEventListeners = function initEventListeners(initialFilterSetting, filterObj, ids) {
+    ids.yearSelection.innerHTML = filterObj.years.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    ids.yearSelection.value = initialFilterSetting.time.year;
+
+    filterObj.terms.push('all');
+    ids.termSelection.innerHTML = filterObj.terms.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    ids.termSelection.value = 'all';
+
+    filterObj.courseLevels.push('all');
+    ids.courseLevelSelection.innerHTML = filterObj.courseLevels.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    ids.courseLevelSelection.value = 'all';
+
+    ids.questionCodeSelection.innerHTML = filterObj.questionCodes.map(function (x) {
+        return '<option value="' + x + '">' + x + ": " + _questionDefinitions2.default[x] + '</option>';
+    }).join(' ');
+    ids.questionCodeSelection.value = 'UMI6';
+
+    filterObj.depts.push('all');
+    ids.deptSelection.innerHTML = filterObj.depts.map(function (x) {
+        return '<option value="' + x + '">' + x + '</option>';
+    }).join(' ');
+    ids.deptSelection.value = 'all';
+};
+
+var initEventListenerController = function initEventListenerController(filterSetting, ids) {
+    var filterData = (0, _dataService.loadFilterData)();
+    filterData.then(function (filterObj) {
+        return initEventListeners(filterSetting, filterObj, ids);
+    });
+};
+
+var chart1Controller = function chart1Controller(filterSettings) {
+    var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
+};
+
+var dashboardController = function dashboardController(filterSettings) {
+    var dashboardData = (0, _dataService.loadData)(undefined, 'dashboard');
+    //dashboardData.then(data => initEventListeners(data))
+};
+
 var controller = function controller() {
     var filterSetting = {
         time: {
@@ -14163,114 +14246,25 @@ var controller = function controller() {
         classSizeMin: 0,
         classSizeMax: 300,
         courseLevel: 'all'
+    };
+
+    var ids = {
+        yearSelection: document.getElementById('yearSelection'),
+        termSelection: document.getElementById('termSelection'),
+        courseLevelSelection: document.getElementById('courseLevelSelection'),
+        deptSelection: document.getElementById('deptSelection'),
+        questionCodeSelection: document.getElementById('questionCodeSelection'),
+        toggleBelowMinSelection: document.getElementById('toggleBelowMinSelection'),
+        classSizeMin: document.getElementById('classSizeMin'),
+        classSizeMax: document.getElementById('classSizeMax')
+
         // initial draw
     };chart1Controller(filterSetting);
     dashboardController();
 
-    initEventListenerController();
-    eventListeners(filterSetting, function (newFilter) {
+    initEventListenerController(filterSetting, ids);
+    eventListeners(filterSetting, ids, function (newFilter) {
         // call chart controller here
-    });
-};
-
-var initEventListenerController = function initEventListenerController() {
-    var filterData = (0, _dataService.loadFilterData)();
-    filterData.then(function (x) {
-        return console.log(x);
-    });
-    filterData.then(function (filterData) {
-        return initEventListeners(filterData);
-    });
-};
-
-var chart1Controller = function chart1Controller(filterSettings) {
-    var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
-    chart1Data.then(function (data) {
-        return initEventListeners(data);
-    });
-};
-
-var yearSelection = document.getElementById('yearSelection');
-var termSelection = document.getElementById('termSelection');
-var courseLevelSelection = document.getElementById('courseLevelSelection');
-var deptSelection = document.getElementById('deptSelection');
-var questionCodeSelection = document.getElementById('questionCodeSelection');
-var toggleBelowMinSelection = document.getElementById('toggleBelowMinSelection');
-var classSizeMin = document.getElementById('classSizeMin');
-var classSizeMax = document.getElementById('classSizeMax');
-
-var eventListeners = function eventListeners(filterSetting, callback) {
-    yearSelection.addEventListener('change', function () {
-        filterSetting.time.year = this.value;
-        callback(filterSetting);
-    });
-    termSelection.addEventListener('change', function () {
-        filterSetting.time.term = this.value;
-        callback(filterSetting);
-    });
-    courseLevelSelection.addEventListener('change', function () {
-        filterSetting.courseLevel = this.value;
-        callback(filterSetting);
-    });
-    deptSelection.addEventListener('change', function () {
-        filterSetting.department = this.value;
-        callback(filterSetting);
-    });
-    questionCodeSelection.addEventListener('change', function () {
-        filterSetting.questionCode = this.value;
-        callback(filterSetting);
-    });
-    toggleBelowMinSelection.addEventListener('change', function () {
-        if (toggleBelowMinSelection.checked) {
-            filterSetting.toggleBelowMin = true;
-        } else filterSetting.toggleBelowMin = false;
-        callback(filterSetting);
-    });
-    classSizeMin.addEventListener('change', function () {
-        filterSetting.classSizeMin = this.value;
-        callback(filterSetting);
-    });
-    classSizeMax.addEventListener('change', function () {
-        filterSetting.classSizeMax = this.value;
-        callback(filterSetting);
-    });
-};
-
-var initEventListeners = function initEventListeners(filterData) {
-    yearSelection.innerHTML = filterData.years.map(function (x) {
-        return '<option value="' + x + '">' + x + '</option>';
-    }).join(' ');
-    // need to set current value below
-    // yearSelection.value = 
-
-    // make sure to add "all" into data.terms on server
-    termSelection.innerHTML = filterData.terms.map(function (x) {
-        return '<option value="' + x + '">' + x + '</option>';
-    }).join(' ');
-    termSelection.value = 'all';
-
-    // make sure to add "all" into data.courseLevelSelection on server
-    courseLevelSelection.innerHTML = filterData.courseLevels.map(function (x) {
-        return '<option value="' + x + '">' + x + '</option>';
-    }).join(' ');
-    courseLevelSelection.value = 'all';
-
-    questionCodeSelection.innerHTML = filterData.questionCodes.map(function (x) {
-        return '<option value="' + x + '">' + x + ": " + _questionDefinitions2.default[x] + '</option>';
-    }).join(' ');
-    questionCodeSelection.value = 'UMI6';
-
-    // make sure to add "all" into data.courseLevelSelection on server
-    deptSelection.innerHTML = filterData.depts.map(function (x) {
-        return '<option value="' + x + '">' + x + '</option>';
-    }).join(' ');
-    deptSelection.value = 'all';
-};
-
-var dashboardController = function dashboardController(filterSettings) {
-    var dashboardData = (0, _dataService.loadData)(undefined, 'dashboard');
-    dashboardData.then(function (data) {
-        return initEventListeners(data);
     });
 };
 
