@@ -11,4 +11,6 @@ const readCSV = (filename, callback) => {
     fs.createReadStream(__dirname + '/source/' + filename).pipe(parser)
 }
 
-readCSV('mockRawData.csv', (x) => console.log(x))
+readCSV('mockRawData.csv', (csv) => {
+    
+})
