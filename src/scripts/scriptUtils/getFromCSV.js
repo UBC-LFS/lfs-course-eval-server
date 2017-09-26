@@ -22,6 +22,12 @@ const getSection = (ev) => {
     return arr[length-1]
 }
 
+const getCourseName = (ev) => ev.crsname
+
+const getCourseLevel = (ev) => ev.crsyear
+
+const getClassSize = (ev) => 
+
 const getDept = (ev) => ev.deptname
 
 export {
@@ -29,5 +35,6 @@ export {
     getTerm,
     getCourse,
     getSection,
+    getCourseName,
     getDept,
 }
