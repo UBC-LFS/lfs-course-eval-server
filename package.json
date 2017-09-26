@@ -42,6 +42,7 @@
     "body-parser": "^1.17.1",
     "csv-parse": "^1.2.2",
     "express": "^4.15.2",
+    "mongodb": "^2.2.31",
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta11",
     "ramda": "^0.24.1",

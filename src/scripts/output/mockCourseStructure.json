@@ -1,0 +1,39 @@
+{
+    "year": 2016,
+    "term": "W2",
+    "course": "LFSLC 100",
+    "section": "001",
+    "courseName": "Introduction to LFS",
+    "courseLevel": 1,
+    "classSize": 50,
+    "dept": "LFS",
+    "percentResponses": 0.3,
+    "meetsMin": true,
+    "instructorName": "Justin Lee",
+    "PUID": "AVBST@92T3$@",
+    "femaleToMaleRatio": 0.3,
+    "UMI1": {
+        "average": 4.3,
+        "dispersion": 0.5,
+        "percentFavourable": 0.7,
+        "percentileRankingByFaculty": 0.95,
+        "percentileRankingByDept": 0.95,
+        "count": {
+            "1": 123,
+            "2": 12,
+            "3": 32,
+            "4": 75,
+            "5": 212
+        }
+    },
+    "UMI2": {
+
+    },
+    "UMI3": {
+
+    },
+    "UMI4": {
+        
+    }
+
+}
