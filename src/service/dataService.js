@@ -15,7 +15,7 @@ const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, departmen
                 filter.byToggleBelowMin(toggleBelowMin),
                 filter.selectFields(questionCode, chartMapping["Fields"])
             )(data)
-        if (chartKey==='dashboard'){
+        if (chartKey === 'dashboard'){
             filteredData["AvgRating"] = calculate.questionAvg(data)
             filteredData["AvgClassSize"] = calculate.avgByField(data,"classSize")
         }

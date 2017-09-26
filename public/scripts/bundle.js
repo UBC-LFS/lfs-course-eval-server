@@ -14284,8 +14284,13 @@ exports.default = controller;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.loadFilterData = exports.loadData = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _ramda = __webpack_require__(134);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var fetchJSON = function fetchJSON(url) {
     return fetch(url).then(function (response) {
@@ -14293,18 +14298,16 @@ var fetchJSON = function fetchJSON(url) {
     });
 };
 
-var filterString = '';
-var createFilterString = function createFilterString(filterSettings) {
-    var keyArray = Object.keys(filterSettings);
-    for (var i = 0; i < keyArray.length; i++) {
-        var filterValue = filterSettings[keyArray[i]];
-        if ((typeof filterValue === 'undefined' ? 'undefined' : _typeof(filterValue)) !== 'object') {
-            filterString = filterString + '/' + filterValue;
-        } else {
-            createFilterString(filterValue);
-        }
-    }
-    return filterString;
+var createFilterString = function createFilterString(_ref, chartKey) {
+    var time = _ref.time,
+        courseNum = _ref.courseNum,
+        department = _ref.department,
+        toggleBelowMin = _ref.toggleBelowMin,
+        questionCode = _ref.questionCode,
+        classSizeMin = _ref.classSizeMin,
+        classSizeMax = _ref.classSizeMax;
+
+    return 'data/' + chartKey + '/' + [time.year, time.term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax].join('/');
 };
 
 var loadData = function loadData() {
@@ -14321,13 +14324,7 @@ var loadData = function loadData() {
         classSizeMax: 300 // [min, max]
     };
     var chartKey = arguments[1];
-
-    var url = '';
-    url = 'data/' + chartKey + createFilterString(filterSettings);
-    console.log(url);
-    //Temporary filter settings, change to real filters once applied
-    //fetchJSON(url).then(x => drawUMIvsDispersion(x))
-    return fetchJSON(url);
+    return fetchJSON(createFilterString(filterSettings, chartKey));
 };
 
 var loadFilterData = function loadFilterData() {
