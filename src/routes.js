@@ -5,27 +5,12 @@ require('dotenv').config()
 
 const routes = Router();
 
-/**
- * GET home page
- */
-// if (process.env.BUILD === 'PRODUCTION') {
-//   res.sendFile(path.join(__dirname, '../public/scripts/bundle.js'))
-// }
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
     res.render('index', { title: 'Courseval Visualization', append: '/courseval' });
   } else res.render('index', { title: 'Courseval Visualization' });
 });
 
-/**
- * GET /list
- *
- * This is a sample route demonstrating
- * a simple approach to error handling and testing
- * the global error handler. You most certainly want to
- * create different/better error handlers depending on
- * your use case.
- */
 routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:questionCode/:classSizeMin/:classSizeMax', (req, res) => {
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 })

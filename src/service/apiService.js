@@ -11,9 +11,7 @@ const handleGraphAPI = (chartKey, params) => {
     //package up data to send to server
 }
 
-const handleFilterData = () => {
-    return filterData()
-}
+const handleFilterData = () => filterData()
 
 export {
     handleGraphAPI,

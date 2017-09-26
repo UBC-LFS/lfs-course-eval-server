@@ -256,13 +256,14 @@ describe('filterByToggle', () => {
         { someData: 'e', meetsMin: 1 },]
         assert.deepEqual(filterBelowMin(input2), input2)
         assert.deepEqual(dontFilterBelowMin(input2), input2)
-    })})
-    describe('selectFields', () => {        
+    })
+})
+describe('selectFields', () => {
     it('can handle empty array', () => {
-        let input = [            { "questionCode": "UMI6" },
-        { "questionCode": "UMI6" },
-        { "questionCode": "UMI6" },
-    ]
+        let input = [
+            { "questionCode": "UMI6" },
+            { "questionCode": "UMI6" },
+            { "questionCode": "UMI6" }]
         const selectInstructor = filter.selectFields("UMI6", ["instructor"])
         assert.deepEqual(selectInstructor(input), input)
     })
@@ -300,6 +301,6 @@ describe('filterByToggle', () => {
         ]
         const selectNonExistentQC = filter.selectFields("UMI5", ["Avg"])
         assert.deepEqual(selectNonExistentQC(input1), output4)
-        
+
     })
 })
