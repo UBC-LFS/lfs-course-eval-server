@@ -28,7 +28,7 @@ readCSV('mockRawData.csv', (csv) => {
         const dept = getFromCSV.getDept(ev)
         const instructorName = getFromCSV.getInstructorName(ev)
 
-        const uniqSectionInTerm = (x) => (x.year === year && x.course === course && x.term === term)
+        const uniqSectionInTerm = (x) => (x.year === year && x.course === course && x.term === term && x.section === section)
         if (acc.some(x => uniqSectionInTerm(x))) {
             const index = acc.findIndex(x => uniqSectionInTerm(x))
 
