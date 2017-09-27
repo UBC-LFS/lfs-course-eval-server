@@ -31,28 +31,32 @@ readCSV('mockRawData.csv', (csv) => {
         const uniqSectionInTerm = (x) => (x.year === year && x.course === course && x.term === term)
         if (acc.some(x => uniqSectionInTerm(x))) {
             const index = acc.findIndex(x => uniqSectionInTerm(x))
-            console.log(
-                { ...acc[index].UMI1.count }
-            )
-            if (typeof acc[index].UMI1.count[getFromCSV.getUMI1(ev)] == undefined) {
-                acc[index].UMI1.count = { ...acc[index].UMI1.count, [acc[index].UMI1.count]: 1 }
-            } else acc[index].UMI1.count[getFromCSV.getUMI1(ev)] + 1
-            if (typeof acc[index].UMI2.count[getFromCSV.getUMI2(ev)] == undefined) {
-                acc[index].UMI2.count = { ...acc[index].UMI2.count, [acc[index].UMI2.count]: 1 }
-            } else acc[index].UMI2.count[getFromCSV.getUMI2(ev)] + 1
-            if (typeof acc[index].UMI3.count[getFromCSV.getUMI3(ev)] == undefined) {
-                acc[index].UMI3.count = { ...acc[index].UMI3.count, [acc[index].UMI3.count]: 1 }
-            } else acc[index].UMI3.count[getFromCSV.getUMI3(ev)] + 1
-            if (typeof acc[index].UMI4.count[getFromCSV.getUMI4(ev)] == undefined) {
-                acc[index].UMI4.count = { ...acc[index].UMI4.count, [acc[index].UMI4.count]: 1 }
-            } else acc[index].UMI4.count[getFromCSV.getUMI4(ev)] + 1
-            if (typeof acc[index].UMI5.count[getFromCSV.getUMI5(ev)] == undefined) {
-                acc[index].UMI5.count = { ...acc[index].UMI5.count, [acc[index].UMI5.count]: 1 }
-            } else acc[index].UMI5.count[getFromCSV.getUMI5(ev)] + 1
-            if (typeof acc[index].UMI6.count[getFromCSV.getUMI6(ev)] == undefined) {
-                acc[index].UMI6.count = { ...acc[index].UMI6.count, [acc[index].UMI6.count]: 1}
-            } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
+
+            if (typeof (acc[index].UMI1.count[getFromCSV.getUMI1(ev)]) == 'undefined') {
+                acc[index].UMI1.count = { ...acc[index].UMI1.count, [getFromCSV.getUMI1(ev)]: 1 }
+            } else acc[index].UMI1.count[getFromCSV.getUMI1(ev)] = acc[index].UMI1.count[getFromCSV.getUMI1(ev)] + 1
+
+            if (typeof (acc[index].UMI2.count[getFromCSV.getUMI2(ev)]) == 'undefined') {
+                acc[index].UMI2.count = { ...acc[index].UMI2.count, [getFromCSV.getUMI2(ev)]: 1 }
+            } else acc[index].UMI2.count[getFromCSV.getUMI2(ev)] = acc[index].UMI2.count[getFromCSV.getUMI2(ev)] + 1
+
+            if (typeof (acc[index].UMI3.count[getFromCSV.getUMI3(ev)]) == 'undefined') {
+                acc[index].UMI3.count = { ...acc[index].UMI3.count, [getFromCSV.getUMI3(ev)]: 1 }
+            } else acc[index].UMI3.count[getFromCSV.getUMI3(ev)] = acc[index].UMI3.count[getFromCSV.getUMI3(ev)] + 1
+
+            if (typeof (acc[index].UMI4.count[getFromCSV.getUMI4(ev)]) == 'undefined') {
+                acc[index].UMI4.count = { ...acc[index].UMI4.count, [getFromCSV.getUMI4(ev)]: 1 }
+            } else acc[index].UMI4.count[getFromCSV.getUMI4(ev)] = acc[index].UMI4.count[getFromCSV.getUMI4(ev)] + 1
+
+            if (typeof (acc[index].UMI5.count[getFromCSV.getUMI5(ev)]) == 'undefined') {
+                acc[index].UMI5.count = { ...acc[index].UMI5.count, [getFromCSV.getUMI5(ev)]: 1 }
+            } else acc[index].UMI5.count[getFromCSV.getUMI5(ev)] = acc[index].UMI5.count[getFromCSV.getUMI5(ev)] + 1
+
+            if (typeof (acc[index].UMI6.count[getFromCSV.getUMI6(ev)]) == 'undefined') {
+                acc[index].UMI6.count = { ...acc[index].UMI6.count, [getFromCSV.getUMI6(ev)]: 1}
+            } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] = acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
             return acc
+            
         } else {
             acc.push({
                 year,
