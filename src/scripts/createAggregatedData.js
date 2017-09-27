@@ -17,7 +17,7 @@ const readCSV = (filename, callback) => {
 
 // crsnum is the unique identifier for a given year. 
 readCSV('mockRawData.csv', (csv) => {
-    
+    console.log(csv)
     const reduced = csv.reduce((acc, ev) => {
         const year = getFromCSV.getYear(ev)
         const term = getFromCSV.getTerm(ev)
@@ -31,12 +31,27 @@ readCSV('mockRawData.csv', (csv) => {
         const uniqSectionInTerm = (x) => (x.year === year && x.course === course && x.term === term)
         if (acc.some(x => uniqSectionInTerm(x))) {
             const index = acc.findIndex(x => uniqSectionInTerm(x))
-            acc[index].UMI1.count[String(getFromCSV.getUMI1(ev))] = acc[index].UMI1.count[String(getFromCSV.getUMI1(ev))] + 1
-            acc[index].UMI2.count[String(getFromCSV.getUMI2(ev))] = acc[index].UMI2.count[String(getFromCSV.getUMI2(ev))] + 1
-            acc[index].UMI3.count[String(getFromCSV.getUMI3(ev))] = acc[index].UMI3.count[String(getFromCSV.getUMI3(ev))] + 1
-            acc[index].UMI4.count[String(getFromCSV.getUMI4(ev))] = acc[index].UMI4.count[String(getFromCSV.getUMI4(ev))] + 1
-            acc[index].UMI5.count[String(getFromCSV.getUMI5(ev))] = acc[index].UMI5.count[String(getFromCSV.getUMI5(ev))] + 1
-            acc[index].UMI6.count[String(getFromCSV.getUMI6(ev))] = acc[index].UMI6.count[String(getFromCSV.getUMI6(ev))] + 1
+            console.log(
+                { ...acc[index].UMI1.count }
+            )
+            if (typeof acc[index].UMI1.count[getFromCSV.getUMI1(ev)] == undefined) {
+                acc[index].UMI1.count = { ...acc[index].UMI1.count, [acc[index].UMI1.count]: 1 }
+            } else acc[index].UMI1.count[getFromCSV.getUMI1(ev)] + 1
+            if (typeof acc[index].UMI2.count[getFromCSV.getUMI2(ev)] == undefined) {
+                acc[index].UMI2.count = { ...acc[index].UMI2.count, [acc[index].UMI2.count]: 1 }
+            } else acc[index].UMI2.count[getFromCSV.getUMI2(ev)] + 1
+            if (typeof acc[index].UMI3.count[getFromCSV.getUMI3(ev)] == undefined) {
+                acc[index].UMI3.count = { ...acc[index].UMI3.count, [acc[index].UMI3.count]: 1 }
+            } else acc[index].UMI3.count[getFromCSV.getUMI3(ev)] + 1
+            if (typeof acc[index].UMI4.count[getFromCSV.getUMI4(ev)] == undefined) {
+                acc[index].UMI4.count = { ...acc[index].UMI4.count, [acc[index].UMI4.count]: 1 }
+            } else acc[index].UMI4.count[getFromCSV.getUMI4(ev)] + 1
+            if (typeof acc[index].UMI5.count[getFromCSV.getUMI5(ev)] == undefined) {
+                acc[index].UMI5.count = { ...acc[index].UMI5.count, [acc[index].UMI5.count]: 1 }
+            } else acc[index].UMI5.count[getFromCSV.getUMI5(ev)] + 1
+            if (typeof acc[index].UMI6.count[getFromCSV.getUMI6(ev)] == undefined) {
+                acc[index].UMI6.count = { ...acc[index].UMI6.count, [acc[index].UMI6.count]: 1}
+            } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
             return acc
         } else {
             acc.push({
