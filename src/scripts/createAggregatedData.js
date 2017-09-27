@@ -134,6 +134,13 @@ readCSV('mockRawData.csv', (csv) => {
         courseObj.UMI4.average = calculate.umiAvgV2(courseObj.UMI4.count)
         courseObj.UMI5.average = calculate.umiAvgV2(courseObj.UMI5.count)
         courseObj.UMI6.average = calculate.umiAvgV2(courseObj.UMI6.count)
+        // percentFav
+        courseObj.UMI1.percentFavourable = calculate.percentFavourableV2(courseObj.UMI1.count)
+        courseObj.UMI2.percentFavourable = calculate.percentFavourableV2(courseObj.UMI2.count)
+        courseObj.UMI3.percentFavourable = calculate.percentFavourableV2(courseObj.UMI3.count)
+        courseObj.UMI4.percentFavourable = calculate.percentFavourableV2(courseObj.UMI4.count)
+        courseObj.UMI5.percentFavourable = calculate.percentFavourableV2(courseObj.UMI5.count)
+        courseObj.UMI6.percentFavourable = calculate.percentFavourableV2(courseObj.UMI6.count)
     }) 
 
     console.log(JSON.stringify(reduced, null, 2))
