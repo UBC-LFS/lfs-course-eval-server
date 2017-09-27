@@ -1028,4 +1028,11 @@ describe('calculatePercentFavourableV2', () => {
         }
         assert.deepEqual(calculate.percentFavourableV2(count), 1)
     })
+    it('can handle missing fields in count', () => {
+        let count = {
+            "1": 1,
+            "5": 1
+        }
+        assert.deepEqual(calculate.percentFavourableV2(count), 0.5)
+    })
 })

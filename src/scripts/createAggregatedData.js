@@ -16,7 +16,7 @@ const readCSV = (filename, callback) => {
 
 
 // crsnum is the unique identifier for a given year. 
-readCSV('mockRawData.csv', (csv) => {
+readCSV('EXP_0D0O3T6C.csv', (csv) => {
     const reduced = csv.reduce((acc, ev) => {
         const year = getFromCSV.getYear(ev)
         const term = getFromCSV.getTerm(ev)
@@ -61,10 +61,6 @@ readCSV('mockRawData.csv', (csv) => {
                 acc[index].UMI6.count = { ...acc[index].UMI6.count, [getFromCSV.getUMI6(ev)]: 1}
             } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] = acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
 
-            // gender count
-            // if (typeof acc[index].gender[getFromCSV.getGender(ev)] == 'undefined') {
-            //     acc[index].gender = { ...acc[index].gender, [getFromCSV.getGender(ev)]: 1 }
-            //} else 
             acc[index].gender[getFromCSV.getGender(ev)] = acc[index].gender[getFromCSV.getGender(ev)] + 1
 
             return acc
@@ -134,9 +130,42 @@ readCSV('mockRawData.csv', (csv) => {
         courseObj.UMI4.average = calculate.umiAvgV2(courseObj.UMI4.count)
         courseObj.UMI5.average = calculate.umiAvgV2(courseObj.UMI5.count)
         courseObj.UMI6.average = calculate.umiAvgV2(courseObj.UMI6.count)
+        // percentFav
+        courseObj.UMI1.percentFavourable = calculate.percentFavourableV2(courseObj.UMI1.count)
+        courseObj.UMI2.percentFavourable = calculate.percentFavourableV2(courseObj.UMI2.count)
+        courseObj.UMI3.percentFavourable = calculate.percentFavourableV2(courseObj.UMI3.count)
+        courseObj.UMI4.percentFavourable = calculate.percentFavourableV2(courseObj.UMI4.count)
+        courseObj.UMI5.percentFavourable = calculate.percentFavourableV2(courseObj.UMI5.count)
+        courseObj.UMI6.percentFavourable = calculate.percentFavourableV2(courseObj.UMI6.count)
     }) 
 
+    // const sortedByUMI1Avg = R.compose(
+    //     R.sort((a, b) => a.UMI1.average - b.UMI1.average),
+    //     R.map(R.pickAll(['year', 'UMI1']))
+    // )(reduced)
+    // const sortedByUMI2Avg = R.compose(
+    //     R.sort((a, b) => a.UMI2.average - b.UMI2.average),
+    //     R.map(R.pickAll(['year', 'UMI2']))
+    // )(reduced)
+    // const sortedByUMI3Avg = R.compose(
+    //     R.sort((a, b) => a.UMI3.average - b.UMI3.average),
+    //     R.map(R.pickAll(['year', 'UMI3']))
+    // )(reduced)
+    // const sortedByUMI4Avg = R.compose(
+    //     R.sort((a, b) => a.UMI4.average - b.UMI4.average),
+    //     R.map(R.pickAll(['year', 'UMI4']))
+    // )(reduced)
+    // const sortedByUMI5Avg = R.compose(
+    //     R.sort((a, b) => a.UMI5.average - b.UMI5.average),
+    //     R.map(R.pickAll(['year', 'UMI5']))
+    // )(reduced)
+    // const sortedByUMI6Avg = R.compose(
+    //     R.sort((a, b) => a.UMI6.average - b.UMI6.average),
+    //     R.map(R.pickAll(['year', 'UMI6']))
+    // )(reduced)
+    
     console.log(JSON.stringify(reduced, null, 2))
+    
     
 })
 

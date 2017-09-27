@@ -65,3 +65,5 @@ typings/
 .idea
 dist
 
+/src/scripts/source
+/src/scripts/output

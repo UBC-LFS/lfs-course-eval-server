@@ -156,8 +156,6 @@ const percentFavourableV2 = (count) => {
 
     return numberOf4and5 / numberOfResponses
 }
-
-
     
 export {
     avg,
