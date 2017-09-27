@@ -14134,9 +14134,9 @@ var _drawChart = __webpack_require__(492);
 
 var _drawChart2 = _interopRequireDefault(_drawChart);
 
-var _drawOverallInstructor = __webpack_require__(785);
+var _drawOverallInstructorTable = __webpack_require__(788);
 
-var _drawOverallInstructor2 = _interopRequireDefault(_drawOverallInstructor);
+var _drawOverallInstructorTable2 = _interopRequireDefault(_drawOverallInstructorTable);
 
 var _questionDefinitions = __webpack_require__(290);
 
@@ -14229,7 +14229,7 @@ var initEventListenerController = function initEventListenerController(filterSet
 };
 
 var chartController = function chartController(filterSettings) {
-    (0, _drawOverallInstructor2.default)();
+    (0, _drawOverallInstructorTable2.default)();
     var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
     chart1Data.then(function (data) {
         return (0, _drawChart2.default)(data);
@@ -35474,36 +35474,7 @@ exports.stripMiddleName = stripMiddleName;
 exports.roundToTwoDecimal = roundToTwoDecimal;
 
 /***/ }),
-/* 785 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _mockInstructorData = __webpack_require__(786);
-
-var instructorData = _interopRequireWildcard(_mockInstructorData);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var drawOverallInstructor = function drawOverallInstructor() {
-    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : instructorData;
-
-    $(document).ready(function () {
-        $('#OverallInstructors').DataTable({
-            "data": data,
-            "columns": [{ "data": "instructorName" }, { "data": "dept" }, { "data": "percentileRankingByFaculty" }, { "data": "percentileRankingByDept" }, { "data": "numberOfCoursesTaught" }, { "data": "numberOfStudentsTaught" }]
-        });
-    });
-};
-
-exports.default = drawOverallInstructor;
-
-/***/ }),
+/* 785 */,
 /* 786 */
 /***/ (function(module, exports) {
 
@@ -35540,6 +35511,39 @@ var getTerms = function getTerms(data) {
 
 exports.getDepts = getDepts;
 exports.getTerms = getTerms;
+
+/***/ }),
+/* 788 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mockInstructorData = __webpack_require__(786);
+
+var instructorData = _interopRequireWildcard(_mockInstructorData);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var drawOverallInstructor = function drawOverallInstructor() {
+    var tableData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : instructorData;
+
+    var data = [];
+    tableData.default.map(function (x) {
+        return data.push([x.instructorName, x.dept, x.percentileRankingByFaculty, x.percentileRankingByDept, x.numberOfCoursesTaught, x.numberOfStudentsTaught]);
+    });
+    $('#OverallInstructors').DataTable({
+        "aaData": data,
+        "aoColumns": [{ "sTitle": "Instructor Name" }, { "sTitle": "Department" }, { "sTitle": "Percentile Ranking By Faculty" }, { "sTitle": "Percentile Ranking By Department" }, { "sTitle": "Number of Courses Taught" }, { "sTitle": "Number of Students Taught" }],
+        "order": [[0, "asc"]]
+    });
+};
+
+exports.default = drawOverallInstructor;
 
 /***/ })
 /******/ ]);
