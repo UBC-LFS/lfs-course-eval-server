@@ -102,23 +102,5 @@ readCSV('mockRawData.csv', (csv) => {
         }
     }, [])
     console.log(JSON.stringify(reduced, null, 2))
-    // csv.map(ev => {
-        // const year = getFromCSV.getYear(ev)
-        // const term = getFromCSV.getTerm(ev)
-        // const course = getFromCSV.getCourse(ev)
-        // const section = getFromCSV.getSection(ev)
-        // const courseName = getFromCSV.getCourseName(ev)
-        // const coureseLevel = getFromCSV.getCourseLevel(ev)
-        // const dept = getFromCSV.getDept(ev)
-
-    //     const thisCourse = csv.filter(x => getFromCSV.getYear(x) === year && getFromCSV.getCourse(x) === course)
-
-    //     // course size doesn't exist?
-    //     //const responseRate = 
-    //     const instructorName = getFromCSV.getInstructorName(ev)
-
-    //     const allOtherCoursesInTerm = csv.filter(x => getFromCSV.getYear(x) === year && getFromCSV.getTerm(x) === term)
-        
-    // })
 })
 
