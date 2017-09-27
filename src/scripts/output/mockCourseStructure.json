@@ -11,7 +11,10 @@
     "meetsMin": true,
     "instructorName": "Justin Lee",
     "PUID": "AVBST@92T3$@",
-    "femaleToMaleRatio": 0.3,
+    "gender": {
+        "female": 12,
+        "male": 15
+    },
     "UMI1": {
         "average": 4.3,
         "dispersion": 0.5,
