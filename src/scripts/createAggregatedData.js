@@ -28,7 +28,11 @@ readCSV('mockRawData.csv', (csv) => {
         const dept = getFromCSV.getDept(ev)
         const instructorName = getFromCSV.getInstructorName(ev)
 
-        const uniqSectionInTerm = (x) => (x.year === year && x.course === course && x.term === term && x.section === section)
+        const uniqSectionInTerm = (x) => (x.year === year 
+            && x.course === course 
+            && x.term === term 
+            && x.section === section
+            && x.instructorName === instructorName)
         if (acc.some(x => uniqSectionInTerm(x))) {
             const index = acc.findIndex(x => uniqSectionInTerm(x))
 
@@ -101,6 +105,11 @@ readCSV('mockRawData.csv', (csv) => {
             return acc
         }
     }, [])
+
+    reduced.map(courseObj => {
+        courseObj.UMI1.dispersionIndex =
+    }) 
+
     console.log(JSON.stringify(reduced, null, 2))
 })
 

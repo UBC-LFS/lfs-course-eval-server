@@ -293,6 +293,52 @@ describe('calculateDispersionIndex', () => {
     })
 })
 
+describe('calculateDispersionIndexOfCourse', () => {
+    it('takes as input a count object and returns the dispersion index of the count', () => {
+        let count = {
+            "1": 30,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 30
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 1)
+        count = {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 0,
+            "5": 30
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8611111111111112)
+        count = {
+            "1": 60,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 0)
+        count = {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 50,
+            "5": 7
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 0.1991666666666666)
+        count = {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12,
+            "5": 12
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8)
+        
+    })
+})
+
 describe('calculatePercentileRankingOfCourse', () => {
     it('takes as input courseNum, year, term, umi, arr and returns the percentile ranking of that course compared to all others by average UMI score of the specified umi', () => {
         const input = [
