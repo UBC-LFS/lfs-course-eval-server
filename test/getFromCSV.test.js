@@ -203,3 +203,135 @@ describe('getYear', () => {
         assert.deepEqual(getFromCSV.getYear(data[0]), 2016)
     })
 })
+
+describe('getTerm', () => {
+    it('takes as input an object and returns the term from that object', () => {
+        assert.deepEqual(getFromCSV.getTerm(data[0]),'W2')
+    })
+})
+
+describe('getCourse', () => {
+    it('takes as input an object and returns the course without the section number', () => {
+        let input = {
+            surveyname: 'LFS Instructor/Course Evaluation 2016W2',
+            datestart: '03/24/2017',
+            dateclose: '04/09/2017',
+            crsnum: 'LFS 200 001',
+            crsname: 'Introduction to LFS',
+            crsyear: 2,
+            xlist: '',
+            deptname: 'LFS',
+            crs_dir: 'Justin Lee',
+            resp_fac: 'Justin Lee',
+            eval_id: 12345677,
+            eval_uname: 'ABCDEFGHIKL',
+            eval_email: 'justin@justin.com',
+            tsubmit: '04/09/2017 01:01:47 PM',
+            mobile: 0,
+            gradyear: 2014,
+            gender: 'Female',
+            research1: '',
+            research2: '',
+            research3: '',
+            'The instructor made it clear what students were expected to learn.': 3,
+            'The instructor communicated the subject matter effectively.': 2,
+            'The instructor helped inspire interest in learning the subject matter.': 1,
+            'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+            'The instructor showed concern for student learning.': 4,
+            'Overall  the instructor was an effective teacher.': 5
+        }
+        assert.deepEqual(getFromCSV.getCourse(input), 'LFS 200')
+        input = {
+            surveyname: 'LFS Instructor/Course Evaluation 2016W2',
+            datestart: '03/24/2017',
+            dateclose: '04/09/2017',
+            crsnum: 'FRE 385/FRE 585 001',
+            crsname: 'Introduction to LFS',
+            crsyear: 2,
+            xlist: '',
+            deptname: 'LFS',
+            crs_dir: 'Justin Lee',
+            resp_fac: 'Justin Lee',
+            eval_id: 12345677,
+            eval_uname: 'ABCDEFGHIKL',
+            eval_email: 'justin@justin.com',
+            tsubmit: '04/09/2017 01:01:47 PM',
+            mobile: 0,
+            gradyear: 2014,
+            gender: 'Female',
+            research1: '',
+            research2: '',
+            research3: '',
+            'The instructor made it clear what students were expected to learn.': 3,
+            'The instructor communicated the subject matter effectively.': 2,
+            'The instructor helped inspire interest in learning the subject matter.': 1,
+            'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+            'The instructor showed concern for student learning.': 4,
+            'Overall  the instructor was an effective teacher.': 5
+        }
+        assert.deepEqual(getFromCSV.getCourse(input), 'FRE 385/FRE 585')
+    })
+})
+
+describe('getSection', () => {
+    it('takes as input an object and returns the section number of the course', () => {
+        let input = {
+            surveyname: 'LFS Instructor/Course Evaluation 2016W2',
+            datestart: '03/24/2017',
+            dateclose: '04/09/2017',
+            crsnum: 'LFS 200 001',
+            crsname: 'Introduction to LFS',
+            crsyear: 2,
+            xlist: '',
+            deptname: 'LFS',
+            crs_dir: 'Justin Lee',
+            resp_fac: 'Justin Lee',
+            eval_id: 12345677,
+            eval_uname: 'ABCDEFGHIKL',
+            eval_email: 'justin@justin.com',
+            tsubmit: '04/09/2017 01:01:47 PM',
+            mobile: 0,
+            gradyear: 2014,
+            gender: 'Female',
+            research1: '',
+            research2: '',
+            research3: '',
+            'The instructor made it clear what students were expected to learn.': 3,
+            'The instructor communicated the subject matter effectively.': 2,
+            'The instructor helped inspire interest in learning the subject matter.': 1,
+            'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+            'The instructor showed concern for student learning.': 4,
+            'Overall  the instructor was an effective teacher.': 5
+        }
+        assert.deepEqual(getFromCSV.getSection(input), '001')
+        input = {
+            surveyname: 'LFS Instructor/Course Evaluation 2016W2',
+            datestart: '03/24/2017',
+            dateclose: '04/09/2017',
+            crsnum: 'FRE 385/FRE 585 001',
+            crsname: 'Introduction to LFS',
+            crsyear: 2,
+            xlist: '',
+            deptname: 'LFS',
+            crs_dir: 'Justin Lee',
+            resp_fac: 'Justin Lee',
+            eval_id: 12345677,
+            eval_uname: 'ABCDEFGHIKL',
+            eval_email: 'justin@justin.com',
+            tsubmit: '04/09/2017 01:01:47 PM',
+            mobile: 0,
+            gradyear: 2014,
+            gender: 'Female',
+            research1: '',
+            research2: '',
+            research3: '',
+            'The instructor made it clear what students were expected to learn.': 3,
+            'The instructor communicated the subject matter effectively.': 2,
+            'The instructor helped inspire interest in learning the subject matter.': 1,
+            'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+            'The instructor showed concern for student learning.': 4,
+            'Overall  the instructor was an effective teacher.': 5
+        }
+        assert.deepEqual(getFromCSV.getSection(input), '001')
+    })
+})
