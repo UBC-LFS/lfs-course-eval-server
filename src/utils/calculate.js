@@ -57,32 +57,6 @@ const dispersionIndex = (arr, umi) => {
     return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
 }
 
-const dispersionIndexV2 = (count) => {
-    // this 'fills in' any missing scores with 0
-    for (let i = 1; i <= 5; i++) {
-        const key = String(i)
-        if (!count.hasOwnProperty(key)) count[key] = 0 
-    }
-    const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
-
-    const dispersionObj = {}
-
-    for(let i = 1; i <= 5; i++) {
-        const key = String(i)
-        const prevKey = String(i - 1)
-        dispersionObj[key] = {
-            count: count[key],
-            proportion: count[key] / numberOfResponses
-        }
-        if (i ===1) dispersionObj[key].cumulativeProp = dispersionObj[key].proportion
-        else dispersionObj[key].cumulativeProp = dispersionObj[prevKey].cumulativeProp + dispersionObj[key].proportion
-        dispersionObj[key].oneMinusF = 1 - dispersionObj[key].cumulativeProp
-        dispersionObj[key].finalF = dispersionObj[key].cumulativeProp * dispersionObj[key].oneMinusF
-    }
-    
-    return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
-}
-
 // maybe percentile ranking shouldn't be concerned with year and term, and should just be given an appropriately filtered arr to begin with...
 const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     const arrayOfCoursesAndAvg = []
@@ -136,6 +110,48 @@ const umiAvgOfInstructor = (instructorID, umi, arr) =>
         x => avg(x)
     )(arr)
 
+const dispersionIndexV2 = (count) => {
+    // this 'fills in' any missing scores with 0
+    for (let i = 1; i <= 5; i++) {
+        const key = String(i)
+        if (!count.hasOwnProperty(key)) count[key] = 0 
+    }
+    const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+
+    const dispersionObj = {}
+
+    for(let i = 1; i <= 5; i++) {
+        const key = String(i)
+        const prevKey = String(i - 1)
+        dispersionObj[key] = {
+            count: count[key],
+            proportion: count[key] / numberOfResponses
+        }
+        if (i ===1) dispersionObj[key].cumulativeProp = dispersionObj[key].proportion
+        else dispersionObj[key].cumulativeProp = dispersionObj[prevKey].cumulativeProp + dispersionObj[key].proportion
+        dispersionObj[key].oneMinusF = 1 - dispersionObj[key].cumulativeProp
+        dispersionObj[key].finalF = dispersionObj[key].cumulativeProp * dispersionObj[key].oneMinusF
+    }
+    
+    return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
+}
+
+const umiAvgV2 = (count) => {
+    for (let i = 1; i <= 5; i++) {
+        const key = String(i)
+        if (!count.hasOwnProperty(key)) count[key] = 0 
+    }
+    const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+
+    return Object.keys(count).reduce((acc, key) => acc += count[key] * Number(key), 0) / numberOfResponses
+}
+
+const percentFavourableV2 = (count) => {
+
+}
+
+
+    
 export {
     avg,
     median,
@@ -148,5 +164,6 @@ export {
     umiAvgOfInstructor,
     umiAvgOfCourse,
     questionAvg,
-    avgByField
+    avgByField,
+    umiAvgV2
 }

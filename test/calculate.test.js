@@ -335,7 +335,20 @@ describe('calculateDispersionIndexOfCourse', () => {
             "5": 12
         }
         assert.deepEqual(calculate.dispersionIndexV2(count), 0.8)
-        
+    })
+    it('should be able to handle missing fields in count', () => {
+        let count = {
+            "1": 30,
+            "5": 30
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 1)
+        count = {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "5": 30
+        }
+        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8611111111111112)
     })
 })
 
@@ -933,5 +946,57 @@ describe('calculatePercentileRankingOfCourse', () => {
             { term: '2016W1', courseNum: 'LFSLC 332 001', UMI1: 1 },
         ]
         assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.99)
+    })
+})
+
+describe('calculateUMIAvg2', () => {
+    it('takes a count object and returns the average of that object', () => {
+        let count = {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 3)
+        count = {
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 3)
+        count = {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 4,
+            "5": 4
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 4.5)
+        count = {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 100
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 5)
+        count = {
+            "1": 100,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 1)
+    })
+    it('can handle missing fields in count', () => {
+        let count = {
+            "1": 1,
+            "5": 1
+        }
+        assert.deepEqual(calculate.umiAvgV2(count), 3)
     })
 })

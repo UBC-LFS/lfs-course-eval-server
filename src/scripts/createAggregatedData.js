@@ -107,9 +107,16 @@ readCSV('mockRawData.csv', (csv) => {
     }, [])
 
     reduced.map(courseObj => {
-        courseObj.UMI1.dispersionIndex =
+        // insert dispersion
+        courseObj.UMI1.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI1.count)
+        courseObj.UMI2.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI2.count)
+        courseObj.UMI3.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI3.count)
+        courseObj.UMI4.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI4.count)
+        courseObj.UMI5.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI5.count)
+        courseObj.UMI6.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI6.count)
+
     }) 
 
-    console.log(JSON.stringify(reduced, null, 2))
+    
 })
 
