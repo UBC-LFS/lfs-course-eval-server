@@ -1,4 +1,5 @@
 import * as getFromCSV from '../src/scripts/scriptUTils/getFromCSV'
+import assert from 'assert'
 
 const data = [{
     surveyname: 'LFS Instructor/Course Evaluation 2016W2',
@@ -196,3 +197,9 @@ const data = [{
     'The instructor showed concern for student learning.': 5,
     'Overall  the instructor was an effective teacher.': 5
 }]
+
+describe('getYear', () => {
+    it('takes as input an object and returns the year from that object', () => {
+        assert.deepEqual(getFromCSV.getYear(data[0]), 2016)
+    })
+})
