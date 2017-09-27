@@ -96,6 +96,24 @@ const percentileRankingOfCourse = (courseNum, year, term, umi, arr) => {
     else return Math.round(result * 100) / 100
 }
 
+const percentileRankingOfCourseV2 = (course, umi, allCoursesSortedByUMI) => {
+    const averageOfCourse = course[umi].average
+
+    const numberOfCoursesBelowUMIAverageofCourse = allCoursesSortedByUMI.filter(x => x[umi].average < averageOfCourse).length
+    
+    const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = allCoursesSortedByUMI.filter(x => x[umi].average === averageOfCourse).length
+
+    const result = R.divide(
+        R.add(numberOfCoursesBelowUMIAverageofCourse,
+            R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
+        , allCoursesSortedByUMI.length)
+
+    if (result < 0 || result > 1) throw 'Looks like there is an error with the percentile ranking calculation'
+    if (result < 0.01) return 0.01
+    if (result > 0.99) return 0.99
+    else return Math.round(result * 100) / 100
+}
+
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
     R.pipe(
         filter.bySpecificCourse(courseNum, year, term),
@@ -171,5 +189,6 @@ export {
     questionAvg,
     avgByField,
     umiAvgV2,
-    percentFavourableV2
+    percentFavourableV2,
+    percentileRankingOfCourseV2
 }

@@ -139,32 +139,35 @@ readCSV('EXP_0D0O3T6C.csv', (csv) => {
         courseObj.UMI6.percentFavourable = calculate.percentFavourableV2(courseObj.UMI6.count)
     }) 
 
-    // const sortedByUMI1Avg = R.compose(
-    //     R.sort((a, b) => a.UMI1.average - b.UMI1.average),
-    //     R.map(R.pickAll(['year', 'UMI1']))
-    // )(reduced)
-    // const sortedByUMI2Avg = R.compose(
-    //     R.sort((a, b) => a.UMI2.average - b.UMI2.average),
-    //     R.map(R.pickAll(['year', 'UMI2']))
-    // )(reduced)
-    // const sortedByUMI3Avg = R.compose(
-    //     R.sort((a, b) => a.UMI3.average - b.UMI3.average),
-    //     R.map(R.pickAll(['year', 'UMI3']))
-    // )(reduced)
-    // const sortedByUMI4Avg = R.compose(
-    //     R.sort((a, b) => a.UMI4.average - b.UMI4.average),
-    //     R.map(R.pickAll(['year', 'UMI4']))
-    // )(reduced)
-    // const sortedByUMI5Avg = R.compose(
-    //     R.sort((a, b) => a.UMI5.average - b.UMI5.average),
-    //     R.map(R.pickAll(['year', 'UMI5']))
-    // )(reduced)
-    // const sortedByUMI6Avg = R.compose(
-    //     R.sort((a, b) => a.UMI6.average - b.UMI6.average),
-    //     R.map(R.pickAll(['year', 'UMI6']))
-    // )(reduced)
+    const sortedByUMI1Avg = R.compose(
+        R.sort((a, b) => a.UMI1.average - b.UMI1.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI1']))
+    )(reduced)
+    const sortedByUMI2Avg = R.compose(
+        R.sort((a, b) => a.UMI2.average - b.UMI2.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI2']))
+    )(reduced)
+    const sortedByUMI3Avg = R.compose(
+        R.sort((a, b) => a.UMI3.average - b.UMI3.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI3']))
+    )(reduced)
+    const sortedByUMI4Avg = R.compose(
+        R.sort((a, b) => a.UMI4.average - b.UMI4.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI4']))
+    )(reduced)
+    const sortedByUMI5Avg = R.compose(
+        R.sort((a, b) => a.UMI5.average - b.UMI5.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI5']))
+    )(reduced)
+    const sortedByUMI6Avg = R.compose(
+        R.sort((a, b) => a.UMI6.average - b.UMI6.average),
+        R.map(R.pickAll(['year', 'term', 'course', 'section', 'instructorName', 'UMI6']))
+    )(reduced)
     
-    console.log(JSON.stringify(reduced, null, 2))
+    //console.log(JSON.stringify(sortedByUMI1Avg, null, 2))
+    
+    console.log(calculate.percentileRankingOfCourseV2(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
+
     
     
 })
