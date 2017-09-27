@@ -26,9 +26,11 @@ const getCourseName = (ev) => ev.crsname
 
 const getCourseLevel = (ev) => ev.crsyear
 
-const getClassSize = (ev) => 
+//const getClassSize = (ev) => 
 
 const getDept = (ev) => ev.deptname
+
+const getInstructorName = (ev) => ev.resp_fac
 
 export {
     getYear,
@@ -37,4 +39,6 @@ export {
     getSection,
     getCourseName,
     getDept,
+    getCourseLevel,
+    getInstructorName 
 }
