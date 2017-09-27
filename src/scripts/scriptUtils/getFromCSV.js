@@ -32,6 +32,13 @@ const getDept = (ev) => ev.deptname
 
 const getInstructorName = (ev) => ev.resp_fac
 
+const getUMI1 = (ev) => ev['The instructor made it clear what students were expected to learn.']
+const getUMI2 = (ev) => ev['The instructor communicated the subject matter effectively.']
+const getUMI3 = (ev) => ev['The instructor helped inspire interest in learning the subject matter.']
+const getUMI4 = (ev) => ev['Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.']
+const getUMI5 = (ev) => ev['The instructor showed concern for student learning.']
+const getUMI6 = (ev) => ev['Overall  the instructor was an effective teacher.']
+
 export {
     getYear,
     getTerm,
@@ -40,5 +47,11 @@ export {
     getCourseName,
     getDept,
     getCourseLevel,
-    getInstructorName 
+    getInstructorName,
+    getUMI1,
+    getUMI2,
+    getUMI3,
+    getUMI4,
+    getUMI5,
+    getUMI6
 }
