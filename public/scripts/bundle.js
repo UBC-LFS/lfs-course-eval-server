@@ -14138,6 +14138,10 @@ var _drawOverallInstructorTable = __webpack_require__(788);
 
 var _drawOverallInstructorTable2 = _interopRequireDefault(_drawOverallInstructorTable);
 
+var _drawUMIInstructorTable = __webpack_require__(790);
+
+var _drawUMIInstructorTable2 = _interopRequireDefault(_drawUMIInstructorTable);
+
 var _questionDefinitions = __webpack_require__(290);
 
 var _questionDefinitions2 = _interopRequireDefault(_questionDefinitions);
@@ -14230,6 +14234,7 @@ var initEventListenerController = function initEventListenerController(filterSet
 
 var chartController = function chartController(filterSettings) {
     (0, _drawOverallInstructorTable2.default)();
+    (0, _drawUMIInstructorTable2.default)();
     var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
     chart1Data.then(function (data) {
         return (0, _drawChart2.default)(data);
@@ -35536,7 +35541,7 @@ var drawOverallInstructor = function drawOverallInstructor() {
     tableData.default.map(function (x) {
         return data.push([x.instructorName, x.dept, x.percentileRankingByFaculty, x.percentileRankingByDept, x.numberOfCoursesTaught, x.numberOfStudentsTaught]);
     });
-    $('#OverallInstructors').DataTable({
+    $('#UMIInstructors').DataTable({
         "aaData": data,
         "aoColumns": [{ "sTitle": "Instructor Name" }, { "sTitle": "Department" }, { "sTitle": "Percentile Ranking By Faculty" }, { "sTitle": "Percentile Ranking By Department" }, { "sTitle": "Number of Courses Taught" }, { "sTitle": "Number of Students Taught" }],
         "order": [[0, "asc"]]
@@ -35544,6 +35549,46 @@ var drawOverallInstructor = function drawOverallInstructor() {
 };
 
 exports.default = drawOverallInstructor;
+
+/***/ }),
+/* 789 */,
+/* 790 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mockInstructorSpecificCourseData = __webpack_require__(791);
+
+var courseData = _interopRequireWildcard(_mockInstructorSpecificCourseData);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var drawUMIInstructor = function drawUMIInstructor() {
+    var tableData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : courseData;
+
+    var data = [];
+    tableData.default.map(function (x) {
+        return data.push([x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average]);
+    });
+    $('#OverallInstructors').DataTable({
+        "aaData": data,
+        "aoColumns": [{ "sTitle": "" }, { "sTitle": "UMI1" }, { "sTitle": "UMI2" }, { "sTitle": "UMI3" }, { "sTitle": "UMI4" }, { "sTitle": "UMI5" }, { "sTitle": "UMI6" }],
+        "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0] }]
+    });
+};
+
+exports.default = drawUMIInstructor;
+
+/***/ }),
+/* 791 */
+/***/ (function(module, exports) {
+
+module.exports = [{"year":2016,"term":"W2","course":"LFSLC 100","section":"001","courseName":"Introduction to LFS","courseLevel":1,"classSize":50,"dept":"LFS","percentResponses":0.3,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@92T3$@","femaleToMaleRatio":0.3,"UMI1":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI2":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI3":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI4":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI5":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI6":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}}},{"year":2016,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":80,"dept":"LFS","percentResponses":0.5,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@88IJ@","femaleToMaleRatio":0.9,"UMI1":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI2":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI3":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI4":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI5":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI6":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}}},{"year":2016,"term":"W1","course":"LFSLC 100","section":"005","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}},{"year":2016,"term":"W1","course":"LFSLC 102","section":"003","courseName":"Intermediate LFS","courseLevel":1,"classSize":40,"dept":"LFS","percentResponses":0.6,"meetsMin":false,"instructorName":"Justin Lee","PUID":"AVBST@j90k8@","femaleToMaleRatio":0.8,"UMI1":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI2":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI3":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI4":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI5":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI6":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}}},{"year":2015,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}}]
 
 /***/ })
 /******/ ]);
