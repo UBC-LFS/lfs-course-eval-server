@@ -147,7 +147,14 @@ const umiAvgV2 = (count) => {
 }
 
 const percentFavourableV2 = (count) => {
+    for (let i = 1; i <= 5; i++) {
+        const key = String(i)
+        if (!count.hasOwnProperty(key)) count[key] = 0 
+    }
+    const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+    const numberOf4and5 = R.add(R.prop('4', count), R.prop('5', count))
 
+    return numberOf4and5 / numberOfResponses
 }
 
 
@@ -165,5 +172,6 @@ export {
     umiAvgOfCourse,
     questionAvg,
     avgByField,
-    umiAvgV2
+    umiAvgV2,
+    percentFavourableV2
 }

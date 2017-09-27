@@ -1000,3 +1000,32 @@ describe('calculateUMIAvg2', () => {
         assert.deepEqual(calculate.umiAvgV2(count), 3)
     })
 })
+
+describe('calculatePercentFavourableV2', () => {
+    it('takes a count object and returns the percent favourable', () => {
+        let count = {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+        }
+        assert.deepEqual(calculate.percentFavourableV2(count), 0.4)
+        count = {
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5
+        }
+        assert.deepEqual(calculate.percentFavourableV2(count), .4)
+        count = {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 4,
+            "5": 4
+        }
+        assert.deepEqual(calculate.percentFavourableV2(count), 1)
+    })
+})
