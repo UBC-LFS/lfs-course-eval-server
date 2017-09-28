@@ -24,6 +24,7 @@ const createCourseObj = (csv) => {
         const dept = getFromCSV.getDept(ev)
         const instructorName = getFromCSV.getInstructorName(ev)
         const PUID = getFromCSV.getPUID(ev)
+        const gender = getFromCSV.getGender(ev)
 
         const uniqSectionInTerm = (x) => (x.year === year 
             && x.course === course 
@@ -74,8 +75,8 @@ const createCourseObj = (csv) => {
                 instructorName,
                 PUID,
                 gender: {
-                    Female: 0,
-                    Male: 0
+                    Female: (gender==='Female') ?  1 : 0,
+                    Male: (gender==='Male') ? 1 : 0
                 },
                 UMI1: {
                     count: {
@@ -195,7 +196,8 @@ const insertPercentileRanking = (courseObj) => {
     return sortedByUMI6Avg
 }
 // crsnum is the unique identifier for a given year. 
-readCSV('EXP_0D0O3T6C.csv', (csv) => {
+readCSV('mockRawData.csv', (csv) => {
+    //console.log(csv)
     const courseObjs = createCourseObj(csv)
 
     courseObjs.map(courseObj => {
@@ -208,7 +210,7 @@ readCSV('EXP_0D0O3T6C.csv', (csv) => {
 
     const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-    console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
+    //console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
     
     //console.log(calculate.percentileRankingOfCourseV2(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 
@@ -216,3 +218,10 @@ readCSV('EXP_0D0O3T6C.csv', (csv) => {
     
 })
 
+export {
+    createCourseObj,
+    insertDispersionIndex,
+    insertAvg,
+    insertPercentFav,
+    insertPercentileRanking
+}
