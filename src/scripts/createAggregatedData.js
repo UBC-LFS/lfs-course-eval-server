@@ -59,7 +59,7 @@ const createCourseObj = (csv) => {
                 acc[index].UMI6.count = { ...acc[index].UMI6.count, [getFromCSV.getUMI6(ev)]: 1}
             } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] = acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
 
-            acc[index].gender[getFromCSV.getGender(ev)] = acc[index].gender[getFromCSV.getGender(ev)] + 1
+            acc[index].gender[gender] = acc[index].gender[gender] + 1
 
             return acc
             
