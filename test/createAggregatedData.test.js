@@ -102,92 +102,197 @@ describe('createCourseObj', () => {
                 "instructorName": "Justin Lee",
                 "PUID": "ABCDEFGHIKL",
                 "gender": {
-                  "Female": 1,
-                  "Male": 0
+                    "Female": 1,
+                    "Male": 0
                 },
                 "UMI1": {
-                  "count": {
-                    "1": 1
-                  }
+                    "count": {
+                        "1": 1
+                    }
                 },
                 "UMI2": {
-                  "count": {
-                    "5": 1
-                  }
+                    "count": {
+                        "5": 1
+                    }
                 },
                 "UMI3": {
-                  "count": {
-                    "5": 1
-                  }
+                    "count": {
+                        "5": 1
+                    }
                 },
                 "UMI4": {
-                  "count": {
-                    "3": 1
-                  }
+                    "count": {
+                        "3": 1
+                    }
                 },
                 "UMI5": {
-                  "count": {
-                    "5": 1
-                  }
+                    "count": {
+                        "5": 1
+                    }
                 },
                 "UMI6": {
-                  "count": {
-                    "5": 1
-                  }
+                    "count": {
+                        "5": 1
+                    }
                 }
-              }
+            }
         ]
         assert.deepEqual(createAggData.createCourseObj(data1), output)
         output = [
             {
-              "year": 2016,
-              "term": "W2",
-              "course": "LFS 200",
-              "section": "001",
-              "courseName": "Introduction to LFS",
-              "coureseLevel": 2,
-              "dept": "LFS",
-              "instructorName": "Justin Lee",
-              "PUID": "ABCDEFGHIKL",
-              "gender": {
+                "year": 2016,
+                "term": "W2",
+                "course": "LFS 200",
+                "section": "001",
+                "courseName": "Introduction to LFS",
+                "coureseLevel": 2,
+                "dept": "LFS",
+                "instructorName": "Justin Lee",
+                "PUID": "ABCDEFGHIKL",
+                "gender": {
+                    "Female": 1,
+                    "Male": 1
+                },
+                "UMI1": {
+                    "count": {
+                        "1": 2
+                    }
+                },
+                "UMI2": {
+                    "count": {
+                        "2": 1,
+                        "5": 1
+                    }
+                },
+                "UMI3": {
+                    "count": {
+                        "1": 1,
+                        "5": 1
+                    }
+                },
+                "UMI4": {
+                    "count": {
+                        "3": 2
+                    }
+                },
+                "UMI5": {
+                    "count": {
+                        "4": 1,
+                        "5": 1
+                    }
+                },
+                "UMI6": {
+                    "count": {
+                        "5": 2
+                    }
+                }
+            }
+        ]
+        assert.deepEqual(createAggData.createCourseObj(data), output)
+    })
+})
+
+describe('insertDispersionIndex', () => {
+    it('takes a courseObj and inserts the dispersion index of all UMIs into it', () => {
+        let obj = {
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
                 "Female": 1,
                 "Male": 1
-              },
-              "UMI1": {
+            },
+            "UMI1": {
                 "count": {
-                  "1": 2
+                    "1": 2
                 }
-              },
-              "UMI2": {
+            },
+            "UMI2": {
                 "count": {
-                  "2": 1,
-                  "5": 1
+                    "2": 1,
+                    "5": 1
                 }
-              },
-              "UMI3": {
+            },
+            "UMI3": {
                 "count": {
-                  "1": 1,
-                  "5": 1
+                    "1": 1,
+                    "5": 1
                 }
-              },
-              "UMI4": {
+            },
+            "UMI4": {
                 "count": {
-                  "3": 2
+                    "3": 2
                 }
-              },
-              "UMI5": {
+            },
+            "UMI5": {
                 "count": {
-                  "4": 1,
-                  "5": 1
+                    "4": 1,
+                    "5": 1
                 }
-              },
-              "UMI6": {
+            },
+            "UMI6": {
                 "count": {
-                  "5": 2
+                    "5": 2
                 }
-              }
             }
-          ]
-        assert.deepEqual(createAggData.createCourseObj(data), output)
+        }
+        let output = {
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "dispersionIndex": 0,
+                "count": {
+                    '1': 2, '2': 0, '3': 0, '4': 0, '5': 0
+                }
+            },
+            "UMI2": {
+                "dispersionIndex": 0.75,
+                "count": {
+                    '1': 0, '2': 1, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI3": {
+                "dispersionIndex": 1,
+                "count": {
+                    '1': 1, '2': 0, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI4": {
+                "dispersionIndex": 0,
+                "count": {
+                    '1': 0, '2': 0, '3': 2, '4': 0, '5': 0 
+                }
+            },
+            "UMI5": {
+                "dispersionIndex": 0.25,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 1, '5': 1
+                }
+            },
+            "UMI6": {
+                "dispersionIndex": 0,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 0, '5': 2
+                }
+            }
+        }
+        assert.deepEqual(createAggData.insertDispersionIndex(obj), output)
     })
 })
