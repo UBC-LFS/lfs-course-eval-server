@@ -398,5 +398,111 @@ describe('insertAvg', () => {
                 }
             }
         }
+        assert.deepEqual(createAggData.insertAvg(obj), output)
+    })
+})
+
+describe('insertPercentFav', () => {
+    it('takes an object and returns the object with percent favourable', () => {
+        let obj = {
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "count": {
+                    "1": 2
+                }
+            },
+            "UMI2": {
+                "count": {
+                    "2": 1,
+                    "5": 1
+                }
+            },
+            "UMI3": {
+                "count": {
+                    "1": 1,
+                    "5": 1
+                }
+            },
+            "UMI4": {
+                "count": {
+                    "3": 2
+                }
+            },
+            "UMI5": {
+                "count": {
+                    "4": 1,
+                    "5": 1
+                }
+            },
+            "UMI6": {
+                "count": {
+                    "5": 2
+                }
+            }
+        }
+        let output = {
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "percentFavourable": 0,
+                "count": {
+                    '1': 2, '2': 0, '3': 0, '4': 0, '5': 0 
+                }
+            },
+            "UMI2": {
+                "percentFavourable": .5,
+                "count": {
+                    '1': 0, '2': 1, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI3": {
+                "percentFavourable": .5,
+                "count": {
+                    '1': 1, '2': 0, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI4": {
+                "percentFavourable": 0,
+                "count": {
+                    '1': 0, '2': 0, '3': 2, '4': 0, '5': 0
+                }
+            },
+            "UMI5": {
+                "percentFavourable": 1,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 1, '5': 1
+                }
+            },
+            "UMI6": {
+                "percentFavourable": 1,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 0, '5': 2
+                }
+            }
+        }
+        assert.deepEqual(createAggData.insertPercentFav(obj), output)
     })
 })
