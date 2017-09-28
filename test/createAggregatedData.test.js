@@ -348,7 +348,55 @@ describe('insertAvg', () => {
             }
         }
         let output = {
-            
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 1,
+                "count": {
+                    '1': 2, '2': 0, '3': 0, '4': 0, '5': 0 
+                }
+            },
+            "UMI2": {
+                "average": 7/2,
+                "count": {
+                    '1': 0, '2': 1, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI3": {
+                "average": 3,
+                "count": {
+                    '1': 1, '2': 0, '3': 0, '4': 0, '5': 1 
+                }
+            },
+            "UMI4": {
+                "average": 3,
+                "count": {
+                    '1': 0, '2': 0, '3': 2, '4': 0, '5': 0
+                }
+            },
+            "UMI5": {
+                "average": 4.5,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 1, '5': 1
+                }
+            },
+            "UMI6": {
+                "average": 5,
+                "count": {
+                    '1': 0, '2': 0, '3': 0, '4': 0, '5': 2
+                }
+            }
         }
     })
 })
