@@ -14134,11 +14134,11 @@ var _drawChart = __webpack_require__(492);
 
 var _drawChart2 = _interopRequireDefault(_drawChart);
 
-var _drawOverallInstructorTable = __webpack_require__(788);
+var _drawOverallInstructorTable = __webpack_require__(785);
 
 var _drawOverallInstructorTable2 = _interopRequireDefault(_drawOverallInstructorTable);
 
-var _drawUMIInstructorTable = __webpack_require__(790);
+var _drawUMIInstructorTable = __webpack_require__(787);
 
 var _drawUMIInstructorTable2 = _interopRequireDefault(_drawUMIInstructorTable);
 
@@ -14146,7 +14146,7 @@ var _questionDefinitions = __webpack_require__(290);
 
 var _questionDefinitions2 = _interopRequireDefault(_questionDefinitions);
 
-var _get = __webpack_require__(787);
+var _get = __webpack_require__(789);
 
 var get = _interopRequireWildcard(_get);
 
@@ -35479,46 +35479,7 @@ exports.stripMiddleName = stripMiddleName;
 exports.roundToTwoDecimal = roundToTwoDecimal;
 
 /***/ }),
-/* 785 */,
-/* 786 */
-/***/ (function(module, exports) {
-
-module.exports = [{"dept":"LFS","instructorName":"Justin Lee","PUID":"AVBST@92T3$@","percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"numberOfCoursesTaught":7,"numberOfStudentsTaught":570,"UMI1":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI2":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI3":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI4":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI5":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI6":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}}},{"dept":"LFS","instructorName":"Bruno Mars","PUID":"AVBST@88IJ@","percentileRankingByFaculty":0.85,"percentileRankingByDept":0.85,"numberOfCoursesTaught":8,"numberOfStudentsTaught":680,"UMI1":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI2":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI3":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI4":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI5":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI6":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}}},{"dept":"LFS","instructorName":"Justine Bieber","PUID":"AVBST/*459Y@","percentileRankingByFaculty":0.45,"percentileRankingByDept":0.65,"numberOfCoursesTaught":4,"numberOfStudentsTaught":270,"UMI1":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}},{"dept":"LFS","instructorName":"Charlie Brown","PUID":"AVBSDR/*445Y@","percentileRankingByFaculty":0.85,"percentileRankingByDept":0.91,"numberOfCoursesTaught":2,"numberOfStudentsTaught":160,"UMI1":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI2":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI3":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI4":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI5":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI6":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}}},{"dept":"LFS","instructorName":"Selena Gomez","PUID":"AVBST/*5465D@","percentileRankingByFaculty":0.25,"percentileRankingByDept":0.33,"numberOfCoursesTaught":8,"numberOfStudentsTaught":1050,"UMI1":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}}]
-
-/***/ }),
-/* 787 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.getTerms = exports.getDepts = undefined;
-
-var _ramda = __webpack_require__(60);
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var getDepts = function getDepts(data) {
-    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
-        return x.deptName;
-    })(data));
-};
-var getTerms = function getTerms(data) {
-    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
-        return x.term.slice(4, 6);
-    })(data));
-};
-
-exports.getDepts = getDepts;
-exports.getTerms = getTerms;
-
-/***/ }),
-/* 788 */
+/* 785 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35551,8 +35512,13 @@ var drawOverallInstructor = function drawOverallInstructor() {
 exports.default = drawOverallInstructor;
 
 /***/ }),
-/* 789 */,
-/* 790 */
+/* 786 */
+/***/ (function(module, exports) {
+
+module.exports = [{"dept":"LFS","instructorName":"Justin Lee","PUID":"AVBST@92T3$@","percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"numberOfCoursesTaught":7,"numberOfStudentsTaught":570,"UMI1":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI2":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI3":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI4":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI5":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI6":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}}},{"dept":"LFS","instructorName":"Bruno Mars","PUID":"AVBST@88IJ@","percentileRankingByFaculty":0.85,"percentileRankingByDept":0.85,"numberOfCoursesTaught":8,"numberOfStudentsTaught":680,"UMI1":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI2":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI3":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI4":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI5":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI6":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}}},{"dept":"LFS","instructorName":"Justine Bieber","PUID":"AVBST/*459Y@","percentileRankingByFaculty":0.45,"percentileRankingByDept":0.65,"numberOfCoursesTaught":4,"numberOfStudentsTaught":270,"UMI1":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}},{"dept":"LFS","instructorName":"Charlie Brown","PUID":"AVBSDR/*445Y@","percentileRankingByFaculty":0.85,"percentileRankingByDept":0.91,"numberOfCoursesTaught":2,"numberOfStudentsTaught":160,"UMI1":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI2":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI3":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI4":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI5":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI6":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}}},{"dept":"LFS","instructorName":"Selena Gomez","PUID":"AVBST/*5465D@","percentileRankingByFaculty":0.25,"percentileRankingByDept":0.33,"numberOfCoursesTaught":8,"numberOfStudentsTaught":1050,"UMI1":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}}]
+
+/***/ }),
+/* 787 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35562,7 +35528,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _mockInstructorSpecificCourseData = __webpack_require__(791);
+var _mockInstructorSpecificCourseData = __webpack_require__(788);
 
 var courseData = _interopRequireWildcard(_mockInstructorSpecificCourseData);
 
@@ -35573,22 +35539,62 @@ var drawUMIInstructor = function drawUMIInstructor() {
 
     var data = [];
     tableData.default.map(function (x) {
-        return data.push([x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average]);
+        return data.push([x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average, x.year]);
     });
     $('#OverallInstructors').DataTable({
         "aaData": data,
-        "aoColumns": [{ "sTitle": "" }, { "sTitle": "UMI1" }, { "sTitle": "UMI2" }, { "sTitle": "UMI3" }, { "sTitle": "UMI4" }, { "sTitle": "UMI5" }, { "sTitle": "UMI6" }],
-        "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0] }]
+        "aoColumns": [{ "sTitle": "" }, { "sTitle": "UMI1" }, { "sTitle": "UMI2" }, { "sTitle": "UMI3" }, { "sTitle": "UMI4" }, { "sTitle": "UMI5" }, { "sTitle": "UMI6" }, { "sTitle": "Year" }],
+        "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0] }, {
+            "targets": [7],
+            "visible": false,
+            "searchable": false
+        }],
+        "orderFixed": [7, 'asc'],
+        "rowGroup": {
+            "dataSrc": 7
+        }
     });
 };
 
 exports.default = drawUMIInstructor;
 
 /***/ }),
-/* 791 */
+/* 788 */
 /***/ (function(module, exports) {
 
 module.exports = [{"year":2016,"term":"W2","course":"LFSLC 100","section":"001","courseName":"Introduction to LFS","courseLevel":1,"classSize":50,"dept":"LFS","percentResponses":0.3,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@92T3$@","femaleToMaleRatio":0.3,"UMI1":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI2":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI3":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI4":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI5":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI6":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}}},{"year":2016,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":80,"dept":"LFS","percentResponses":0.5,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@88IJ@","femaleToMaleRatio":0.9,"UMI1":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI2":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI3":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI4":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI5":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI6":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}}},{"year":2016,"term":"W1","course":"LFSLC 100","section":"005","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}},{"year":2016,"term":"W1","course":"LFSLC 102","section":"003","courseName":"Intermediate LFS","courseLevel":1,"classSize":40,"dept":"LFS","percentResponses":0.6,"meetsMin":false,"instructorName":"Justin Lee","PUID":"AVBST@j90k8@","femaleToMaleRatio":0.8,"UMI1":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI2":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI3":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI4":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI5":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI6":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}}},{"year":2015,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}}]
+
+/***/ }),
+/* 789 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getTerms = exports.getDepts = undefined;
+
+var _ramda = __webpack_require__(60);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getDepts = function getDepts(data) {
+    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
+        return x.deptName;
+    })(data));
+};
+var getTerms = function getTerms(data) {
+    return _ramda2.default.uniq(_ramda2.default.map(function (x) {
+        return x.term.slice(4, 6);
+    })(data));
+};
+
+exports.getDepts = getDepts;
+exports.getTerms = getTerms;
 
 /***/ })
 /******/ ]);
