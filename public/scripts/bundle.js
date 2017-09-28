@@ -35502,7 +35502,7 @@ var drawOverallInstructor = function drawOverallInstructor() {
     tableData.default.map(function (x) {
         return data.push([x.instructorName, x.dept, x.percentileRankingByFaculty, x.percentileRankingByDept, x.numberOfCoursesTaught, x.numberOfStudentsTaught]);
     });
-    $('#UMIInstructors').DataTable({
+    $('#OverallInstructors').DataTable({
         "aaData": data,
         "aoColumns": [{ "sTitle": "Instructor Name" }, { "sTitle": "Department" }, { "sTitle": "Percentile Ranking By Faculty" }, { "sTitle": "Percentile Ranking By Department" }, { "sTitle": "Number of Courses Taught" }, { "sTitle": "Number of Students Taught" }],
         "order": [[0, "asc"]]
@@ -35541,7 +35541,7 @@ var drawUMIInstructor = function drawUMIInstructor() {
     tableData.default.map(function (x) {
         return data.push([x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average, x.year]);
     });
-    $('#OverallInstructors').DataTable({
+    $('#UMIInstructors').DataTable({
         "aaData": data,
         "aoColumns": [{ "sTitle": "" }, { "sTitle": "UMI1" }, { "sTitle": "UMI2" }, { "sTitle": "UMI3" }, { "sTitle": "UMI4" }, { "sTitle": "UMI5" }, { "sTitle": "UMI6" }, { "sTitle": "Year" }],
         "aoColumnDefs": [{ 'bSortable': false, 'aTargets': [0] }, {

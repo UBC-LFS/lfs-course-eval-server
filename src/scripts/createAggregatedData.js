@@ -115,32 +115,32 @@ const createCourseObj = (csv) => {
 }
 
 const insertDispersionIndex = (courseObj) => {
-    courseObj.UMI1.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI1.count)
-    courseObj.UMI2.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI2.count)
-    courseObj.UMI3.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI3.count)
-    courseObj.UMI4.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI4.count)
-    courseObj.UMI5.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI5.count)
-    courseObj.UMI6.dispersionIndex = calculate.dispersionIndexV2(courseObj.UMI6.count)
+    courseObj.UMI1.dispersionIndex = calculate.dispersionIndex(courseObj.UMI1.count)
+    courseObj.UMI2.dispersionIndex = calculate.dispersionIndex(courseObj.UMI2.count)
+    courseObj.UMI3.dispersionIndex = calculate.dispersionIndex(courseObj.UMI3.count)
+    courseObj.UMI4.dispersionIndex = calculate.dispersionIndex(courseObj.UMI4.count)
+    courseObj.UMI5.dispersionIndex = calculate.dispersionIndex(courseObj.UMI5.count)
+    courseObj.UMI6.dispersionIndex = calculate.dispersionIndex(courseObj.UMI6.count)
     return courseObj
 }
 
 const insertAvg = (courseObj) => {
-    courseObj.UMI1.average = calculate.umiAvgV2(courseObj.UMI1.count)
-    courseObj.UMI2.average = calculate.umiAvgV2(courseObj.UMI2.count)
-    courseObj.UMI3.average = calculate.umiAvgV2(courseObj.UMI3.count)
-    courseObj.UMI4.average = calculate.umiAvgV2(courseObj.UMI4.count)
-    courseObj.UMI5.average = calculate.umiAvgV2(courseObj.UMI5.count)
-    courseObj.UMI6.average = calculate.umiAvgV2(courseObj.UMI6.count)
+    courseObj.UMI1.average = calculate.umiAvg(courseObj.UMI1.count)
+    courseObj.UMI2.average = calculate.umiAvg(courseObj.UMI2.count)
+    courseObj.UMI3.average = calculate.umiAvg(courseObj.UMI3.count)
+    courseObj.UMI4.average = calculate.umiAvg(courseObj.UMI4.count)
+    courseObj.UMI5.average = calculate.umiAvg(courseObj.UMI5.count)
+    courseObj.UMI6.average = calculate.umiAvg(courseObj.UMI6.count)
     return courseObj
 }
 
 const insertPercentFav = (courseObj) => {
-    courseObj.UMI1.percentFavourable = calculate.percentFavourableV2(courseObj.UMI1.count)
-    courseObj.UMI2.percentFavourable = calculate.percentFavourableV2(courseObj.UMI2.count)
-    courseObj.UMI3.percentFavourable = calculate.percentFavourableV2(courseObj.UMI3.count)
-    courseObj.UMI4.percentFavourable = calculate.percentFavourableV2(courseObj.UMI4.count)
-    courseObj.UMI5.percentFavourable = calculate.percentFavourableV2(courseObj.UMI5.count)
-    courseObj.UMI6.percentFavourable = calculate.percentFavourableV2(courseObj.UMI6.count)
+    courseObj.UMI1.percentFavourable = calculate.percentFavourable(courseObj.UMI1.count)
+    courseObj.UMI2.percentFavourable = calculate.percentFavourable(courseObj.UMI2.count)
+    courseObj.UMI3.percentFavourable = calculate.percentFavourable(courseObj.UMI3.count)
+    courseObj.UMI4.percentFavourable = calculate.percentFavourable(courseObj.UMI4.count)
+    courseObj.UMI5.percentFavourable = calculate.percentFavourable(courseObj.UMI5.count)
+    courseObj.UMI6.percentFavourable = calculate.percentFavourable(courseObj.UMI6.count)
     return courseObj
 }
 
@@ -150,7 +150,7 @@ const insertPercentileRanking = (courseObj) => {
     )(courseObj)
     sortedByUMI1Avg.map((course) => {
         const filteredByTerm = sortedByUMI1Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI1', filteredByTerm)
+        course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI1', filteredByTerm)
     })
 
     const sortedByUMI2Avg = R.compose(
@@ -158,7 +158,7 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI1Avg)
     sortedByUMI2Avg.map((course) => {
         const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI2', filteredByTerm)
+        course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI2', filteredByTerm)
     })
 
     const sortedByUMI3Avg = R.compose(
@@ -166,7 +166,7 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI2Avg)
     sortedByUMI3Avg.map((course) => {
         const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI3', filteredByTerm)
+        course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI3', filteredByTerm)
     })
 
     const sortedByUMI4Avg = R.compose(
@@ -174,7 +174,7 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI3Avg)
     sortedByUMI4Avg.map((course) => {
         const filteredByTerm = sortedByUMI4Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI4', filteredByTerm)
+        course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI4', filteredByTerm)
     })
 
     const sortedByUMI5Avg = R.compose(
@@ -182,7 +182,7 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI4Avg)
     sortedByUMI5Avg.map((course) => {
         const filteredByTerm = sortedByUMI5Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI5', filteredByTerm)
+        course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI5', filteredByTerm)
     })
 
     const sortedByUMI6Avg = R.compose(
@@ -190,7 +190,7 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI5Avg)
     sortedByUMI6Avg.map((course) => {
         const filteredByTerm = sortedByUMI6Avg.filter(x => x.year === course.year && x.term === course.term)
-        course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI6', filteredByTerm)
+        course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI6', filteredByTerm)
     })
 
     return sortedByUMI6Avg
@@ -212,7 +212,7 @@ readCSV('mockRawData.csv', (csv) => {
 
     //console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
     
-    //console.log(calculate.percentileRankingOfCourseV2(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
+    //console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 
 
     

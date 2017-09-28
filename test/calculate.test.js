@@ -41,18 +41,6 @@ describe('calculateMedian', () => {
     })
 })
 
-describe('calculatePercentFavourable', () => {
-    it('takes an array of numbers ranging from 1-5 and returns the percent of numbers greater than or equal to 4', () => {
-        assert.deepEqual(0.5, calculate.percentFavourable([1, 2, 3, 4, 5, 5]))
-        assert.deepEqual(1, calculate.percentFavourable([4, 5, 5]))
-        assert.deepEqual(0, calculate.percentFavourable([1, 2, 3]))
-        assert.deepEqual(0, calculate.percentFavourable([]))
-        assert.deepEqual(0.8, calculate.percentFavourable([4, 4, 4, 4, 1]))
-        assert.deepEqual(0.2, calculate.percentFavourable([2, 2, 2, 2, 5]))
-        assert.deepEqual(0.1, calculate.percentFavourable([2, 2, 1, 2, 3, 4, 3, 3, 3, 2]))
-    })
-})
-
 describe('calculatePercentGender', () => {
     it('takes an array of objects and returns the percentage of gender for specified gender', () => {
         const input = [
@@ -117,182 +105,6 @@ describe('calculateUMIAvgOfCourse', () => {
     })
 })
 
-describe('calculateDispersionIndex', () => {
-    it('can handle no inputs for calculating dispersion', () => {
-        const dispersionInput = []
-        expect((function () { calculate.dispersionIndex(dispersionInput, 'UMI1') })).toThrow('No valid courses in array')
-    })
-    it('can handle inputs with no matching question key for calculating dispersion', () => {
-        const dispersionInput = [{ UMI6: 5 },
-        { UMI6: 5 },
-        { UMI6: 5 },
-        { UMI6: 5 },
-        { UMI6: 5 },
-        { UMI6: 5 },
-        { UMI6: 5 }]
-        expect((function () { calculate.dispersionIndex(dispersionInput, 'UMI1') })).toThrow('No valid courses in array')
-    })
-    it('takes an array of specified UMI scores and calculates the dispersion index of 0', () => {
-        const dispersionInput = [
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0)
-
-    })
-    it('takes an array of specified UMI scores and calculates the dispersion index of 1', () => {
-        const dispersionInput = [
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 1)
-    })
-    it('works for other values of UMI other than UMI6', () => {
-        const dispersionInput0 = [
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput0, 'UMI1'), 0)
-        const dispersionInput1 = [
-            { UMI1: 1 },
-            { UMI1: 1 },
-            { UMI1: 1 },
-            { UMI1: 5 },
-            { UMI1: 5 },
-            { UMI1: 5 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput1, 'UMI1'), 1)
-    })
-    it('works for in between max-min dispersion index', () => {
-        const dispersionInput = [
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 2 },
-            { UMI6: 2 },
-            { UMI6: 3 },
-            { UMI6: 3 },
-            { UMI6: 4 },
-            { UMI6: 4 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0.8)
-        const dispersionInput1 = [
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 3 },
-            { UMI6: 4 },
-            { UMI6: 4 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput1, 'UMI6'), 0.8999999999999999)
-        const dispersionInput2 = [
-            { UMI6: 1 },
-            { UMI6: 2 },
-            { UMI6: 2 },
-            { UMI6: 3 },
-            { UMI6: 3 },
-            { UMI6: 3 },
-            { UMI6: 4 },
-            { UMI6: 4 },
-            { UMI6: 4 },
-            { UMI6: 4 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput2, 'UMI6'), 0.54)
-        const dispersionInput3 = [
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 1 },
-            { UMI6: 3 },
-            { UMI6: 3 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-            { UMI6: 5 },
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput3, 'UMI6'), 0.96)
-    })
-    it('works for single input', () => {
-        const dispersionInput = [
-            { UMI6: 1 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0)
-    })
-    it('works for equally distributed responses across all possible scores', () => {
-        const dispersionInput = [
-            { UMI6: 1 },
-            { UMI6: 2 },
-            { UMI6: 3 },
-            { UMI6: 4 },
-            { UMI6: 5 }
-
-        ]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0.8)
-    })
-    it('works for very large number of inputs', () => {
-        const dispersionInput = [{ UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput, 'UMI6'), 0)
-        const dispersionInput2 = [{ UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 1 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 3 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 }, { UMI6: 5 },]
-        assert.deepEqual(calculate.dispersionIndex(dispersionInput2, 'UMI6'), 0.96)
-    })
-    it('works on regular input arrays', () => {
-        const input = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(input, 'UMI1'), 0)
-        const input1 = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI6: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI3: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI4: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI12: 5 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(input1, 'UMI1'), 1)
-        const input2 = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 2 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 3 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 4 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI6: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI6: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI3: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI4: 5 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI12: 5 }
-        ]
-        assert.deepEqual(calculate.dispersionIndex(input2, 'UMI1'), 0.8)
-    })
-})
-
 describe('calculateDispersionIndexOfCourse', () => {
     it('takes as input a count object and returns the dispersion index of the count', () => {
         let count = {
@@ -302,7 +114,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 0,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 1)
+        assert.deepEqual(calculate.dispersionIndex(count), 1)
         count = {
             "1": 10,
             "2": 10,
@@ -310,7 +122,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 0,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8611111111111112)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.8611111111111112)
         count = {
             "1": 60,
             "2": 0,
@@ -318,7 +130,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 0,
             "5": 0
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 0)
+        assert.deepEqual(calculate.dispersionIndex(count), 0)
         count = {
             "1": 1,
             "2": 1,
@@ -326,7 +138,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 50,
             "5": 7
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 0.1991666666666666)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.1991666666666666)
         count = {
             "1": 12,
             "2": 12,
@@ -334,618 +146,21 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 12,
             "5": 12
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.8)
     })
     it('should be able to handle missing fields in count', () => {
         let count = {
             "1": 30,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 1)
+        assert.deepEqual(calculate.dispersionIndex(count), 1)
         count = {
             "1": 10,
             "2": 10,
             "3": 10,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndexV2(count), 0.8611111111111112)
-    })
-})
-
-describe('calculatePercentileRankingOfCourse', () => {
-    it('takes as input courseNum, year, term, umi, arr and returns the percentile ranking of that course compared to all others by average UMI score of the specified umi', () => {
-        const input = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 500 002', instructor: 'Doe Doe', UMI1: 3 },
-
-            { term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 123 002', instructor: 'Alb Bla', UMI1: 3 },
-
-            { term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2017W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2017W2', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.5)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 123 002', 2016, 'W1', 'UMI1', input), 0.83)
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 500 002', 2016, 'W1', 'UMI1', input), 0.17)
-    })
-    it('can handle no inputs', () => {
-        const emptyInput = []
-        expect((function () { calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', emptyInput) })).toThrow('No valid courses in array')
-    })
-    it('can handle extremely few inputs', () => {
-        let fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
-
-        fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
-
-        fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 5 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.25)
-
-        fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.75)
-    })
-    it('can handle inputs with multiple UMIs', () => {
-        let fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', fewInputs), 0.5)
-
-        fewInputs = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI5: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI5', fewInputs), 0.5)
-    })
-    it('can handle large number of inputs', () => {
-        let largeInputs = [
-
-            //average is 3
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4 },
-
-            { term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
-        largeInputs = [
-            //average is 3
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4 },
-
-            { term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI1: 3 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
-        largeInputs = [
-            //average is 3
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4 },
-
-            { term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI1: 3 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
-        largeInputs = [
-            //average is 3
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI3: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 4 },
-
-            { term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI3: 3 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.5)
-        largeInputs = [
-            //average is 3
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 500 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 400 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 425 001', instructor: 'John Doe', UMI3: 5 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), 0.3)
-        largeInputs = [
-            //average is 5
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', instructor: 'John Doe', UMI1: 1 }
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), (1 + 1 * 0.5) / 2)
-        largeInputs = [
-            //average is 5
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 201 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 202 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 203 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 204 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 205 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 206 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 207 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 208 001', instructor: 'John Doe', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 209 001', instructor: 'John Doe', UMI1: 1 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', largeInputs), (9 + 1 * 0.5) / 10)
-    })
-    it('should calculate correctly for example Abdel sent via email', () => {
-        let input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 101 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 102 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 103 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 104 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 105 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 106 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 108 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 109 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 3 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 5 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.68)
-        input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 101 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 102 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 103 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 104 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 105 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 106 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 108 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 109 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 101 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 102 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 103 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 104 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 105 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 106 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 108 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 109 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 3 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 4 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.68)
-        input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 101 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 102 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 103 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 104 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 105 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 106 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 108 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 109 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 101 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 102 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 103 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 104 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 105 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 106 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 108 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 109 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI1: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI1: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 100 001', UMI2: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 107 001', UMI3: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 110 001', UMI5: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 111 001', UMI7: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 112 001', UMI2: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 223 001', UMI2: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 223 001', UMI2: 2 },
-            { term: '2016W1', courseNum: 'LFSLC 223 001', UMI2: 2 },
-
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI4: 3 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI5: 3 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 4 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.68)
-    })
-    it('should handle the edge cases of 1st percentile and 99th percentile', () => {
-        let input = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 1 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 5 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 306 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 307 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 308 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 309 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 310 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 311 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 312 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 313 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 314 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 315 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 316 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 317 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 318 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 319 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 320 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 321 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 322 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 323 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 324 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 325 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 326 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 327 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 328 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 329 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 330 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 331 001', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 332 001', UMI1: 4 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.01)
-        input = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'Joe', UMI1: 5 },
-
-            { term: '2016W1', courseNum: 'LFSLC 300 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 301 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 302 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 303 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 304 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 305 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 306 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 307 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 308 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 309 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 310 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 311 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 312 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 313 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 314 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 315 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 316 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 317 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 318 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 319 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 320 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 321 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 322 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 323 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 324 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 325 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 326 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 327 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 328 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 329 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 330 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 331 001', UMI1: 1 },
-            { term: '2016W1', courseNum: 'LFSLC 332 001', UMI1: 1 },
-        ]
-        assert.deepEqual(calculate.percentileRankingOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 0.99)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.8611111111111112)
     })
 })
 
@@ -958,7 +173,7 @@ describe('calculateUMIAvg2', () => {
             "4": 1,
             "5": 1
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 3)
+        assert.deepEqual(calculate.umiAvg(count), 3)
         count = {
             "1": 5,
             "2": 5,
@@ -966,7 +181,7 @@ describe('calculateUMIAvg2', () => {
             "4": 5,
             "5": 5
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 3)
+        assert.deepEqual(calculate.umiAvg(count), 3)
         count = {
             "1": 0,
             "2": 0,
@@ -974,7 +189,7 @@ describe('calculateUMIAvg2', () => {
             "4": 4,
             "5": 4
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 4.5)
+        assert.deepEqual(calculate.umiAvg(count), 4.5)
         count = {
             "1": 0,
             "2": 0,
@@ -982,7 +197,7 @@ describe('calculateUMIAvg2', () => {
             "4": 0,
             "5": 100
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 5)
+        assert.deepEqual(calculate.umiAvg(count), 5)
         count = {
             "1": 100,
             "2": 0,
@@ -990,14 +205,14 @@ describe('calculateUMIAvg2', () => {
             "4": 0,
             "5": 0
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 1)
+        assert.deepEqual(calculate.umiAvg(count), 1)
     })
     it('can handle missing fields in count', () => {
         let count = {
             "1": 1,
             "5": 1
         }
-        assert.deepEqual(calculate.umiAvgV2(count), 3)
+        assert.deepEqual(calculate.umiAvg(count), 3)
     })
 })
 
@@ -1010,7 +225,7 @@ describe('calculatePercentFavourableV2', () => {
             "4": 1,
             "5": 1
         }
-        assert.deepEqual(calculate.percentFavourableV2(count), 0.4)
+        assert.deepEqual(calculate.percentFavourable(count), 0.4)
         count = {
             "1": 5,
             "2": 5,
@@ -1018,7 +233,7 @@ describe('calculatePercentFavourableV2', () => {
             "4": 5,
             "5": 5
         }
-        assert.deepEqual(calculate.percentFavourableV2(count), .4)
+        assert.deepEqual(calculate.percentFavourable(count), .4)
         count = {
             "1": 0,
             "2": 0,
@@ -1026,13 +241,13 @@ describe('calculatePercentFavourableV2', () => {
             "4": 4,
             "5": 4
         }
-        assert.deepEqual(calculate.percentFavourableV2(count), 1)
+        assert.deepEqual(calculate.percentFavourable(count), 1)
     })
     it('can handle missing fields in count', () => {
         let count = {
             "1": 1,
             "5": 1
         }
-        assert.deepEqual(calculate.percentFavourableV2(count), 0.5)
+        assert.deepEqual(calculate.percentFavourable(count), 0.5)
     })
 })

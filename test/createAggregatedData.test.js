@@ -296,3 +296,59 @@ describe('insertDispersionIndex', () => {
         assert.deepEqual(createAggData.insertDispersionIndex(obj), output)
     })
 })
+
+describe('insertAvg', () => {
+    it('takes an object and returns the object with average inserted', () => {
+        let obj = {
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "count": {
+                    "1": 2
+                }
+            },
+            "UMI2": {
+                "count": {
+                    "2": 1,
+                    "5": 1
+                }
+            },
+            "UMI3": {
+                "count": {
+                    "1": 1,
+                    "5": 1
+                }
+            },
+            "UMI4": {
+                "count": {
+                    "3": 2
+                }
+            },
+            "UMI5": {
+                "count": {
+                    "4": 1,
+                    "5": 1
+                }
+            },
+            "UMI6": {
+                "count": {
+                    "5": 2
+                }
+            }
+        }
+        let output = {
+            
+        }
+    })
+})
