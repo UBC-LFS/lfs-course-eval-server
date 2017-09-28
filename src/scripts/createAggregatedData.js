@@ -208,7 +208,7 @@ const insertPercentileRanking = (courseObjs) => {
     return sortedByUMI6Avg
 }
 // crsnum is the unique identifier for a given year. 
-readCSV('mockRawData.csv', (csv) => {
+readCSV('realdata.csv', (csv) => {
     //console.log(csv)
     const courseObjs = createCourseObj(csv)
 

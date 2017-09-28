@@ -509,6 +509,206 @@ describe('insertPercentFav', () => {
 
 describe('insertPercentileRanking', () => {
     it('takes an object and returns it with percentileRankingOfFaculty and percentileRankingOfTerm inserted', () => {
-        
+        let objs = [{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+            },
+            "UMI2": {
+                "average": 5,
+            },
+            "UMI3": {
+                "average": 5,
+            },
+            "UMI4": {
+                "average": 5,
+            },
+            "UMI5": {
+                "average": 5,
+            },
+            "UMI6": {
+                "average": 5,
+            }
+        },{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 1,
+            },
+            "UMI2": {
+                "average": 1,
+            },
+            "UMI3": {
+                "average": 1,
+            },
+            "UMI4": {
+                "average": 1,
+            },
+            "UMI5": {
+                "average": 1,
+            },
+            "UMI6": {
+                "average": 1,
+            }
+        },{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "coureseLevel": 2,
+            "dept": "APBI",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+            },
+            "UMI2": {
+                "average": 5,
+            },
+            "UMI3": {
+                "average": 5,
+            },
+            "UMI4": {
+                "average": 5,
+            },
+            "UMI5": {
+                "average": 5,
+            },
+            "UMI6": {
+                "average": 5,
+            }
+        }]
+        let output = [ { year: 2016,
+            term: 'W2',
+            course: 'LFS 200',
+            section: '001',
+            courseName: 'Introduction to LFS',
+            coureseLevel: 2,
+            dept: 'LFS',
+            instructorName: 'Justin Lee',
+            PUID: 'ABCDEFGHIKL',
+            gender: { Female: 1, Male: 1 },
+            UMI1:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 },
+            UMI2:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 },
+            UMI3:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 },
+            UMI4:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 },
+            UMI5:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 },
+            UMI6:
+             { average: 1,
+               percentileRankingByFaculty: 0.17,
+               percentileRankingByDept: 0.25 } },
+          { year: 2016,
+            term: 'W2',
+            course: 'LFS 200',
+            section: '001',
+            courseName: 'Introduction to LFS',
+            coureseLevel: 2,
+            dept: 'LFS',
+            instructorName: 'Justin Lee',
+            PUID: 'ABCDEFGHIKL',
+            gender: { Female: 1, Male: 1 },
+            UMI1:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 },
+            UMI2:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 },
+            UMI3:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 },
+            UMI4:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 },
+            UMI5:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 },
+            UMI6:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.75 } },
+          { year: 2016,
+            term: 'W2',
+            course: 'LFS 200',
+            section: '001',
+            courseName: 'Introduction to LFS',
+            coureseLevel: 2,
+            dept: 'APBI',
+            instructorName: 'Justin Lee',
+            PUID: 'ABCDEFGHIKL',
+            gender: { Female: 1, Male: 1 },
+            UMI1:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 },
+            UMI2:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 },
+            UMI3:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 },
+            UMI4:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 },
+            UMI5:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 },
+            UMI6:
+             { average: 5,
+               percentileRankingByFaculty: 0.67,
+               percentileRankingByDept: 0.5 } } ]
+
+        assert.deepEqual(createAggData.insertPercentileRanking(objs), output)
     })
 })
