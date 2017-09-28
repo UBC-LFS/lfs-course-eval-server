@@ -150,7 +150,9 @@ const insertPercentileRanking = (courseObj) => {
     )(courseObj)
     sortedByUMI1Avg.map((course) => {
         const filteredByTerm = sortedByUMI1Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI1', filteredByTerm)
+        course.UMI1.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI1', filteredByDept)
     })
 
     const sortedByUMI2Avg = R.compose(
@@ -158,7 +160,9 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI1Avg)
     sortedByUMI2Avg.map((course) => {
         const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI2', filteredByTerm)
+        course.UMI2.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI2', filteredByDept)
     })
 
     const sortedByUMI3Avg = R.compose(
@@ -166,7 +170,9 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI2Avg)
     sortedByUMI3Avg.map((course) => {
         const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI3', filteredByTerm)
+        course.UMI3.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI3', filteredByDept)
     })
 
     const sortedByUMI4Avg = R.compose(
@@ -174,7 +180,9 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI3Avg)
     sortedByUMI4Avg.map((course) => {
         const filteredByTerm = sortedByUMI4Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI4', filteredByTerm)
+        course.UMI4.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI4', filteredByDept)
     })
 
     const sortedByUMI5Avg = R.compose(
@@ -182,7 +190,9 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI4Avg)
     sortedByUMI5Avg.map((course) => {
         const filteredByTerm = sortedByUMI5Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI5', filteredByTerm)
+        course.UMI5.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI5', filteredByDept)
     })
 
     const sortedByUMI6Avg = R.compose(
@@ -190,7 +200,9 @@ const insertPercentileRanking = (courseObj) => {
     )(sortedByUMI5Avg)
     sortedByUMI6Avg.map((course) => {
         const filteredByTerm = sortedByUMI6Avg.filter(x => x.year === course.year && x.term === course.term)
+        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
         course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI6', filteredByTerm)
+        course.UMI6.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI6', filteredByDept)
     })
 
     return sortedByUMI6Avg
