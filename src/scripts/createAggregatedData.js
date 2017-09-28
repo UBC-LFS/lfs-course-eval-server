@@ -144,10 +144,10 @@ const insertPercentFav = (courseObj) => {
     return courseObj
 }
 
-const insertPercentileRanking = (courseObj) => {
+const insertPercentileRanking = (courseObjs) => {
     const sortedByUMI1Avg = R.compose(
         R.sort((a, b) => a.UMI1.average - b.UMI1.average)
-    )(courseObj)
+    )(courseObjs)
     sortedByUMI1Avg.map((course) => {
         const filteredByTerm = sortedByUMI1Avg.filter(x => x.year === course.year && x.term === course.term)
         const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)

@@ -506,3 +506,9 @@ describe('insertPercentFav', () => {
         assert.deepEqual(createAggData.insertPercentFav(obj), output)
     })
 })
+
+describe('insertPercentileRanking', () => {
+    it('takes an object and returns it with percentileRankingOfFaculty and percentileRankingOfTerm inserted', () => {
+        
+    })
+})
