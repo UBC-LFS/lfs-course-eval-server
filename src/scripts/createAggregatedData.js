@@ -148,43 +148,43 @@ const insertPercentileRanking = (courseObj) => {
     const sortedByUMI1Avg = R.compose(
         R.sort((a, b) => a.UMI1.average - b.UMI1.average)
     )(courseObj)
-    sortedByUMI1Avg.map((course, i) => {
-        course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI1Avg[i], 'UMI1', sortedByUMI1Avg)
+    sortedByUMI1Avg.map((course) => {
+        course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI1', sortedByUMI1Avg)
     })
 
     const sortedByUMI2Avg = R.compose(
         R.sort((a, b) => a.UMI2.average - b.UMI2.average)
     )(sortedByUMI1Avg)
-    sortedByUMI2Avg.map((course, i) => {
-        course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI2Avg[i], 'UMI2', sortedByUMI2Avg)
+    sortedByUMI2Avg.map((course) => {
+        course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI2', sortedByUMI2Avg)
     })
 
     const sortedByUMI3Avg = R.compose(
         R.sort((a, b) => a.UMI3.average - b.UMI3.average)
     )(sortedByUMI2Avg)
-    sortedByUMI3Avg.map((course, i) => {
-        course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI3Avg[i], 'UMI3', sortedByUMI3Avg)
+    sortedByUMI3Avg.map((course) => {
+        course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI3', sortedByUMI3Avg)
     })
 
     const sortedByUMI4Avg = R.compose(
         R.sort((a, b) => a.UMI4.average - b.UMI4.average)
     )(sortedByUMI3Avg)
-    sortedByUMI4Avg.map((course, i) => {
-        course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI4Avg[i], 'UMI4', sortedByUMI4Avg)
+    sortedByUMI4Avg.map((course) => {
+        course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI4', sortedByUMI4Avg)
     })
 
     const sortedByUMI5Avg = R.compose(
         R.sort((a, b) => a.UMI5.average - b.UMI5.average)
     )(sortedByUMI4Avg)
-    sortedByUMI5Avg.map((course, i) => {
-        course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI5Avg[i], 'UMI5', sortedByUMI5Avg)
+    sortedByUMI5Avg.map((course) => {
+        course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI5', sortedByUMI5Avg)
     })
 
     const sortedByUMI6Avg = R.compose(
         R.sort((a, b) => a.UMI6.average - b.UMI6.average)
     )(sortedByUMI5Avg)
-    sortedByUMI6Avg.map((course, i) => {
-        course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(sortedByUMI6Avg[i], 'UMI6', sortedByUMI6Avg)
+    sortedByUMI6Avg.map((course) => {
+        course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourseV2(course, 'UMI6', sortedByUMI6Avg)
     })
 
     return sortedByUMI6Avg
@@ -201,9 +201,9 @@ readCSV('EXP_0D0O3T6C.csv', (csv) => {
         )(courseObj)
     }) 
 
+    const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-
-    console.log(JSON.stringify(insertPercentileRanking(courseObjs), null, 2))
+    console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
     
     //console.log(calculate.percentileRankingOfCourseV2(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 
