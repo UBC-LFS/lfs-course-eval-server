@@ -1,6 +1,12 @@
 import assert from 'assert'
 import * as DS from '../src/service/dataService'
 
+describe('filterDataByFilterSettings', () => {
+    it('takes an object of filters and returns ', () => {
+        
+    })
+})
+
 describe('filterData', () => {
     it('creates a filter object according to the data in the mockAggregatedData', () => {
         const output = {
