@@ -13,18 +13,26 @@ const readCSV = (filename, callback) => {
     fs.createReadStream(__dirname + '/source/' + filename).pipe(parser)
 }
 
+const getProperties = (ev) => {
+    const year = getFromCSV.getYear(ev)
+    const term = getFromCSV.getTerm(ev)
+    const course = getFromCSV.getCourse(ev)
+    const section = getFromCSV.getSection(ev)
+    const courseName = getFromCSV.getCourseName(ev)
+    const courseLevel = getFromCSV.getCourseLevel(ev)
+    const dept = getFromCSV.getDept(ev)
+    const instructorName = getFromCSV.getInstructorName(ev)
+    const PUID = getFromCSV.getPUID(ev)
+    const gender = getFromCSV.getGender(ev)
+
+    return ({
+        year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender
+    })
+}
+
 const createCourseObj = (csv) => {
     return csv.reduce((acc, ev) => {
-        const year = getFromCSV.getYear(ev)
-        const term = getFromCSV.getTerm(ev)
-        const course = getFromCSV.getCourse(ev)
-        const section = getFromCSV.getSection(ev)
-        const courseName = getFromCSV.getCourseName(ev)
-        const coureseLevel = getFromCSV.getCourseLevel(ev)
-        const dept = getFromCSV.getDept(ev)
-        const instructorName = getFromCSV.getInstructorName(ev)
-        const PUID = getFromCSV.getPUID(ev)
-        const gender = getFromCSV.getGender(ev)
+        const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
         const uniqSectionInTerm = (x) => (x.year === year 
             && x.course === course 
@@ -70,7 +78,7 @@ const createCourseObj = (csv) => {
                 course,
                 section,
                 courseName, 
-                coureseLevel,
+                courseLevel,
                 dept,
                 instructorName,
                 PUID,
