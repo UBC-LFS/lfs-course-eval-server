@@ -164,7 +164,7 @@ describe('calculateDispersionIndexOfCourse', () => {
     })
 })
 
-describe('calculateUMIAvg2', () => {
+describe('calculateUMIAvg', () => {
     it('takes a count object and returns the average of that object', () => {
         let count = {
             "1": 1,
@@ -216,7 +216,7 @@ describe('calculateUMIAvg2', () => {
     })
 })
 
-describe('calculatePercentFavourableV2', () => {
+describe('calculatePercentFavourable', () => {
     it('takes a count object and returns the percent favourable', () => {
         let count = {
             "1": 1,
@@ -249,5 +249,11 @@ describe('calculatePercentFavourableV2', () => {
             "5": 1
         }
         assert.deepEqual(calculate.percentFavourable(count), 0.5)
+    })
+})
+
+describe('calculatePercentileRanking', () => {
+    it('takes a course, UMI, and all courses sortedByUMI and returns the percentile ranking of that course', () => {
+        
     })
 })

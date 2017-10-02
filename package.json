@@ -21,6 +21,7 @@
     "build": "npm run clean && mkdir dist && babel src -s -D -d dist",
     "test": "jest --watch",
     "test-coverage": "jest --coverage",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "test-server": "jest",
     "lint": "esw -w src test"
   },
@@ -53,6 +54,7 @@
     "babel-eslint": "^7.2.3",
     "babel-jest": "^21.0.2",
     "babel-register": "^6.24.1",
+    "coveralls": "^3.0.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.6.1",
     "eslint-plugin-import": "^2.2.0",
@@ -60,6 +62,7 @@
     "eslint-watch": "^3.1.0",
     "jest": "^21.0.2",
     "nodemon": "^1.11.0",
+    "nyc": "^11.2.1",
     "supertest": "^3.0.0"
   },
   "babel": {
