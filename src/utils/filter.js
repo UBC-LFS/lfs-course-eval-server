@@ -12,19 +12,19 @@ const byClassSize = (min, max) => R.pipe(byMinClassSize(min), byMaxClassSize(max
 const byMinClassSize = (size) => R.filter(x => Number(x.classSize) >= Number(size))
 const byMaxClassSize = (size) => R.filter(x => Number(x.classSize) <= Number(size))
 const byToggleBelowMin = (toggleBelowMin) => R.filter(x => {
-    if (toggleBelowMin == 'true') return true
-    else return x.meetsMin === 1
+  if (toggleBelowMin == 'true') return true
+  else return x.meetsMin === 1
 })
 const selectFields = (questionCode, fieldArray) => R.map(x => {
-    const cleanedObj = {}
-    for (let i = 0; i < fieldArray.length; i++) {
-        let field = fieldArray[i]
-        let resultField = field
-        if (field === "Avg" || field === "Dispersion" || field === "PercentFavourable") { resultField = questionCode + field }
-        if (x.hasOwnProperty(resultField)) cleanedObj[field] = x[resultField]
-    }
-    cleanedObj["questionCode"] = questionCode
-    return cleanedObj
+  const cleanedObj = {}
+  for (let i = 0; i < fieldArray.length; i++) {
+    let field = fieldArray[i]
+    let resultField = field
+    if (field === 'Avg' || field === 'Dispersion' || field === 'PercentFavourable') { resultField = questionCode + field }
+    if (x.hasOwnProperty(resultField)) cleanedObj[field] = x[resultField]
+  }
+  cleanedObj['questionCode'] = questionCode
+  return cleanedObj
 })
 
 export {
