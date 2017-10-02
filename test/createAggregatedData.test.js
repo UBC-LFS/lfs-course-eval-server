@@ -508,6 +508,244 @@ describe('insertPercentFav', () => {
 })
 
 describe('insertPercentileRanking', () => {
+    it('can handle an input of 1', () => {
+        let obj = [{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+            },
+            "UMI2": {
+                "average": 5,
+            },
+            "UMI3": {
+                "average": 5,
+            },
+            "UMI4": {
+                "average": 5,
+            },
+            "UMI5": {
+                "average": 5,
+            },
+            "UMI6": {
+                "average": 5,
+            }
+        }]
+        let output = [{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            },
+            "UMI2": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            },
+            "UMI3": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            },
+            "UMI4": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            },
+            "UMI5": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            },
+            "UMI6": {
+                "average": 5,
+                percentileRankingByFaculty: 0.5,
+                percentileRankingByDept: 0.5,
+            }
+        }]
+        assert.deepEqual(createAggData.insertPercentileRanking(obj), output)
+    })
+    it('can compute correct percentileRanking for different UMI', () => {
+        let obj = [{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 1,
+            },
+            "UMI2": {
+                "average": 1,
+            },
+            "UMI3": {
+                "average": 1,
+            },
+            "UMI4": {
+                "average": 5,
+            },
+            "UMI5": {
+                "average": 5,
+            },
+            "UMI6": {
+                "average": 5,
+            }
+        },{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "002",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+            },
+            "UMI2": {
+                "average": 5,
+            },
+            "UMI3": {
+                "average": 5,
+            },
+            "UMI4": {
+                "average": 1,
+            },
+            "UMI5": {
+                "average": 1,
+            },
+            "UMI6": {
+                "average": 1,
+            }
+        }]
+        let output = [{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "002",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            },
+            "UMI2": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            },
+            "UMI3": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            },
+            "UMI4": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            },
+            "UMI5": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            },
+            "UMI6": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            }
+        },{
+            "year": 2016,
+            "term": "W2",
+            "course": "LFS 200",
+            "section": "001",
+            "courseName": "Introduction to LFS",
+            "courseLevel": 2,
+            "dept": "LFS",
+            "instructorName": "Justin Lee",
+            "PUID": "ABCDEFGHIKL",
+            "gender": {
+                "Female": 1,
+                "Male": 1
+            },
+            "UMI1": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            },
+            "UMI2": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            },
+            "UMI3": {
+                "average": 1,
+                percentileRankingByFaculty: 0.25,
+                percentileRankingByDept: 0.25,
+            },
+            "UMI4": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            },
+            "UMI5": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            },
+            "UMI6": {
+                "average": 5,
+                percentileRankingByFaculty: 0.75,
+                percentileRankingByDept: 0.75,
+            }
+        }]
+        assert.deepEqual(createAggData.insertPercentileRanking(obj), output)
+    })
     it('takes an object and returns it with percentileRankingOfFaculty and percentileRankingOfTerm inserted', () => {
         let objs = [{
             "year": 2016,
