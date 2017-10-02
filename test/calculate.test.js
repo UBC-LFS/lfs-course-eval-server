@@ -14,7 +14,7 @@ describe('calculateAvgByField', () => {
     it('takes an array and returns the average value of the specified field', () => {
         const avgClassSize = calculate.avgByField([{ percentResponses: 1, classSize: 1, Avg: 3 },
         { percentResponses: 0.33, classSize: 3, Avg: 2 }], "classSize")
-        
+
         const avgAvg = calculate.avgByField([{ percentResponses: 1, classSize: 1, Avg: 3 },
         { percentResponses: 0.33, classSize: 3, Avg: 2 }], "Avg")
         assert.deepEqual(2, avgClassSize)
@@ -253,7 +253,65 @@ describe('calculatePercentFavourable', () => {
 })
 
 describe('calculatePercentileRanking', () => {
+    it('can handle a single input', () => {
+        let courses = [
+            {
+                UMI6: {
+                    average: 1
+                }
+            }
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse({
+            UMI6: {
+                average: 1
+            }
+        }, 'UMI6', courses), 0.5)
+    })
     it('takes a course, UMI, and all courses sortedByUMI and returns the percentile ranking of that course', () => {
-        
+        let courses = [
+            {
+                UMI6: {
+                    average: 1
+                }
+            },
+            {
+                UMI6: {
+                    average: 2
+                }
+            }
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse({
+            UMI6: {
+                average: 2
+            }
+        }, 'UMI6', courses), .75)
+
+        courses = [
+            {
+                UMI6: {
+                    average: 1
+                }
+            },
+            {
+                UMI6: {
+                    average: 2
+                }
+            },
+            {
+                UMI6: {
+                    average: 3
+                }
+            },
+            {
+                UMI6: {
+                    average: 4
+                }
+            }
+        ]
+        assert.deepEqual(calculate.percentileRankingOfCourse({
+            UMI6: {
+                average: 2
+            }
+        }, 'UMI6', courses), 0.38)
     })
 })
