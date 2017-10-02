@@ -40,7 +40,7 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
     if (result < 0 || result > 1) throw 'Looks like there is an error with the percentile ranking calculation'
     if (result < 0.01) return 0.01
     if (result > 0.99) return 0.99
-    else return Math.round(result * 100) / 100
+    else return toTwoDecimal(result)
 }
 
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
@@ -80,7 +80,7 @@ const dispersionIndex = (count) => {
         dispersionObj[key].finalF = dispersionObj[key].cumulativeProp * dispersionObj[key].oneMinusF
     }
     
-    return Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0)
+    return toTwoDecimal(Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0))
 }
 
 const umiAvg = (count) => {
@@ -90,7 +90,7 @@ const umiAvg = (count) => {
     }
     const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
 
-    return Object.keys(count).reduce((acc, key) => acc += count[key] * Number(key), 0) / numberOfResponses
+    return toTwoDecimal(Object.keys(count).reduce((acc, key) => acc += count[key] * Number(key), 0) / numberOfResponses)
 }
 
 const percentFavourable = (count) => {

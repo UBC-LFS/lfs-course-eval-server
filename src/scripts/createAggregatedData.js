@@ -179,7 +179,7 @@ readCSV('realdata.csv', (csv) => {
 
     const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-    //console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
+    console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
     
     //console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 

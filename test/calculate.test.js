@@ -122,7 +122,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 0,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndex(count), 0.8611111111111112)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.86)
         count = {
             "1": 60,
             "2": 0,
@@ -138,7 +138,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "4": 50,
             "5": 7
         }
-        assert.deepEqual(calculate.dispersionIndex(count), 0.1991666666666666)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.20)
         count = {
             "1": 12,
             "2": 12,
@@ -160,7 +160,7 @@ describe('calculateDispersionIndexOfCourse', () => {
             "3": 10,
             "5": 30
         }
-        assert.deepEqual(calculate.dispersionIndex(count), 0.8611111111111112)
+        assert.deepEqual(calculate.dispersionIndex(count), 0.86)
     })
 })
 
