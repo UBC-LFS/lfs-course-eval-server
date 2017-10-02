@@ -151,67 +151,18 @@ const insertPercentFav = (courseObj) => {
 }
 
 const insertPercentileRanking = (courseObjs) => {
-    const sortedByUMI1Avg = R.compose(
-        R.sort((a, b) => a.UMI1.average - b.UMI1.average)
-    )(courseObjs)
-    sortedByUMI1Avg.map((course) => {
-        const filteredByTerm = sortedByUMI1Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI1.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI1', filteredByTerm)
-        course.UMI1.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI1', filteredByDept)
-    })
-
-    const sortedByUMI2Avg = R.compose(
-        R.sort((a, b) => a.UMI2.average - b.UMI2.average)
-    )(sortedByUMI1Avg)
-    sortedByUMI2Avg.map((course) => {
-        const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI2.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI2', filteredByTerm)
-        course.UMI2.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI2', filteredByDept)
-    })
-
-    const sortedByUMI3Avg = R.compose(
-        R.sort((a, b) => a.UMI3.average - b.UMI3.average)
-    )(sortedByUMI2Avg)
-    sortedByUMI3Avg.map((course) => {
-        const filteredByTerm = sortedByUMI2Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI3.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI3', filteredByTerm)
-        course.UMI3.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI3', filteredByDept)
-    })
-
-    const sortedByUMI4Avg = R.compose(
-        R.sort((a, b) => a.UMI4.average - b.UMI4.average)
-    )(sortedByUMI3Avg)
-    sortedByUMI4Avg.map((course) => {
-        const filteredByTerm = sortedByUMI4Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI4.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI4', filteredByTerm)
-        course.UMI4.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI4', filteredByDept)
-    })
-
-    const sortedByUMI5Avg = R.compose(
-        R.sort((a, b) => a.UMI5.average - b.UMI5.average)
-    )(sortedByUMI4Avg)
-    sortedByUMI5Avg.map((course) => {
-        const filteredByTerm = sortedByUMI5Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI5.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI5', filteredByTerm)
-        course.UMI5.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI5', filteredByDept)
-    })
-
-    const sortedByUMI6Avg = R.compose(
-        R.sort((a, b) => a.UMI6.average - b.UMI6.average)
-    )(sortedByUMI5Avg)
-    sortedByUMI6Avg.map((course) => {
-        const filteredByTerm = sortedByUMI6Avg.filter(x => x.year === course.year && x.term === course.term)
-        const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-        course.UMI6.percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, 'UMI6', filteredByTerm)
-        course.UMI6.percentileRankingByDept = calculate.percentileRankingOfCourse(course, 'UMI6', filteredByDept)
-    })
-
-    return sortedByUMI6Avg
+    let sortedByUMI
+    for (let i = 1; i<=6; i++) {
+        let UMI = 'UMI' + i
+        sortedByUMI = R.sort((a, b) => a[UMI].average - b[UMI].average, courseObjs)
+        sortedByUMI.map((course) => {
+            const filteredByTerm = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
+            const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
+            course[UMI].percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, UMI, filteredByTerm)
+            course[UMI].percentileRankingByDept = calculate.percentileRankingOfCourse(course, UMI, filteredByDept)
+        })
+    }
+    return sortedByUMI
 }
 // crsnum is the unique identifier for a given year. 
 readCSV('realdata.csv', (csv) => {
