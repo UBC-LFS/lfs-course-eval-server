@@ -42,30 +42,34 @@ const createCourseObj = (csv) => {
 
         if (acc.some(x => uniqSectionInTerm(x))) {
             const index = acc.findIndex(x => uniqSectionInTerm(x))
-            // umi count 
-            if (typeof (acc[index].UMI1.count[getFromCSV.getUMI1(ev)]) == 'undefined') {
-                acc[index].UMI1.count = { ...acc[index].UMI1.count, [getFromCSV.getUMI1(ev)]: 1 }
-            } else acc[index].UMI1.count[getFromCSV.getUMI1(ev)] = acc[index].UMI1.count[getFromCSV.getUMI1(ev)] + 1
 
-            if (typeof (acc[index].UMI2.count[getFromCSV.getUMI2(ev)]) == 'undefined') {
-                acc[index].UMI2.count = { ...acc[index].UMI2.count, [getFromCSV.getUMI2(ev)]: 1 }
-            } else acc[index].UMI2.count[getFromCSV.getUMI2(ev)] = acc[index].UMI2.count[getFromCSV.getUMI2(ev)] + 1
-
-            if (typeof (acc[index].UMI3.count[getFromCSV.getUMI3(ev)]) == 'undefined') {
-                acc[index].UMI3.count = { ...acc[index].UMI3.count, [getFromCSV.getUMI3(ev)]: 1 }
-            } else acc[index].UMI3.count[getFromCSV.getUMI3(ev)] = acc[index].UMI3.count[getFromCSV.getUMI3(ev)] + 1
-
-            if (typeof (acc[index].UMI4.count[getFromCSV.getUMI4(ev)]) == 'undefined') {
-                acc[index].UMI4.count = { ...acc[index].UMI4.count, [getFromCSV.getUMI4(ev)]: 1 }
-            } else acc[index].UMI4.count[getFromCSV.getUMI4(ev)] = acc[index].UMI4.count[getFromCSV.getUMI4(ev)] + 1
-
-            if (typeof (acc[index].UMI5.count[getFromCSV.getUMI5(ev)]) == 'undefined') {
-                acc[index].UMI5.count = { ...acc[index].UMI5.count, [getFromCSV.getUMI5(ev)]: 1 }
-            } else acc[index].UMI5.count[getFromCSV.getUMI5(ev)] = acc[index].UMI5.count[getFromCSV.getUMI5(ev)] + 1
-
-            if (typeof (acc[index].UMI6.count[getFromCSV.getUMI6(ev)]) == 'undefined') {
-                acc[index].UMI6.count = { ...acc[index].UMI6.count, [getFromCSV.getUMI6(ev)]: 1}
-            } else acc[index].UMI6.count[getFromCSV.getUMI6(ev)] = acc[index].UMI6.count[getFromCSV.getUMI6(ev)] + 1
+            for(let i = 1; i<=6; i++) {
+                let getUMI
+                let UMI = 'UMI' + i
+                switch (i) {
+                    case 1: 
+                        getUMI = getFromCSV.getUMI1(ev)
+                        break
+                    case 2: 
+                        getUMI = getFromCSV.getUMI2(ev)
+                        break
+                    case 3: 
+                        getUMI = getFromCSV.getUMI3(ev)
+                        break
+                    case 4: 
+                        getUMI = getFromCSV.getUMI4(ev)
+                        break
+                    case 5: 
+                        getUMI = getFromCSV.getUMI5(ev)
+                        break
+                    case 6: 
+                        getUMI = getFromCSV.getUMI6(ev)
+                        break
+                }
+                if (typeof (acc[index][UMI].count[getUMI]) == 'undefined') {
+                    acc[index][UMI].count = { ...acc[index][UMI].count, [getUMI]: 1 }
+                } else acc[index][UMI].count[getUMI] = acc[index][UMI].count[getUMI] + 1
+            }
 
             acc[index].gender[gender] = acc[index].gender[gender] + 1
 
@@ -123,32 +127,26 @@ const createCourseObj = (csv) => {
 }
 
 const insertDispersionIndex = (courseObj) => {
-    courseObj.UMI1.dispersionIndex = calculate.dispersionIndex(courseObj.UMI1.count)
-    courseObj.UMI2.dispersionIndex = calculate.dispersionIndex(courseObj.UMI2.count)
-    courseObj.UMI3.dispersionIndex = calculate.dispersionIndex(courseObj.UMI3.count)
-    courseObj.UMI4.dispersionIndex = calculate.dispersionIndex(courseObj.UMI4.count)
-    courseObj.UMI5.dispersionIndex = calculate.dispersionIndex(courseObj.UMI5.count)
-    courseObj.UMI6.dispersionIndex = calculate.dispersionIndex(courseObj.UMI6.count)
+    for(let i = 1; i<=6; i++) {
+        let UMI = 'UMI' +  i
+        courseObj[UMI].dispersionIndex = calculate.dispersionIndex(courseObj[UMI].count)
+    }
     return courseObj
 }
 
 const insertAvg = (courseObj) => {
-    courseObj.UMI1.average = calculate.umiAvg(courseObj.UMI1.count)
-    courseObj.UMI2.average = calculate.umiAvg(courseObj.UMI2.count)
-    courseObj.UMI3.average = calculate.umiAvg(courseObj.UMI3.count)
-    courseObj.UMI4.average = calculate.umiAvg(courseObj.UMI4.count)
-    courseObj.UMI5.average = calculate.umiAvg(courseObj.UMI5.count)
-    courseObj.UMI6.average = calculate.umiAvg(courseObj.UMI6.count)
+    for(let i = 1; i<=6; i++) {
+        let UMI = 'UMI' +  i
+        courseObj[UMI].average = calculate.umiAvg(courseObj[UMI].count)
+    }
     return courseObj
 }
 
 const insertPercentFav = (courseObj) => {
-    courseObj.UMI1.percentFavourable = calculate.percentFavourable(courseObj.UMI1.count)
-    courseObj.UMI2.percentFavourable = calculate.percentFavourable(courseObj.UMI2.count)
-    courseObj.UMI3.percentFavourable = calculate.percentFavourable(courseObj.UMI3.count)
-    courseObj.UMI4.percentFavourable = calculate.percentFavourable(courseObj.UMI4.count)
-    courseObj.UMI5.percentFavourable = calculate.percentFavourable(courseObj.UMI5.count)
-    courseObj.UMI6.percentFavourable = calculate.percentFavourable(courseObj.UMI6.count)
+    for(let i = 1; i<=6; i++) {
+        let UMI = 'UMI' +  i
+        courseObj[UMI].percentFavourable = calculate.percentFavourable(courseObj[UMI].count)
+    }
     return courseObj
 }
 
