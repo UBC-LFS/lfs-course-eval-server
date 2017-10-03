@@ -3,6 +3,7 @@ import parse from 'csv-parse'
 import * as calculate from '../utils/calculate'
 import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
+import path from 'path'
 
 const readCSV = (filename, callback) => {
   const parser = parse({delimiter: ',', columns: true, relax: true, auto_parse: true}, (
@@ -10,7 +11,7 @@ const readCSV = (filename, callback) => {
     if (err) throw err
     callback(data)
   })
-  fs.createReadStream(__dirname + '/source/' + filename).pipe(parser)
+  fs.createReadStream(path.join(__dirname, '/source/', filename)).pipe(parser)
 }
 
 const getProperties = (ev) => {
@@ -178,7 +179,7 @@ readCSV('realdata.csv', (csv) => {
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-    // console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
+  console.log(JSON.stringify(courseObjWithPercentileRanking, null, 2))
 
     // console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 })

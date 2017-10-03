@@ -1,3 +1,4 @@
+/* global describe, it */
 import assert from 'assert'
 import * as filter from '../src/utils/filter'
 import R from 'ramda'
@@ -163,11 +164,15 @@ describe('filterByMany', () => {
             { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS' },
             { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS' }
     ]
+    const output = [
+            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'APBI' }
+    ]
     const filterByYear2017AndLFS = R.pipe(filter.byYear(2017), filter.byDept('LFS'))
     assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
 
-    const filterByYear2017S1 = R.pipe(filter.byYear(2017), filter.byTerm('S1'))
+    const filterByYear2017S1 = R.pipe(filter.byYear(2016), filter.byTerm('W1'))
     assert.deepEqual(filterByYear2017AndLFS(input), output2017LFS)
+    assert.deepEqual(filterByYear2017S1(input), output)
   })
 })
 describe('filterByClassSize', () => {

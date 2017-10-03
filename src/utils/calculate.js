@@ -37,7 +37,6 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
             R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
         , allCoursesSortedByUMI.length)
 
-  if (result < 0 || result > 1) throw 'Looks like there is an error with the percentile ranking calculation'
   if (result < 0.01) return 0.01
   if (result > 0.99) return 0.99
   else return toTwoDecimal(result)
@@ -63,7 +62,7 @@ const dispersionIndex = (count) => {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
   }
-  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
   const dispersionObj = {}
 
@@ -80,7 +79,7 @@ const dispersionIndex = (count) => {
     dispersionObj[key].finalF = dispersionObj[key].cumulativeProp * dispersionObj[key].oneMinusF
   }
 
-  return toTwoDecimal(Object.keys(dispersionObj).reduce((acc, key) => acc += dispersionObj[key].finalF, 0))
+  return toTwoDecimal(Object.keys(dispersionObj).reduce((acc, key) => (acc += dispersionObj[key].finalF), 0))
 }
 
 const umiAvg = (count) => {
@@ -88,9 +87,9 @@ const umiAvg = (count) => {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
   }
-  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
-  return toTwoDecimal(Object.keys(count).reduce((acc, key) => acc += count[key] * Number(key), 0) / numberOfResponses)
+  return toTwoDecimal(Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0) / numberOfResponses)
 }
 
 const percentFavourable = (count) => {
@@ -98,7 +97,7 @@ const percentFavourable = (count) => {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
   }
-  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => acc += count[curKey], 0)
+  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
   const numberOf4and5 = R.add(R.prop('4', count), R.prop('5', count))
 
   return numberOf4and5 / numberOfResponses

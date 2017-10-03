@@ -12,7 +12,7 @@ const byClassSize = (min, max) => R.pipe(byMinClassSize(min), byMaxClassSize(max
 const byMinClassSize = (size) => R.filter(x => Number(x.classSize) >= Number(size))
 const byMaxClassSize = (size) => R.filter(x => Number(x.classSize) <= Number(size))
 const byToggleBelowMin = (toggleBelowMin) => R.filter(x => {
-  if (toggleBelowMin == 'true') return true
+  if (toggleBelowMin === 'true') return true
   else return x.meetsMin === 1
 })
 const selectFields = (questionCode, fieldArray) => R.map(x => {

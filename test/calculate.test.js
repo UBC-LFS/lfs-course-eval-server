@@ -1,3 +1,5 @@
+/* global describe, it */
+
 import assert from 'assert'
 import * as calculate from '../src/utils/calculate'
 
