@@ -1,3 +1,4 @@
+/* global describe, it */
 import request from 'supertest'
 import app from '../src/app.js'
 

@@ -1,3 +1,4 @@
+/* global describe, it */
 import assert from 'assert'
 import * as createAggData from '../src/scripts/createAggregatedData.js'
 
