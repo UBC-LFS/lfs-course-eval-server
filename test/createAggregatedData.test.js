@@ -90,7 +90,6 @@ const data = [{
 
 describe('createCourseObj', () => {
   it('takes a array of objects and returns the csv converted into an array of course objects', () => {
-        // console.log(JSON.stringify(createAggData.createCourseObj(data), null, 2))
     let output = [
       {
         'year': 2016,
