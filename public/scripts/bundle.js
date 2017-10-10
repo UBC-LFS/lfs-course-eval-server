@@ -35586,14 +35586,14 @@ var drawCoursePerformance = function drawCoursePerformance() {
 
   var data = [];
   tableData.map(function (x) {
-    return data.push([x.course + ' ' + x.section, x.classSize, x[questionCode].average, x.percentResponses * 100 + '%', x.year]);
+    return data.push([x.course + ' ' + x.section, x.classSize, x[questionCode].average, x.percentResponses * 100 + '%', x.year, courseData.courseAvg[x.course], courseData.deptAvg[x.dept]]);
   });
   $('#CoursePerformance').DataTable({
     'aaData': data,
     'aoColumns': [{ 'sTitle': '' }, { 'sTitle': 'Class Size' }, {
       'sTitle': 'UMI Average',
       'render': function render(data, type, row, meta) {
-        return $('<div></div>', {
+        return $('<div></div>').append(row[2] + $('<div></div>', {
           'class': 'bar-chart-bar'
         }).append(function () {
           var bars = [];
@@ -35602,12 +35602,13 @@ var drawCoursePerformance = function drawCoursePerformance() {
           }).css({
             'width': row[2] / 5 * 100 + '%'
           }));
+          bars.push($('<div></div>', { 'class': 'line' }).css({ 'left': row[5] / 5 * 100 + '%' }));
           return bars;
-        }).prop('outerHTML');
+        }).prop('outerHTML')).prop('outerHTML');
       }
-    }, { 'sTitle': 'Response Rate' }, { 'sTitle': 'Year' }],
+    }, { 'sTitle': 'Response Rate' }, { 'sTitle': 'Year' }, { 'sTitle': 'Course Average' }, { 'sTitle': 'Department Average' }],
     'aoColumnDefs': [{ 'bSortable': false, 'aTargets': [0] }, {
-      'targets': [4],
+      'targets': [4, 5, 6],
       'visible': false,
       'searchable': false
     }, { 'className': 'umiAvg', 'targets': [2] }],

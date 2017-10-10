@@ -10,8 +10,9 @@ a {
 .bar-chart-bar {
   background-color: #e8e8e8; 
   display: block; 
-  position:relative; 
-  width: 100%; 
+  position:relative;
+  float: right; 
+  width: 90%; 
   height: 20px; 
 }
 .bar {
@@ -22,4 +23,16 @@ a {
 
 .bar:hover {
   fill: brown;
+}
+
+.line {   
+  height: 30px;
+  width: 0;
+  border: 0;
+  border-left: 3px;
+  top: -20%;
+  border-style: dotted;
+  color: #ccc;
+  z-index: 1;
+  position: relative;
 }
