@@ -32,9 +32,8 @@ a {
   border-left: 3px;
   top: -20%;
   border-style: dotted;
-  color: #ccc;
   z-index: 1;
-  position: relative;
+  position: absolute;
 }
 
 .line:hover .tooltiptext {
@@ -53,7 +52,7 @@ a {
   left: 50%; 
   margin-left: -60px;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* The switch - the box around the slider */

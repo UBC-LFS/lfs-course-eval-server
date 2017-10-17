@@ -35602,10 +35602,15 @@ var drawCoursePerformance = function drawCoursePerformance() {
           }).css({
             'width': row[2] / 5 * 100 + '%'
           }));
-          bars.push($('<div></div>', { 'class': 'line' }).css({ 'left': row[5] / 5 * 100 + '%' }).append(function () {
+          bars.push($('<div></div>', { 'class': 'line' }).css({ 'left': row[5] / 5 * 100 + '%' }).css({ 'color': '#ccc' }).append(function () {
             return $('<span></span>', {
               'class': 'tooltiptext'
-            }).append('Average: ' + row[5]).prop('outerHTML');
+            }).append('Course Average: ' + row[5]).prop('outerHTML');
+          }));
+          bars.push($('<div></div>', { 'class': 'line' }).css({ 'left': row[6] / 5 * 100 + '%' }).css({ 'color': 'gold' }).append(function () {
+            return $('<span></span>', {
+              'class': 'tooltiptext'
+            }).append('Department Average: ' + row[6]).prop('outerHTML');
           }));
           return bars;
         }).prop('outerHTML')).prop('outerHTML');
