@@ -1,5 +1,5 @@
 /* global describe, it */
-import * as getFromCSV from '../src/scripts/scriptUTils/getFromCSV'
+import * as getFromCSV from '../src/scripts/scriptUtils/getFromCSV'
 import assert from 'assert'
 
 let input = {
