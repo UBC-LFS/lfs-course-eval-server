@@ -27,15 +27,13 @@ const percentGender = (gender, arr) => {
 
 const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
   const averageOfCourse = course[umi].average
-
   const numberOfCoursesBelowUMIAverageofCourse = allCoursesSortedByUMI.filter(x => x[umi].average < averageOfCourse).length
-
   const numberOfCoursesWithExactlyTheSameUMIAverageOfCourse = allCoursesSortedByUMI.filter(x => x[umi].average === averageOfCourse).length
 
   const result = R.divide(
-        R.add(numberOfCoursesBelowUMIAverageofCourse,
-            R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
-        , allCoursesSortedByUMI.length)
+    R.add(numberOfCoursesBelowUMIAverageofCourse,
+      R.multiply(0.5, numberOfCoursesWithExactlyTheSameUMIAverageOfCourse))
+    , allCoursesSortedByUMI.length)
 
   if (result < 0.01) return 0.01
   if (result > 0.99) return 0.99
@@ -43,21 +41,21 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
 }
 
 const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
-    R.pipe(
-        filter.bySpecificCourse(courseNum, year, term),
-        get.arrayOfUMI(umi),
-        x => avg(x)
-    )(arr)
+  R.pipe(
+    filter.bySpecificCourse(courseNum, year, term),
+    get.arrayOfUMI(umi),
+    x => avg(x)
+  )(arr)
 
 const umiAvgOfInstructor = (instructorID, umi, arr) =>
-    R.pipe(
-        filter.byInstructor(instructorID),
-        get.arrayOfUMI(umi),
-        x => avg(x)
-    )(arr)
+  R.pipe(
+    filter.byInstructor(instructorID),
+    get.arrayOfUMI(umi),
+    x => avg(x)
+  )(arr)
 
 const dispersionIndex = (count) => {
-    // this 'fills in' any missing scores with 0
+  // this 'fills in' any missing scores with 0
   for (let i = 1; i <= 5; i++) {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
@@ -104,16 +102,16 @@ const percentFavourable = (count) => {
 }
 
 export {
-    avg,
-    median,
-    percentGender,
-    toTwoDecimal,
-    dispersionIndex,
-    umiAvgOfInstructor,
-    umiAvgOfCourse,
-    questionAvg,
-    avgByField,
-    umiAvg,
-    percentFavourable,
-    percentileRankingOfCourse
+  avg,
+  median,
+  percentGender,
+  toTwoDecimal,
+  dispersionIndex,
+  umiAvgOfInstructor,
+  umiAvgOfCourse,
+  questionAvg,
+  avgByField,
+  umiAvg,
+  percentFavourable,
+  percentileRankingOfCourse
 }

@@ -13876,9 +13876,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _dataService = __webpack_require__(292);
 
-var _drawChart = __webpack_require__(293);
+var _drawUMIVsDispersion = __webpack_require__(791);
 
-var _drawChart2 = _interopRequireDefault(_drawChart);
+var _drawUMIVsDispersion2 = _interopRequireDefault(_drawUMIVsDispersion);
 
 var _drawOverallInstructorTable = __webpack_require__(785);
 
@@ -13980,7 +13980,7 @@ var chartController = function chartController(filterSettings) {
   (0, _drawCoursePerformanceTable2.default)(undefined, 'UMI6');
   var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
   chart1Data.then(function (data) {
-    return (0, _drawChart2.default)(data);
+    return (0, _drawUMIVsDispersion2.default)(data);
   });
   // call chart2data, chart3data from here?
 };
@@ -14083,131 +14083,7 @@ exports.loadFilterData = loadFilterData;
 exports.createFilterString = createFilterString;
 
 /***/ }),
-/* 293 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _constants = __webpack_require__(294);
-
-var _questionDefinitions = __webpack_require__(155);
-
-var questionDefinitions = _interopRequireWildcard(_questionDefinitions);
-
-var _util = __webpack_require__(295);
-
-var util = _interopRequireWildcard(_util);
-
-var _ramda = __webpack_require__(296);
-
-var _ramda2 = _interopRequireDefault(_ramda);
-
-var _d = __webpack_require__(111);
-
-var d3 = _interopRequireWildcard(_d);
-
-var _d3Tip = __webpack_require__(784);
-
-var _d3Tip2 = _interopRequireDefault(_d3Tip);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-/* global $ */
-
-d3.tip = _d3Tip2.default;
-
-var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
-  var graph = document.getElementById('UMIvsDispersionGraph');
-  var graphWidth = $('#UMIvsDispersionGraph').width();
-  console.log(array);
-  var svg = d3.select('#UMIvsDispersionGraph').append('svg').attr('style', 'display: block; margin: auto; margin-top: 30px;').attr('width', '100%').attr('height', _constants.height).attr('viewBox', '0 0 ' + Math.min(graphWidth, _constants.height) + ' ' + 700).attr('preserveAspectRatio', 'xMinYMin');
-
-  var g = svg.append('g').attr('transform', 'translate(' + _constants.margin.left + ',' + _constants.margin.top + ')');
-
-  var x = d3.scaleLinear().rangeRound([0, graphWidth]);
-  var y = d3.scaleLinear().rangeRound([_constants.height, 0]);
-
-  x.domain([0, 0.8]);
-  y.domain([2, 5]);
-
-  g.append('g').attr('class', 'axis axis--y').call(d3.axisLeft(y).ticks(10)).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '0.9em').attr('text-anchor', 'end').attr('fill', '#000').text('Likert Scale');
-
-  g.append('g').attr('class', 'axis axis--x').attr('transform', 'translate(0,' + _constants.height + ')').call(d3.axisBottom(x));
-
-  var umiDots = g.append('g').attr('id', 'umiDots');
-
-  var courseInfoTip = d3.tip().html(function (d) {
-    return "<div class='d3ToolTip'>" + '<p>instructor: ' + d.instructor + '</p>' + '<p>Section: ' + d.courseNum + '</p>' + '<p>Question Code: ' + d.questionCode + ' "' + questionDefinitions['codesAndDef'][d.questionCode] + '"' + '</p>' + '<p>Average: ' + util.roundToTwoDecimal(d.Avg) + '</p>' + '<p>Dispersion Index: ' + util.roundToTwoDecimal(d.Dispersion) + '</p>' + '<p>Class Size: ' + d.classSize + '</p>' + '<p>Response Rate: ' + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + '</p>' + '<p>Percent Favourable: ' + util.roundToTwoDecimal(d.PercentFavourable) + '%' + '</p>' + '</div>';
-  }).direction(function (d) {
-    if (x(d.Dispersion) < 200) return 'e';else return 'n';
-  });
-
-  umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
-    return x(Math.min(d['Dispersion'], 0.8));
-  }).attr('cy', function (d) {
-    return y(Math.max(d['Avg'], 2));
-  }).attr('r', function (d) {
-    return Math.pow(Math.log(d['classSize']), 1.7);
-  }).style('fill', function (d) {
-    if (d['PercentFavourable'] >= 90) {
-      return _constants.percentFavourableColor6.first;
-    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
-      return _constants.percentFavourableColor6.second;
-    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
-      return _constants.percentFavourableColor6.third;
-    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
-      return _constants.percentFavourableColor6.fourth;
-    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
-      return _constants.percentFavourableColor6.fifth;
-    } else return _constants.percentFavourableColor6.sixth;
-  }).attr('class', function (d) {
-    if (util.stripMiddleName(d.instructor) === name) {
-      return 'pulse';
-    }
-  }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
-
-  // set circles for the instructor
-  umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
-    return util.stripMiddleName(x.instructor) === name;
-  }, array)).enter().append('circle').attr('cx', function (d) {
-    return x(Math.min(d['Dispersion'], 0.8));
-  }).attr('cy', function (d) {
-    return y(Math.max(d['Avg'], 2));
-  }).attr('r', function (d) {
-    return Math.pow(Math.log(d['classSize']), 1.7);
-  }).style('fill', function (d) {
-    if (d['PercentFavourable'] >= 90) {
-      return _constants.percentFavourableColor6.first;
-    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
-      return _constants.percentFavourableColor6.second;
-    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
-      return _constants.percentFavourableColor6.third;
-    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
-      return _constants.percentFavourableColor6.fourth;
-    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
-      return _constants.percentFavourableColor6.fifth;
-    } else return _constants.percentFavourableColor6.sixth;
-  }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
-
-  // append animation
-  var pulseList = document.getElementsByClassName('pulse');
-  Array.prototype.map.call(pulseList, function (x) {
-    x.innerHTML = '<animate attributeType="SVG" attributeName="r" begin="0s" dur="1.5s" repeatCount="indefinite" from="0%" to="10%"/><animate attributeType="CSS" attributeName="stroke-width" begin="0s"  dur="1.5s" repeatCount="indefinite" from="3%" to="0%" /><animate attributeType="CSS" attributeName="opacity" begin="0s"  dur="1.5s" repeatCount="indefinite" from="1" to="0"/>';
-  });
-
-  svg.call(courseInfoTip);
-};
-
-exports.default = drawUMIvsDispersion;
-
-/***/ }),
+/* 293 */,
 /* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35531,9 +35407,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var drawUMIInstructor = function drawUMIInstructor() {
   var tableData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : courseData;
 
-  var data = [];
-  tableData.default.map(function (x) {
-    return data.push([x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average, x.year]);
+  var data = tableData.default.map(function (x) {
+    return [x.course + ' ' + x.section, x.UMI1.average, x.UMI2.average, x.UMI3.average, x.UMI4.average, x.UMI5.average, x.UMI6.average, x.year];
   });
   $('#UMIInstructors').DataTable({
     'aaData': data,
@@ -35676,6 +35551,130 @@ exports.default = drawCoursePerformance;
 /***/ (function(module, exports) {
 
 module.exports = {"deptAvg":{"LFS":3.5},"courseAvg":{"LFSLC 100":3.1,"LFSLC 102":3.3},"facultyAvg":2.2,"courses":[{"year":2016,"term":"W2","course":"LFSLC 100","section":"001","courseName":"Introduction to LFS","courseLevel":1,"classSize":50,"dept":"LFS","percentResponses":0.3,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@92T3$@","femaleToMaleRatio":0.3,"UMI1":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI2":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI3":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI4":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI5":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}},"UMI6":{"average":4.3,"dispersion":0.5,"percentFavourable":0.7,"percentileRankingByFaculty":0.95,"percentileRankingByDept":0.95,"count":{"1":123,"2":12,"3":32,"4":75,"5":212}}},{"year":2016,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":80,"dept":"LFS","percentResponses":0.5,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST@88IJ@","femaleToMaleRatio":0.9,"UMI1":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI2":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI3":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI4":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI5":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}},"UMI6":{"average":3.6,"dispersion":0.6,"percentFavourable":0.4,"percentileRankingByFaculty":0.72,"percentileRankingByDept":0.85,"count":{"1":43,"2":18,"3":36,"4":25,"5":82}}},{"year":2016,"term":"W1","course":"LFSLC 100","section":"005","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.5,"dispersion":0.8,"percentFavourable":0.5,"percentileRankingByFaculty":0.54,"percentileRankingByDept":0.46,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}},{"year":2016,"term":"W1","course":"LFSLC 102","section":"003","courseName":"Intermediate LFS","courseLevel":1,"classSize":40,"dept":"LFS","percentResponses":0.6,"meetsMin":false,"instructorName":"Justin Lee","PUID":"AVBST@j90k8@","femaleToMaleRatio":0.8,"UMI1":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI2":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI3":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI4":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI5":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}},"UMI6":{"average":4.4,"dispersion":0.2,"percentFavourable":0.9,"percentileRankingByFaculty":0.88,"percentileRankingByDept":0.92,"count":{"1":2,"2":5,"3":4,"4":8,"5":5}}},{"year":2015,"term":"W2","course":"LFSLC 100","section":"002","courseName":"Introduction to LFS","courseLevel":1,"classSize":100,"dept":"LFS","percentResponses":0.8,"meetsMin":true,"instructorName":"Justin Lee","PUID":"AVBST/*56T@","femaleToMaleRatio":0.8,"UMI1":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI2":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI3":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI4":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI5":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}},"UMI6":{"average":2.3,"dispersion":0.8,"percentFavourable":0.61,"percentileRankingByFaculty":0.34,"percentileRankingByDept":0.48,"count":{"1":10,"2":30,"3":30,"4":10,"5":0}}}]}
+
+/***/ }),
+/* 791 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _constants = __webpack_require__(294);
+
+var _questionDefinitions = __webpack_require__(155);
+
+var questionDefinitions = _interopRequireWildcard(_questionDefinitions);
+
+var _util = __webpack_require__(295);
+
+var util = _interopRequireWildcard(_util);
+
+var _ramda = __webpack_require__(296);
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+var _d = __webpack_require__(111);
+
+var d3 = _interopRequireWildcard(_d);
+
+var _d3Tip = __webpack_require__(784);
+
+var _d3Tip2 = _interopRequireDefault(_d3Tip);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/* global $ */
+
+d3.tip = _d3Tip2.default;
+
+var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
+  var graph = document.getElementById('UMIvsDispersionGraph');
+  var graphWidth = $('#UMIvsDispersionGraph').width();
+  var svg = d3.select('#UMIvsDispersionGraph').append('svg').attr('style', 'display: block; margin: auto; margin-top: 30px;').attr('width', '100%').attr('height', _constants.height).attr('viewBox', '0 0 ' + Math.min(graphWidth, _constants.height) + ' ' + 700).attr('preserveAspectRatio', 'xMinYMin');
+
+  var g = svg.append('g').attr('transform', 'translate(' + _constants.margin.left + ',' + _constants.margin.top + ')');
+
+  var x = d3.scaleLinear().rangeRound([0, graphWidth]);
+  var y = d3.scaleLinear().rangeRound([_constants.height, 0]);
+
+  x.domain([0, 0.8]);
+  y.domain([2, 5]);
+
+  g.append('g').attr('class', 'axis axis--y').call(d3.axisLeft(y).ticks(10)).append('text').attr('transform', 'rotate(-90)').attr('y', 6).attr('dy', '0.9em').attr('text-anchor', 'end').attr('fill', '#000').text('Likert Scale');
+
+  g.append('g').attr('class', 'axis axis--x').attr('transform', 'translate(0,' + _constants.height + ')').call(d3.axisBottom(x));
+
+  var umiDots = g.append('g').attr('id', 'umiDots');
+
+  var courseInfoTip = d3.tip().html(function (d) {
+    return "<div class='d3ToolTip'>" + '<p>instructor: ' + d.instructor + '</p>' + '<p>Section: ' + d.courseNum + '</p>' + '<p>Question Code: ' + d.questionCode + ' "' + questionDefinitions['codesAndDef'][d.questionCode] + '"' + '</p>' + '<p>Average: ' + util.roundToTwoDecimal(d.Avg) + '</p>' + '<p>Dispersion Index: ' + util.roundToTwoDecimal(d.Dispersion) + '</p>' + '<p>Class Size: ' + d.classSize + '</p>' + '<p>Response Rate: ' + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + '</p>' + '<p>Percent Favourable: ' + util.roundToTwoDecimal(d.PercentFavourable) + '%' + '</p>' + '</div>';
+  }).direction(function (d) {
+    if (x(d.Dispersion) < 200) return 'e';else return 'n';
+  });
+
+  umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
+    return x(Math.min(d['Dispersion'], 0.8));
+  }).attr('cy', function (d) {
+    return y(Math.max(d['Avg'], 2));
+  }).attr('r', function (d) {
+    return Math.pow(Math.log(d['classSize']), 1.7);
+  }).style('fill', function (d) {
+    if (d['PercentFavourable'] >= 90) {
+      return _constants.percentFavourableColor6.first;
+    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+      return _constants.percentFavourableColor6.second;
+    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+      return _constants.percentFavourableColor6.third;
+    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+      return _constants.percentFavourableColor6.fourth;
+    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+      return _constants.percentFavourableColor6.fifth;
+    } else return _constants.percentFavourableColor6.sixth;
+  }).attr('class', function (d) {
+    if (util.stripMiddleName(d.instructor) === name) {
+      return 'pulse';
+    }
+  }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
+
+  // set circles for the instructor
+  umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
+    return util.stripMiddleName(x.instructor) === name;
+  }, array)).enter().append('circle').attr('cx', function (d) {
+    return x(Math.min(d['Dispersion'], 0.8));
+  }).attr('cy', function (d) {
+    return y(Math.max(d['Avg'], 2));
+  }).attr('r', function (d) {
+    return Math.pow(Math.log(d['classSize']), 1.7);
+  }).style('fill', function (d) {
+    if (d['PercentFavourable'] >= 90) {
+      return _constants.percentFavourableColor6.first;
+    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+      return _constants.percentFavourableColor6.second;
+    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+      return _constants.percentFavourableColor6.third;
+    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+      return _constants.percentFavourableColor6.fourth;
+    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+      return _constants.percentFavourableColor6.fifth;
+    } else return _constants.percentFavourableColor6.sixth;
+  }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
+
+  // append animation
+  var pulseList = document.getElementsByClassName('pulse');
+  Array.prototype.map.call(pulseList, function (x) {
+    x.innerHTML = '<animate attributeType="SVG" attributeName="r" begin="0s" dur="1.5s" repeatCount="indefinite" from="0%" to="10%"/><animate attributeType="CSS" attributeName="stroke-width" begin="0s"  dur="1.5s" repeatCount="indefinite" from="3%" to="0%" /><animate attributeType="CSS" attributeName="opacity" begin="0s"  dur="1.5s" repeatCount="indefinite" from="1" to="0"/>';
+  });
+
+  svg.call(courseInfoTip);
+};
+
+exports.default = drawUMIvsDispersion;
 
 /***/ })
 /******/ ]);
