@@ -9,3 +9,4 @@ npm run test-server
 npm run build
 
 pm2 -f start dist/lfs-course-eval.js
+pm2 logs
