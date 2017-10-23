@@ -180,7 +180,9 @@ readCSV('realdata.csv', (csv) => {
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-  // writeToDB(courseObjWithPercentileRanking)
+  console.log(courseObjWithPercentileRanking)
+
+  writeToDB(courseObjWithPercentileRanking)
 
   // console.log(courseObjWithPercentileRanking.length)
 
