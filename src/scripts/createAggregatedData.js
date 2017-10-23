@@ -166,28 +166,28 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 // crsnum is the unique identifier for a given year.
-readCSV('realdata.csv', (csv) => {
-    // console.log(csv)
-  const courseObjs = createCourseObj(csv)
+// readCSV('realdata.csv', (csv) => {
+//     // console.log(csv)
+//   const courseObjs = createCourseObj(csv)
 
-  courseObjs.map(courseObj => {
-    return R.pipe(
-            x => insertDispersionIndex(x),
-            x => insertAvg(x),
-            x => insertPercentFav(x)
-        )(courseObj)
-  })
+//   courseObjs.map(courseObj => {
+//     return R.pipe(
+//             x => insertDispersionIndex(x),
+//             x => insertAvg(x),
+//             x => insertPercentFav(x)
+//         )(courseObj)
+//   })
 
-  const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
+//   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-  console.log(courseObjWithPercentileRanking)
+//   console.log(courseObjWithPercentileRanking)
 
-  writeToDB(courseObjWithPercentileRanking)
+//   writeToDB(courseObjWithPercentileRanking)
 
-  // console.log(courseObjWithPercentileRanking.length)
+//   // console.log(courseObjWithPercentileRanking.length)
 
-  // console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
-})
+//   // console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
+// })
 
 export {
     createCourseObj,
