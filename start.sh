@@ -6,7 +6,6 @@ source .env
 
 npm install
 npm run test-server
-npm start
-# npm run build
+npm run build
 
-# pm2 -f start dist/lfs-course-eval.js
+pm2 -f start dist/lfs-course-eval.js
