@@ -1,5 +1,6 @@
 import { Router } from 'express'
-import { handleGraphAPI, handleFilterData } from './service/apiService'
+import { handleGraphAPI } from './service/apiService'
+import { filterData, createOverallInstructorData } from './service/dataService'
 
 require('dotenv').config()
 
@@ -15,8 +16,14 @@ routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 })
 
+routes.get('')
+
 routes.get('/filterData', (req, res) => {
-  handleFilterData().then(x => res.send(x))
+  filterData().then(x => res.send(x))
+})
+
+routes.get('/overallInstructors', (req, res) => {
+  createOverallInstructorData().then(x => res.send(x))
 })
 
 routes.get('/list', (req, res, next) => {

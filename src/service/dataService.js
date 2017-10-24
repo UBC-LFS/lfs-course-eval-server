@@ -50,7 +50,12 @@ const filterData = () => {
   })
 }
 
+const createOverallInstructorData = () => {
+
+}
+
 export {
     filterDataByFilterSettings,
-    filterData
+    filterData,
+    createOverallInstructorData
 }

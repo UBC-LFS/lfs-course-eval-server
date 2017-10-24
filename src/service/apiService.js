@@ -1,4 +1,4 @@
-import { filterDataByFilterSettings, filterData } from './dataService'
+import { filterDataByFilterSettings } from './dataService'
 import * as chart from '../constants/chartMapping'
 
 // maybe handle graph key handling here
@@ -8,9 +8,6 @@ const handleGraphAPI = (chartKey, params) => {
     // package up data to send to server
 }
 
-const handleFilterData = () => filterData()
-
 export {
-    handleGraphAPI,
-    handleFilterData
+    handleGraphAPI
 }

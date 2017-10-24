@@ -275,7 +275,7 @@ describe('createCourseObj', () => {
         },
         'UMI3': {
           'count': {
-            '1': 1,
+            '1': 1
           }
         },
         'UMI4': {
@@ -295,7 +295,7 @@ describe('createCourseObj', () => {
         }
       }
     ]
-    //assert.deepEqual(createAggData.createCourseObj(dataWith0), output)
+    // assert.deepEqual(createAggData.createCourseObj(dataWith0), output)
   })
 })
 
