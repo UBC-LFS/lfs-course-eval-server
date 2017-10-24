@@ -13980,13 +13980,15 @@ var chartController = function chartController(filterSettings) {
   (0, _drawCoursePerformanceTable2.default)(undefined, 'UMI6');
   var chart1Data = (0, _dataService.loadData)(undefined, 'c1');
   chart1Data.then(function (data) {
-    return (0, _drawUMIVsDispersion2.default)(data);
+    console.log(data);
   });
 
   var umiDispersionData = (0, _dataService.fetchJSON)('umiDispersion');
-  umiDispersionData.then(function (x) {
-    return console.log(x);
+  umiDispersionData.then(function (data) {
+    console.log(data);
+    (0, _drawUMIVsDispersion2.default)(data);
   });
+
   // call chart2data, chart3data from here?
 };
 
@@ -14125,7 +14127,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 d3.tip = _d3Tip2.default;
 
 var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
-  var graph = document.getElementById('UMIvsDispersionGraph');
+  var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { UMI: 6 };
+
   var graphWidth = $('#UMIvsDispersionGraph').width();
   var svg = d3.select('#UMIvsDispersionGraph').append('svg').attr('style', 'display: block; margin: auto; margin-top: 30px;').attr('width', '100%').attr('height', _constants.height).attr('viewBox', '0 0 ' + Math.min(graphWidth, _constants.height) + ' ' + 700).attr('preserveAspectRatio', 'xMinYMin');
 
@@ -14144,31 +14147,35 @@ var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
   var umiDots = g.append('g').attr('id', 'umiDots');
 
   var courseInfoTip = d3.tip().html(function (d) {
-    return "<div class='d3ToolTip'>" + '<p>instructor: ' + d.instructor + '</p>' + '<p>Section: ' + d.courseNum + '</p>' + '<p>Question Code: ' + d.questionCode + ' "' + questionDefinitions['codesAndDef'][d.questionCode] + '"' + '</p>' + '<p>Average: ' + util.roundToTwoDecimal(d.Avg) + '</p>' + '<p>Dispersion Index: ' + util.roundToTwoDecimal(d.Dispersion) + '</p>' + '<p>Class Size: ' + d.classSize + '</p>' + '<p>Response Rate: ' + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + '</p>' + '<p>Percent Favourable: ' + util.roundToTwoDecimal(d.PercentFavourable) + '%' + '</p>' + '</div>';
+    return "<div class='d3ToolTip'>" + '<p>instructor: ' + d.instructorName + '</p>' + '<p>Section: ' + d.section + '</p>' + '<p>Question Code: ' + 'UMI' + filter.UMI + ' "' + questionDefinitions['codesAndDef']['UMI' + filter.UMI] + '"' + '</p>' + '<p>Average: ' + d['UMI' + filter.UMI].average + '</p>' + '<p>Dispersion Index: ' + d['UMI' + filter.UMI].dispersionIndex + '</p>' +
+    // '<p>Class Size: ' + d.classSize + '</p>' +
+    // '<p>Response Rate: ' + util.roundToTwoDecimal(d.percentResponses * 100) + '%' + '</p>' +
+    '<p>Percent Favourable: ' + d['UMI' + filter.UMI].percentFavourable + '%' + '</p>' + '</div>';
   }).direction(function (d) {
-    if (x(d.Dispersion) < 200) return 'e';else return 'n';
+    if (x(d['UMI' + filter.UMI].dispersionIndex) < 200) return 'e';else return 'n';
   });
 
   umiDots.selectAll('dot').data(array).enter().append('circle').attr('cx', function (d) {
-    return x(Math.min(d['Dispersion'], 0.8));
+    return x(Math.min(d['UMI' + filter.UMI].dispersionIndex, 0.8));
   }).attr('cy', function (d) {
-    return y(Math.max(d['Avg'], 2));
+    return y(Math.max(d['UMI' + filter.UMI].average, 2));
   }).attr('r', function (d) {
-    return Math.pow(Math.log(d['classSize']), 1.7);
-  }).style('fill', function (d) {
-    if (d['PercentFavourable'] >= 90) {
+    return 12;
+  }) // Math.pow(Math.log(d['classSize']), 1.7))
+  .style('fill', function (d) {
+    if (d['UMI' + filter.UMI].percentFavourable >= 90) {
       return _constants.percentFavourableColor6.first;
-    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 80 && d['UMI' + filter.UMI].percentFavourable < 90) {
       return _constants.percentFavourableColor6.second;
-    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 70 && d['UMI' + filter.UMI].percentFavourable < 80) {
       return _constants.percentFavourableColor6.third;
-    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 60 && d['UMI' + filter.UMI].percentFavourable < 70) {
       return _constants.percentFavourableColor6.fourth;
-    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 50 && d['UMI' + filter.UMI].percentFavourable < 60) {
       return _constants.percentFavourableColor6.fifth;
     } else return _constants.percentFavourableColor6.sixth;
   }).attr('class', function (d) {
-    if (util.stripMiddleName(d.instructor) === name) {
+    if (util.stripMiddleName(d.instructorName) === name) {
       return 'pulse';
     }
   }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
@@ -14177,21 +14184,22 @@ var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
   umiDots.selectAll('dot').data(_ramda2.default.filter(function (x) {
     return util.stripMiddleName(x.instructor) === name;
   }, array)).enter().append('circle').attr('cx', function (d) {
-    return x(Math.min(d['Dispersion'], 0.8));
+    return x(Math.min(d['UMI' + filter.UMI].dispersionIndex, 0.8));
   }).attr('cy', function (d) {
-    return y(Math.max(d['Avg'], 2));
+    return y(Math.max(d['UMI' + filter.UMI].average, 2));
   }).attr('r', function (d) {
-    return Math.pow(Math.log(d['classSize']), 1.7);
-  }).style('fill', function (d) {
-    if (d['PercentFavourable'] >= 90) {
+    return 12;
+  }) // Math.pow(Math.log(d['classSize']), 1.7))
+  .style('fill', function (d) {
+    if (d['UMI' + filter.UMI].percentFavourable >= 90) {
       return _constants.percentFavourableColor6.first;
-    } else if (d['PercentFavourable'] >= 80 && d['PercentFavourable'] < 90) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 80 && d['UMI' + filter.UMI].percentFavourable < 90) {
       return _constants.percentFavourableColor6.second;
-    } else if (d['PercentFavourable'] >= 70 && d['PercentFavourable'] < 80) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 70 && d['UMI' + filter.UMI].percentFavourable < 80) {
       return _constants.percentFavourableColor6.third;
-    } else if (d['PercentFavourable'] >= 60 && d['PercentFavourable'] < 70) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 60 && d['UMI' + filter.UMI].percentFavourable < 70) {
       return _constants.percentFavourableColor6.fourth;
-    } else if (d['PercentFavourable'] >= 50 && d['PercentFavourable'] < 60) {
+    } else if (d['UMI' + filter.UMI].percentFavourable >= 50 && d['UMI' + filter.UMI].percentFavourable < 60) {
       return _constants.percentFavourableColor6.fifth;
     } else return _constants.percentFavourableColor6.sixth;
   }).on('mouseover', courseInfoTip.show).on('mouseout', courseInfoTip.hide);
