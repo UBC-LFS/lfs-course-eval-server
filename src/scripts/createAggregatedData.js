@@ -16,22 +16,18 @@ const readCSV = (filename, callback) => {
   fs.createReadStream(path.join(__dirname, '/source/', filename)).pipe(parser)
 }
 
-const getProperties = (ev) => {
-  const year = getFromCSV.getYear(ev)
-  const term = getFromCSV.getTerm(ev)
-  const course = getFromCSV.getCourse(ev)
-  const section = getFromCSV.getSection(ev)
-  const courseName = getFromCSV.getCourseName(ev)
-  const courseLevel = getFromCSV.getCourseLevel(ev)
-  const dept = getFromCSV.getDept(ev)
-  const instructorName = getFromCSV.getInstructorName(ev)
-  const PUID = getFromCSV.getPUID(ev)
-  const gender = getFromCSV.getGender(ev)
-
-  return ({
-    year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender
-  })
-}
+const getProperties = (ev) => ({
+  year: getFromCSV.getYear(ev),
+  term: getFromCSV.getTerm(ev),
+  course: getFromCSV.getCourse(ev),
+  section: getFromCSV.getSection(ev),
+  courseName: getFromCSV.getCourseName(ev),
+  courseLevel: getFromCSV.getCourseLevel(ev),
+  dept: getFromCSV.getDept(ev),
+  instructorName: getFromCSV.getInstructorName(ev),
+  PUID: getFromCSV.getPUID(ev),
+  gender: getFromCSV.getGender(ev)
+})
 
 const createCourseObj = (csv) => {
   return csv.reduce((acc, ev) => {
@@ -45,7 +41,6 @@ const createCourseObj = (csv) => {
 
     if (acc.some(x => uniqSectionInTerm(x))) {
       const index = acc.findIndex(x => uniqSectionInTerm(x))
-
       for (let i = 1; i <= 6; i++) {
         let getUMI
         let UMI = 'UMI' + i
@@ -73,9 +68,7 @@ const createCourseObj = (csv) => {
           acc[index][UMI].count = { ...acc[index][UMI].count, [getUMI]: 1 }
         } else acc[index][UMI].count[getUMI] = acc[index][UMI].count[getUMI] + 1
       }
-
       acc[index].gender[gender] = acc[index].gender[gender] + 1
-
       return acc
     } else {
       acc.push({
@@ -167,12 +160,11 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 
-// crsnum is the unique identifier for a given year.
 readCSV('realdata.csv', (csv) => {
-    // console.log(csv)
   const courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => {
+    console.log(courseObj)
     return R.pipe(
             x => insertDispersionIndex(x),
             x => insertAvg(x),
@@ -204,10 +196,11 @@ readCSV('realdata.csv', (csv) => {
           course.enrolment = enrolment
           const responses = course.gender.Female + course.gender.Male
           course.responseRate = toTwoDecimal(responses / enrolment)
+          // have to add in if responses meet minimum required
         }
       })
     })
-    writeToDB(courseObjWithPercentileRanking)
+    // writeToDB(courseObjWithPercentileRanking)
   })
 })
 
