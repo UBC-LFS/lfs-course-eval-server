@@ -181,8 +181,6 @@ readCSV('realdata.csv', (csv) => {
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-  // console.log(courseObjWithPercentileRanking)
-
   readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
     csv.map(enrolmentCourse => {
       const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
@@ -192,7 +190,7 @@ readCSV('realdata.csv', (csv) => {
           enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
           enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
           enrolment: enrolmentCourse.no_enrolled }
-      // console.log(enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm)
+
       courseObjWithPercentileRanking.map(course => {
         const { courseName, courseID, section, year, term } =
           { courseName: course.courseName,
@@ -206,12 +204,7 @@ readCSV('realdata.csv', (csv) => {
       })
     })
     writeToDB(courseObjWithPercentileRanking)
-    // console.log(csv)
   })
-
-  // console.log(courseObjWithPercentileRanking.length)
-
-  // console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
 })
 
 export {
