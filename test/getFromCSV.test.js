@@ -148,3 +148,20 @@ describe('getEnrolmentCourseNumber', () => {
     assert.deepEqual(getFromCSV.getEnrolmentCourseNumber(input), output)
   })
 })
+
+describe('getEnrolmentSection', () => {
+  it('takes a section and returns the section with trailing 0s if necessary, can take a number as input and returns a string', () => {
+    let input = 1
+    let output = '001'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+  })
+  it('can handle a correct input as well', () => {
+    let input = '001'
+    let output = '001'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+
+    input = '99A'
+    output = '99A'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+  })
+})
