@@ -135,3 +135,16 @@ describe('UMIGets', () => {
     assert.deepEqual(getFromCSV.getUMI6(input), 5)
   })
 })
+
+describe('getEnrolmentCourseNumber', () => {
+  it('takes a crsnum and returns the portion before the "." because some crsnums for some reason have sections attached', () => {
+    let input = 'AGRO 260.001'
+    let output = 'AGRO 260'
+    assert.deepEqual(getFromCSV.getEnrolmentCourseNumber(input), output)
+  })
+  it('can handle if an input with no period is entered', () => {
+    let input = 'AGRO 260'
+    let output = 'AGRO 260'
+    assert.deepEqual(getFromCSV.getEnrolmentCourseNumber(input), output)
+  })
+})

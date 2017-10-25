@@ -181,9 +181,21 @@ readCSV('realdata.csv', (csv) => {
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-  console.log(courseObjWithPercentileRanking)
+  // console.log(courseObjWithPercentileRanking)
 
-  writeToDB(courseObjWithPercentileRanking)
+  readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
+
+    csv.map(enrolmentCourse => {
+      const { enrolmentCourseName, enrolmentSection, enrolmentYear } = { enrolmentCourseName: enrolmentCourse.crsname, enrolmentSection: enrolmentCourse.section }
+    })
+
+    courseObjWithPercentileRanking.map(course => {
+      const { courseName, section, year } = { courseName: course.courseName, section: course.section, year: course.year }
+    })
+    // console.log(csv)
+  })
+
+  // writeToDB(courseObjWithPercentileRanking)
 
   // console.log(courseObjWithPercentileRanking.length)
 
