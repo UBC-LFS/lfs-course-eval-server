@@ -202,15 +202,12 @@ readCSV('realdata.csv', (csv) => {
             term: course.term }
         if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
           course.enrolment = enrolment
-          console.log(course)
         }
       })
     })
-
+    writeToDB(courseObjWithPercentileRanking)
     // console.log(csv)
   })
-
-  // writeToDB(courseObjWithPercentileRanking)
 
   // console.log(courseObjWithPercentileRanking.length)
 
