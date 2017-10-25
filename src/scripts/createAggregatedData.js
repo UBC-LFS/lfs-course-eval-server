@@ -5,6 +5,7 @@ import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
 import path from 'path'
 import { writeToDB } from '../service/dbService'
+import { toTwoDecimal } from '../utils/calculate'
 
 const readCSV = (filename, callback) => {
   const parser = parse({delimiter: ',', columns: true, relax: true, auto_parse: true}, (
@@ -199,7 +200,10 @@ readCSV('realdata.csv', (csv) => {
             year: course.year,
             term: course.term }
         if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
+          // add in enrolment and response rate into course
           course.enrolment = enrolment
+          const responses = course.gender.Female + course.gender.Male
+          course.responseRate = toTwoDecimal(responses / enrolment)
         }
       })
     })

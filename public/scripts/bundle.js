@@ -14160,9 +14160,8 @@ var drawUMIvsDispersion = function drawUMIvsDispersion(array) {
   }).attr('cy', function (d) {
     return y(Math.max(d['UMI' + filter.UMI].average, 2));
   }).attr('r', function (d) {
-    return 12;
-  }) // Math.pow(Math.log(d['classSize']), 1.7))
-  .style('fill', function (d) {
+    return Math.pow(Math.log(d.enrolment), 1.7);
+  }).style('fill', function (d) {
     var percentFavourable = d['UMI' + filter.UMI].percentFavourable;
     if (percentFavourable >= 0.90) {
       return _constants.percentFavourableColor6.first;
