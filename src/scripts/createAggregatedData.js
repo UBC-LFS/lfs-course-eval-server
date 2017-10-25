@@ -5,11 +5,10 @@ import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
 import path from 'path'
 import { writeToDB } from '../service/dbService'
-import { toTwoDecimal } from '../utils/calculate'
 
 const readCSV = (filename, callback) => {
-  const parser = parse({delimiter: ',', columns: true, relax: true, auto_parse: true}, (
-        err, data) => {
+  const parser = parse({ delimiter: ',', columns: true, relax: true, auto_parse: true }, (
+    err, data) => {
     if (err) throw err
     callback(data)
   })
@@ -34,10 +33,10 @@ const createCourseObj = (csv) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
     const uniqSectionInTerm = (x) => (x.year === year &&
-            x.course === course &&
-            x.term === term &&
-            x.section === section &&
-            x.instructorName === instructorName)
+      x.course === course &&
+      x.term === term &&
+      x.section === section &&
+      x.instructorName === instructorName)
 
     if (acc.some(x => uniqSectionInTerm(x))) {
       const index = acc.findIndex(x => uniqSectionInTerm(x))
@@ -163,51 +162,54 @@ const insertPercentileRanking = (courseObjs) => {
 readCSV('realdata.csv', (csv) => {
   const courseObjs = createCourseObj(csv)
 
-  courseObjs.map(courseObj => {
-    console.log(courseObj)
-    return R.pipe(
-            x => insertDispersionIndex(x),
-            x => insertAvg(x),
-            x => insertPercentFav(x)
-        )(courseObj)
-  })
+  courseObjs.map(courseObj => R.pipe(
+    x => insertDispersionIndex(x),
+    x => insertAvg(x),
+    x => insertPercentFav(x)
+  )(courseObj))
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
   readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
     csv.map(enrolmentCourse => {
       const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
-        { enrolmentCourseName: enrolmentCourse.crsname,
+        {
+          enrolmentCourseName: enrolmentCourse.crsname,
           enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
           enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
           enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
           enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
-          enrolment: enrolmentCourse.no_enrolled }
+          enrolment: enrolmentCourse.no_enrolled
+        }
 
       courseObjWithPercentileRanking.map(course => {
         const { courseName, courseID, section, year, term } =
-          { courseName: course.courseName,
+          {
+            courseName: course.courseName,
             courseID: course.course,
             section: course.section,
             year: course.year,
-            term: course.term }
+            term: course.term
+          }
         if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
           // add in enrolment and response rate into course
           course.enrolment = enrolment
           const responses = course.gender.Female + course.gender.Male
-          course.responseRate = toTwoDecimal(responses / enrolment)
+          const responseRate = calculate.toTwoDecimal(responses / enrolment)
+          course.responseRate = responseRate
+          course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
           // have to add in if responses meet minimum required
         }
       })
     })
-    // writeToDB(courseObjWithPercentileRanking)
+    writeToDB(courseObjWithPercentileRanking)
   })
 })
 
 export {
-    createCourseObj,
-    insertDispersionIndex,
-    insertAvg,
-    insertPercentFav,
-    insertPercentileRanking
+  createCourseObj,
+  insertDispersionIndex,
+  insertAvg,
+  insertPercentFav,
+  insertPercentileRanking
 }
