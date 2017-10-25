@@ -184,14 +184,29 @@ readCSV('realdata.csv', (csv) => {
   // console.log(courseObjWithPercentileRanking)
 
   readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
-
     csv.map(enrolmentCourse => {
-      const { enrolmentCourseName, enrolmentSection, enrolmentYear } = { enrolmentCourseName: enrolmentCourse.crsname, enrolmentSection: enrolmentCourse.section }
+      const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
+        { enrolmentCourseName: enrolmentCourse.crsname,
+          enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
+          enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
+          enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
+          enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
+          enrolment: enrolmentCourse.no_enrolled }
+      // console.log(enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm)
+      courseObjWithPercentileRanking.map(course => {
+        const { courseName, courseID, section, year, term } =
+          { courseName: course.courseName,
+            courseID: course.course,
+            section: course.section,
+            year: course.year,
+            term: course.term }
+        if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
+          course.enrolment = enrolment
+          console.log(course)
+        }
+      })
     })
 
-    courseObjWithPercentileRanking.map(course => {
-      const { courseName, section, year } = { courseName: course.courseName, section: course.section, year: course.year }
-    })
     // console.log(csv)
   })
 
