@@ -165,3 +165,19 @@ describe('getEnrolmentSection', () => {
     assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
   })
 })
+
+describe('getEnrolmentYear', () => {
+  it('takes a period and returns the year', () => {
+    let input = '2016W1'
+    let output = 2016
+    assert.deepEqual(getFromCSV.getEnrolmentYear(input), output)
+  })
+})
+
+describe('getEnrolmentTerm', () => {
+  it('takes a period and returns the term', () => {
+    let input = '2016W1'
+    let output = 'W1'
+    assert.deepEqual(getFromCSV.getEnrolmentTerm(input), output)
+  })
+})
