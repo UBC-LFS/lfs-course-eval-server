@@ -6,7 +6,7 @@ import * as calculate from '../src/utils/calculate'
 describe('calculateQuestionAvg', () => {
   it('takes an array and returns the average rating of the array with consideration of class size', () => {
     assert.deepEqual(2.5, calculate.questionAvg([{ percentResponses: 1, classSize: 1, Avg: 3 },
-        { percentResponses: 0.33, classSize: 3, Avg: 2 }]))
+    { percentResponses: 0.33, classSize: 3, Avg: 2 }]))
   })
   it('takes a single value in an array and returns that average', () => {
     assert.deepEqual(3, calculate.questionAvg([{ percentResponses: 1, classSize: 1, Avg: 3 }]))
@@ -15,10 +15,10 @@ describe('calculateQuestionAvg', () => {
 describe('calculateAvgByField', () => {
   it('takes an array and returns the average value of the specified field', () => {
     const avgClassSize = calculate.avgByField([{ percentResponses: 1, classSize: 1, Avg: 3 },
-        { percentResponses: 0.33, classSize: 3, Avg: 2 }], 'classSize')
+    { percentResponses: 0.33, classSize: 3, Avg: 2 }], 'classSize')
 
     const avgAvg = calculate.avgByField([{ percentResponses: 1, classSize: 1, Avg: 3 },
-        { percentResponses: 0.33, classSize: 3, Avg: 2 }], 'Avg')
+    { percentResponses: 0.33, classSize: 3, Avg: 2 }], 'Avg')
     assert.deepEqual(2, avgClassSize)
     assert.deepEqual(2.5, avgAvg)
   })
@@ -46,13 +46,13 @@ describe('calculateMedian', () => {
 describe('calculatePercentGender', () => {
   it('takes an array of objects and returns the percentage of gender for specified gender', () => {
     const input = [
-            { gender: 'Male', UMI6: 5 },
-            { gender: 'Male', UMI6: 2 },
-            { gender: 'Female', UMI6: 5 },
-            { gender: 'Male', UMI6: 5 },
-            { gender: 'Female', UMI6: 5 },
-            { gender: 'Female', UMI6: 3 },
-            { gender: 'Male', UMI6: 1 }
+      { gender: 'Male', UMI6: 5 },
+      { gender: 'Male', UMI6: 2 },
+      { gender: 'Female', UMI6: 5 },
+      { gender: 'Male', UMI6: 5 },
+      { gender: 'Female', UMI6: 5 },
+      { gender: 'Female', UMI6: 3 },
+      { gender: 'Male', UMI6: 1 }
     ]
     assert.deepEqual(calculate.percentGender('Male', input), 4 / 7)
     assert.deepEqual(calculate.percentGender('Female', input), 3 / 7)
@@ -77,13 +77,13 @@ describe('calculateToTwoDecimal', () => {
 describe('calculateUMIAvgOfInstructor', () => {
   it('takes instructorName, umi, and array and returns the UMI average for the specified UMI', () => {
     const input1 = [
-            { instructor: 'Justin Lee', UMI6: 4, id: 'abcdef' },
-            { instructor: 'Justin Lee', UMI6: 5, id: 'abcdef' },
-            { instructor: 'Justin Lee', UMI6: 3, id: 'abcdef' },
-            { instructor: 'Clara Chu', UMI6: 5, id: '12345' },
-            { instructor: 'Patrick Lin', UMI6: 3, id: 'acb' },
-            { instructor: 'Soo Kim', UMI6: 4, id: '123' },
-            { instructor: 'Patrick Lin', UMI6: 4, id: 'acb' }
+      { instructor: 'Justin Lee', UMI6: 4, id: 'abcdef' },
+      { instructor: 'Justin Lee', UMI6: 5, id: 'abcdef' },
+      { instructor: 'Justin Lee', UMI6: 3, id: 'abcdef' },
+      { instructor: 'Clara Chu', UMI6: 5, id: '12345' },
+      { instructor: 'Patrick Lin', UMI6: 3, id: 'acb' },
+      { instructor: 'Soo Kim', UMI6: 4, id: '123' },
+      { instructor: 'Patrick Lin', UMI6: 4, id: 'acb' }
     ]
     assert.deepEqual(calculate.umiAvgOfInstructor('abcdef', 'UMI6', input1), 4)
     assert.deepEqual(calculate.umiAvgOfInstructor('12345', 'UMI6', input1), 5)
@@ -95,12 +95,12 @@ describe('calculateUMIAvgOfInstructor', () => {
 describe('calculateUMIAvgOfCourse', () => {
   it('takes as input courseNum, year, tem, umi, and arr and returns the UMI average of the course', () => {
     const input = [
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 4 },
-            { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 5 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
-            { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 1 }
+      { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 4 },
+      { term: '2016W1', courseNum: 'LFSLC 200 001', instructor: 'John Doe', deptName: 'APBI', UMI1: 5 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', deptName: 'LFS', UMI1: 1 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', deptName: 'LFS', UMI1: 1 },
+      { term: '2019S2', courseNum: 'LFSLC 200 001', instructor: 'Alice Bob', deptName: 'APBI', UMI1: 1 }
     ]
     assert.deepEqual(calculate.umiAvgOfCourse('LFSLC 200 001', 2016, 'W1', 'UMI1', input), 4.5)
   })

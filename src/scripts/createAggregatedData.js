@@ -120,6 +120,16 @@ const createCourseObj = (csv) => {
   }, [])
 }
 
+const removeIncorrectCounts = (courseObj) => {
+  for (let i = 1; i <= 6; i++) {
+    let UMI = 'UMI' + i
+    const countObj = courseObj[UMI].count
+    const newObj = R.pick(['1', '2', '3', '4', '5'], countObj)
+    courseObj[UMI].count = newObj
+  }
+  return courseObj
+}
+
 const insertDispersionIndex = (courseObj) => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
@@ -163,10 +173,13 @@ readCSV('realdata.csv', (csv) => {
   const courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
+    x => removeIncorrectCounts(x),
     x => insertDispersionIndex(x),
     x => insertAvg(x),
     x => insertPercentFav(x)
   )(courseObj))
+
+  console.log(courseObjs)
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
@@ -198,7 +211,6 @@ readCSV('realdata.csv', (csv) => {
           const responseRate = calculate.toTwoDecimal(responses / enrolment)
           course.responseRate = responseRate
           course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
-          // have to add in if responses meet minimum required
         }
       })
     })
@@ -211,5 +223,6 @@ export {
   insertDispersionIndex,
   insertAvg,
   insertPercentFav,
-  insertPercentileRanking
+  insertPercentileRanking,
+  removeIncorrectCounts
 }
