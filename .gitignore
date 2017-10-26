@@ -67,3 +67,5 @@ dist
 
 /src/scripts/source
 /src/scripts/output
+
+/public/scripts
