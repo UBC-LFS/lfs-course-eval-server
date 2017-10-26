@@ -1057,3 +1057,72 @@ describe('insertPercentileRanking', () => {
     assert.deepEqual(createAggData.insertPercentileRanking(objs), output)
   })
 })
+describe('removeIncoorectCounts', () => {
+  it('takes an object and removes all counts that are incorrect, like 0 or -1 or anything else', () => {
+    let input = {
+      'UMI1': {
+        'count': {
+          '1': 2, '2': 0, '3': 0, '4': 0, '5': 0, '-1': 12
+        }
+      },
+      'UMI2': {
+        'count': {
+          '1': 0, '2': 1, '3': 0, '4': 0, '5': 1, '-asb': 12
+        }
+      },
+      'UMI3': {
+        'count': {
+          '1': 1, '2': 0, '3': 0, '4': 0, '5': 1, '-1': 12
+        }
+      },
+      'UMI4': {
+        'count': {
+          '1': 0, '2': 0, '3': 2, '4': 0, '5': 0, '0': 12
+        }
+      },
+      'UMI5': {
+        'count': {
+          '1': 0, '2': 0, '3': 0, '4': 1, '5': 1, '12': 12
+        }
+      },
+      'UMI6': {
+        'count': {
+          '1': 0, '2': 0, '3': 0, '4': 0, '5': 2, '15': 1234
+        }
+      }
+    }
+    let output = {
+      'UMI1': {
+        'count': {
+          '1': 2, '2': 0, '3': 0, '4': 0, '5': 0
+        }
+      },
+      'UMI2': {
+        'count': {
+          '1': 0, '2': 1, '3': 0, '4': 0, '5': 1
+        }
+      },
+      'UMI3': {
+        'count': {
+          '1': 1, '2': 0, '3': 0, '4': 0, '5': 1
+        }
+      },
+      'UMI4': {
+        'count': {
+          '1': 0, '2': 0, '3': 2, '4': 0, '5': 0
+        }
+      },
+      'UMI5': {
+        'count': {
+          '1': 0, '2': 0, '3': 0, '4': 1, '5': 1
+        }
+      },
+      'UMI6': {
+        'count': {
+          '1': 0, '2': 0, '3': 0, '4': 0, '5': 2
+        }
+      }
+    }
+    assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
+  })
+})

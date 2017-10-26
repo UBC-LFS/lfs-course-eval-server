@@ -135,3 +135,49 @@ describe('UMIGets', () => {
     assert.deepEqual(getFromCSV.getUMI6(input), 5)
   })
 })
+
+describe('getEnrolmentCourseNumber', () => {
+  it('takes a crsnum and returns the portion before the "." because some crsnums for some reason have sections attached', () => {
+    let input = 'AGRO 260.001'
+    let output = 'AGRO 260'
+    assert.deepEqual(getFromCSV.getEnrolmentCourseNumber(input), output)
+  })
+  it('can handle if an input with no period is entered', () => {
+    let input = 'AGRO 260'
+    let output = 'AGRO 260'
+    assert.deepEqual(getFromCSV.getEnrolmentCourseNumber(input), output)
+  })
+})
+
+describe('getEnrolmentSection', () => {
+  it('takes a section and returns the section with trailing 0s if necessary, can take a number as input and returns a string', () => {
+    let input = 1
+    let output = '001'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+  })
+  it('can handle a correct input as well', () => {
+    let input = '001'
+    let output = '001'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+
+    input = '99A'
+    output = '99A'
+    assert.deepEqual(getFromCSV.getEnrolmentSection(input), output)
+  })
+})
+
+describe('getEnrolmentYear', () => {
+  it('takes a period and returns the year', () => {
+    let input = '2016W1'
+    let output = 2016
+    assert.deepEqual(getFromCSV.getEnrolmentYear(input), output)
+  })
+})
+
+describe('getEnrolmentTerm', () => {
+  it('takes a period and returns the term', () => {
+    let input = '2016W1'
+    let output = 'W1'
+    assert.deepEqual(getFromCSV.getEnrolmentTerm(input), output)
+  })
+})

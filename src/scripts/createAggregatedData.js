@@ -7,44 +7,39 @@ import path from 'path'
 import { writeToDB } from '../service/dbService'
 
 const readCSV = (filename, callback) => {
-  const parser = parse({delimiter: ',', columns: true, relax: true, auto_parse: true}, (
-        err, data) => {
+  const parser = parse({ delimiter: ',', columns: true, relax: true, auto_parse: true }, (
+    err, data) => {
     if (err) throw err
     callback(data)
   })
   fs.createReadStream(path.join(__dirname, '/source/', filename)).pipe(parser)
 }
 
-const getProperties = (ev) => {
-  const year = getFromCSV.getYear(ev)
-  const term = getFromCSV.getTerm(ev)
-  const course = getFromCSV.getCourse(ev)
-  const section = getFromCSV.getSection(ev)
-  const courseName = getFromCSV.getCourseName(ev)
-  const courseLevel = getFromCSV.getCourseLevel(ev)
-  const dept = getFromCSV.getDept(ev)
-  const instructorName = getFromCSV.getInstructorName(ev)
-  const PUID = getFromCSV.getPUID(ev)
-  const gender = getFromCSV.getGender(ev)
-
-  return ({
-    year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender
-  })
-}
+const getProperties = (ev) => ({
+  year: getFromCSV.getYear(ev),
+  term: getFromCSV.getTerm(ev),
+  course: getFromCSV.getCourse(ev),
+  section: getFromCSV.getSection(ev),
+  courseName: getFromCSV.getCourseName(ev),
+  courseLevel: getFromCSV.getCourseLevel(ev),
+  dept: getFromCSV.getDept(ev),
+  instructorName: getFromCSV.getInstructorName(ev),
+  PUID: getFromCSV.getPUID(ev),
+  gender: getFromCSV.getGender(ev)
+})
 
 const createCourseObj = (csv) => {
   return csv.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
     const uniqSectionInTerm = (x) => (x.year === year &&
-            x.course === course &&
-            x.term === term &&
-            x.section === section &&
-            x.instructorName === instructorName)
+      x.course === course &&
+      x.term === term &&
+      x.section === section &&
+      x.instructorName === instructorName)
 
     if (acc.some(x => uniqSectionInTerm(x))) {
       const index = acc.findIndex(x => uniqSectionInTerm(x))
-
       for (let i = 1; i <= 6; i++) {
         let getUMI
         let UMI = 'UMI' + i
@@ -72,9 +67,7 @@ const createCourseObj = (csv) => {
           acc[index][UMI].count = { ...acc[index][UMI].count, [getUMI]: 1 }
         } else acc[index][UMI].count[getUMI] = acc[index][UMI].count[getUMI] + 1
       }
-
       acc[index].gender[gender] = acc[index].gender[gender] + 1
-
       return acc
     } else {
       acc.push({
@@ -127,6 +120,16 @@ const createCourseObj = (csv) => {
   }, [])
 }
 
+const removeIncorrectCounts = (courseObj) => {
+  for (let i = 1; i <= 6; i++) {
+    let UMI = 'UMI' + i
+    const countObj = courseObj[UMI].count
+    const newObj = R.pick(['1', '2', '3', '4', '5'], countObj)
+    courseObj[UMI].count = newObj
+  }
+  return courseObj
+}
+
 const insertDispersionIndex = (courseObj) => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
@@ -166,34 +169,60 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 
-// crsnum is the unique identifier for a given year.
 readCSV('realdata.csv', (csv) => {
-    // console.log(csv)
   const courseObjs = createCourseObj(csv)
 
-  courseObjs.map(courseObj => {
-    return R.pipe(
-            x => insertDispersionIndex(x),
-            x => insertAvg(x),
-            x => insertPercentFav(x)
-        )(courseObj)
-  })
+  courseObjs.map(courseObj => R.pipe(
+    x => removeIncorrectCounts(x),
+    x => insertDispersionIndex(x),
+    x => insertAvg(x),
+    x => insertPercentFav(x)
+  )(courseObj))
+
+  console.log(courseObjs)
 
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
-  console.log(courseObjWithPercentileRanking)
+  readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
+    csv.map(enrolmentCourse => {
+      const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
+        {
+          enrolmentCourseName: enrolmentCourse.crsname,
+          enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
+          enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
+          enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
+          enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
+          enrolment: enrolmentCourse.no_enrolled
+        }
 
-  writeToDB(courseObjWithPercentileRanking)
-
-  // console.log(courseObjWithPercentileRanking.length)
-
-  // console.log(calculate.percentileRankingOfCourse(sortedByUMI1Avg[sortedByUMI1Avg.length-1], 'UMI1', sortedByUMI1Avg))
+      courseObjWithPercentileRanking.map(course => {
+        const { courseName, courseID, section, year, term } =
+          {
+            courseName: course.courseName,
+            courseID: course.course,
+            section: course.section,
+            year: course.year,
+            term: course.term
+          }
+        if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
+          // add in enrolment and response rate into course
+          course.enrolment = enrolment
+          const responses = course.gender.Female + course.gender.Male
+          const responseRate = calculate.toTwoDecimal(responses / enrolment)
+          course.responseRate = responseRate
+          course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
+        }
+      })
+    })
+    writeToDB(courseObjWithPercentileRanking)
+  })
 })
 
 export {
-    createCourseObj,
-    insertDispersionIndex,
-    insertAvg,
-    insertPercentFav,
-    insertPercentileRanking
+  createCourseObj,
+  insertDispersionIndex,
+  insertAvg,
+  insertPercentFav,
+  insertPercentileRanking,
+  removeIncorrectCounts
 }

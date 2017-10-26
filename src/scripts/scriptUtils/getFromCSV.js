@@ -26,8 +26,6 @@ const getCourseName = (ev) => ev.crsname
 
 const getCourseLevel = (ev) => ev.crsyear
 
-// const getClassSize = (ev) =>
-
 const getDept = (ev) => ev.deptname
 
 const getInstructorName = (ev) => ev.resp_fac
@@ -41,6 +39,15 @@ const getUMI5 = (ev) => ev['The instructor showed concern for student learning.'
 const getUMI6 = (ev) => ev['Overall  the instructor was an effective teacher.']
 
 const getGender = (ev) => ev.gender
+
+// for enrolment CSV
+const getEnrolmentCourseNumber = (crsnum) => String(crsnum.split('.')[0])
+
+const getEnrolmentSection = (section) => String(section).padStart(3, '0')
+
+const getEnrolmentYear = (period) => Number(period.slice(0, 4))
+
+const getEnrolmentTerm = (period) => String(period.slice(4, 6))
 
 export {
     getYear,
@@ -58,5 +65,9 @@ export {
     getUMI4,
     getUMI5,
     getUMI6,
-    getGender
+    getGender,
+    getEnrolmentCourseNumber,
+    getEnrolmentSection,
+    getEnrolmentYear,
+    getEnrolmentTerm
 }

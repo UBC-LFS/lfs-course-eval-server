@@ -98,7 +98,46 @@ const percentFavourable = (count) => {
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
   const numberOf4and5 = R.add(R.prop('4', count), R.prop('5', count))
 
-  return numberOf4and5 / numberOfResponses
+  return toTwoDecimal(numberOf4and5 / numberOfResponses)
+}
+
+const meetsMinimum = (classSize, responseRate) => {
+  let meetsMin = false
+  switch (true) {
+    case classSize <= 10:
+      if (responseRate >= 0.75) meetsMin = true
+      break
+    case classSize >= 11 && classSize <= 19:
+      if (responseRate >= 0.65) meetsMin = true
+      break
+    case classSize >= 10 && classSize <= 34:
+      if (responseRate >= 0.55) meetsMin = true
+      break
+    case classSize >= 35 && classSize <= 49:
+      if (responseRate >= 0.40) meetsMin = true
+      break
+    case classSize >= 50 && classSize <= 74:
+      if (responseRate >= 0.35) meetsMin = true
+      break
+    case classSize >= 75 && classSize <= 99:
+      if (responseRate >= 0.25) meetsMin = true
+      break
+    case classSize >= 100 && classSize <= 149:
+      if (responseRate >= 0.2) meetsMin = true
+      break
+    case classSize >= 150 && classSize <= 299:
+      if (responseRate >= 0.15) meetsMin = true
+      break
+    case classSize >= 300 && classSize <= 499:
+      if (responseRate >= 0.10) meetsMin = true
+      break
+    case classSize > 500:
+      if (responseRate >= 0.05) meetsMin = true
+      break
+    default:
+      meetsMin = false
+  }
+  return meetsMin
 }
 
 export {
@@ -113,5 +152,6 @@ export {
   avgByField,
   umiAvg,
   percentFavourable,
-  percentileRankingOfCourse
+  percentileRankingOfCourse,
+  meetsMinimum
 }
