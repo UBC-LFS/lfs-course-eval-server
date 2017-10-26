@@ -50,8 +50,15 @@ const filterData = () => {
   })
 }
 
-const createOverallInstructorData = () => {
+const dataForOverallInstructor = () => {
 
+
+}
+const dataForUMIInstructor = () => {
+
+}
+const dataForCoursePerformance = () => {
+  
 }
 
 const dataForUMIVSDispersion = (year) => {
@@ -66,6 +73,6 @@ const dataForUMIVSDispersion = (year) => {
 export {
     filterDataByFilterSettings,
     filterData,
-    createOverallInstructorData,
+    dataForOverallInstructor,
     dataForUMIVSDispersion
 }

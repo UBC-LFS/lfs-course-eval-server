@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { handleGraphAPI } from './service/apiService'
-import { filterData, createOverallInstructorData, dataForUMIVSDispersion } from './service/dataService'
+import { filterData, dataForOverallInstructor, dataForCoursePerformance, dataForUMIVSDispersion, dataForUMIInstructor } from './service/dataService'
 
 require('dotenv').config()
 
@@ -20,12 +20,20 @@ routes.get('/umiDispersion', (req, res) => {
   dataForUMIVSDispersion().then(x => res.send(x))
 })
 
-routes.get('/filterData', (req, res) => {
-  filterData().then(x => res.send(x))
+routes.get('/data/UMIInstructor', (req, res) => {
+  dataForUMIInstructor().then(x => res.send(x))
 })
 
-routes.get('/overallInstructors', (req, res) => {
-  createOverallInstructorData().then(x => res.send(x))
+routes.get('/data/OverallInstructor', (req, res) => {
+  dataForOverallInstructor().then(x => res.send(x))
+})
+
+routes.get('/data/CoursePerformance', (req, res) => {
+  dataForCoursePerformance().then(x => res.send(x))
+})
+
+routes.get('/filterData', (req, res) => {
+  filterData().then(x => res.send(x))
 })
 
 routes.get('/list', (req, res, next) => {
