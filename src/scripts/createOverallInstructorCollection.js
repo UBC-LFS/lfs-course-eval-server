@@ -10,13 +10,13 @@ const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
 
   const sumCount = (umi, val, tuple) =>
-    R.reduce((acc, record) => acc + record[umi].count[val], 0, tuple[1])
+    R.reduce((acc, record) => (acc + record[umi].count[val]), 0, tuple[1])
 
   const sumGender = (gen, tuple) =>
-    R.reduce((acc, record) => acc + record.gender[gen], 0, tuple[1])
+    R.reduce((acc, record) => (acc + record.gender[gen]), 0, tuple[1])
 
   const sumEnrolment = (tuple) =>
-    R.reduce((acc, record) => acc + record.enrolment, 0, tuple[1])
+    R.reduce((acc, record) => (acc + record.enrolment), 0, tuple[1])
 
   const result = R.reduce((acc, tuple) => {
     const instructorObj = {
