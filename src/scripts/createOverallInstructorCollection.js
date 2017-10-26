@@ -7,33 +7,18 @@ readAggregatedDataByYear('2016', (res) => {
 })
 
 const aggregateOverallInstructor = (data) => {
-  const byInstructor = R.groupBy(function (course) {
-    return course.PUID
-  })
+  const byInstructor = R.groupBy((course) => course.PUID)
 
-  const sumCount = (umi, val, tuple) => {
-    const arr = R.reduce(function (acc, record) {
-      return acc + record[umi].count[val]
-    }, 0, tuple[1])
-    return arr
-  }
+  const sumCount = (umi, val, tuple) =>
+    R.reduce((acc, record) => acc + record[umi].count[val], 0, tuple[1])
 
-  const sumGender = (gen, tuple) => {
-    const genArr = R.reduce(function (acc, record) {
-      return acc + record.gender[gen]
-    }, 0, tuple[1])
-    return genArr
-  }
+  const sumGender = (gen, tuple) =>
+    R.reduce((acc, record) => acc + record.gender[gen], 0, tuple[1])
 
-  const sumEnrolment = (tuple) => {
-    const enArr = R.reduce(function (acc, record) {
-      return acc + record.enrolment
-    }, 0, tuple[1])
-    return enArr
-  }
+  const sumEnrolment = (tuple) =>
+    R.reduce((acc, record) => acc + record.enrolment, 0, tuple[1])
 
-  const result = R.reduce(function (acc, tuple) {
-
+  const result = R.reduce((acc, tuple) => {
     const instructorObj = {
       instructorName: tuple[1][0].instructorName,
       gender: {
@@ -45,8 +30,7 @@ const aggregateOverallInstructor = (data) => {
 
     for (let i = 1; i <= 6; i++) {
       instructorObj['UMI' + i] = {
-        count:
-        {
+        count: {
           '1': sumCount('UMI' + i, '1', tuple),
           '2': sumCount('UMI' + i, '2', tuple),
           '3': sumCount('UMI' + i, '3', tuple),
@@ -55,15 +39,11 @@ const aggregateOverallInstructor = (data) => {
         }
       }
     }
-
-    acc.push(
-      instructorObj
-    )
+    acc.push(instructorObj)
     return acc
   }, [], R.toPairs(byInstructor(data)))
   return result
-
-  //TODO: add dispersionIndex, average, percentFavourable, responseRate
+  // TODO: add dispersionIndex, average, percentFavourable, responseRate
 }
 
 export {
