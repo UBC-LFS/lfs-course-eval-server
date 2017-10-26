@@ -179,10 +179,9 @@ readCSV('realdata.csv', (csv) => {
     x => insertPercentFav(x)
   )(courseObj))
 
-  console.log(courseObjs)
-
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
+  // this adds in the enrolment data from another CSV
   readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
     csv.map(enrolmentCourse => {
       const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
@@ -214,7 +213,7 @@ readCSV('realdata.csv', (csv) => {
         }
       })
     })
-    writeToDB(courseObjWithPercentileRanking)
+    // writeToDB(courseObjWithPercentileRanking)
   })
 })
 
