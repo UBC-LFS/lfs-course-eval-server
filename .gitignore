@@ -69,3 +69,5 @@ dist
 /src/scripts/output
 
 /public/scripts
+
+.DS_Store
