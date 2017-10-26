@@ -52,13 +52,12 @@ const filterData = () => {
 
 const dataForOverallInstructor = () => {
 
-
 }
 const dataForUMIInstructor = () => {
 
 }
 const dataForCoursePerformance = () => {
-  
+
 }
 
 const dataForUMIVSDispersion = (year) => {

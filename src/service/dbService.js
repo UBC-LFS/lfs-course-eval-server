@@ -3,8 +3,8 @@ import assert from 'assert'
 
 const url = 'mongodb://localhost:27017/courseval'
 
-const insertDocumentsIntoAggregatedData = (db, dataToWrite, cb) => {
-  const collection = db.collection('aggregatedData')
+const insertDocuments = (db, dataToWrite, src, cb) => {
+  const collection = db.collection(src)
   collection.insertMany(dataToWrite, function (err, result) {
     assert.equal(err, null)
     assert.equal(dataToWrite.length, result.ops.length)
@@ -13,10 +13,10 @@ const insertDocumentsIntoAggregatedData = (db, dataToWrite, cb) => {
   })
 }
 
-const writeToDB = (dataToWrite) => MongoClient.connect(url, (err, db) => {
+const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
   console.log('connected successfully!')
-  insertDocumentsIntoAggregatedData(db, dataToWrite, () => {
+  insertDocuments(db, dataToWrite, src, () => {
     db.close()
   })
   db.close()

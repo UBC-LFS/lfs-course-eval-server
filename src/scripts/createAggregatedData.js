@@ -214,7 +214,7 @@ readCSV('realdata.csv', (csv) => {
         }
       })
     })
-    writeToDB(courseObjWithPercentileRanking)
+    writeToDB(courseObjWithPercentileRanking, 'aggregatedData')
   })
 })
 
