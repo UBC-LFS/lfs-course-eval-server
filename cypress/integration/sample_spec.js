@@ -1,7 +1,8 @@
-/* global describe, it, expect */
+/* global describe, it, expect, cy */
 
 describe('My first test', () => {
-  it('Does not do much', () => {
-    expect(true).to.equal(true)
+  it('Finds an element', () => {
+    cy.visit('http://localhost:8080')
+    cy.contains('Courseval')
   })
 })
