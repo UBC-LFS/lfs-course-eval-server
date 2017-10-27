@@ -1,4 +1,4 @@
-/* global describe, it, expect, cy */
+/* global describe, it, cy */
 
 describe('My first test', () => {
   it('Finds the title', () => {

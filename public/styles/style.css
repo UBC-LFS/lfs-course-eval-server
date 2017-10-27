@@ -124,3 +124,6 @@ input:checked + .slider:before {
   flex: 1; /*grow*/
 }
 
+.bar rect {
+  fill: steelblue;
+}
