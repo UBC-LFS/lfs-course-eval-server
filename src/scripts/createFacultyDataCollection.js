@@ -1,24 +1,13 @@
-import fs from 'fs'
-import parse from 'csv-parse'
-import path from 'path'
 import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
-
-const readCSV = (filename, callback) => {
-  const parser = parse({ delimiter: ',', columns: true, relax: true, auto_parse: true }, (
-    err, data) => {
-    if (err) throw err
-    callback(data)
-  })
-  fs.createReadStream(path.join(__dirname, '/source/', filename)).pipe(parser)
-}
+import readCSV from '../service/readCSV'
 
 const filterInvalidResults = (arr) => arr.filter(x => x === 1 || x === 2 || x === 3 || x === 4 || x === 5)
 
 const filterByDept = (dept, arr) => arr.filter(x => getFromCSV.getDept(x) === dept)
 
 // for Sean Smulker, tight deadline, will refactor
-readCSV('rawDataAll.csv', (csv) => {
+readCSV('../scripts/source/rawDataAll.csv', (csv) => {
   const UMI1Arr = filterInvalidResults(csv.map(x => getFromCSV.getUMI1(x)))
   const UMI2Arr = filterInvalidResults(csv.map(x => getFromCSV.getUMI2(x)))
   const UMI3Arr = filterInvalidResults(csv.map(x => getFromCSV.getUMI3(x)))

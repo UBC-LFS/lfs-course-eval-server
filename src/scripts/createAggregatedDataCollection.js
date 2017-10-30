@@ -5,15 +5,7 @@ import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
 import path from 'path'
 import { writeToDB } from '../service/dbService'
-
-const readCSV = (filename, callback) => {
-  const parser = parse({ delimiter: ',', columns: true, relax: true, auto_parse: true }, (
-    err, data) => {
-    if (err) throw err
-    callback(data)
-  })
-  fs.createReadStream(path.join(__dirname, '/source/', filename)).pipe(parser)
-}
+import readCSV from '../service/readCSV'
 
 const getProperties = (ev) => ({
   year: getFromCSV.getYear(ev),
@@ -169,7 +161,7 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 
-readCSV('realdata.csv', (csv) => {
+readCSV('../scripts/source/realdata.csv', (csv) => {
   const courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
@@ -182,7 +174,7 @@ readCSV('realdata.csv', (csv) => {
   const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
 
   // this adds in the enrolment data from another CSV
-  readCSV('course_eval_enrollments-2009-2017SA.csv', (csv) => {
+  readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', (csv) => {
     csv.map(enrolmentCourse => {
       const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
         {
