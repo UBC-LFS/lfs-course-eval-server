@@ -101,7 +101,7 @@ describe('getTerm', () => {
       'The instructor showed concern for student learning.': 4,
       'Overall  the instructor was an effective teacher.': 5
     }
-    assert.deepEqual(getFromCSV.getYear(input), 'W1')
+    assert.deepEqual(getFromCSV.getTerm(input), 'W1')
   })
 })
 

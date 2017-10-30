@@ -13,6 +13,6 @@ const readCSV = (filename, callback) => {
 }
 
 readCSV('rawDataAll.csv', (csv) => {
-  const UMI1Arr = csv.map(x => getFromCSV.getUMI1(x))
-  console.log(UMI1Arr)
+  const year = csv.map(x => getFromCSV.getYear(x))
+  console.log(year)
 })
