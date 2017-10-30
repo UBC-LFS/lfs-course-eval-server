@@ -106,6 +106,18 @@ describe('getTerm', () => {
       surveyname: 'LFS Instructor/Course Evaluation 2012W - 2 term courses'
     }
     assert.deepEqual(getFromCSV.getTerm(input), 'W ')
+    input = {
+      surveyname: 'LFS Instructor/Course Evaluation 2012S1 - FRE 302 and 490'
+    }
+    assert.deepEqual(getFromCSV.getTerm(input), 'S1')
+    input = {
+      surveyname: 'LFS Instructor/Course Evaluation 2012SA (Distance)'
+    }
+    assert.deepEqual(getFromCSV.getTerm(input), 'SA')
+    input = {
+      surveyname: 'LFS Instructor/Course Evaluation 2017 S1-2'
+    }
+    assert.deepEqual(getFromCSV.getTerm(input), 'S1-2')
   })
 })
 

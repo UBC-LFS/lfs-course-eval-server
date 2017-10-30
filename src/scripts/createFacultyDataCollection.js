@@ -17,8 +17,7 @@ const filterInvalidResults = (arr) => arr.filter(x => x === 1 || x === 2 || x ==
 
 const filterByDept = (dept, arr) => arr.filter(x => getFromCSV.getDept(x) === dept)
 
-// for Sean Smulker
-
+// for Sean Smulker, tight deadline, will refactor
 readCSV('rawDataAll.csv', (csv) => {
   const UMI1Arr = filterInvalidResults(csv.map(x => getFromCSV.getUMI1(x)))
   const UMI2Arr = filterInvalidResults(csv.map(x => getFromCSV.getUMI2(x)))
@@ -37,7 +36,7 @@ readCSV('rawDataAll.csv', (csv) => {
     'Faculty UMI6: ', R.mean(UMI6Arr) + '\n' +
     'Number of Faculty Responses: ', UMI1Arr.length
   )
-  
+
   // APBI
   const APBIUMI1 = filterInvalidResults(filterByDept('APBI', csv).map(x => getFromCSV.getUMI1(x)))
   const APBIUMI2 = filterInvalidResults(filterByDept('APBI', csv).map(x => getFromCSV.getUMI2(x)))
@@ -73,7 +72,7 @@ readCSV('rawDataAll.csv', (csv) => {
     'FOOD UMI6: ', R.mean(FOODUMI6) + '\n' +
     'Number of FOOD Responses: ', FOODUMI1.length
   )
-  
+
   // SOIL
   const SOILUMI1 = filterInvalidResults(filterByDept('SOIL', csv).map(x => getFromCSV.getUMI1(x)))
   const SOILUMI2 = filterInvalidResults(filterByDept('SOIL', csv).map(x => getFromCSV.getUMI2(x)))
