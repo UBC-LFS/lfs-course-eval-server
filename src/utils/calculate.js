@@ -103,40 +103,16 @@ const percentFavourable = (count) => {
 
 const meetsMinimum = (classSize, responseRate) => {
   let meetsMin = false
-  switch (true) {
-    case classSize <= 10:
-      if (responseRate >= 0.75) meetsMin = true
-      break
-    case classSize >= 11 && classSize <= 19:
-      if (responseRate >= 0.65) meetsMin = true
-      break
-    case classSize >= 10 && classSize <= 34:
-      if (responseRate >= 0.55) meetsMin = true
-      break
-    case classSize >= 35 && classSize <= 49:
-      if (responseRate >= 0.40) meetsMin = true
-      break
-    case classSize >= 50 && classSize <= 74:
-      if (responseRate >= 0.35) meetsMin = true
-      break
-    case classSize >= 75 && classSize <= 99:
-      if (responseRate >= 0.25) meetsMin = true
-      break
-    case classSize >= 100 && classSize <= 149:
-      if (responseRate >= 0.2) meetsMin = true
-      break
-    case classSize >= 150 && classSize <= 299:
-      if (responseRate >= 0.15) meetsMin = true
-      break
-    case classSize >= 300 && classSize <= 499:
-      if (responseRate >= 0.10) meetsMin = true
-      break
-    case classSize > 500:
-      if (responseRate >= 0.05) meetsMin = true
-      break
-    default:
-      meetsMin = false
-  }
+  if (classSize <= 10 && responseRate >= 0.75) meetsMin = true
+  if (classSize >= 11 && classSize <= 19 && responseRate >= 0.65) meetsMin = true
+  if (classSize >= 20 && classSize <= 34 && responseRate >= 0.55) meetsMin = true
+  if (classSize >= 35 && classSize <= 49 && responseRate >= 0.40) meetsMin = true
+  if (classSize >= 50 && classSize <= 74 && responseRate >= 0.35) meetsMin = true
+  if (classSize >= 75 && classSize <= 99 && responseRate >= 0.25) meetsMin = true
+  if (classSize >= 100 && classSize <= 149 && responseRate >= 0.2) meetsMin = true
+  if (classSize >= 150 && classSize <= 299 && responseRate >= 0.15) meetsMin = true
+  if (classSize >= 300 && classSize <= 499 && responseRate >= 0.10) meetsMin = true
+  if (classSize > 500 && responseRate >= 0.05) meetsMin = true
   return meetsMin
 }
 
