@@ -1,6 +1,6 @@
 /* global describe, it */
 import assert from 'assert'
-import * as createAggData from '../src/scripts/createAggregatedData.js'
+import * as createAggData from '../src/scripts/createAggregatedDataCollection.js'
 
 const data1 = [{
   surveyname: 'LFS Instructor/Course Evaluation 2016W2',
@@ -1220,9 +1220,7 @@ describe('removeIncorrectCounts', () => {
         }
       },
       UMI6: {
-        count: {
-          
-        }
+        count: {}
       }
     }
     let output = {
