@@ -102,6 +102,10 @@ describe('getTerm', () => {
       'Overall  the instructor was an effective teacher.': 5
     }
     assert.deepEqual(getFromCSV.getTerm(input), 'W1')
+    input = {
+      surveyname: 'LFS Instructor/Course Evaluation 2012W - 2 term courses'
+    }
+    assert.deepEqual(getFromCSV.getTerm(input), 'W ')
   })
 })
 
