@@ -1192,4 +1192,71 @@ describe('removeIncorrectCounts', () => {
     }
     assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
   })
+  it('can handle when some counts are empty', () => {
+    let input = {
+      UMI1: {
+        count: {
+          '1': 5, '2': 3, '0': 12
+        }
+      },
+      UMI2: {
+        count: {
+          '1': 5, '2': 3, '0': 12
+        }
+      },
+      UMI3: {
+        count: {
+          '1': 5, '2': 3, '0': 12
+        }
+      },
+      UMI4: {
+        count: {
+          '1': 5, '2': 3, '0': 12
+        }
+      },
+      UMI5: {
+        count: {
+          '1': 5, '2': 3, '0': 12
+        }
+      },
+      UMI6: {
+        count: {
+          
+        }
+      }
+    }
+    let output = {
+      UMI1: {
+        count: {
+          '1': 5, '2': 3
+        }
+      },
+      UMI2: {
+        count: {
+          '1': 5, '2': 3
+        }
+      },
+      UMI3: {
+        count: {
+          '1': 5, '2': 3
+        }
+      },
+      UMI4: {
+        count: {
+          '1': 5, '2': 3
+        }
+      },
+      UMI5: {
+        count: {
+          '1': 5, '2': 3
+        }
+      },
+      UMI6: {
+        count: {
+          
+        }
+      }
+    }
+    assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
+  })
 })
