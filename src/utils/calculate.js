@@ -3,7 +3,7 @@ import * as get from './get'
 import * as filter from './filter'
 
 const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
-// TODO: write more tests
+
 const questionAvg = (arr) => {
   const sumOfRatings = R.reduce((total, x) => total + (x.percentResponses * x.classSize * x.Avg), 0)(arr)
   const sumOfClassSize = R.reduce((sum, x) => sum + (x.percentResponses * x.classSize), 0)(arr)
@@ -15,7 +15,6 @@ const avgByField = (arr, field) => {
   return parseFloat(R.mean(fieldArray)).toFixed(1)
 }
 
-// all inputs below take an array of objects as the last argument
 const avg = (arr) => R.mean(arr)
 
 const median = (arr) => R.median(arr)
