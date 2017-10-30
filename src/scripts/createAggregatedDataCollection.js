@@ -158,7 +158,7 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 
-readCSV('../scripts/source/realdata.csv', (csv) => {
+readCSV('../scripts/source/rawDataAll.csv', (csv) => {
   const courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
@@ -202,7 +202,7 @@ readCSV('../scripts/source/realdata.csv', (csv) => {
         }
       })
     })
-    writeToDB(courseObjWithPercentileRanking, 'aggregatedData')
+    // writeToDB(courseObjWithPercentileRanking, 'aggregatedData')
     // writeToDB(courseObjWithPercentileRanking)
   })
 })

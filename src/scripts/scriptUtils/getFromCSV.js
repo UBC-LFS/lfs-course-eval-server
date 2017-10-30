@@ -1,27 +1,13 @@
 const getYear = (ev) => {
-  const split = ev.surveyname.split('')
-  let result
-  split.map((char, i) => {
-    if (!isNaN(char)) {
-      if (!isNaN(split[i + 2]) && !isNaN(split[i + 3]) && !isNaN(split[i + 4])) {
-        result = Number(split[i + 1] + split[i + 2] + split[i + 3] + split[i + 4])
-      }
-    }
-  })
-  return result
+  const arr = ev.surveyname.split(' ')
+  const length = ev.surveyname.split(' ').length
+  return Number(arr[length - 1].slice(0, 4))
 }
 
 const getTerm = (ev) => {
-  const split = ev.surveyname.split('')
-  let result
-  split.map((char, i) => {
-    if (!isNaN(char)) {
-      if (!isNaN(split[i + 2]) && !isNaN(split[i + 3]) && !isNaN(split[i + 4])) {
-        result = String(split[i + 5] + split[i + 6])
-      }
-    }
-  })
-  return result
+  const arr = ev.surveyname.split(' ')
+  const length = ev.surveyname.split(' ').length
+  return arr[length - 1].slice(4, 6)
 }
 
 const getCourse = (ev) => {
