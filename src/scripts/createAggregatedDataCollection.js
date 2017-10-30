@@ -1,9 +1,6 @@
-import fs from 'fs'
-import parse from 'csv-parse'
 import * as calculate from '../utils/calculate'
 import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
-import path from 'path'
 import { writeToDB } from '../service/dbService'
 import readCSV from '../service/readCSV'
 
