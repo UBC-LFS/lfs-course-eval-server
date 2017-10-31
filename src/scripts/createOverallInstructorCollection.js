@@ -1,22 +1,26 @@
 import { readAggregatedDataByYear } from '../service/dbService.js'
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
+import { writeToDB } from '../service/dbService'
 
 readAggregatedDataByYear('2016', (res) => {
   aggregateOverallInstructor(res)
 })
 
+const sumCount = (umi, val, tuple) =>
+  R.reduce((acc, record) => (acc + record[umi].count[val]), 0, tuple[1])
+
+const sumGender = (gen, tuple) =>
+  R.reduce((acc, record) => (acc + record.gender[gen]), 0, tuple[1])
+
+const sumEnrolment = (tuple) =>
+  R.reduce((acc, record) => (acc + record.enrolment), 0, tuple[1])
+
+const sumResponded = (tuple) =>
+  R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, tuple[1])
+
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
-
-  const sumCount = (umi, val, tuple) =>
-    R.reduce((acc, record) => (acc + record[umi].count[val]), 0, tuple[1])
-
-  const sumGender = (gen, tuple) =>
-    R.reduce((acc, record) => (acc + record.gender[gen]), 0, tuple[1])
-
-  const sumEnrolment = (tuple) =>
-    R.reduce((acc, record) => (acc + record.enrolment), 0, tuple[1])
 
   const result = R.reduce((acc, tuple) => {
     const instructorObj = {
@@ -25,7 +29,8 @@ const aggregateOverallInstructor = (data) => {
         Female: sumGender('Female', tuple),
         Male: sumGender('Male', tuple)
       },
-      enrolment: sumEnrolment(tuple)
+      enrolment: sumEnrolment(tuple),
+      responseRate: sumResponded(tuple) / sumEnrolment(tuple)
     }
 
     for (let i = 1; i <= 6; i++) {
@@ -38,12 +43,14 @@ const aggregateOverallInstructor = (data) => {
           '5': sumCount('UMI' + i, '5', tuple)
         }
       }
+      instructorObj['UMI' + i]['dispersionIndex'] = calculate.dispersionIndex(instructorObj['UMI' + i].count)
+      instructorObj['UMI' + i]['average'] = calculate.umiAvg(instructorObj['UMI' + i].count)
+      instructorObj['UMI' + i]['percentFavourable'] = calculate.percentFavourable(instructorObj['UMI' + i].count)
     }
     acc.push(instructorObj)
     return acc
   }, [], R.toPairs(byInstructor(data)))
-  return result
-  // TODO: add dispersionIndex, average, percentFavourable, responseRate
+  //writeToDB(result, 'OverallInstructor')
 }
 
 export {

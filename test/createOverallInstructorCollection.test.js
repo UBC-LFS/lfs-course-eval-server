@@ -10,6 +10,7 @@ const aggregatedData = [{
     'Male': 10
   },
   'enrolment': 20,
+  'responseRate': 0.45,
   'UMI1': {
     'count': {
       '1': 0,
@@ -53,6 +54,7 @@ const aggregatedData = [{
     'Male': 10
   },
   'enrolment': 20,
+  'responseRate': 0.45,
   'UMI1': {
     'count': {
       '1': 5,
@@ -96,6 +98,7 @@ const aggregatedData = [{
     'Male': 10
   },
   'enrolment': 20,
+  'responseRate': 0.45,
   'UMI1': {
     'count': {
       '1': 1,
@@ -139,6 +142,7 @@ const aggregatedData = [{
     'Male': 10
   },
   'enrolment': 20,
+  'responseRate': 0.45,
   'UMI1': {
     'count': {
       '1': 5,
@@ -182,6 +186,7 @@ const aggregatedData = [{
     'Male': 10
   },
   'enrolment': 20,
+  'responseRate': 0.45,
   'UMI1': {
     'count': {
       '1': 3,
@@ -228,59 +233,78 @@ describe('createOverallInstructorObj', () => {
           'Male': 30
         },
         'enrolment': 60,
+        'responseRate': 0.45,
         'UMI1': {
+          'average': 3.42,
           'count': {
             '1': 8,
             '2': 8,
             '3': 7,
             '4': 23,
             '5': 13
-          }
+          },
+          'dispersionIndex': 0.72,
+          'percentFavourable': 0.61
         },
         'UMI2': {
+          'average': 3.5,
           'count': {
             '1': 0,
             '2': 3,
             '3': 0,
             '4': 0,
-            '5': 3
-          }
+            '5': 3,
+          },
+          'dispersionIndex': 0.75,
+          'percentFavourable': 0.5
         },
         'UMI3': {
+          'average': 3,
           'count': {
             '1': 3,
             '2': 0,
             '3': 0,
             '4': 0,
-            '5': 3
-          }
+            '5': 3,
+          },
+          'dispersionIndex': 1,
+          'percentFavourable': 0.5
         },
         'UMI4': {
+          'average': 3,
           'count': {
             '1': 0,
             '2': 0,
             '3': 6,
             '4': 0,
-            '5': 0
-          }
+            '5': 0,
+          },
+          'dispersionIndex': 0,
+          'percentFavourable': 0
         },
         'UMI5': {
+          'average': 4.5,
           'count': {
             '1': 0,
             '2': 0,
             '3': 0,
             '4': 3,
-            '5': 3
-          }
+            '5': 3,
+          },
+          'dispersionIndex': 0.25,
+          'percentFavourable': 1
         },
         'UMI6': {
+          'average': 5,
           'count': {
             '1': 0,
             '2': 0,
             '3': 0,
             '4': 0,
             '5': 6
-          }
+          },
+          'dispersionIndex': 0,
+          'percentFavourable': 1
         }
       }, {
         instructorName: 'Barnes, Joey',
@@ -289,60 +313,78 @@ describe('createOverallInstructorObj', () => {
           'Male': 20
         },
         'enrolment': 40,
+        'responseRate': 0.45,        
         'UMI1': {
+          'average': 3.45,
           'count': {
             '1': 6,
             '2': 4,
             '3': 6,
             '4': 14,
             '5': 10
-          }
-
+          },
+          'dispersionIndex': 0.74,
+          'percentFavourable': 0.6
         },
         'UMI2': {
+          'average': 3.5,
           'count': {
             '1': 0,
             '2': 2,
             '3': 0,
             '4': 0,
             '5': 2
-          }
+          },
+          'dispersionIndex': 0.75,
+          'percentFavourable': 0.5
         },
         'UMI3': {
+          'average': 3,
           'count': {
             '1': 2,
             '2': 0,
             '3': 0,
             '4': 0,
             '5': 2
-          }
+          },
+          'dispersionIndex': 1,
+          'percentFavourable': 0.5
         },
         'UMI4': {
+          'average': 3,
           'count': {
             '1': 0,
             '2': 0,
             '3': 4,
             '4': 0,
             '5': 0
-          }
+          },
+          'dispersionIndex': 0,
+          'percentFavourable': 0
         },
         'UMI5': {
+          'average': 4.5,
           'count': {
             '1': 0,
             '2': 0,
             '3': 0,
             '4': 2,
             '5': 2
-          }
+          },
+          'dispersionIndex': 0.25,
+          'percentFavourable': 1
         },
         'UMI6': {
+          'average': 5,
           'count': {
             '1': 0,
             '2': 0,
             '3': 0,
             '4': 0,
             '5': 4
-          }
+          },
+          'dispersionIndex': 0,
+          'percentFavourable': 1
         }
       }
     ]
