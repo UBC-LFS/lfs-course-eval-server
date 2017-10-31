@@ -158,8 +158,19 @@ const insertPercentileRanking = (courseObjs) => {
   return sortedByUMI
 }
 
+// errorChecks
+const errorCheck = (courseObjs) => {
+  // check to make sure enrolments are all there:
+  const courseObjMissingEnrolment = courseObjs.filter(course => !course.hasOwnProperty('enrolment'))
+  if (courseObjMissingEnrolment.length !== 0) {
+    throw new Error('Some courses are missing enrolment data')
+  }
+
+  return true
+}
+
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  const courseObjs = createCourseObj(csv)
+  let courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
     x => removeIncorrectCounts(x),
@@ -168,7 +179,7 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
     x => insertPercentFav(x)
   )(courseObj))
 
-  const courseObjWithPercentileRanking = insertPercentileRanking(courseObjs)
+  courseObjs = insertPercentileRanking(courseObjs)
 
   // this adds in the enrolment data from another CSV
   readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', (csv) => {
@@ -183,7 +194,7 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
           enrolment: enrolmentCourse.no_enrolled
         }
 
-      courseObjWithPercentileRanking.map(course => {
+      courseObjs.map(course => {
         const { courseName, courseID, section, year, term } =
           {
             courseName: course.courseName,
@@ -202,8 +213,9 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
         }
       })
     })
-    // writeToDB(courseObjWithPercentileRanking, 'aggregatedData')
-    // writeToDB(courseObjWithPercentileRanking)
+
+    if (errorCheck(courseObjs)) writeToDB(courseObjs, 'aggregatedData')
+
   })
 })
 

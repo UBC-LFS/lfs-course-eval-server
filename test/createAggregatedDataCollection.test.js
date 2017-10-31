@@ -1251,7 +1251,7 @@ describe('removeIncorrectCounts', () => {
       },
       UMI6: {
         count: {
-          
+
         }
       }
     }
