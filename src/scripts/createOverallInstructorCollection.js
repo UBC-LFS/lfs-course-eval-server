@@ -50,7 +50,7 @@ const aggregateOverallInstructor = (data) => {
     acc.push(instructorObj)
     return acc
   }, [], R.toPairs(byInstructor(data)))
-  //writeToDB(result, 'OverallInstructor')
+  // writeToDB(result, 'OverallInstructor')
 }
 
 export {
