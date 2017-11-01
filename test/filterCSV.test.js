@@ -22,3 +22,11 @@ describe('byDept', () => {
     assert.deepEqual(filterCSV.byDept('APBI')(input), output)
   })
 })
+
+describe('invalidResults', () => {
+  it('takes an array of UMI results and returns only valid responses (between 1 and 5, inclusive)', () => {
+    let input = [1, 2, 3, 4, 5, 6, 7, 0]
+    let output = [1, 2, 3, 4, 5]
+    assert.deepEqual(filterCSV.invalidResults(input), output)
+  })
+})

@@ -4,5 +4,5 @@ import readCSV from '../service/readCSV'
 
 // for Sean Smulker, tight deadline, will refactor
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  
+
 })
