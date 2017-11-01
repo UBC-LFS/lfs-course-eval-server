@@ -39,7 +39,7 @@ const averageByYear = (csv) => {
 
     uniqDepts.map(dept => {
       const filteredByDeptAndYear = filterCSV.byDept(dept)(filteredByYear)
-      
+
       if (averageUMI.some(x => x.hasOwnProperty(String(year)))) {
         const index = averageUMI.findIndex(x => x.hasOwnProperty(String(year)))
         averageUMI[index][year][dept + 'Average'] = calculateAverage(filteredByDeptAndYear)

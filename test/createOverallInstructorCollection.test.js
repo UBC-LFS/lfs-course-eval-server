@@ -315,7 +315,7 @@ describe('createOverallInstructorObj', () => {
         },
         'numStudentsTaught': 40,
         'numCoursesTaught': 2,
-        'responseRate': 0.45,        
+        'responseRate': 0.45,
         'UMI1': {
           'average': 3.45,
           'count': {

@@ -1,10 +1,10 @@
-import { readDataByYear } from '../service/dbService.js'
+import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
-import { writeToDB } from '../service/dbService'
 
 readDataByYear('2016', 'aggregatedData', (res) => {
   const result = aggregateOverallInstructor(res)
+  clearCollection('OverallInstructor')
   writeToDB(result, 'OverallInstructor')
 })
 

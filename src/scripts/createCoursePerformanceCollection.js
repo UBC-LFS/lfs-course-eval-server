@@ -2,7 +2,7 @@ import { readDataByYear } from '../service/dbService.js'
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
 import { writeToDB } from '../service/dbService'
- 
+
 // readDataByYear('2016', 'UMIInstructor', (res) => {
 //     const result = aggregateUMIInstructor(res)
 //     writeToDB(result, 'UMIInstructor')
