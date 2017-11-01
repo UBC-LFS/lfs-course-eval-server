@@ -12,13 +12,6 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
   const UMI5Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI5(x)))
   const UMI6Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI6(x)))
 
-  // const UMI1Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI1(x)))
-  // const UMI2Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI2(x)))
-  // const UMI3Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI3(x)))
-  // const UMI4Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI4(x)))
-  // const UMI5Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI5(x)))
-  // const UMI6Arr = filter.invalidResults(csv.map(x => getFromCSV.getUMI6(x)))
-
   // print UMI average
   console.log(
     'Faculty UMI1: ', R.mean(UMI1Arr) + '\n' +
