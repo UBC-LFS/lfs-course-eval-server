@@ -1,10 +1,11 @@
-import { readAggregatedDataByYear } from '../service/dbService.js'
+import { readDataByYear } from '../service/dbService.js'
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
 import { writeToDB } from '../service/dbService'
 
-readAggregatedDataByYear('2016', (res) => {
-  aggregateOverallInstructor(res)
+readDataByYear('2016', 'aggregatedData', (res) => {
+  const result = aggregateOverallInstructor(res)
+  writeToDB(result, 'OverallInstructor')
 })
 
 const sumCount = (umi, val, tuple) =>
@@ -19,6 +20,9 @@ const sumEnrolment = (tuple) =>
 const sumResponded = (tuple) =>
   R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, tuple[1])
 
+const sumCourseCount = (tuple) =>
+  R.reduce((acc, record) => (acc + 1), 0, tuple[1])
+
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
 
@@ -29,7 +33,8 @@ const aggregateOverallInstructor = (data) => {
         Female: sumGender('Female', tuple),
         Male: sumGender('Male', tuple)
       },
-      enrolment: sumEnrolment(tuple),
+      numCoursesTaught: tuple[1].length,
+      numStudentsTaught: sumEnrolment(tuple),
       responseRate: sumResponded(tuple) / sumEnrolment(tuple)
     }
 
@@ -50,7 +55,7 @@ const aggregateOverallInstructor = (data) => {
     acc.push(instructorObj)
     return acc
   }, [], R.toPairs(byInstructor(data)))
-  // writeToDB(result, 'OverallInstructor')
+  return result
 }
 
 export {

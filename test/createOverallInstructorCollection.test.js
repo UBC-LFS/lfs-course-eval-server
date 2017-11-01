@@ -232,7 +232,8 @@ describe('createOverallInstructorObj', () => {
           'Female': 195,
           'Male': 30
         },
-        'enrolment': 60,
+        'numStudentsTaught': 60,
+        'numCoursesTaught': 3,
         'responseRate': 0.45,
         'UMI1': {
           'average': 3.42,
@@ -312,8 +313,9 @@ describe('createOverallInstructorObj', () => {
           'Female': 130,
           'Male': 20
         },
-        'enrolment': 40,
-        'responseRate': 0.45,
+        'numStudentsTaught': 40,
+        'numCoursesTaught': 2,
+        'responseRate': 0.45,        
         'UMI1': {
           'average': 3.45,
           'count': {

@@ -62,7 +62,7 @@ const dataForCoursePerformance = () => {
 
 const dataForUMIVSDispersion = (year) => {
   return new Promise((resolve, reject) => {
-    db.readAggregatedDataByYear(year, (res) => {
+    db.readDataByYear(year, 'aggregatedData', (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
