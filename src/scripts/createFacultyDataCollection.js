@@ -24,9 +24,9 @@ const facultyAverageByYear = (csv) => {
     const averageUMI5 = R.mean(UMI5)
     const averageUMI6 = R.mean(UMI6)
 
-    averageUMIByYear.push(
-      { year, UMI1: averageUMI1, UMI2: averageUMI2, UMI3: averageUMI3, UMI4: averageUMI4, UMI5: averageUMI5, UMI6: averageUMI6 }
-    )
+    averageUMIByYear.push({
+      facultyAverage: { year, UMI1: averageUMI1, UMI2: averageUMI2, UMI3: averageUMI3, UMI4: averageUMI4, UMI5: averageUMI5, UMI6: averageUMI6 }
+    })
   })
 
   console.log(averageUMIByYear)

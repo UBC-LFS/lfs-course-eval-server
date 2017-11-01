@@ -243,3 +243,33 @@ describe('getEnrolmentTerm', () => {
     assert.deepEqual(getFromCSV.getEnrolmentTerm(input), output)
   })
 })
+
+describe('getUniqYears', () => {
+  it('takes an array and returns only the uniq years', () => {
+    let input = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2016W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2016W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2014W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2016W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2016W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2016W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017W2'}
+    ]
+    let output = [2016, 2014, 2017]
+    assert.deepEqual(getFromCSV.getUniqYears(input), output)
+  })
+})
+
+describe('getUniqDept', () => {
+  it('takes an array and returns only the uniq dept', () => {
+    let input = [
+      {deptname: 'LFS'},
+      {deptname: 'APBI'},
+      {deptname: 'CPSC'},
+      {deptname: 'CPSC'},
+      {deptname: 'LFS'}
+    ]
+    let output = ['LFS', 'APBI', 'CPSC']
+    assert.deepEqual(getFromCSV.getUniqDept(input), output)
+  })
+})
