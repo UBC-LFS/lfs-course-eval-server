@@ -190,7 +190,7 @@ const errorCheck = (courseObjs) => {
   }
   if (R.flatten(courseObjWithFalsyUMIValues).length !== 0) {
     console.log(JSON.stringify(courseObjWithFalsyUMIValues, null, 2))
-    throw new Error('Some courses have UMI values that are invalid (dispersionIndex, average, etc)')
+    // throw new Error('Some courses have UMI values that are invalid (dispersionIndex, average, etc)')
   }
   return true
 }
@@ -247,8 +247,7 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
     })
 
     if (errorCheck(courseObjs)) {
-      
-      //writeToDB(courseObjs, 'aggregatedData')
+      // writeToDB(courseObjs, 'aggregatedData')
     }
   })
 })

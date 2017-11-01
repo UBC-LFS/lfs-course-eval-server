@@ -254,7 +254,7 @@ describe('createOverallInstructorObj', () => {
             '2': 3,
             '3': 0,
             '4': 0,
-            '5': 3,
+            '5': 3
           },
           'dispersionIndex': 0.75,
           'percentFavourable': 0.5
@@ -266,7 +266,7 @@ describe('createOverallInstructorObj', () => {
             '2': 0,
             '3': 0,
             '4': 0,
-            '5': 3,
+            '5': 3
           },
           'dispersionIndex': 1,
           'percentFavourable': 0.5
@@ -278,7 +278,7 @@ describe('createOverallInstructorObj', () => {
             '2': 0,
             '3': 6,
             '4': 0,
-            '5': 0,
+            '5': 0
           },
           'dispersionIndex': 0,
           'percentFavourable': 0
@@ -290,7 +290,7 @@ describe('createOverallInstructorObj', () => {
             '2': 0,
             '3': 0,
             '4': 3,
-            '5': 3,
+            '5': 3
           },
           'dispersionIndex': 0.25,
           'percentFavourable': 1
