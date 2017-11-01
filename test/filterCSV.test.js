@@ -1,5 +1,5 @@
 /* global describe, it */
-import * as filterCSV from '../src/utils/filterCSV'
+import * as filterCSV from '../src/scripts/scriptUtils/filterCSV'
 import assert from 'assert'
 
 describe('byDept', () => {
@@ -28,5 +28,24 @@ describe('invalidResults', () => {
     let input = [1, 2, 3, 4, 5, 6, 7, 0]
     let output = [1, 2, 3, 4, 5]
     assert.deepEqual(filterCSV.invalidResults(input), output)
+  })
+})
+
+describe('byYear', () => {
+  it('takes an array of courseval results and returns only the results with matching year', () => {
+    let input = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2018SA'}
+    ]
+    let output = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'}
+    ]
+    assert.deepEqual(filterCSV.byYear(2017)(input), output)
   })
 })
