@@ -1,9 +1,9 @@
-import { readAggregatedDataByYear } from '../service/dbService.js'
+import { readDataByYear } from '../service/dbService.js'
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
 import { writeToDB } from '../service/dbService'
-
-readAggregatedDataByYear('2016', (res) => {
+ 
+readDataByYear('2016', 'aggregatedData', (res) => {
     const result = aggregateUMIInstructor(res)
     writeToDB(result, 'UMIInstructor')
 })
