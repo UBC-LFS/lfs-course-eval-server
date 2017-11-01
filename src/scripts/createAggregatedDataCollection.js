@@ -1,7 +1,7 @@
 import * as calculate from '../utils/calculate'
 import * as getFromCSV from './scriptUtils/getFromCSV'
 import R from 'ramda'
-import { writeToDB } from '../service/dbService'
+import { writeToDB, clearCollection } from '../service/dbService'
 import readCSV from '../service/readCSV'
 
 const getProperties = (ev) => ({
@@ -247,7 +247,8 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
     })
 
     if (errorCheck(courseObjs)) {
-      // writeToDB(courseObjs, 'aggregatedData')
+      clearCollection('aggregatedData')
+      writeToDB(courseObjs, 'aggregatedData')
     }
   })
 })

@@ -2,7 +2,7 @@ import * as getFromCSV from './scriptUtils/getFromCSV'
 import * as filterCSV from './scriptUtils/filterCSV'
 import R from 'ramda'
 import readCSV from '../service/readCSV'
-import { writeToDB } from '../service/dbService'
+import { writeToDB, clearCollection } from '../service/dbService'
 
 const calculateAverage = (filteredArray) => {
   const UMI1 = filterCSV.byUMI1(filteredArray)
@@ -58,5 +58,7 @@ const averageByYear = (csv) => {
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  writeToDB(averageByYear(csv), 'facultyDeptData')
+  const toWrite = averageByYear(csv)
+  clearCollection('facultyDeptData')
+  writeToDB(toWrite, 'facultyDeptData')
 })
