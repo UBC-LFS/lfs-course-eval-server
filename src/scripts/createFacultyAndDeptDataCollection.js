@@ -28,7 +28,7 @@ const calculateAverage = (filteredArray) => {
   })
 }
 
-const facultyAverageByYear = (csv) => {
+const averageByYear = (csv) => {
   const uniqYears = getFromCSV.getUniqYears(csv)
   const uniqDepts = getFromCSV.getUniqDepts(csv)
   const averageUMI = []
@@ -57,5 +57,5 @@ const facultyAverageByYear = (csv) => {
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  facultyAverageByYear(csv)
+  averageByYear(csv)
 })
