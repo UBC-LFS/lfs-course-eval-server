@@ -141,7 +141,7 @@ describe('getUniqCourseLevels', () => {
   })
 })
 
-describe('getUniqDepts', () => {
+describe('getUniqDeptss', () => {
   it('takes an array of courseObj and returns the uniq dept', () => {
     let input = [
             { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },

@@ -260,7 +260,7 @@ describe('getUniqYears', () => {
   })
 })
 
-describe('getUniqDept', () => {
+describe('getUniqDepts', () => {
   it('takes an array and returns only the uniq dept', () => {
     let input = [
       {deptname: 'LFS'},
@@ -270,6 +270,6 @@ describe('getUniqDept', () => {
       {deptname: 'LFS'}
     ]
     let output = ['LFS', 'APBI', 'CPSC']
-    assert.deepEqual(getFromCSV.getUniqDept(input), output)
+    assert.deepEqual(getFromCSV.getUniqDepts(input), output)
   })
 })
