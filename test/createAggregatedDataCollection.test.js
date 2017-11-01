@@ -260,7 +260,7 @@ describe('createCourseObj', () => {
         'instructorName': 'Justin Lee',
         'PUID': 'ABCDEFGHIKL',
         'gender': {
-          'Female': 1,
+          'Female': 0,
           'Male': 1
         },
         'UMI1': {
@@ -295,7 +295,7 @@ describe('createCourseObj', () => {
         }
       }
     ]
-    // assert.deepEqual(createAggData.createCourseObj(dataWith0), output)
+    assert.deepEqual(createAggData.createCourseObj(dataWith0), output)
   })
 })
 

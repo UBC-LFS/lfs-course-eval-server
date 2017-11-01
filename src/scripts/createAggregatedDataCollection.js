@@ -18,7 +18,11 @@ const getProperties = (ev) => ({
 })
 
 const createCourseObj = (csv) => {
-  return csv.reduce((acc, ev) => {
+  const filteredCSV = csv.filter(ev => {
+    if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
+    else return true
+  })
+  return filteredCSV.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
     const uniqSectionInTerm = (x) => (x.year === year &&
@@ -189,7 +193,7 @@ const errorCheck = (courseObjs) => {
     }))
   }
   if (R.flatten(courseObjWithFalsyUMIValues).length !== 0) {
-    console.log(JSON.stringify(courseObjWithFalsyUMIValues, null, 2))
+    // console.log(JSON.stringify(courseObjWithFalsyUMIValues, null, 2))
     // throw new Error('Some courses have UMI values that are invalid (dispersionIndex, average, etc)')
   }
   return true
@@ -197,12 +201,8 @@ const errorCheck = (courseObjs) => {
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
   // filter out any all 0 UMI ratings
-  const filteredCSV = csv.filter(ev => {
-    if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
-    else return true
-  })
 
-  let courseObjs = createCourseObj(filteredCSV)
+  let courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
     x => removeIncorrectCounts(x),
