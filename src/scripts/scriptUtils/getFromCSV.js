@@ -1,3 +1,5 @@
+import R from 'ramda'
+
 const getYear = (ev) => {
   const arr = ev.surveyname.split(' ')
   const length = ev.surveyname.split(' ').length
@@ -49,6 +51,8 @@ const getEnrolmentYear = (period) => Number(period.slice(0, 4))
 
 const getEnrolmentTerm = (period) => String(period.slice(4, 6))
 
+const getUniqYears = (csv) => R.uniq(csv.map(x => getYear(x)))
+
 export {
     getYear,
     getTerm,
@@ -69,5 +73,6 @@ export {
     getEnrolmentCourseNumber,
     getEnrolmentSection,
     getEnrolmentYear,
-    getEnrolmentTerm
+    getEnrolmentTerm,
+    getUniqYears
 }
