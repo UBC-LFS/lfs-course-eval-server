@@ -10,12 +10,12 @@ const facultyAverageByYear = (csv) => {
   uniqYears.map(year => {
     const filteredByYear = filterCSV.byYear(year)(csv)
 
-    const UMI1 = filterCSV.invalidResults(filterCSV.byUMI1(filteredByYear))
-    const UMI2 = filterCSV.invalidResults(filterCSV.byUMI2(filteredByYear))
-    const UMI3 = filterCSV.invalidResults(filterCSV.byUMI3(filteredByYear))
-    const UMI4 = filterCSV.invalidResults(filterCSV.byUMI4(filteredByYear))
-    const UMI5 = filterCSV.invalidResults(filterCSV.byUMI5(filteredByYear))
-    const UMI6 = filterCSV.invalidResults(filterCSV.byUMI6(filteredByYear))
+    const UMI1 = filterCSV.byUMI1(filteredByYear)
+    const UMI2 = filterCSV.byUMI2(filteredByYear)
+    const UMI3 = filterCSV.byUMI3(filteredByYear)
+    const UMI4 = filterCSV.byUMI4(filteredByYear)
+    const UMI5 = filterCSV.byUMI5(filteredByYear)
+    const UMI6 = filterCSV.byUMI6(filteredByYear)
 
     const averageUMI1 = R.mean(UMI1)
     const averageUMI2 = R.mean(UMI2)

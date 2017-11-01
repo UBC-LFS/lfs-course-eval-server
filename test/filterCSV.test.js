@@ -49,3 +49,35 @@ describe('byYear', () => {
     assert.deepEqual(filterCSV.byYear(2017)(input), output)
   })
 })
+
+describe('byUMIs', () => {
+  it('returns just specifed umi values', () => {
+    let input = [
+      {'The instructor made it clear what students were expected to learn.': 1},
+      {'The instructor communicated the subject matter effectively.': 2},
+      {'The instructor helped inspire interest in learning the subject matter.': 3},
+      {'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 4},
+      {'The instructor showed concern for student learning.': 5},
+      {'Overall  the instructor was an effective teacher.': 1},
+      {'The instructor made it clear what students were expected to learn.': 1},
+      {'The instructor communicated the subject matter effectively.': 2},
+      {'The instructor helped inspire interest in learning the subject matter.': 3},
+      {'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 4},
+      {'The instructor showed concern for student learning.': 5},
+      {'Overall  the instructor was an effective teacher.': 1}
+    ]
+    let outputUMI1 = [1, 1]
+    let outputUMI2 = [2, 2]
+    let outputUMI3 = [3, 3]
+    let outputUMI4 = [4, 4]
+    let outputUMI5 = [5, 5]
+    let outputUMI6 = [1, 1]
+
+    assert.deepEqual(filterCSV.byUMI1(input), outputUMI1)
+    assert.deepEqual(filterCSV.byUMI2(input), outputUMI2)
+    assert.deepEqual(filterCSV.byUMI3(input), outputUMI3)
+    assert.deepEqual(filterCSV.byUMI4(input), outputUMI4)
+    assert.deepEqual(filterCSV.byUMI5(input), outputUMI5)
+    assert.deepEqual(filterCSV.byUMI6(input), outputUMI6)
+  })
+})
