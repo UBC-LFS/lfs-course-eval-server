@@ -53,6 +53,7 @@ const filterData = () => {
 const dataForOverallInstructor = () => {
 
 }
+
 const dataForUMIInstructor = () => {
 
 }
@@ -73,5 +74,7 @@ export {
     filterDataByFilterSettings,
     filterData,
     dataForOverallInstructor,
-    dataForUMIVSDispersion
+    dataForUMIVSDispersion,
+    dataForUMIInstructor,
+    dataForCoursePerformance
 }
