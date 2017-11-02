@@ -18,7 +18,7 @@ const calculateAverage = (filteredArray) => {
   const averageUMI4 = R.mean(UMI4)
   const averageUMI5 = R.mean(UMI5)
   const averageUMI6 = R.mean(UMI6)
-  
+
   // console.log(UMI1.length, UMI2.length, UMI3.length, UMI4.length, UMI5.length, UMI6.length)
   const averageLength = Math.round(R.mean([UMI1.length, UMI2.length, UMI3.length, UMI4.length, UMI5.length, UMI6.length]))
 

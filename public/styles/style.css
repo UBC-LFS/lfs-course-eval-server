@@ -139,3 +139,8 @@ input:checked + .slider:before {
   width: 350px; 
   font-size: 1em;
 }
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
