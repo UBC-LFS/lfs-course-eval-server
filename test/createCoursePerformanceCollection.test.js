@@ -269,7 +269,7 @@ describe('addDeptData test', () => {
         'UMI5': 1.2356,
         'UMI6': 1.2356,
         'averageLength': 0
-      },
+      }
     }]
     assert.deepEqual(JSON.stringify(addDeptData(input, deptData)), JSON.stringify(output))
   })

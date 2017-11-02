@@ -36,7 +36,7 @@ const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
 
   const result = R.reduce((acc, tuple) => {
-      const instructorObj = {
+    const instructorObj = {
       instructorName: tuple[1][0].instructorName,
       gender: {
         Female: sumGender('Female', tuple),
