@@ -3,23 +3,50 @@ import R from 'ramda'
 import * as calculate from '../utils/calculate'
 import { writeToDB } from '../service/dbService'
 
-// readDataByYear('2016', 'UMIInstructor', (res) => {
-//     const result = aggregateUMIInstructor(res)
-//     writeToDB(result, 'UMIInstructor')
-// })
+readDataByYear('2016', 'UMIInstructor', (res) => {
+    const UMIInstructorData = res
+    readDataByYear('2016', 'facultyDeptData', (res) => {
+        const result = aggregateCP(UMIInstructorData, res)
+        writeToDB(result, 'CoursePerformance')        
+    })
+})
 
-// const aggregateUMIInstructor = (data) => {
-//     const byInstructor = R.groupBy((course) => course.PUID)
-//     const result = R.toPairs(byInstructor(data))
-//     const finalArray = []
-//     for (var i = 0; i < result.length; i++) {
-//         const finalObj = {}
-//         finalObj[result[i][0]] = result[i][1]
-//         finalArray.push(finalObj)
-//     }
-//     return finalArray
-// }
+const addDeptData = (instructorCourseRecords, deptData) => {
+    return R.map(z => {
+        const deptFacultyRecord = R.find(y => {
+            return R.keys(y).includes(z.year.toString())
+        })(deptData)
+        z['facultyAverage'] = deptFacultyRecord[z.year].facultyAverage
+        z['deptAverage'] = deptFacultyRecord[z.year][z.dept + 'Average']
+        return z
+    },
+        instructorCourseRecords)
+}
 
-// export {
-//     aggregateUMIInstructor
-// }
+const retrievePUID = (instructorRecord) => {
+    const keys = Object.keys(instructorRecord)
+    let instructorPUID = ''
+    for (let i = 0; i < keys.length; i++) {
+        if (keys[i] !== '_id') {
+            instructorPUID = keys[i]
+            break;
+        }
+    }
+    return instructorPUID
+}
+const aggregateCP = (instructorData, deptFacultyData) => {
+    const finalArray = R.map(x => {
+        const instructorObj = {}
+        const instructorPUID = retrievePUID(x)
+        instructorObj[instructorPUID] = addDeptData(x[instructorPUID], deptFacultyData)
+        return instructorObj
+    }
+        , instructorData)
+    return finalArray
+}
+
+export {
+    aggregateCP,
+    addDeptData,
+    retrievePUID
+}
