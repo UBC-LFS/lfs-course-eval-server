@@ -5,7 +5,6 @@ import path from 'path'
 const readCSV = (filename, callback) => {
   const parser = parse({delimiter: ',', columns: true, relax: true, auto_parse: true}, (
         err, data) => {
-    console.log(err)
     if (err) throw err
     callback(data)
   })
