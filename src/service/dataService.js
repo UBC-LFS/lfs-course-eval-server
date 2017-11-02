@@ -50,15 +50,30 @@ const filterData = () => {
   })
 }
 
-const dataForOverallInstructor = () => {
-
+const dataForOverallInstructor = (year) => {
+  return new Promise((resolve, reject) => {
+    db.readDataByYear(year, 'OverallInstructor', (res) => {
+      if (res) resolve(res)
+      else reject(Error('db returned no result'))
+    })
+  })
 }
 
-const dataForUMIInstructor = () => {
-
+const dataForUMIInstructor = (year) => {
+  return new Promise((resolve, reject) => {
+    db.readDataByYear(year, 'UMIInstructor', (res) => {
+      if (res) resolve(res)
+      else reject(Error('db returned no result'))
+    })
+  })
 }
-const dataForCoursePerformance = () => {
-
+const dataForCoursePerformance = (year) => {
+  return new Promise((resolve, reject) => {
+    db.readDataByYear(year, 'CoursePerformance', (res) => {
+      if (res) resolve(res)
+      else reject(Error('db returned no result'))
+    })
+  })
 }
 
 const dataForUMIVSDispersion = (year) => {
