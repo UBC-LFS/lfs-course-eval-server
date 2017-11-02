@@ -4,6 +4,7 @@ import * as calculate from '../utils/calculate'
 
 readDataByYear('2016', 'aggregatedData', (res) => {
   const result = aggregateOverallInstructor(res)
+  console.log(result)
   clearCollection('OverallInstructor')
   writeToDB(result, 'OverallInstructor')
 })
@@ -23,11 +24,19 @@ const sumResponded = (tuple) =>
 const sumCourseCount = (tuple) =>
   R.reduce((acc, record) => (acc + 1), 0, tuple[1])
 
+const concatenateDept = (tuple) => {
+  const deptList = []
+  R.map(x => {
+    if (!deptList.includes(x.dept)) { deptList.push(x.dept) }
+  }, tuple[1])
+  return deptList
+}
+
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
 
   const result = R.reduce((acc, tuple) => {
-    const instructorObj = {
+      const instructorObj = {
       instructorName: tuple[1][0].instructorName,
       gender: {
         Female: sumGender('Female', tuple),
@@ -35,7 +44,8 @@ const aggregateOverallInstructor = (data) => {
       },
       numCoursesTaught: tuple[1].length,
       numStudentsTaught: sumEnrolment(tuple),
-      responseRate: sumResponded(tuple) / sumEnrolment(tuple)
+      responseRate: sumResponded(tuple) / sumEnrolment(tuple),
+      dept: concatenateDept(tuple).join(', ')
     }
 
     for (let i = 1; i <= 6; i++) {
