@@ -53,6 +53,8 @@ const getEnrolmentTerm = (period) => String(period.slice(4, 6))
 
 const getUniqYears = (csv) => R.uniq(csv.map(x => getYear(x)))
 
+const getUniqTerms = (csv) => R.uniq(csv.map(x => getTerm(x)))
+
 const getUniqDepts = (csv) => R.uniq(csv.map(x => getDept(x)))
 
 export {
@@ -77,5 +79,6 @@ export {
     getEnrolmentYear,
     getEnrolmentTerm,
     getUniqYears,
+    getUniqTerms,
     getUniqDepts
 }
