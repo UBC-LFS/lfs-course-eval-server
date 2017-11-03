@@ -25,7 +25,7 @@ const calculateAverage = (filteredArray) => {
   })
 }
 
-const averageByYear = (csv) => {
+const createAverageByYear = (csv) => {
   const uniqYears = getFromCSV.getUniqYears(csv)
   const uniqDepts = getFromCSV.getUniqDepts(csv)
 
@@ -55,12 +55,12 @@ const averageByYear = (csv) => {
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  const toWrite = averageByYear(csv)
+  const toWrite = createAverageByYear(csv)
   clearCollection('facultyDeptData')
   writeToDB(toWrite, 'facultyDeptData')
 })
 
 export {
   calculateAverage,
-  averageByYear
+  createAverageByYear
 }

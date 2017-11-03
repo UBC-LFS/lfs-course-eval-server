@@ -1,7 +1,7 @@
 /* global describe, it */
 
 import assert from 'assert'
-import { calculateAverage, averageByYear } from '../src/scripts/createFacultyAndDeptDataCollection'
+import { calculateAverage, createAverageByYear } from '../src/scripts/createFacultyAndDeptDataCollection'
 
 describe('calculateAverage', () => {
   it('takes an array filtered by year or dept and returns the average of UMI1-6 and the average length of each input', () => {
