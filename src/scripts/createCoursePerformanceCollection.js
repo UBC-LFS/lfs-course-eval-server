@@ -31,6 +31,7 @@ const retrievePUID = (instructorRecord) => {
   }
   return instructorPUID
 }
+
 const aggregateCP = (instructorData, deptFacultyData) => {
   const finalArray = R.map(x => {
     const instructorObj = {}

@@ -118,3 +118,5 @@ describe('calculateAverage', () => {
     assert.deepEqual(calculateAverage(input), { UMI1: 4.6, UMI2: 4.6, UMI3: 4.6, UMI4: 4.6, UMI5: 4.6, UMI6: 4.6, averageLength: 5 })
   })
 })
+
+// still need to write test for averageByYear
