@@ -74,7 +74,9 @@ const umiAvg = (count) => {
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
-  return toTwoDecimal(Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0) / numberOfResponses)
+  const UMITimesCount = Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0)
+
+  return toTwoDecimal(UMITimesCount / numberOfResponses)
 }
 
 const percentFavourable = (count) => {
