@@ -11,7 +11,7 @@ const questionAvg = (arr) => {
 }
 
 const avgByField = (arr, field) => {
-  let fieldArray = R.map(x => x[field], arr)
+  const fieldArray = R.map(x => x[field], arr)
   return parseFloat(R.mean(fieldArray)).toFixed(1)
 }
 
@@ -38,20 +38,6 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
   if (result > 0.99) return 0.99
   else return toTwoDecimal(result)
 }
-
-const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
-  R.pipe(
-    filter.bySpecificCourse(courseNum, year, term),
-    get.arrayOfUMI(umi),
-    x => avg(x)
-  )(arr)
-
-const umiAvgOfInstructor = (instructorID, umi, arr) =>
-  R.pipe(
-    filter.byInstructor(instructorID),
-    get.arrayOfUMI(umi),
-    x => avg(x)
-  )(arr)
 
 const dispersionIndex = (count) => {
   // this 'fills in' any missing scores with 0
@@ -121,8 +107,6 @@ export {
   percentGender,
   toTwoDecimal,
   dispersionIndex,
-  umiAvgOfInstructor,
-  umiAvgOfCourse,
   questionAvg,
   avgByField,
   umiAvg,
