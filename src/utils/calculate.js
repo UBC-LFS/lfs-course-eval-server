@@ -1,6 +1,4 @@
 import R from 'ramda'
-import * as get from './get'
-import * as filter from './filter'
 
 const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
@@ -39,12 +37,18 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
   else return toTwoDecimal(result)
 }
 
-const dispersionIndex = (count) => {
-  // this 'fills in' any missing scores with 0
+// this 'fills in' any missing counts with 0
+const fillInMissingCounts = (count) => {
   for (let i = 1; i <= 5; i++) {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
   }
+  return count
+}
+
+const dispersionIndex = (count) => {
+  count = fillInMissingCounts(count)
+
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
   const dispersionObj = {}
@@ -66,24 +70,20 @@ const dispersionIndex = (count) => {
 }
 
 const umiAvg = (count) => {
-  for (let i = 1; i <= 5; i++) {
-    const key = String(i)
-    if (!count.hasOwnProperty(key)) count[key] = 0
-  }
+  count = fillInMissingCounts(count)
+
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
   return toTwoDecimal(Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0) / numberOfResponses)
 }
 
 const percentFavourable = (count) => {
-  for (let i = 1; i <= 5; i++) {
-    const key = String(i)
-    if (!count.hasOwnProperty(key)) count[key] = 0
-  }
-  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
-  const numberOf4and5 = R.add(R.prop('4', count), R.prop('5', count))
+  count = fillInMissingCounts(count)
 
-  return toTwoDecimal(numberOf4and5 / numberOfResponses)
+  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
+  const numberOf4and5s = R.add(R.prop('4', count), R.prop('5', count))
+
+  return toTwoDecimal(numberOf4and5s / numberOfResponses)
 }
 
 const meetsMinimum = (classSize, responseRate) => {
