@@ -28,6 +28,7 @@ const calculateAverage = (filteredArray) => {
 const averageByYear = (csv) => {
   const uniqYears = getFromCSV.getUniqYears(csv)
   const uniqDepts = getFromCSV.getUniqDepts(csv)
+
   const averageUMI = []
 
   uniqYears.map(year => {
@@ -58,3 +59,8 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
   clearCollection('facultyDeptData')
   writeToDB(toWrite, 'facultyDeptData')
 })
+
+export {
+  calculateAverage,
+  averageByYear
+}
