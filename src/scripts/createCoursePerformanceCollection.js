@@ -1,7 +1,5 @@
-import { readDataByYear } from '../service/dbService.js'
+import { readDataByYear, writeToDB } from '../service/dbService.js'
 import R from 'ramda'
-import * as calculate from '../utils/calculate'
-import { writeToDB } from '../service/dbService'
 
 readDataByYear('2016', 'UMIInstructor', (res) => {
   const UMIInstructorData = res
