@@ -17,6 +17,7 @@ const getProperties = (ev) => ({
   gender: getFromCSV.getGender(ev)
 })
 
+// filter out any rows in the csv with all 0 UMI ratings
 const filterAll0s = (csv) => csv.filter(ev => {
   if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
   else return true
@@ -202,8 +203,6 @@ const errorCheck = (courseObjs) => {
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  // filter out any all 0 UMI ratings
-
   let courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(
