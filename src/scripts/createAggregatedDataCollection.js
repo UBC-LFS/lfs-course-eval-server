@@ -17,11 +17,13 @@ const getProperties = (ev) => ({
   gender: getFromCSV.getGender(ev)
 })
 
+const filterAll0s = (csv) => csv.filter(ev => {
+  if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
+  else return true
+})
+
 const createCourseObj = (csv) => {
-  const filteredCSV = csv.filter(ev => {
-    if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
-    else return true
-  })
+  const filteredCSV = filterAll0s(csv)
   return filteredCSV.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
