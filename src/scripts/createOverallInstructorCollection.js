@@ -2,13 +2,6 @@ import { readDataByYear, writeToDB, clearCollection } from '../service/dbService
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
 
-readDataByYear('2016', 'aggregatedData', (res) => {
-  const result = aggregateOverallInstructor(res)
-  console.log(result)
-  clearCollection('OverallInstructor')
-  writeToDB(result, 'OverallInstructor')
-})
-
 const sumCount = (umi, val, tuple) =>
   R.reduce((acc, record) => (acc + record[umi].count[val]), 0, tuple[1])
 
@@ -67,6 +60,13 @@ const aggregateOverallInstructor = (data) => {
   }, [], R.toPairs(byInstructor(data)))
   return result
 }
+
+readDataByYear('2016', 'aggregatedData', (res) => {
+  const result = aggregateOverallInstructor(res)
+  console.log(result)
+  clearCollection('OverallInstructor')
+  writeToDB(result, 'OverallInstructor')
+})
 
 export {
   aggregateOverallInstructor
