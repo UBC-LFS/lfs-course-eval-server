@@ -253,7 +253,6 @@ describe('addDeptData test', () => {
 
 describe('createCPObj', () => {
   it('takes a array of objects and returns the aggregated data converted into an array of objects by instructor', () => {
-
     const UMIInstructorData = [
       {
         '1110': [{
