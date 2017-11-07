@@ -63,7 +63,6 @@ const aggregateOverallInstructor = (data) => {
 
 readDataByYear('2016', 'aggregatedData', (res) => {
   const result = aggregateOverallInstructor(res)
-  console.log(result)
   clearCollection('OverallInstructor')
   writeToDB(result, 'OverallInstructor')
 })
