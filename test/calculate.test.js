@@ -57,6 +57,14 @@ describe('calculatePercentGender', () => {
     assert.deepEqual(calculate.percentGender('Male', input), 4 / 7)
     assert.deepEqual(calculate.percentGender('Female', input), 3 / 7)
   })
+  it('can handle if there are no genders of the specified type', () => {
+    const input = [
+      { gender: 'Male', UMI6: 5 },
+      { gender: 'Male', UMI6: 2 }
+    ]
+    assert.deepEqual(calculate.percentGender('Female', input), 0)
+    assert.deepEqual(calculate.percentGender('Male', input), 1)
+  })
 })
 
 describe('calculateToTwoDecimal', () => {
@@ -76,111 +84,51 @@ describe('calculateToTwoDecimal', () => {
 
 describe('calculateDispersionIndexOfCourse', () => {
   it('takes as input a count object and returns the dispersion index of the count', () => {
-    let count = {
-      '1': 30,
-      '2': 0,
-      '3': 0,
-      '4': 0,
-      '5': 30
-    }
+    let count = { '1': 30, '2': 0, '3': 0, '4': 0, '5': 30 }
     assert.deepEqual(calculate.dispersionIndex(count), 1)
-    count = {
-      '1': 10,
-      '2': 10,
-      '3': 10,
-      '4': 0,
-      '5': 30
-    }
+
+    count = { '1': 10, '2': 10, '3': 10, '4': 0, '5': 30 }
     assert.deepEqual(calculate.dispersionIndex(count), 0.86)
-    count = {
-      '1': 60,
-      '2': 0,
-      '3': 0,
-      '4': 0,
-      '5': 0
-    }
+
+    count = { '1': 60, '2': 0, '3': 0, '4': 0, '5': 0 }
     assert.deepEqual(calculate.dispersionIndex(count), 0)
-    count = {
-      '1': 1,
-      '2': 1,
-      '3': 1,
-      '4': 50,
-      '5': 7
-    }
+
+    count = { '1': 1, '2': 1, '3': 1, '4': 50, '5': 7 }
     assert.deepEqual(calculate.dispersionIndex(count), 0.20)
-    count = {
-      '1': 12,
-      '2': 12,
-      '3': 12,
-      '4': 12,
-      '5': 12
-    }
+
+    count = { '1': 12, '2': 12, '3': 12, '4': 12, '5': 12 }
     assert.deepEqual(calculate.dispersionIndex(count), 0.8)
   })
+
   it('should be able to handle missing fields in count', () => {
-    let count = {
-      '1': 30,
-      '5': 30
-    }
+    let count = { '1': 30, '5': 30 }
     assert.deepEqual(calculate.dispersionIndex(count), 1)
-    count = {
-      '1': 10,
-      '2': 10,
-      '3': 10,
-      '5': 30
-    }
+
+    count = { '1': 10, '2': 10, '3': 10, '5': 30 }
     assert.deepEqual(calculate.dispersionIndex(count), 0.86)
   })
 })
 
 describe('calculateUMIAvg', () => {
   it('takes a count object and returns the average of that object', () => {
-    let count = {
-      '1': 1,
-      '2': 1,
-      '3': 1,
-      '4': 1,
-      '5': 1
-    }
+    let count = { '1': 1, '2': 1, '3': 1, '4': 1, '5': 1 }
     assert.deepEqual(calculate.umiAvg(count), 3)
-    count = {
-      '1': 5,
-      '2': 5,
-      '3': 5,
-      '4': 5,
-      '5': 5
-    }
+
+    count = { '1': 5, '2': 5, '3': 5, '4': 5, '5': 5 }
     assert.deepEqual(calculate.umiAvg(count), 3)
-    count = {
-      '1': 0,
-      '2': 0,
-      '3': 0,
-      '4': 4,
-      '5': 4
-    }
+
+    count = { '1': 0, '2': 0, '3': 0, '4': 4, '5': 4 }
     assert.deepEqual(calculate.umiAvg(count), 4.5)
-    count = {
-      '1': 0,
-      '2': 0,
-      '3': 0,
-      '4': 0,
-      '5': 100
-    }
+
+    count = { '1': 0, '2': 0, '3': 0, '4': 0, '5': 100 }
     assert.deepEqual(calculate.umiAvg(count), 5)
-    count = {
-      '1': 100,
-      '2': 0,
-      '3': 0,
-      '4': 0,
-      '5': 0
-    }
+
+    count = { '1': 100, '2': 0, '3': 0, '4': 0, '5': 0 }
     assert.deepEqual(calculate.umiAvg(count), 1)
   })
+
   it('can handle missing fields in count', () => {
-    let count = {
-      '1': 1,
-      '5': 1
-    }
+    let count = { '1': 1, '5': 1 }
     assert.deepEqual(calculate.umiAvg(count), 3)
   })
 })

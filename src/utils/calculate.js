@@ -19,6 +19,7 @@ const median = (arr) => R.median(arr)
 
 const percentGender = (gender, arr) => {
   const countOfSpecifiedGender = arr.filter(x => x.gender === gender).length
+  if (arr.length === 0) return 0
   return countOfSpecifiedGender / arr.length
 }
 
