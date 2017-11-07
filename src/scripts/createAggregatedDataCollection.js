@@ -66,36 +66,12 @@ const createCourseObj = (csv) => {
           Female: (gender === 'Female') ? 1 : 0,
           Male: (gender === 'Male') ? 1 : 0
         },
-        UMI1: {
-          count: {
-            [String(getFromCSV.getUMI1(ev))]: 1
-          }
-        },
-        UMI2: {
-          count: {
-            [String(getFromCSV.getUMI2(ev))]: 1
-          }
-        },
-        UMI3: {
-          count: {
-            [String(getFromCSV.getUMI3(ev))]: 1
-          }
-        },
-        UMI4: {
-          count: {
-            [String(getFromCSV.getUMI4(ev))]: 1
-          }
-        },
-        UMI5: {
-          count: {
-            [String(getFromCSV.getUMI5(ev))]: 1
-          }
-        },
-        UMI6: {
-          count: {
-            [String(getFromCSV.getUMI6(ev))]: 1
-          }
-        }
+        UMI1: { count: { [String(getFromCSV.getUMI1(ev))]: 1 } },
+        UMI2: { count: { [String(getFromCSV.getUMI2(ev))]: 1 } },
+        UMI3: { count: { [String(getFromCSV.getUMI3(ev))]: 1 } },
+        UMI4: { count: { [String(getFromCSV.getUMI4(ev))]: 1 } },
+        UMI5: { count: { [String(getFromCSV.getUMI5(ev))]: 1 } },
+        UMI6: { count: { [String(getFromCSV.getUMI6(ev))]: 1 } }
       })
       return acc
     }
