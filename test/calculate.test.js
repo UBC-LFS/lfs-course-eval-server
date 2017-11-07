@@ -224,11 +224,7 @@ describe('calculatePercentFavourable', () => {
 describe('calculatePercentileRanking', () => {
   it('can handle a single input', () => {
     let courses = [
-      {
-        UMI6: {
-          average: 1
-        }
-      }
+      { UMI6: { average: 1 } }
     ]
     assert.deepEqual(calculate.percentileRankingOfCourse({
       UMI6: {
@@ -238,50 +234,18 @@ describe('calculatePercentileRanking', () => {
   })
   it('takes a course, UMI, and all courses sortedByUMI and returns the percentile ranking of that course', () => {
     let courses = [
-      {
-        UMI6: {
-          average: 1
-        }
-      },
-      {
-        UMI6: {
-          average: 2
-        }
-      }
+      { UMI6: { average: 1 } },
+      { UMI6: { average: 2 } }
     ]
-    assert.deepEqual(calculate.percentileRankingOfCourse({
-      UMI6: {
-        average: 2
-      }
-    }, 'UMI6', courses), 0.75)
-
+    assert.deepEqual(calculate.percentileRankingOfCourse({ UMI6: { average: 2 } }, 'UMI6', courses), 0.75)
     courses = [
-      {
-        UMI6: {
-          average: 1
-        }
-      },
-      {
-        UMI6: {
-          average: 2
-        }
-      },
-      {
-        UMI6: {
-          average: 3
-        }
-      },
-      {
-        UMI6: {
-          average: 4
-        }
-      }
+      { UMI6: { average: 1 } },
+      { UMI6: { average: 2 } },
+      { UMI6: { average: 3 } },
+      { UMI6: { average: 4 } }
     ]
     assert.deepEqual(calculate.percentileRankingOfCourse({
-      UMI6: {
-        average: 2
-      }
-    }, 'UMI6', courses), 0.38)
+      UMI6: { average: 2 } }, 'UMI6', courses), 0.38)
   })
 })
 describe('meetsMinimum', () => {
