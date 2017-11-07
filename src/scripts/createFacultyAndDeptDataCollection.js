@@ -34,6 +34,8 @@ const createAverageByYear = (csv) => {
   uniqYears.map(year => {
     const filteredByYear = filterCSV.byYear(year)(csv)
 
+    // add in term.map to separate it out by term?
+
     uniqDepts.map(dept => {
       const filteredByDeptAndYear = filterCSV.byDept(dept)(filteredByYear)
 

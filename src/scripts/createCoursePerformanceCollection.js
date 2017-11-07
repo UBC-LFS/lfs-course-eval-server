@@ -26,7 +26,7 @@ readDataByYear('2016', 'UMIInstructor', (res) => {
   const UMIInstructorData = res
   readDataByYear('2016', 'facultyDeptData', (res) => {
     const result = aggregateCP(UMIInstructorData, res)
-    clearCollection('CoursePerformance')    
+    clearCollection('CoursePerformance')
     writeToDB(result, 'CoursePerformance')
   })
 })
