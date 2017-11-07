@@ -17,11 +17,14 @@ const getProperties = (ev) => ({
   gender: getFromCSV.getGender(ev)
 })
 
+// filter out any rows in the csv with all 0 UMI ratings
+const filterAll0s = (csv) => csv.filter(ev => {
+  if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
+  else return true
+})
+
 const createCourseObj = (csv) => {
-  const filteredCSV = csv.filter(ev => {
-    if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
-    else return true
-  })
+  const filteredCSV = filterAll0s(csv)
   return filteredCSV.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
@@ -36,26 +39,12 @@ const createCourseObj = (csv) => {
       for (let i = 1; i <= 6; i++) {
         let getUMI
         let UMI = 'UMI' + i
-        switch (i) {
-          case 1:
-            getUMI = getFromCSV.getUMI1(ev)
-            break
-          case 2:
-            getUMI = getFromCSV.getUMI2(ev)
-            break
-          case 3:
-            getUMI = getFromCSV.getUMI3(ev)
-            break
-          case 4:
-            getUMI = getFromCSV.getUMI4(ev)
-            break
-          case 5:
-            getUMI = getFromCSV.getUMI5(ev)
-            break
-          case 6:
-            getUMI = getFromCSV.getUMI6(ev)
-            break
-        }
+        if (i === 1) getUMI = getFromCSV.getUMI1(ev)
+        if (i === 2) getUMI = getFromCSV.getUMI2(ev)
+        if (i === 3) getUMI = getFromCSV.getUMI3(ev)
+        if (i === 4) getUMI = getFromCSV.getUMI4(ev)
+        if (i === 5) getUMI = getFromCSV.getUMI5(ev)
+        if (i === 6) getUMI = getFromCSV.getUMI6(ev)
         if (typeof (acc[index][UMI].count[getUMI]) === 'undefined') {
           acc[index][UMI].count = { ...acc[index][UMI].count, [getUMI]: 1 }
         } else acc[index][UMI].count[getUMI] = acc[index][UMI].count[getUMI] + 1
@@ -77,36 +66,12 @@ const createCourseObj = (csv) => {
           Female: (gender === 'Female') ? 1 : 0,
           Male: (gender === 'Male') ? 1 : 0
         },
-        UMI1: {
-          count: {
-            [String(getFromCSV.getUMI1(ev))]: 1
-          }
-        },
-        UMI2: {
-          count: {
-            [String(getFromCSV.getUMI2(ev))]: 1
-          }
-        },
-        UMI3: {
-          count: {
-            [String(getFromCSV.getUMI3(ev))]: 1
-          }
-        },
-        UMI4: {
-          count: {
-            [String(getFromCSV.getUMI4(ev))]: 1
-          }
-        },
-        UMI5: {
-          count: {
-            [String(getFromCSV.getUMI5(ev))]: 1
-          }
-        },
-        UMI6: {
-          count: {
-            [String(getFromCSV.getUMI6(ev))]: 1
-          }
-        }
+        UMI1: { count: { [String(getFromCSV.getUMI1(ev))]: 1 } },
+        UMI2: { count: { [String(getFromCSV.getUMI2(ev))]: 1 } },
+        UMI3: { count: { [String(getFromCSV.getUMI3(ev))]: 1 } },
+        UMI4: { count: { [String(getFromCSV.getUMI4(ev))]: 1 } },
+        UMI5: { count: { [String(getFromCSV.getUMI5(ev))]: 1 } },
+        UMI6: { count: { [String(getFromCSV.getUMI6(ev))]: 1 } }
       })
       return acc
     }
@@ -151,7 +116,7 @@ const insertPercentileRanking = (courseObjs) => {
   let sortedByUMI
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
-    sortedByUMI = R.sort((a, b) => a[UMI].average - b[UMI].average, courseObjs)
+    sortedByUMI = courseObjs.sort((a, b) => a[UMI].average - b[UMI].average)
     sortedByUMI.map((course) => {
       const filteredByTerm = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
       const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
@@ -200,8 +165,6 @@ const errorCheck = (courseObjs) => {
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  // filter out any all 0 UMI ratings
-
   let courseObjs = createCourseObj(csv)
 
   courseObjs.map(courseObj => R.pipe(

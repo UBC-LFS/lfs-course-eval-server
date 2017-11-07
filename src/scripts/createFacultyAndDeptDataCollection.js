@@ -12,30 +12,23 @@ const calculateAverage = (filteredArray) => {
   const UMI5 = filterCSV.byUMI5(filteredArray)
   const UMI6 = filterCSV.byUMI6(filteredArray)
 
-  const averageUMI1 = R.mean(UMI1)
-  const averageUMI2 = R.mean(UMI2)
-  const averageUMI3 = R.mean(UMI3)
-  const averageUMI4 = R.mean(UMI4)
-  const averageUMI5 = R.mean(UMI5)
-  const averageUMI6 = R.mean(UMI6)
-  
-  // console.log(UMI1.length, UMI2.length, UMI3.length, UMI4.length, UMI5.length, UMI6.length)
   const averageLength = Math.round(R.mean([UMI1.length, UMI2.length, UMI3.length, UMI4.length, UMI5.length, UMI6.length]))
 
   return ({
-    UMI1: averageUMI1,
-    UMI2: averageUMI2,
-    UMI3: averageUMI3,
-    UMI4: averageUMI4,
-    UMI5: averageUMI5,
-    UMI6: averageUMI6,
+    UMI1: R.mean(UMI1),
+    UMI2: R.mean(UMI2),
+    UMI3: R.mean(UMI3),
+    UMI4: R.mean(UMI4),
+    UMI5: R.mean(UMI5),
+    UMI6: R.mean(UMI6),
     averageLength
   })
 }
 
-const averageByYear = (csv) => {
+const createAverageByYear = (csv) => {
   const uniqYears = getFromCSV.getUniqYears(csv)
   const uniqDepts = getFromCSV.getUniqDepts(csv)
+
   const averageUMI = []
 
   uniqYears.map(year => {
@@ -57,12 +50,16 @@ const averageByYear = (csv) => {
       }
     })
   })
-  console.log(JSON.stringify(averageUMI, null, 2))
   return averageUMI
 }
 
 readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  const toWrite = averageByYear(csv)
+  const toWrite = createAverageByYear(csv)
   clearCollection('facultyDeptData')
   writeToDB(toWrite, 'facultyDeptData')
 })
+
+export {
+  calculateAverage,
+  createAverageByYear
+}

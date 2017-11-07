@@ -1,52 +1,37 @@
-import { readDataByYear } from '../service/dbService.js'
+import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
-import * as calculate from '../utils/calculate'
-import { writeToDB } from '../service/dbService'
-
-readDataByYear('2016', 'UMIInstructor', (res) => {
-    const UMIInstructorData = res
-    readDataByYear('2016', 'facultyDeptData', (res) => {
-        const result = aggregateCP(UMIInstructorData, res)
-        writeToDB(result, 'CoursePerformance')        
-    })
-})
 
 const addDeptData = (instructorCourseRecords, deptData) => {
-    return R.map(z => {
-        const deptFacultyRecord = R.find(y => {
-            return R.keys(y).includes(z.year.toString())
-        })(deptData)
-        z['facultyAverage'] = deptFacultyRecord[z.year].facultyAverage
-        z['deptAverage'] = deptFacultyRecord[z.year][z.dept + 'Average']
-        return z
-    },
-        instructorCourseRecords)
+  return R.map(z => {
+    const deptFacultyRecord = R.find(y => {
+      return R.keys(y).includes(z.year.toString())
+    })(deptData)
+    z['facultyAverage'] = deptFacultyRecord[z.year].facultyAverage
+    z['deptAverage'] = deptFacultyRecord[z.year][z.dept + 'Average']
+    return z
+  }, instructorCourseRecords)
 }
 
-const retrievePUID = (instructorRecord) => {
-    const keys = Object.keys(instructorRecord)
-    let instructorPUID = ''
-    for (let i = 0; i < keys.length; i++) {
-        if (keys[i] !== '_id') {
-            instructorPUID = keys[i]
-            break;
-        }
-    }
-    return instructorPUID
-}
 const aggregateCP = (instructorData, deptFacultyData) => {
-    const finalArray = R.map(x => {
-        const instructorObj = {}
-        const instructorPUID = retrievePUID(x)
-        instructorObj[instructorPUID] = addDeptData(x[instructorPUID], deptFacultyData)
-        return instructorObj
-    }
-        , instructorData)
-    return finalArray
+  const finalArray = R.map(x => {
+    const instructorObj = {}
+    instructorObj.PUID = x.PUID
+    instructorObj.Courses = addDeptData(x.Courses, deptFacultyData)
+    return instructorObj
+  }, instructorData)
+  return finalArray
 }
+
+readDataByYear('2016', 'UMIInstructor', (res) => {
+  const UMIInstructorData = res
+  readDataByYear('2016', 'facultyDeptData', (res) => {
+    const result = aggregateCP(UMIInstructorData, res)
+    clearCollection('CoursePerformance')    
+    writeToDB(result, 'CoursePerformance')
+  })
+})
 
 export {
     aggregateCP,
-    addDeptData,
-    retrievePUID
+    addDeptData
 }

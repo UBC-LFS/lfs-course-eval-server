@@ -1,6 +1,4 @@
 import R from 'ramda'
-import * as get from './get'
-import * as filter from './filter'
 
 const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
 
@@ -11,7 +9,7 @@ const questionAvg = (arr) => {
 }
 
 const avgByField = (arr, field) => {
-  let fieldArray = R.map(x => x[field], arr)
+  const fieldArray = R.map(x => x[field], arr)
   return parseFloat(R.mean(fieldArray)).toFixed(1)
 }
 
@@ -21,6 +19,7 @@ const median = (arr) => R.median(arr)
 
 const percentGender = (gender, arr) => {
   const countOfSpecifiedGender = arr.filter(x => x.gender === gender).length
+  if (arr.length === 0) return 0
   return countOfSpecifiedGender / arr.length
 }
 
@@ -39,26 +38,18 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
   else return toTwoDecimal(result)
 }
 
-const umiAvgOfCourse = (courseNum, year, term, umi, arr) =>
-  R.pipe(
-    filter.bySpecificCourse(courseNum, year, term),
-    get.arrayOfUMI(umi),
-    x => avg(x)
-  )(arr)
-
-const umiAvgOfInstructor = (instructorID, umi, arr) =>
-  R.pipe(
-    filter.byInstructor(instructorID),
-    get.arrayOfUMI(umi),
-    x => avg(x)
-  )(arr)
-
-const dispersionIndex = (count) => {
-  // this 'fills in' any missing scores with 0
+// this 'fills in' any missing counts with 0
+const fillInMissingCounts = (count) => {
   for (let i = 1; i <= 5; i++) {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
   }
+  return count
+}
+
+const dispersionIndex = (count) => {
+  count = fillInMissingCounts(count)
+
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
   const dispersionObj = {}
@@ -80,39 +71,36 @@ const dispersionIndex = (count) => {
 }
 
 const umiAvg = (count) => {
-  for (let i = 1; i <= 5; i++) {
-    const key = String(i)
-    if (!count.hasOwnProperty(key)) count[key] = 0
-  }
+  count = fillInMissingCounts(count)
+
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
 
-  return toTwoDecimal(Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0) / numberOfResponses)
+  const UMITimesCount = Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0)
+
+  return toTwoDecimal(UMITimesCount / numberOfResponses)
 }
 
 const percentFavourable = (count) => {
-  for (let i = 1; i <= 5; i++) {
-    const key = String(i)
-    if (!count.hasOwnProperty(key)) count[key] = 0
-  }
-  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
-  const numberOf4and5 = R.add(R.prop('4', count), R.prop('5', count))
+  count = fillInMissingCounts(count)
 
-  return toTwoDecimal(numberOf4and5 / numberOfResponses)
+  const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
+  const numberOf4and5s = R.add(R.prop('4', count), R.prop('5', count))
+
+  return toTwoDecimal(numberOf4and5s / numberOfResponses)
 }
 
 const meetsMinimum = (classSize, responseRate) => {
-  let meetsMin = false
-  if (classSize <= 10 && responseRate >= 0.75) meetsMin = true
-  if (classSize >= 11 && classSize <= 19 && responseRate >= 0.65) meetsMin = true
-  if (classSize >= 20 && classSize <= 34 && responseRate >= 0.55) meetsMin = true
-  if (classSize >= 35 && classSize <= 49 && responseRate >= 0.40) meetsMin = true
-  if (classSize >= 50 && classSize <= 74 && responseRate >= 0.35) meetsMin = true
-  if (classSize >= 75 && classSize <= 99 && responseRate >= 0.25) meetsMin = true
-  if (classSize >= 100 && classSize <= 149 && responseRate >= 0.2) meetsMin = true
-  if (classSize >= 150 && classSize <= 299 && responseRate >= 0.15) meetsMin = true
-  if (classSize >= 300 && classSize <= 499 && responseRate >= 0.10) meetsMin = true
-  if (classSize > 500 && responseRate >= 0.05) meetsMin = true
-  return meetsMin
+  if (classSize <= 10 && responseRate >= 0.75) return true
+  if (classSize >= 11 && classSize <= 19 && responseRate >= 0.65) return true
+  if (classSize >= 20 && classSize <= 34 && responseRate >= 0.55) return true
+  if (classSize >= 35 && classSize <= 49 && responseRate >= 0.40) return true
+  if (classSize >= 50 && classSize <= 74 && responseRate >= 0.35) return true
+  if (classSize >= 75 && classSize <= 99 && responseRate >= 0.25) return true
+  if (classSize >= 100 && classSize <= 149 && responseRate >= 0.2) return true
+  if (classSize >= 150 && classSize <= 299 && responseRate >= 0.15) return true
+  if (classSize >= 300 && classSize <= 499 && responseRate >= 0.10) return true
+  if (classSize > 500 && responseRate >= 0.05) return true
+  else return false
 }
 
 export {
@@ -121,8 +109,6 @@ export {
   percentGender,
   toTwoDecimal,
   dispersionIndex,
-  umiAvgOfInstructor,
-  umiAvgOfCourse,
   questionAvg,
   avgByField,
   umiAvg,

@@ -1,40 +1,17 @@
 /* global describe, it */
-import assert from 'assert'
-import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
+ import assert from 'assert'
+ import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
 
-const UMIInstructorData = [{
-  '1110': [{
-    'year': 2016,
-    'term': 'W2',
-    'course': 'SOIL 550',
-    'courseLevel': 5,
-    'dept': 'SOIL',
-    'instructorName': 'Jules W',
-    'PUID': '1110'
-  }]
-},
-{
-  '1111': [{
-    'year': 2017,
-    'term': 'W2',
-    'course': 'PLNT 550',
-    'courseLevel': 5,
-    'dept': 'PLNT',
-    'instructorName': 'Maria H',
-    'PUID': '1111'
-  }]
-}
-]
 
 const deptData = [{
   '2016': {
     'facultyAverage': {
-      'UMI1': 4.062821111630079,
-      'UMI2': 4.075970079476391,
-      'UMI3': 4.100305379375147,
-      'UMI4': 3.942898272552783,
-      'UMI5': 4.224198455417739,
-      'UMI6': 4.110096041227454,
+      'UMI1': 3.1,
+      'UMI2': 1.7,
+      'UMI3': 3.5,
+      'UMI4': 2.4,
+      'UMI5': 1.76,
+      'UMI6': 4.99,
       'averageLength': 4255
     },
     'SOILAverage': {
@@ -47,12 +24,12 @@ const deptData = [{
       'averageLength': 32
     },
     'PLNTAverage': {
-      'UMI1': 4.333333333333333,
-      'UMI2': 4.444444444444445,
-      'UMI3': 4.777777777777778,
-      'UMI4': 4.25,
-      'UMI5': 4.888888888888889,
-      'UMI6': 4.666666666666667,
+      'UMI1': 4.123456,
+      'UMI2': 1.912034,
+      'UMI3': 3.99999999,
+      'UMI4': 1.234,
+      'UMI5': 4.1,
+      'UMI6': 2.6748249353,
       'averageLength': 9
     },
     'GRSAverage': {
@@ -65,43 +42,43 @@ const deptData = [{
       'averageLength': 24
     },
     'ECONAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     },
     'HUNUAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     },
     'RMESAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     }
   }
 },
 {
   '2017': {
     'facultyAverage': {
-      'UMI1': 4.062821111630079,
-      'UMI2': 4.075970079476391,
-      'UMI3': 4.100305379375147,
-      'UMI4': 3.942898272552783,
-      'UMI5': 4.224198455417739,
-      'UMI6': 4.110096041227454,
+      'UMI1': 3.1,
+      'UMI2': 1.7,
+      'UMI3': 3.5,
+      'UMI4': 2.4,
+      'UMI5': 1.76,
+      'UMI6': 4.99,
       'averageLength': 4255
     },
     'SOILAverage': {
@@ -114,12 +91,12 @@ const deptData = [{
       'averageLength': 32
     },
     'PLNTAverage': {
-      'UMI1': 4.333333333333333,
-      'UMI2': 4.444444444444445,
-      'UMI3': 4.777777777777778,
-      'UMI4': 4.25,
-      'UMI5': 4.888888888888889,
-      'UMI6': 4.666666666666667,
+      'UMI1': 4.123456,
+      'UMI2': 1.912034,
+      'UMI3': 3.99999999,
+      'UMI4': 1.234,
+      'UMI5': 4.1,
+      'UMI6': 2.6748249353,
       'averageLength': 9
     },
     'GRSAverage': {
@@ -132,31 +109,31 @@ const deptData = [{
       'averageLength': 24
     },
     'ECONAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     },
     'HUNUAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     },
     'RMESAverage': {
-      'UMI1': NaN,
-      'UMI2': NaN,
-      'UMI3': NaN,
-      'UMI4': NaN,
-      'UMI5': NaN,
-      'UMI6': NaN,
-      'averageLength': 0
+      'UMI1': 1.2356,
+      'UMI2': 1.2356,
+      'UMI3': 1.2356,
+      'UMI4': 1.2356,
+      'UMI5': 1.2356,
+      'UMI6': 1.2356,
+      'averageLength': 5
     }
   }
 }]
@@ -165,111 +142,111 @@ describe('addDeptData test', () => {
   it('takes an instructor record array of course objects and an array of dept and faculty averages and returns the combined array of the applicable department and faculty based on year', () => {
     let input = [{
       'year': 2017,
-      'term': 'W2',
-      'course': 'PLNT 550',
+      'term': 'SA',
+      'course': 'FAKECOURSE 123',
       'courseLevel': 5,
       'dept': 'PLNT',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111'
     },
     {
       'year': 2016,
-      'term': 'W2',
+      'term': 'SA',
       'course': 'ECON 550',
       'courseLevel': 5,
       'dept': 'ECON',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111'
     },
     {
       'year': 2017,
-      'term': 'W2',
+      'term': 'SA',
       'course': 'HUNU 550',
       'courseLevel': 5,
       'dept': 'HUNU',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111'
     }]
     let output = [{
       'year': 2017,
-      'term': 'W2',
-      'course': 'PLNT 550',
+      'term': 'SA',
+      'course': 'FAKECOURSE 123',
       'courseLevel': 5,
       'dept': 'PLNT',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111',
       'facultyAverage': {
-        'UMI1': 4.062821111630079,
-        'UMI2': 4.075970079476391,
-        'UMI3': 4.100305379375147,
-        'UMI4': 3.942898272552783,
-        'UMI5': 4.224198455417739,
-        'UMI6': 4.110096041227454,
+        'UMI1': 3.1,
+        'UMI2': 1.7,
+        'UMI3': 3.5,
+        'UMI4': 2.4,
+        'UMI5': 1.76,
+        'UMI6': 4.99,
         'averageLength': 4255
       },
       'deptAverage': {
-        'UMI1': 4.333333333333333,
-        'UMI2': 4.444444444444445,
-        'UMI3': 4.777777777777778,
-        'UMI4': 4.25,
-        'UMI5': 4.888888888888889,
-        'UMI6': 4.666666666666667,
+        'UMI1': 4.123456,
+        'UMI2': 1.912034,
+        'UMI3': 3.99999999,
+        'UMI4': 1.234,
+        'UMI5': 4.1,
+        'UMI6': 2.6748249353,
         'averageLength': 9
       }
     },
     {
       'year': 2016,
-      'term': 'W2',
+      'term': 'SA',
       'course': 'ECON 550',
       'courseLevel': 5,
       'dept': 'ECON',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111',
       'facultyAverage': {
-        'UMI1': 4.062821111630079,
-        'UMI2': 4.075970079476391,
-        'UMI3': 4.100305379375147,
-        'UMI4': 3.942898272552783,
-        'UMI5': 4.224198455417739,
-        'UMI6': 4.110096041227454,
+        'UMI1': 3.1,
+        'UMI2': 1.7,
+        'UMI3': 3.5,
+        'UMI4': 2.4,
+        'UMI5': 1.76,
+        'UMI6': 4.99,
         'averageLength': 4255
       },
       'deptAverage': {
-        'UMI1': NaN,
-        'UMI2': NaN,
-        'UMI3': NaN,
-        'UMI4': NaN,
-        'UMI5': NaN,
-        'UMI6': NaN,
-        'averageLength': 0
+        'UMI1': 1.2356,
+        'UMI2': 1.2356,
+        'UMI3': 1.2356,
+        'UMI4': 1.2356,
+        'UMI5': 1.2356,
+        'UMI6': 1.2356,
+        'averageLength': 5
       }
     },
     {
       'year': 2017,
-      'term': 'W2',
+      'term': 'SA',
       'course': 'HUNU 550',
       'courseLevel': 5,
       'dept': 'HUNU',
-      'instructorName': 'Maria H',
+      'instructorName': 'Fake N',
       'PUID': '1111',
       'facultyAverage': {
-        'UMI1': 4.062821111630079,
-        'UMI2': 4.075970079476391,
-        'UMI3': 4.100305379375147,
-        'UMI4': 3.942898272552783,
-        'UMI5': 4.224198455417739,
-        'UMI6': 4.110096041227454,
+        'UMI1': 3.1,
+        'UMI2': 1.7,
+        'UMI3': 3.5,
+        'UMI4': 2.4,
+        'UMI5': 1.76,
+        'UMI6': 4.99,
         'averageLength': 4255
       },
       'deptAverage': {
-        'UMI1': NaN,
-        'UMI2': NaN,
-        'UMI3': NaN,
-        'UMI4': NaN,
-        'UMI5': NaN,
-        'UMI6': NaN,
-        'averageLength': 0
-      },
+        'UMI1': 1.2356,
+        'UMI2': 1.2356,
+        'UMI3': 1.2356,
+        'UMI4': 1.2356,
+        'UMI5': 1.2356,
+        'UMI6': 1.2356,
+        'averageLength': 5
+      }
     }]
     assert.deepEqual(JSON.stringify(addDeptData(input, deptData)), JSON.stringify(output))
   })
@@ -277,22 +254,49 @@ describe('addDeptData test', () => {
 
 describe('createCPObj', () => {
   it('takes a array of objects and returns the aggregated data converted into an array of objects by instructor', () => {
+    const UMIInstructorData = [
+      {
+        PUID: '1110',
+        Courses: [{
+          'year': 2016,
+          'term': 'SA',
+          'course': 'SOIL 101',
+          'courseLevel': 5,
+          'dept': 'SOIL',
+          'instructorName': 'UBC P',
+          'PUID': '1110'
+        }]
+      },
+      {
+        PUID: '1111',
+        Courses: [{
+          'year': 2017,
+          'term': 'SA',
+          'course': 'FAKECOURSE 123',
+          'courseLevel': 5,
+          'dept': 'PLNT',
+          'instructorName': 'Fake N',
+          'PUID': '1111'
+        }]
+      }
+    ]
     let output = [{
-      '1110': [{
+      PUID: '1110',
+      Courses: [{
         'year': 2016,
-        'term': 'W2',
-        'course': 'SOIL 550',
+        'term': 'SA',
+        'course': 'SOIL 101',
         'courseLevel': 5,
         'dept': 'SOIL',
-        'instructorName': 'Jules W',
+        'instructorName': 'UBC P',
         'PUID': '1110',
         'facultyAverage': {
-          'UMI1': 4.062821111630079,
-          'UMI2': 4.075970079476391,
-          'UMI3': 4.100305379375147,
-          'UMI4': 3.942898272552783,
-          'UMI5': 4.224198455417739,
-          'UMI6': 4.110096041227454,
+          'UMI1': 3.1,
+          'UMI2': 1.7,
+          'UMI3': 3.5,
+          'UMI4': 2.4,
+          'UMI5': 1.76,
+          'UMI6': 4.99,
           'averageLength': 4255
         },
         'deptAverage': {
@@ -307,62 +311,35 @@ describe('createCPObj', () => {
       }]
     },
     {
-      '1111': [{
+      PUID: '1111',
+      Courses: [{
         'year': 2017,
-        'term': 'W2',
-        'course': 'PLNT 550',
+        'term': 'SA',
+        'course': 'FAKECOURSE 123',
         'courseLevel': 5,
         'dept': 'PLNT',
-        'instructorName': 'Maria H',
+        'instructorName': 'Fake N',
         'PUID': '1111',
         'facultyAverage': {
-          'UMI1': 4.062821111630079,
-          'UMI2': 4.075970079476391,
-          'UMI3': 4.100305379375147,
-          'UMI4': 3.942898272552783,
-          'UMI5': 4.224198455417739,
-          'UMI6': 4.110096041227454,
+          'UMI1': 3.1,
+          'UMI2': 1.7,
+          'UMI3': 3.5,
+          'UMI4': 2.4,
+          'UMI5': 1.76,
+          'UMI6': 4.99,
           'averageLength': 4255
         },
         'deptAverage': {
-          'UMI1': 4.333333333333333,
-          'UMI2': 4.444444444444445,
-          'UMI3': 4.777777777777778,
-          'UMI4': 4.25,
-          'UMI5': 4.888888888888889,
-          'UMI6': 4.666666666666667,
+          'UMI1': 4.123456,
+          'UMI2': 1.912034,
+          'UMI3': 3.99999999,
+          'UMI4': 1.234,
+          'UMI5': 4.1,
+          'UMI6': 2.6748249353,
           'averageLength': 9
         }
-      }
-      ]
-    }
-    ]
+      }]
+    }]
     assert.deepEqual(aggregateCP(UMIInstructorData, deptData), output)
-  })
-})
-
-describe('retrievePUID', () => {
-  it('takes an instructor record and returns the PUID key', () => {
-    let input = {
-      '_id': 'objectid',
-      '1110': [{
-        'year': 2016,
-        'term': 'W2',
-        'course': 'SOIL 550',
-        'courseLevel': 5,
-        'dept': 'SOIL',
-        'instructorName': 'Jules W',
-        'PUID': '1110',
-        'facultyAverage': {
-          'UMI1': 4.062821111630079,
-          'UMI2': 4.075970079476391,
-          'UMI3': 4.100305379375147,
-          'UMI4': 3.942898272552783,
-          'UMI5': 4.224198455417739,
-          'UMI6': 4.110096041227454,
-          'averageLength': 4255
-        }}]
-    }
-    assert.deepEqual(retrievePUID(input), '1110')
   })
 })

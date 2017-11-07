@@ -11,6 +11,7 @@ const aggregatedData = [{
   },
   'enrolment': 20,
   'responseRate': 0.45,
+  'dept': 'LFS',
   'UMI1': {
     'count': {
       '1': 0,
@@ -55,6 +56,7 @@ const aggregatedData = [{
   },
   'enrolment': 20,
   'responseRate': 0.45,
+  'dept': 'LFS',
   'UMI1': {
     'count': {
       '1': 5,
@@ -99,6 +101,7 @@ const aggregatedData = [{
   },
   'enrolment': 20,
   'responseRate': 0.45,
+  'dept': 'LFS',
   'UMI1': {
     'count': {
       '1': 1,
@@ -143,6 +146,7 @@ const aggregatedData = [{
   },
   'enrolment': 20,
   'responseRate': 0.45,
+  'dept': 'APBI',
   'UMI1': {
     'count': {
       '1': 5,
@@ -187,6 +191,7 @@ const aggregatedData = [{
   },
   'enrolment': 20,
   'responseRate': 0.45,
+  'dept': 'LFS',
   'UMI1': {
     'count': {
       '1': 3,
@@ -228,6 +233,7 @@ describe('createOverallInstructorObj', () => {
     let output = [
       {
         instructorName: 'Cat, D',
+        'dept': 'LFS, APBI',
         'gender': {
           'Female': 195,
           'Male': 30
@@ -309,6 +315,7 @@ describe('createOverallInstructorObj', () => {
         }
       }, {
         instructorName: 'Barnes, Joey',
+        'dept': 'LFS',
         'gender': {
           'Female': 130,
           'Male': 20
