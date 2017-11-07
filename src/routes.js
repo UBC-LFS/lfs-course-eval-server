@@ -16,7 +16,7 @@ routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:
   handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 })
 
-routes.get('/data/umiDispersion', (req, res) => {
+routes.get('/data/UMIDispersion', (req, res) => {
   dataForUMIVSDispersion().then(x => res.send(x))
 })
 

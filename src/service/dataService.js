@@ -67,7 +67,6 @@ const dataForUMIInstructor = (year) => {
     })
   })
 }
-
 const dataForCoursePerformance = (year) => {
   return new Promise((resolve, reject) => {
     db.readDataByYear(year, 'CoursePerformance', (res) => {

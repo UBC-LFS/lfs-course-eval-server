@@ -1,6 +1,7 @@
 /* global describe, it */
-import assert from 'assert'
-import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
+ import assert from 'assert'
+ import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
+
 
 const deptData = [{
   '2016': {
@@ -15,7 +16,7 @@ const deptData = [{
     },
     'SOILAverage': {
       'UMI1': 4.125,
-      'UMI2': 1.234,
+      'UMI2': 4.25,
       'UMI3': 4.46875,
       'UMI4': 4.387096774193548,
       'UMI5': 4.4375,
@@ -47,7 +48,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     },
     'HUNUAverage': {
       'UMI1': 1.2356,
@@ -56,7 +57,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     },
     'RMESAverage': {
       'UMI1': 1.2356,
@@ -65,7 +66,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     }
   }
 },
@@ -114,7 +115,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     },
     'HUNUAverage': {
       'UMI1': 1.2356,
@@ -123,7 +124,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     },
     'RMESAverage': {
       'UMI1': 1.2356,
@@ -132,7 +133,7 @@ const deptData = [{
       'UMI4': 1.2356,
       'UMI5': 1.2356,
       'UMI6': 1.2356,
-      'averageLength': 0
+      'averageLength': 5
     }
   }
 }]
@@ -217,7 +218,7 @@ describe('addDeptData test', () => {
         'UMI4': 1.2356,
         'UMI5': 1.2356,
         'UMI6': 1.2356,
-        'averageLength': 0
+        'averageLength': 5
       }
     },
     {
@@ -244,7 +245,7 @@ describe('addDeptData test', () => {
         'UMI4': 1.2356,
         'UMI5': 1.2356,
         'UMI6': 1.2356,
-        'averageLength': 0
+        'averageLength': 5
       }
     }]
     assert.deepEqual(JSON.stringify(addDeptData(input, deptData)), JSON.stringify(output))
@@ -255,7 +256,8 @@ describe('createCPObj', () => {
   it('takes a array of objects and returns the aggregated data converted into an array of objects by instructor', () => {
     const UMIInstructorData = [
       {
-        '1110': [{
+        PUID: '1110',
+        Courses: [{
           'year': 2016,
           'term': 'SA',
           'course': 'SOIL 101',
@@ -266,7 +268,8 @@ describe('createCPObj', () => {
         }]
       },
       {
-        '1111': [{
+        PUID: '1111',
+        Courses: [{
           'year': 2017,
           'term': 'SA',
           'course': 'FAKECOURSE 123',
@@ -278,7 +281,8 @@ describe('createCPObj', () => {
       }
     ]
     let output = [{
-      '1110': [{
+      PUID: '1110',
+      Courses: [{
         'year': 2016,
         'term': 'SA',
         'course': 'SOIL 101',
@@ -297,7 +301,7 @@ describe('createCPObj', () => {
         },
         'deptAverage': {
           'UMI1': 4.125,
-          'UMI2': 1.234,
+          'UMI2': 4.25,
           'UMI3': 4.46875,
           'UMI4': 4.387096774193548,
           'UMI5': 4.4375,
@@ -307,7 +311,8 @@ describe('createCPObj', () => {
       }]
     },
     {
-      '1111': [{
+      PUID: '1111',
+      Courses: [{
         'year': 2017,
         'term': 'SA',
         'course': 'FAKECOURSE 123',
@@ -336,32 +341,5 @@ describe('createCPObj', () => {
       }]
     }]
     assert.deepEqual(aggregateCP(UMIInstructorData, deptData), output)
-  })
-})
-
-describe('retrievePUID', () => {
-  it('takes an instructor record and returns the PUID key', () => {
-    let input = {
-      '_id': 'objectid',
-      '1110': [{
-        'year': 2016,
-        'term': 'SA',
-        'course': 'SOIL 101',
-        'courseLevel': 5,
-        'dept': 'SOIL',
-        'instructorName': 'UBC P',
-        'PUID': '1110',
-        'facultyAverage': {
-          'UMI1': 3,
-          'UMI2': 2,
-          'UMI3': 4,
-          'UMI4': 3,
-          'UMI5': 5,
-          'UMI6': 1,
-          'averageLength': 4255
-        }
-      }]
-    }
-    assert.deepEqual(retrievePUID(input), '1110')
   })
 })

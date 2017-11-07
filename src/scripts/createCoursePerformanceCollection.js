@@ -1,4 +1,4 @@
-import { readDataByYear, writeToDB } from '../service/dbService.js'
+import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 
 const addDeptData = (instructorCourseRecords, deptData) => {
@@ -12,23 +12,11 @@ const addDeptData = (instructorCourseRecords, deptData) => {
   }, instructorCourseRecords)
 }
 
-const retrievePUID = (instructorRecord) => {
-  const keys = Object.keys(instructorRecord)
-  let instructorPUID = ''
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== '_id') {
-      instructorPUID = keys[i]
-      break
-    }
-  }
-  return instructorPUID
-}
-
 const aggregateCP = (instructorData, deptFacultyData) => {
   const finalArray = R.map(x => {
     const instructorObj = {}
-    const instructorPUID = retrievePUID(x)
-    instructorObj[instructorPUID] = addDeptData(x[instructorPUID], deptFacultyData)
+    instructorObj.PUID = x.PUID
+    instructorObj.Courses = addDeptData(x.Courses, deptFacultyData)
     return instructorObj
   }, instructorData)
   return finalArray
@@ -38,12 +26,12 @@ readDataByYear('2016', 'UMIInstructor', (res) => {
   const UMIInstructorData = res
   readDataByYear('2016', 'facultyDeptData', (res) => {
     const result = aggregateCP(UMIInstructorData, res)
+    clearCollection('CoursePerformance')    
     writeToDB(result, 'CoursePerformance')
   })
 })
 
 export {
     aggregateCP,
-    addDeptData,
-    retrievePUID
+    addDeptData
 }

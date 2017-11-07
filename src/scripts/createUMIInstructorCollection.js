@@ -7,7 +7,8 @@ const aggregateUMIInstructor = (data) => {
   const finalArray = []
   for (var i = 0; i < result.length; i++) {
     const finalObj = {}
-    finalObj[result[i][0]] = result[i][1]
+    finalObj.PUID = result[i][0]
+    finalObj.Courses = result[i][1]
     finalArray.push(finalObj)
   }
   return finalArray

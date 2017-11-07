@@ -226,8 +226,8 @@ describe('createUMIInstructorObj', () => {
     }]
     let output = [
       {
-        '7890':
-        [{
+        PUID: '7890',
+        Courses: [{
           'instructorName': 'Cat, D',
           'PUID': '7890',
           'gender': {
@@ -360,7 +360,8 @@ describe('createUMIInstructorObj', () => {
         }]
       },
       {
-        '9999': [
+        PUID: '9999',
+        Courses: [
           {
             'instructorName': 'Barnes, Joey',
             'PUID': '9999',
