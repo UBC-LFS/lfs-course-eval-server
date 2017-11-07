@@ -1,12 +1,6 @@
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 
-readDataByYear('2016', 'aggregatedData', (res) => {
-  const result = aggregateUMIInstructor(res)
-  clearCollection('UMIInstructor')
-  writeToDB(result, 'UMIInstructor')
-})
-
 const aggregateUMIInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
   const result = R.toPairs(byInstructor(data))
@@ -18,6 +12,12 @@ const aggregateUMIInstructor = (data) => {
   }
   return finalArray
 }
+
+readDataByYear('2016', 'aggregatedData', (res) => {
+  const result = aggregateUMIInstructor(res)
+  clearCollection('UMIInstructor')
+  writeToDB(result, 'UMIInstructor')
+})
 
 export {
     aggregateUMIInstructor
