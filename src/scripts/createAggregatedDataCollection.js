@@ -39,26 +39,12 @@ const createCourseObj = (csv) => {
       for (let i = 1; i <= 6; i++) {
         let getUMI
         let UMI = 'UMI' + i
-        switch (i) {
-          case 1:
-            getUMI = getFromCSV.getUMI1(ev)
-            break
-          case 2:
-            getUMI = getFromCSV.getUMI2(ev)
-            break
-          case 3:
-            getUMI = getFromCSV.getUMI3(ev)
-            break
-          case 4:
-            getUMI = getFromCSV.getUMI4(ev)
-            break
-          case 5:
-            getUMI = getFromCSV.getUMI5(ev)
-            break
-          case 6:
-            getUMI = getFromCSV.getUMI6(ev)
-            break
-        }
+        if (i === 1) getUMI = getFromCSV.getUMI1(ev)
+        if (i === 2) getUMI = getFromCSV.getUMI2(ev)
+        if (i === 3) getUMI = getFromCSV.getUMI3(ev)
+        if (i === 4) getUMI = getFromCSV.getUMI4(ev)
+        if (i === 5) getUMI = getFromCSV.getUMI5(ev)
+        if (i === 6) getUMI = getFromCSV.getUMI6(ev)
         if (typeof (acc[index][UMI].count[getUMI]) === 'undefined') {
           acc[index][UMI].count = { ...acc[index][UMI].count, [getUMI]: 1 }
         } else acc[index][UMI].count[getUMI] = acc[index][UMI].count[getUMI] + 1
