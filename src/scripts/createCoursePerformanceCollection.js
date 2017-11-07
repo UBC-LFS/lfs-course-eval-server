@@ -1,14 +1,6 @@
 import { readDataByYear, writeToDB } from '../service/dbService.js'
 import R from 'ramda'
 
-readDataByYear('2016', 'UMIInstructor', (res) => {
-  const UMIInstructorData = res
-  readDataByYear('2016', 'facultyDeptData', (res) => {
-    const result = aggregateCP(UMIInstructorData, res)
-    writeToDB(result, 'CoursePerformance')
-  })
-})
-
 const addDeptData = (instructorCourseRecords, deptData) => {
   return R.map(z => {
     const deptFacultyRecord = R.find(y => {
@@ -41,6 +33,14 @@ const aggregateCP = (instructorData, deptFacultyData) => {
   }, instructorData)
   return finalArray
 }
+
+readDataByYear('2016', 'UMIInstructor', (res) => {
+  const UMIInstructorData = res
+  readDataByYear('2016', 'facultyDeptData', (res) => {
+    const result = aggregateCP(UMIInstructorData, res)
+    writeToDB(result, 'CoursePerformance')
+  })
+})
 
 export {
     aggregateCP,

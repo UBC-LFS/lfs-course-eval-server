@@ -29,6 +29,7 @@ const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
 
   const result = R.reduce((acc, tuple) => {
+    console.log(tuple)
     const instructorObj = {
       instructorName: tuple[1][0].instructorName,
       gender: {
@@ -38,7 +39,7 @@ const aggregateOverallInstructor = (data) => {
       numCoursesTaught: tuple[1].length,
       numStudentsTaught: sumEnrolment(tuple),
       responseRate: sumResponded(tuple) / sumEnrolment(tuple),
-      dept: concatenateDept(tuple).join(', ')
+      dept: concatenateDept(tuple).join(', '),
     }
 
     for (let i = 1; i <= 6; i++) {

@@ -50,7 +50,6 @@ const createAverageByYear = (csv) => {
       }
     })
   })
-  console.log(JSON.stringify(averageUMI, null, 2))
   return averageUMI
 }
 
