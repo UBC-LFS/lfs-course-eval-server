@@ -8,10 +8,12 @@ describe('calculateQuestionAvg', () => {
     assert.deepEqual(2.5, calculate.questionAvg([{ percentResponses: 1, classSize: 1, Avg: 3 },
     { percentResponses: 0.33, classSize: 3, Avg: 2 }]))
   })
+
   it('takes a single value in an array and returns that average', () => {
     assert.deepEqual(3, calculate.questionAvg([{ percentResponses: 1, classSize: 1, Avg: 3 }]))
   })
 })
+
 describe('calculateAvgByField', () => {
   it('takes an array and returns the average value of the specified field', () => {
     const avgClassSize = calculate.avgByField([{ percentResponses: 1, classSize: 1, Avg: 3 },
@@ -22,10 +24,12 @@ describe('calculateAvgByField', () => {
     assert.deepEqual(2, avgClassSize)
     assert.deepEqual(2.5, avgAvg)
   })
+
   it('takes a single value in an array and returns that average', () => {
     assert.deepEqual(3, calculate.questionAvg([{ percentResponses: 1, classSize: 1, Avg: 3 }]))
   })
 })
+
 describe('calculateAvg', () => {
   it('takes an array and returns the average of that array', () => {
     assert.deepEqual(3, calculate.avg([1, 2, 3, 4, 5]))
@@ -57,6 +61,7 @@ describe('calculatePercentGender', () => {
     assert.deepEqual(calculate.percentGender('Male', input), 4 / 7)
     assert.deepEqual(calculate.percentGender('Female', input), 3 / 7)
   })
+
   it('can handle if there are no genders of the specified type', () => {
     const input = [
       { gender: 'Male', UMI6: 5 },
@@ -135,51 +140,28 @@ describe('calculateUMIAvg', () => {
 
 describe('calculatePercentFavourable', () => {
   it('takes a count object and returns the percent favourable', () => {
-    let count = {
-      '1': 1,
-      '2': 1,
-      '3': 1,
-      '4': 1,
-      '5': 1
-    }
+    let count = { '1': 1, '2': 1, '3': 1, '4': 1, '5': 1 }
     assert.deepEqual(calculate.percentFavourable(count), 0.4)
-    count = {
-      '1': 5,
-      '2': 5,
-      '3': 5,
-      '4': 5,
-      '5': 5
-    }
+
+    count = { '1': 5, '2': 5, '3': 5, '4': 5, '5': 5 }
     assert.deepEqual(calculate.percentFavourable(count), 0.4)
-    count = {
-      '1': 0,
-      '2': 0,
-      '3': 0,
-      '4': 4,
-      '5': 4
-    }
+
+    count = { '1': 0, '2': 0, '3': 0, '4': 4, '5': 4 }
     assert.deepEqual(calculate.percentFavourable(count), 1)
   })
+
   it('can handle missing fields in count', () => {
-    let count = {
-      '1': 1,
-      '5': 1
-    }
+    let count = { '1': 1, '5': 1 }
     assert.deepEqual(calculate.percentFavourable(count), 0.5)
   })
 })
 
 describe('calculatePercentileRanking', () => {
   it('can handle a single input', () => {
-    let courses = [
-      { UMI6: { average: 1 } }
-    ]
-    assert.deepEqual(calculate.percentileRankingOfCourse({
-      UMI6: {
-        average: 1
-      }
-    }, 'UMI6', courses), 0.5)
+    let courses = [ { UMI6: { average: 1 } } ]
+    assert.deepEqual(calculate.percentileRankingOfCourse({ UMI6: { average: 1 } }, 'UMI6', courses), 0.5)
   })
+
   it('takes a course, UMI, and all courses sortedByUMI and returns the percentile ranking of that course', () => {
     let courses = [
       { UMI6: { average: 1 } },
@@ -221,6 +203,7 @@ describe('meetsMinimum', () => {
     assert.deepEqual(calculate.meetsMinimum(10000, 0.05), true)
 
     // false cases
+    assert.deepEqual(calculate.meetsMinimum(0, 0), false)
     assert.deepEqual(calculate.meetsMinimum(2, 0.5), false)
     assert.deepEqual(calculate.meetsMinimum(10, 0), false)
     assert.deepEqual(calculate.meetsMinimum(11, 0.64), false)
