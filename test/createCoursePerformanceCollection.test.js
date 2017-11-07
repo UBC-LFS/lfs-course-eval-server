@@ -2,30 +2,6 @@
 import assert from 'assert'
 import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
 
-const UMIInstructorData = [{
-  '1110': [{
-    'year': 2016,
-    'term': 'SA',
-    'course': 'SOIL 101',
-    'courseLevel': 5,
-    'dept': 'SOIL',
-    'instructorName': 'UBC P',
-    'PUID': '1110'
-  }]
-},
-{
-  '1111': [{
-    'year': 2017,
-    'term': 'SA',
-    'course': 'FAKECOURSE 123',
-    'courseLevel': 5,
-    'dept': 'PLNT',
-    'instructorName': 'Fake N',
-    'PUID': '1111'
-  }]
-}
-]
-
 const deptData = [{
   '2016': {
     'facultyAverage': {
@@ -277,6 +253,31 @@ describe('addDeptData test', () => {
 
 describe('createCPObj', () => {
   it('takes a array of objects and returns the aggregated data converted into an array of objects by instructor', () => {
+
+    const UMIInstructorData = [
+      {
+        '1110': [{
+          'year': 2016,
+          'term': 'SA',
+          'course': 'SOIL 101',
+          'courseLevel': 5,
+          'dept': 'SOIL',
+          'instructorName': 'UBC P',
+          'PUID': '1110'
+        }]
+      },
+      {
+        '1111': [{
+          'year': 2017,
+          'term': 'SA',
+          'course': 'FAKECOURSE 123',
+          'courseLevel': 5,
+          'dept': 'PLNT',
+          'instructorName': 'Fake N',
+          'PUID': '1111'
+        }]
+      }
+    ]
     let output = [{
       '1110': [{
         'year': 2016,
@@ -333,10 +334,8 @@ describe('createCPObj', () => {
           'UMI6': 2.6748249353,
           'averageLength': 9
         }
-      }
-      ]
-    }
-    ]
+      }]
+    }]
     assert.deepEqual(aggregateCP(UMIInstructorData, deptData), output)
   })
 })
@@ -361,7 +360,8 @@ describe('retrievePUID', () => {
           'UMI5': 5,
           'UMI6': 1,
           'averageLength': 4255
-        }}]
+        }
+      }]
     }
     assert.deepEqual(retrievePUID(input), '1110')
   })
