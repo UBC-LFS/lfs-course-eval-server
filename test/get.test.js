@@ -19,12 +19,12 @@ describe('getSliceTerm', () => {
 describe('getarrayOfUMI', () => {
   it('takes an array of objects and returns the UMI values of the specified UMI', () => {
     const input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     const outputUMI6 = [6, 6, 6, 6, 6, 6]
     const getUMI6 = get.arrayOfUMI('UMI6')
@@ -38,13 +38,13 @@ describe('getarrayOfUMI', () => {
 describe('getArrayOfGender', () => {
   it('takes an array of objects and returns the genders', () => {
     const input = [
-            { gender: 'Male', UMI6: 5 },
-            { gender: 'Male', UMI6: 2 },
-            { gender: 'Female', UMI6: 5 },
-            { gender: 'Male', UMI6: 5 },
-            { gender: 'Female', UMI6: 5 },
-            { gender: 'Female', UMI6: 3 },
-            { gender: 'Male', UMI6: 1 }
+      { gender: 'Male', UMI6: 5 },
+      { gender: 'Male', UMI6: 2 },
+      { gender: 'Female', UMI6: 5 },
+      { gender: 'Male', UMI6: 5 },
+      { gender: 'Female', UMI6: 5 },
+      { gender: 'Female', UMI6: 3 },
+      { gender: 'Male', UMI6: 1 }
     ]
     const output = ['Male', 'Male', 'Female', 'Male', 'Female', 'Female', 'Male']
     assert.deepEqual(get.arrayOfGender()(input), output)
@@ -84,16 +84,16 @@ describe('getCourseLevel', () => {
 describe('getUniqYears', () => {
   it('takes an array of courseObj and returns the uniq years', () => {
     let input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqYears(input), [2016, 2017, 2019])
     input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqYears(input), [2016])
     input = []
@@ -104,16 +104,16 @@ describe('getUniqYears', () => {
 describe('getUniqTerms', () => {
   it('takes an array of courseObj and returns the uniq terms', () => {
     let input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017W2', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 100 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqTerms(input), ['W1', 'W2', 'S1', 'S2'])
     input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqTerms(input), ['W1'])
     input = []
@@ -124,16 +124,16 @@ describe('getUniqTerms', () => {
 describe('getUniqCourseLevels', () => {
   it('takes an array of courseObj and returns the uniq course levels', () => {
     let input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017W2', courseNum: 'LFSLC 220 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 420 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2017S1', courseNum: 'LFSLC 570 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 123 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
-            { term: '2019S2', courseNum: 'LFSLC 300 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017W2', courseNum: 'LFSLC 220 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 420 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2017S1', courseNum: 'LFSLC 570 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 123 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 },
+      { term: '2019S2', courseNum: 'LFSLC 300 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqCourseLevels(input), [100, 200, 300, 400, 500])
     input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6 }
     ]
     assert.deepEqual(get.uniqCourseLevels(input), [100])
     input = []
@@ -144,12 +144,12 @@ describe('getUniqCourseLevels', () => {
 describe('getUniqDeptss', () => {
   it('takes an array of courseObj and returns the uniq dept', () => {
     let input = [
-            { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
-            { term: '2017W2', courseNum: 'LFSLC 220 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'FNH' },
-            { term: '2017S1', courseNum: 'LFSLC 420 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
-            { term: '2017S1', courseNum: 'LFSLC 570 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
-            { term: '2019S2', courseNum: 'LFSLC 123 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
-            { term: '2019S2', courseNum: 'LFSLC 300 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'APBI' }
+      { term: '2016W1', courseNum: 'LFSLC 100 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
+      { term: '2017W2', courseNum: 'LFSLC 220 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'FNH' },
+      { term: '2017S1', courseNum: 'LFSLC 420 001', instructor: 'John Doe', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
+      { term: '2017S1', courseNum: 'LFSLC 570 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
+      { term: '2019S2', courseNum: 'LFSLC 123 001', instructor: 'Doe John', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'LFS' },
+      { term: '2019S2', courseNum: 'LFSLC 300 001', instructor: 'Alice Bob', UMI1: 1, UMI2: 2, UMI3: 3, UMI4: 4, UMI5: 5, UMI6: 6, deptName: 'APBI' }
     ]
     assert.deepEqual(get.uniqDepts(input), ['LFS', 'FNH', 'APBI'])
   })
