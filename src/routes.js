@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { handleGraphAPI } from './service/apiService'
 import { dataForEnrolmentTrend, filterData, dataForOverallInstructor, dataForCoursePerformance, dataForUMIVSDispersion, dataForUMIInstructor } from './service/dataService'
 
 require('dotenv').config()
@@ -10,10 +9,6 @@ routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
     res.render('index', { title: 'Courseval Visualization', append: '/courseval' })
   } else res.render('index', { title: 'Courseval Visualization' })
-})
-
-routes.get('/data/:chartKey/:year/:term/:courseNum/:department/:toggleBelowMin/:questionCode/:classSizeMin/:classSizeMax', (req, res) => {
-  handleGraphAPI(req.params.chartKey, req.params).then(x => res.send(x))
 })
 
 routes.get('/data/UMIDispersion', (req, res) => {

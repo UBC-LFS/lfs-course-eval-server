@@ -31,6 +31,7 @@ const getCourseLevel = (ev) => ev.crsyear
 const getDept = (ev) => ev.deptname
 
 const getInstructorName = (ev) => ev.resp_fac
+
 const getPUID = (ev) => ev.eval_uname
 
 const getUMI1 = (ev) => ev['The instructor made it clear what students were expected to learn.']
