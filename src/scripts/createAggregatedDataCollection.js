@@ -210,7 +210,7 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
     })
 
     if (errorCheck(courseObjs)) {
-      console.log(JSON.stringify(courseObjs, null, 2))
+      // console.log(JSON.stringify(courseObjs, null, 2))
       clearCollection('aggregatedData')
       writeToDB(courseObjs, 'aggregatedData')
     }

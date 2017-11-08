@@ -5,34 +5,6 @@ import * as db from './dbService'
 import readCSV from './readCSV'
 import R from 'ramda'
 
-const filterDataByFilterSettings = ({ chartKey, year, term, courseNum, department, toggleBelowMin, questionCode, classSizeMin, classSizeMax }, chartMapping) => {
-  const filterPipeline = (data) => {
-    let filteredData = R.pipe(
-                filter.byYear(year),
-                filter.byTerm(term),
-                filter.byCourseNum(courseNum),
-                filter.byDept(department),
-                filter.byClassSize(classSizeMin, classSizeMax),
-                filter.byToggleBelowMin(toggleBelowMin),
-                filter.selectFields(questionCode, chartMapping['Fields'])
-            )(data)
-    if (chartKey === 'dashboard') {
-      filteredData['AvgRating'] = calculate.questionAvg(data)
-      filteredData['AvgClassSize'] = calculate.avgByField(data, 'classSize')
-    }
-    return filteredData
-  }
-
-  return new Promise((resolve, reject) => {
-        // specify what file or eventually DB to connect to
-    readCSV(chartMapping['DataSource'], (data) => {
-      if (data) {
-        resolve(filterPipeline(data))
-      } else reject(Error('the data with the specified filter does not exist'))
-    })
-  })
-}
-
 const filterData = () => {
   const createFilterObj = (data) => ({
     years: get.uniqYears(data),
@@ -86,7 +58,6 @@ const dataForUMIVSDispersion = (year) => {
 }
 
 export {
-    filterDataByFilterSettings,
     filterData,
     dataForOverallInstructor,
     dataForUMIVSDispersion,

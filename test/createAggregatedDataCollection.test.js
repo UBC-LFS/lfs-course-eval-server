@@ -1,6 +1,6 @@
 /* global describe, it */
 import assert from 'assert'
-import * as createAggData from '../src/scripts/createAggregatedDataCollection.js'
+import { createCourseObj, insertDispersionIndex, insertAvg, insertPercentFav, insertPercentileRanking, removeIncorrectCounts } from '../src/scripts/createAggregatedDataCollection.js'
 
 describe('createCourseObj', () => {
   it('takes a array of objects and returns the csv converted into an array of course objects', () => {
@@ -79,7 +79,7 @@ describe('createCourseObj', () => {
         }
       }
     ]
-    assert.deepEqual(createAggData.createCourseObj(data1), output)
+    assert.deepEqual(createCourseObj(data1), output)
     const data = [{
       surveyname: 'LFS Instructor/Course Evaluation 2016W2',
       datestart: '03/24/2017',
@@ -186,7 +186,7 @@ describe('createCourseObj', () => {
         }
       }
     ]
-    assert.deepEqual(createAggData.createCourseObj(data), output)
+    assert.deepEqual(createCourseObj(data), output)
   })
   it('can handle when some evaluations are 0', () => {
     const dataWith0 = [{
@@ -292,7 +292,7 @@ describe('createCourseObj', () => {
         }
       }
     ]
-    assert.deepEqual(createAggData.createCourseObj(dataWith0), output)
+    assert.deepEqual(createCourseObj(dataWith0), output)
   })
 })
 
@@ -397,7 +397,7 @@ describe('insertDispersionIndex', () => {
         }
       }
     }
-    assert.deepEqual(createAggData.insertDispersionIndex(obj), output)
+    assert.deepEqual(insertDispersionIndex(obj), output)
   })
 })
 
@@ -502,7 +502,7 @@ describe('insertAvg', () => {
         }
       }
     }
-    assert.deepEqual(createAggData.insertAvg(obj), output)
+    assert.deepEqual(insertAvg(obj), output)
   })
 })
 
@@ -607,7 +607,7 @@ describe('insertPercentFav', () => {
         }
       }
     }
-    assert.deepEqual(createAggData.insertPercentFav(obj), output)
+    assert.deepEqual(insertPercentFav(obj), output)
   })
 })
 
@@ -691,7 +691,7 @@ describe('insertPercentileRanking', () => {
         percentileRankingByDept: 0.5
       }
     }]
-    assert.deepEqual(createAggData.insertPercentileRanking(obj), output)
+    assert.deepEqual(insertPercentileRanking(obj), output)
   })
   it('can compute correct percentileRanking for different UMI', () => {
     let obj = [{
@@ -848,7 +848,7 @@ describe('insertPercentileRanking', () => {
         percentileRankingByDept: 0.75
       }
     }]
-    assert.deepEqual(createAggData.insertPercentileRanking(obj), output)
+    assert.deepEqual(insertPercentileRanking(obj), output)
   })
   it('takes an object and returns it with percentileRankingOfFaculty and percentileRankingOfTerm inserted', () => {
     let objs = [{
@@ -1051,7 +1051,7 @@ describe('insertPercentileRanking', () => {
         percentileRankingByFaculty: 0.67,
         percentileRankingByDept: 0.5 } } ]
 
-    assert.deepEqual(createAggData.insertPercentileRanking(objs), output)
+    assert.deepEqual(insertPercentileRanking(objs), output)
   })
 })
 describe('removeIncorrectCounts', () => {
@@ -1072,7 +1072,7 @@ describe('removeIncorrectCounts', () => {
       'UMI5': { 'count': { '1': 0, '2': 0, '3': 0, '4': 1, '5': 1 } },
       'UMI6': { 'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 2 } }
     }
-    assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
+    assert.deepEqual(removeIncorrectCounts(input), output)
   })
   it('can handle the case where some counts are empty', () => {
     let input = {
@@ -1091,7 +1091,7 @@ describe('removeIncorrectCounts', () => {
       UMI5: { count: { '1': 5, '2': 3 } },
       UMI6: { count: { '1': 5, '2': 3 } }
     }
-    assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
+    assert.deepEqual(removeIncorrectCounts(input), output)
   })
   it('can handle when some counts are empty', () => {
     let input = {
@@ -1110,6 +1110,6 @@ describe('removeIncorrectCounts', () => {
       UMI5: { count: { '1': 5, '2': 3 } },
       UMI6: { count: {} }
     }
-    assert.deepEqual(createAggData.removeIncorrectCounts(input), output)
+    assert.deepEqual(removeIncorrectCounts(input), output)
   })
 })
