@@ -1,6 +1,7 @@
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 
+// *TODO* refactor this
 const addDeptData = (instructorCourseRecords, deptData) => {
   return R.map(course => {
     const deptFacultyRecord = R.find(deptRecord => {
