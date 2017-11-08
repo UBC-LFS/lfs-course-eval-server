@@ -19,8 +19,8 @@ const sumCourseCount = (instructorRecord) =>
 
 const concatenateDept = (instructorRecord) => {
   const deptList = []
-  R.map(x => {
-    if (!deptList.includes(x.dept)) { deptList.push(x.dept) }
+  R.map(course => {
+    if (!deptList.includes(course.dept)) { deptList.push(course.dept) }
   }, instructorRecord[1])
   return deptList
 }

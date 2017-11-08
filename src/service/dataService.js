@@ -57,10 +57,20 @@ const dataForUMIVSDispersion = (year) => {
   })
 }
 
+const dataForEnrolmentTrend = (year) => {
+  return new Promise((resolve, reject) => {
+    db.readDataByYear(year, 'EnrolmentTrend', (res) => {
+      if (res) resolve(res)
+      else reject(Error('db returned no result'))
+    })
+  })
+}
+
 export {
     filterData,
     dataForOverallInstructor,
     dataForUMIVSDispersion,
     dataForUMIInstructor,
-    dataForCoursePerformance
+    dataForCoursePerformance,
+    dataForEnrolmentTrend
 }

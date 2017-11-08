@@ -2,21 +2,21 @@ import { readDataByYear, writeToDB, clearCollection } from '../service/dbService
 import R from 'ramda'
 
 const addDeptData = (instructorCourseRecords, deptData) => {
-  return R.map(z => {
-    const deptFacultyRecord = R.find(y => {
-      return R.keys(y).includes(z.year.toString())
+  return R.map(course => {
+    const deptFacultyRecord = R.find(deptRecord => {
+      return R.keys(deptRecord).includes(course.year.toString())
     })(deptData)
-    z['facultyAverage'] = deptFacultyRecord[z.year].facultyAverage
-    z['deptAverage'] = deptFacultyRecord[z.year][z.dept + 'Average']
-    return z
+    course['facultyAverage'] = deptFacultyRecord[course.year].facultyAverage
+    course['deptAverage'] = deptFacultyRecord[course.year][course.dept + 'Average']
+    return course
   }, instructorCourseRecords)
 }
 
 const aggregateCP = (instructorData, deptFacultyData) => {
-  const finalArray = R.map(x => {
+  const finalArray = R.map(instructor => {
     const instructorObj = {}
-    instructorObj.PUID = x.PUID
-    instructorObj.Courses = addDeptData(x.Courses, deptFacultyData)
+    instructorObj.PUID = instructor.PUID
+    instructorObj.Courses = addDeptData(instructor.Courses, deptFacultyData)
     return instructorObj
   }, instructorData)
   return finalArray
