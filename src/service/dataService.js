@@ -1,9 +1,6 @@
-import * as filter from '../utils/filter'
-import * as calculate from '../utils/calculate'
 import * as get from '../utils/get'
 import * as db from './dbService'
 import readCSV from './readCSV'
-import R from 'ramda'
 
 const filterData = () => {
   const createFilterObj = (data) => ({

@@ -19,7 +19,12 @@ const getProperties = (ev) => ({
 
 // filter out any rows in the csv with all 0 UMI ratings
 const filterAll0s = (csv) => csv.filter(ev => {
-  if (getFromCSV.getUMI1(ev) === 0 && getFromCSV.getUMI2(ev) === 0 && getFromCSV.getUMI3(ev) === 0 && getFromCSV.getUMI4(ev) === 0 && getFromCSV.getUMI5(ev) === 0 && getFromCSV.getUMI6(ev) === 0) return false
+  if (getFromCSV.getUMI1(ev) === 0 &&
+    getFromCSV.getUMI2(ev) === 0 &&
+    getFromCSV.getUMI3(ev) === 0 &&
+    getFromCSV.getUMI4(ev) === 0 &&
+    getFromCSV.getUMI5(ev) === 0 &&
+    getFromCSV.getUMI6(ev) === 0) return false
   else return true
 })
 

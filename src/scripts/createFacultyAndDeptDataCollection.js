@@ -26,30 +26,50 @@ const calculateAverage = (filteredArray) => {
 }
 
 const createAverageByYear = (csv) => {
-  const uniqYears = getFromCSV.getUniqYears(csv)
-  const uniqDepts = getFromCSV.getUniqDepts(csv)
-
   const averageUMI = []
+
+  const uniqYears = getFromCSV.getUniqYears(csv)
+
+  const hasYear = year => x => x.hasOwnProperty(String(year))
 
   uniqYears.map(year => {
     const filteredByYear = filterCSV.byYear(year)(csv)
+    const uniqTerms = getFromCSV.getUniqTerms(filteredByYear)
 
-    // add in term.map to separate it out by term?
+    uniqTerms.map(term => {
+      const filteredByYearAndTerm = filterCSV.byTerm(term)(filteredByYear)
+      const uniqDepts = getFromCSV.getUniqDepts(filteredByYearAndTerm)
 
-    uniqDepts.map(dept => {
-      const filteredByDeptAndYear = filterCSV.byDept(dept)(filteredByYear)
+      uniqDepts.map(dept => {
+        const filteredByYearAndDept = filterCSV.byDept(dept)(filteredByYear)
+        const filteredByYearTermAndDept = filterCSV.byDept(dept)(filteredByYearAndTerm)
 
-      if (averageUMI.some(x => x.hasOwnProperty(String(year)))) {
-        const index = averageUMI.findIndex(x => x.hasOwnProperty(String(year)))
-        averageUMI[index][year][dept + 'Average'] = calculateAverage(filteredByDeptAndYear)
-      } else {
-        averageUMI.push({
-          [year]: {
-            facultyAverage: calculateAverage(filteredByYear),
-            [dept + 'Average']: calculateAverage(filteredByDeptAndYear)
+        if (averageUMI.some(hasYear(year))) {
+          const yearIndex = averageUMI.findIndex(hasYear(year))
+          averageUMI[yearIndex][year]['facultyYearAverage'] = calculateAverage(filteredByYear)
+          averageUMI[yearIndex][year][dept + 'YearAverage'] = calculateAverage(filteredByYearAndDept)
+          if (averageUMI[yearIndex][year][term]) {
+            averageUMI[yearIndex][year][term]['facultyTermAverage'] = calculateAverage(filteredByYearAndTerm)
+            averageUMI[yearIndex][year][term][dept + 'TermAverage'] = calculateAverage(filteredByYearTermAndDept)
+          } else {
+            averageUMI[yearIndex][year][term] = {
+              'facultyTermAverage': calculateAverage(filteredByYearAndTerm),
+              [dept + 'TermAverage']: calculateAverage(filteredByYearTermAndDept)
+            }
           }
-        })
-      }
+        } else {
+          averageUMI.push({
+            [year]: {
+              'facultyYearAverage': calculateAverage(filteredByYear),
+              [dept + 'YearAverage']: calculateAverage(filteredByYearAndDept),
+              [term]: {
+                'facultyTermAverage': calculateAverage(filteredByYearAndTerm),
+                [dept + 'TermAverage']: calculateAverage(filteredByYearTermAndDept)
+              }
+            }
+          })
+        }
+      })
     })
   })
   return averageUMI
