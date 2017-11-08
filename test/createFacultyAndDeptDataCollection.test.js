@@ -136,7 +136,7 @@ describe('createAverageByYear', () => {
     let output = [
       {
         '2017': {
-          'facultyYearAverage': {
+          'facultyAverage': {
             'UMI1': 3,
             'UMI2': 3,
             'UMI3': 3,
@@ -145,7 +145,7 @@ describe('createAverageByYear', () => {
             'UMI6': 3,
             'averageLength': 1
           },
-          'LFSYearAverage': {
+          'LFSAverage': {
             'UMI1': 3,
             'UMI2': 3,
             'UMI3': 3,
@@ -155,7 +155,7 @@ describe('createAverageByYear', () => {
             'averageLength': 1
           },
           'S2': {
-            'facultyTermAverage': {
+            'facultyAverage': {
               'UMI1': 3,
               'UMI2': 3,
               'UMI3': 3,
@@ -164,13 +164,310 @@ describe('createAverageByYear', () => {
               'UMI6': 3,
               'averageLength': 1
             },
-            'LFSTermAverage': {
+            'LFSAverage': {
               'UMI1': 3,
               'UMI2': 3,
               'UMI3': 3,
               'UMI4': 3,
               'UMI5': 3,
               'UMI6': 3,
+              'averageLength': 1
+            }
+          }
+        }
+      }
+    ]
+    assert.deepEqual(createAverageByYear(input), output)
+
+    input = [
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'LFS',
+        'The instructor made it clear what students were expected to learn.': 3,
+        'The instructor communicated the subject matter effectively.': 3,
+        'The instructor helped inspire interest in learning the subject matter.': 3,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+        'The instructor showed concern for student learning.': 3,
+        'Overall  the instructor was an effective teacher.': 3
+      },
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'APBI',
+        'The instructor made it clear what students were expected to learn.': 5,
+        'The instructor communicated the subject matter effectively.': 5,
+        'The instructor helped inspire interest in learning the subject matter.': 5,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 5,
+        'The instructor showed concern for student learning.': 5,
+        'Overall  the instructor was an effective teacher.': 5
+      }
+    ]
+    output = [
+      {
+        '2017': {
+          'facultyAverage': {
+            'UMI1': 4,
+            'UMI2': 4,
+            'UMI3': 4,
+            'UMI4': 4,
+            'UMI5': 4,
+            'UMI6': 4,
+            'averageLength': 2
+          },
+          'LFSAverage': {
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'averageLength': 1
+          },
+          'APBIAverage': {
+            'UMI1': 5,
+            'UMI2': 5,
+            'UMI3': 5,
+            'UMI4': 5,
+            'UMI5': 5,
+            'UMI6': 5,
+            'averageLength': 1
+          },
+          'S2': {
+            'facultyAverage': {
+              'UMI1': 4,
+              'UMI2': 4,
+              'UMI3': 4,
+              'UMI4': 4,
+              'UMI5': 4,
+              'UMI6': 4,
+              'averageLength': 2
+            },
+            'LFSAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            },
+            'APBIAverage': {
+              'UMI1': 5,
+              'UMI2': 5,
+              'UMI3': 5,
+              'UMI4': 5,
+              'UMI5': 5,
+              'UMI6': 5,
+              'averageLength': 1
+            }
+          }
+        }
+      }
+    ]
+    assert.deepEqual(createAverageByYear(input), output)
+
+    input = [
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'LFS',
+        'The instructor made it clear what students were expected to learn.': 3,
+        'The instructor communicated the subject matter effectively.': 3,
+        'The instructor helped inspire interest in learning the subject matter.': 3,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+        'The instructor showed concern for student learning.': 3,
+        'Overall  the instructor was an effective teacher.': 3
+      },
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'APBI',
+        'The instructor made it clear what students were expected to learn.': 5,
+        'The instructor communicated the subject matter effectively.': 5,
+        'The instructor helped inspire interest in learning the subject matter.': 5,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 5,
+        'The instructor showed concern for student learning.': 5,
+        'Overall  the instructor was an effective teacher.': 5
+      },
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'FNH',
+        'The instructor made it clear what students were expected to learn.': 4,
+        'The instructor communicated the subject matter effectively.': 4,
+        'The instructor helped inspire interest in learning the subject matter.': 4,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 4,
+        'The instructor showed concern for student learning.': 4,
+        'Overall  the instructor was an effective teacher.': 4
+      }
+    ]
+    output = [
+      {
+        '2017': {
+          'facultyAverage': {
+            'UMI1': 4,
+            'UMI2': 4,
+            'UMI3': 4,
+            'UMI4': 4,
+            'UMI5': 4,
+            'UMI6': 4,
+            'averageLength': 3
+          },
+          'LFSAverage': {
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'averageLength': 1
+          },
+          'APBIAverage': {
+            'UMI1': 5,
+            'UMI2': 5,
+            'UMI3': 5,
+            'UMI4': 5,
+            'UMI5': 5,
+            'UMI6': 5,
+            'averageLength': 1
+          },
+          'FNHAverage': {
+            'UMI1': 4,
+            'UMI2': 4,
+            'UMI3': 4,
+            'UMI4': 4,
+            'UMI5': 4,
+            'UMI6': 4,
+            'averageLength': 1
+          },
+          'S2': {
+            'facultyAverage': {
+              'UMI1': 4,
+              'UMI2': 4,
+              'UMI3': 4,
+              'UMI4': 4,
+              'UMI5': 4,
+              'UMI6': 4,
+              'averageLength': 3
+            },
+            'LFSAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            },
+            'APBIAverage': {
+              'UMI1': 5,
+              'UMI2': 5,
+              'UMI3': 5,
+              'UMI4': 5,
+              'UMI5': 5,
+              'UMI6': 5,
+              'averageLength': 1
+            },
+            'FNHAverage': {
+              'UMI1': 4,
+              'UMI2': 4,
+              'UMI3': 4,
+              'UMI4': 4,
+              'UMI5': 4,
+              'UMI6': 4,
+              'averageLength': 1
+            }
+          }
+        }
+      }
+    ]
+    assert.deepEqual(createAverageByYear(input), output)
+
+    input = [
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'LFS',
+        'The instructor made it clear what students were expected to learn.': 3,
+        'The instructor communicated the subject matter effectively.': 3,
+        'The instructor helped inspire interest in learning the subject matter.': 3,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+        'The instructor showed concern for student learning.': 3,
+        'Overall  the instructor was an effective teacher.': 3
+      },
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017W1',
+        deptname: 'APBI',
+        'The instructor made it clear what students were expected to learn.': 5,
+        'The instructor communicated the subject matter effectively.': 5,
+        'The instructor helped inspire interest in learning the subject matter.': 5,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 5,
+        'The instructor showed concern for student learning.': 5,
+        'Overall  the instructor was an effective teacher.': 5
+      }
+    ]
+    output = [
+      {
+        '2017': {
+          'facultyAverage': {
+            'UMI1': 4,
+            'UMI2': 4,
+            'UMI3': 4,
+            'UMI4': 4,
+            'UMI5': 4,
+            'UMI6': 4,
+            'averageLength': 2
+          },
+          'LFSAverage': {
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'averageLength': 1
+          },
+          'APBIAverage': {
+            'UMI1': 5,
+            'UMI2': 5,
+            'UMI3': 5,
+            'UMI4': 5,
+            'UMI5': 5,
+            'UMI6': 5,
+            'averageLength': 1
+          },
+          'S2': {
+            'facultyAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            },
+            'LFSAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            }
+          },
+          'W1': {
+            'facultyAverage': {
+              'UMI1': 5,
+              'UMI2': 5,
+              'UMI3': 5,
+              'UMI4': 5,
+              'UMI5': 5,
+              'UMI6': 5,
+              'averageLength': 1
+            },
+            'APBIAverage': {
+              'UMI1': 5,
+              'UMI2': 5,
+              'UMI3': 5,
+              'UMI4': 5,
+              'UMI5': 5,
+              'UMI6': 5,
               'averageLength': 1
             }
           }

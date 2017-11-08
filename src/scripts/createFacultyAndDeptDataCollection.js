@@ -60,11 +60,11 @@ const createAverageByYear = (csv) => {
         } else {
           averageUMI.push({
             [year]: {
-              'facultyYearAverage': calculateAverage(filteredByYear),
-              [dept + 'YearAverage']: calculateAverage(filteredByYearAndDept),
+              'facultyAverage': calculateAverage(filteredByYear),
+              [dept + 'Average']: calculateAverage(filteredByYearAndDept),
               [term]: {
-                'facultyTermAverage': calculateAverage(filteredByYearAndTerm),
-                [dept + 'TermAverage']: calculateAverage(filteredByYearTermAndDept)
+                'facultyAverage': calculateAverage(filteredByYearAndTerm),
+                [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
               }
             }
           })
@@ -75,11 +75,11 @@ const createAverageByYear = (csv) => {
   return averageUMI
 }
 
-readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  const toWrite = createAverageByYear(csv)
-  clearCollection('facultyDeptData')
-  writeToDB(toWrite, 'facultyDeptData')
-})
+// readCSV('../scripts/source/rawDataAll.csv', (csv) => {
+//   const toWrite = createAverageByYear(csv)
+//   clearCollection('facultyDeptData')
+//   writeToDB(toWrite, 'facultyDeptData')
+// })
 
 export {
   calculateAverage,
