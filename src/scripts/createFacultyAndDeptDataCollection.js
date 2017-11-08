@@ -46,15 +46,15 @@ const createAverageByYear = (csv) => {
 
         if (averageUMI.some(hasYear(year))) {
           const yearIndex = averageUMI.findIndex(hasYear(year))
-          averageUMI[yearIndex][year]['facultyYearAverage'] = calculateAverage(filteredByYear)
-          averageUMI[yearIndex][year][dept + 'YearAverage'] = calculateAverage(filteredByYearAndDept)
+          averageUMI[yearIndex][year]['facultyAverage'] = calculateAverage(filteredByYear)
+          averageUMI[yearIndex][year][dept + 'Average'] = calculateAverage(filteredByYearAndDept)
           if (averageUMI[yearIndex][year][term]) {
-            averageUMI[yearIndex][year][term]['facultyTermAverage'] = calculateAverage(filteredByYearAndTerm)
-            averageUMI[yearIndex][year][term][dept + 'TermAverage'] = calculateAverage(filteredByYearTermAndDept)
+            averageUMI[yearIndex][year][term]['facultyAverage'] = calculateAverage(filteredByYearAndTerm)
+            averageUMI[yearIndex][year][term][dept + 'Average'] = calculateAverage(filteredByYearTermAndDept)
           } else {
             averageUMI[yearIndex][year][term] = {
-              'facultyTermAverage': calculateAverage(filteredByYearAndTerm),
-              [dept + 'TermAverage']: calculateAverage(filteredByYearTermAndDept)
+              'facultyAverage': calculateAverage(filteredByYearAndTerm),
+              [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
             }
           }
         } else {

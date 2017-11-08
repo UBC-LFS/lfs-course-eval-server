@@ -119,4 +119,64 @@ describe('calculateAverage', () => {
   })
 })
 
-// still need to write test for averageByYear
+describe('createAverageByYear', () => {
+  it('takes as input a CSV and returns the averages by faculty/dept by year and term', () => {
+    let input = [
+      {
+        surveyname: 'LFS Instructor/Course Evaluation 2017S2',
+        deptname: 'LFS',
+        'The instructor made it clear what students were expected to learn.': 3,
+        'The instructor communicated the subject matter effectively.': 3,
+        'The instructor helped inspire interest in learning the subject matter.': 3,
+        'Overall  evaluation of student learning (through exams  essays  presentations  etc.) was fair.': 3,
+        'The instructor showed concern for student learning.': 3,
+        'Overall  the instructor was an effective teacher.': 3
+      }
+    ]
+    let output = [
+      {
+        '2017': {
+          'facultyYearAverage': {
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'averageLength': 1
+          },
+          'LFSYearAverage': {
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'averageLength': 1
+          },
+          'S2': {
+            'facultyTermAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            },
+            'LFSTermAverage': {
+              'UMI1': 3,
+              'UMI2': 3,
+              'UMI3': 3,
+              'UMI4': 3,
+              'UMI5': 3,
+              'UMI6': 3,
+              'averageLength': 1
+            }
+          }
+        }
+      }
+    ]
+    assert.deepEqual(createAverageByYear(input), output)
+  })
+})
