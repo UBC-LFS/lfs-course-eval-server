@@ -26,3 +26,4 @@ export {
   byUMI6,
   invalidResults
 }
+  

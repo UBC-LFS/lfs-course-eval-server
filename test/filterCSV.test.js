@@ -2,6 +2,45 @@
 import * as filterCSV from '../src/scripts/scriptUtils/filterCSV'
 import assert from 'assert'
 
+describe('byYear', () => {
+  it('takes an array of courseval results and returns only the results with matching year', () => {
+    let input = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2018SA'}
+    ]
+    let output = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'}
+    ]
+    assert.deepEqual(filterCSV.byYear(2017)(input), output)
+    assert.deepEqual(filterCSV.byYear(2015)(input), [])
+  })
+})
+
+describe('byTerm', () => {
+  it('takes an array of responses and only returns the specified term', () => {
+    let input = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017W1'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017W2'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2018SA'}
+    ]
+    let output = [
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
+      {surveyname: 'LFS Instructor/Course Evaluation 2018SA'}
+    ]
+    assert.deepEqual(filterCSV.byTerm('SW')(input), [])
+    assert.deepEqual(filterCSV.byTerm('SA')(input), output)
+  })
+})
+
 describe('byDept', () => {
   it('takes an array of responses and only returns the specified dept', () => {
     let input = [
@@ -28,25 +67,6 @@ describe('invalidResults', () => {
     let input = [1, 2, 3, 4, 5, 6, 7, 0]
     let output = [1, 2, 3, 4, 5]
     assert.deepEqual(filterCSV.invalidResults(input), output)
-  })
-})
-
-describe('byYear', () => {
-  it('takes an array of courseval results and returns only the results with matching year', () => {
-    let input = [
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2018SA'}
-    ]
-    let output = [
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'},
-      {surveyname: 'LFS Instructor/Course Evaluation 2017SA'}
-    ]
-    assert.deepEqual(filterCSV.byYear(2017)(input), output)
   })
 })
 
