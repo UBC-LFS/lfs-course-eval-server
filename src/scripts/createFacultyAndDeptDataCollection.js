@@ -75,11 +75,11 @@ const createAverageByYear = (csv) => {
   return averageUMI
 }
 
-// readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-//   const toWrite = createAverageByYear(csv)
-//   clearCollection('facultyDeptData')
-//   writeToDB(toWrite, 'facultyDeptData')
-// })
+readCSV('../scripts/source/rawDataAll.csv', (csv) => {
+  const toWrite = createAverageByYear(csv)
+  clearCollection('facultyDeptData')
+  writeToDB(toWrite, 'facultyDeptData')
+})
 
 export {
   calculateAverage,
