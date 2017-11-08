@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { dataForEnrolmentTrend, filterData, dataForOverallInstructor, dataForCoursePerformance, dataForUMIVSDispersion, dataForUMIInstructor } from './service/dataService'
+import { dataForEnrolmentTrend, dataForOverallInstructor, dataForCoursePerformance, dataForUMIVSDispersion, dataForUMIInstructor, dataForFaculyAndDept } from './service/dataService'
 
 require('dotenv').config()
 
@@ -12,27 +12,27 @@ routes.get('/', (req, res) => {
 })
 
 routes.get('/data/UMIDispersion', (req, res) => {
-  dataForUMIVSDispersion().then(x => res.send(x))
+  dataForUMIVSDispersion().then(data => res.send(data))
 })
 
 routes.get('/data/UMIInstructor', (req, res) => {
-  dataForUMIInstructor().then(x => res.send(x))
+  dataForUMIInstructor().then(data => res.send(data))
 })
 
 routes.get('/data/OverallInstructor', (req, res) => {
-  dataForOverallInstructor().then(x => res.send(x))
+  dataForOverallInstructor().then(data => res.send(data))
 })
 
 routes.get('/data/CoursePerformance', (req, res) => {
-  dataForCoursePerformance().then(x => res.send(x))
+  dataForCoursePerformance().then(data => res.send(data))
 })
 
 routes.get('/data/EnrolmentTrend', (req, res) => {
-  dataForEnrolmentTrend().then(x => res.send(x))
+  dataForEnrolmentTrend().then(data => res.send(data))
 })
 
-routes.get('/filterData', (req, res) => {
-  filterData().then(x => res.send(x))
+routes.get('/data/FacultyDept', (req, res) => {
+  dataForFaculyAndDept().then(data => res.send(data))
 })
 
 routes.get('/list', (req, res, next) => {
