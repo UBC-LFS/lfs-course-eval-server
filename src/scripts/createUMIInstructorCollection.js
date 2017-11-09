@@ -4,14 +4,14 @@ import R from 'ramda'
 const aggregateUMIInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)
   const result = R.toPairs(byInstructor(data))
-  const finalArray = []
-  for (var i = 0; i < result.length; i++) {
-    const finalObj = {}
-    finalObj.PUID = result[i][0]
-    finalObj.Courses = result[i][1]
-    finalArray.push(finalObj)
-  }
-  return finalArray
+  return result.map(course => {
+    const PUID = course[0]
+    const Courses = course[1]
+    return {
+      PUID,
+      Courses
+    }
+  })
 }
 
 readDataByYear('2016', 'aggregatedData', (res) => {
