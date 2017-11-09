@@ -2,11 +2,10 @@ import { readDataByYear, writeToDB, clearCollection } from '../service/dbService
 import R from 'ramda'
 
 const aggregateUMIInstructor = (data) => {
-  const byInstructor = R.groupBy((course) => course.PUID)
-  const result = R.toPairs(byInstructor(data))
-  return result.map(course => {
-    const PUID = course[0]
-    const Courses = course[1]
+  const byInstructor = R.groupBy((course) => course.PUID)(data)
+  return Object.keys(byInstructor).map(key => {
+    const PUID = key
+    const Courses = byInstructor[key]
     return {
       PUID,
       Courses
