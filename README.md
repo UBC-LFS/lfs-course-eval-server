@@ -5,9 +5,10 @@
 
 Responsible for two tasks: aggregating raw CSV data into a Mongo database, and acting as the REST endpoint for requests from lfs-course-eval-client. 
 
-
+# Course Eval Definitions
 ### Dispersion Index
 Dispersion index is a measure used to quantify whether a set of observed occurrences are clustered or dispersed compared to a standard statistical model. The dispersion index is calculated as the ratio of the variance to the mean (D = Variance/Mean).
+
 
 ### Percentile Ranking
 Percentile rank is the percentage of the scores that fall at or below a given score.
@@ -23,9 +24,11 @@ Furthermore, percentile ranks are rounded to the nearest one. But, please note t
 
 Also, percentiles greater than the 99th round down to the 99th percentile rank, e.g. 99.4 or 99.9 round down to the 99th, i.e. there should be no 100th percentile.
 
+
 ### Response Rate
 The response rate is found by dividing the number of students that completed the survey with the number of students enrolled in the class.
 RR = (# of students that completed survey)/(# of students enrolled in the class)
+
 
 ### Meets Minimum
 The UBC Centre for Teaching and Learning Technology (CTLT) has developed a table of minimum response rates by class size. If the response rate of a given evaluation is above the minimum recommended, then the evaluation meets minimum.
@@ -42,6 +45,7 @@ The UBC Centre for Teaching and Learning Technology (CTLT) has developed a table
 | 150 - 299 | 15% |
 | 300 - 499 | 10% |
 | >= 500 | 5% |
+
 
 ### Average
 The average is calculated with the raw data of the entire faculty.
