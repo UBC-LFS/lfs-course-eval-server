@@ -2,54 +2,61 @@ import { readDataByYear, writeToDB, clearCollection } from '../service/dbService
 import R from 'ramda'
 import * as calculate from '../utils/calculate'
 
-const sumCount = (umi, val, instructorRecord) =>
-  R.reduce((acc, record) => (acc + record[umi].count[val]), 0, instructorRecord[1])
+const sumCount = (umi, val, classes) =>
+  R.reduce((acc, record) => (acc + record[umi].count[val]), 0, classes)
 
-const sumGender = (gen, instructorRecord) =>
-  R.reduce((acc, record) => (acc + record.gender[gen]), 0, instructorRecord[1])
+const sumGender = (gen, classes) =>
+  R.reduce((acc, record) => (acc + record.gender[gen]), 0, classes)
 
-const sumEnrolment = (instructorRecord) =>
-  R.reduce((acc, record) => (acc + record.enrolment), 0, instructorRecord[1])
+const sumEnrolment = (classes) =>
+  R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
 
-const sumResponded = (instructorRecord) =>
-  R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, instructorRecord[1])
+const sumResponded = (classes) =>
+  R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, classes)
 
-const sumCourseCount = (instructorRecord) =>
-  R.reduce((acc, record) => (acc + 1), 0, instructorRecord[1])
+const sumCourseCount = (classes) =>
+  R.reduce((acc, record) => (acc + 1), 0, classes)
 
-const concatenateDept = (instructorRecord) => {
+const concatenateDept = (classes) => {
   const deptList = []
   R.map(course => {
     if (!deptList.includes(course.dept)) { deptList.push(course.dept) }
-  }, instructorRecord[1])
+  }, classes)
   return deptList
 }
 
 const aggregateOverallInstructor = (data) => {
-  const byInstructor = R.groupBy((course) => course.PUID)
-
-  const result = R.reduce((acc, instructorRecord) => {
-    const classes = instructorRecord[1]
+  const byInstructor = R.groupBy((course) => course.PUID)(data)
+  const pairedInstructorData =  Object.keys(byInstructor).map(key => {
+    const PUID = key
+    const Courses = byInstructor[key]
+    return {
+      PUID,
+      Courses
+    }
+  })
+  const result = R.reduce((acc, instructorRecord)=> {
+    const classes = instructorRecord.Courses
     const instructorObj = {
       instructorName: classes[0].instructorName,
       gender: {
-        Female: sumGender('Female', instructorRecord),
-        Male: sumGender('Male', instructorRecord)
+        Female: sumGender('Female', classes),
+        Male: sumGender('Male', classes)
       },
       numCoursesTaught: classes.length,
-      numStudentsTaught: sumEnrolment(instructorRecord),
-      responseRate: sumResponded(instructorRecord) / sumEnrolment(instructorRecord),
-      dept: concatenateDept(instructorRecord).join(', ')
+      numStudentsTaught: sumEnrolment(classes),
+      responseRate: sumResponded(classes) / sumEnrolment(classes),
+      dept: concatenateDept(classes).join(', ')
     }
 
     for (let i = 1; i <= 6; i++) {
       instructorObj['UMI' + i] = {
         count: {
-          '1': sumCount('UMI' + i, '1', instructorRecord),
-          '2': sumCount('UMI' + i, '2', instructorRecord),
-          '3': sumCount('UMI' + i, '3', instructorRecord),
-          '4': sumCount('UMI' + i, '4', instructorRecord),
-          '5': sumCount('UMI' + i, '5', instructorRecord)
+          '1': sumCount('UMI' + i, '1', classes),
+          '2': sumCount('UMI' + i, '2', classes),
+          '3': sumCount('UMI' + i, '3', classes),
+          '4': sumCount('UMI' + i, '4', classes),
+          '5': sumCount('UMI' + i, '5', classes)
         }
       }
       instructorObj['UMI' + i]['dispersionIndex'] = calculate.dispersionIndex(instructorObj['UMI' + i].count)
@@ -58,7 +65,7 @@ const aggregateOverallInstructor = (data) => {
     }
     acc.push(instructorObj)
     return acc
-  }, [], R.toPairs(byInstructor(data)))
+  }, [], pairedInstructorData)
   return result
 }
 
