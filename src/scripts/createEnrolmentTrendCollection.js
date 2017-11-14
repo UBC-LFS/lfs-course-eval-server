@@ -16,7 +16,7 @@ const aggregateEnrolmentByCourse = (data) => {
       CourseSections
     }
   })
-  const result = R.map(courseRecord => {
+  const result = pairedCourseData.map(courseRecord => {
     const courses = courseRecord.CourseSections
     const byYearandTerm = R.groupBy(course => course.year + course.term)(courses)
 
@@ -34,7 +34,7 @@ const aggregateEnrolmentByCourse = (data) => {
       Course: courseRecord.Course,
       Terms: aggregatedCourseObj
     }
-  }, pairedCourseData)
+  })
   return result
 }
 
