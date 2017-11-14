@@ -17,13 +17,8 @@ const sumResponded = (classes) =>
 const sumCourseCount = (classes) =>
   R.reduce((acc, record) => (acc + 1), 0, classes)
 
-const concatenateDept = (classes) => {
-  const deptList = []
-  R.map(course => {
-    if (!deptList.includes(course.dept)) { deptList.push(course.dept) }
-  }, classes)
-  return deptList
-}
+const concatenateDept = (instructorRecord) =>
+  R.uniq(instructorRecord[1].map(course => course.dept))
 
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)(data)

@@ -1,6 +1,6 @@
 /* global describe, it */
  import assert from 'assert'
- import { aggregateCP, addDeptData, retrievePUID } from '../src/scripts/createCoursePerformanceCollection.js'
+ import { aggregateCP, addDeptData } from '../src/scripts/createCoursePerformanceCollection.js'
 
  const deptData = [{
    '2016': {
