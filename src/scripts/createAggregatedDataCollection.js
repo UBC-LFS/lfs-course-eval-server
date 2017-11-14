@@ -203,8 +203,11 @@ readCSV('../scripts/source/rawDataAll.csv', (csv) => {
             year: course.year,
             term: course.term
           }
-        if (courseName === enrolmentCourseName && courseID === enrolmentCourseID && section === enrolmentSection && year === enrolmentYear && term === enrolmentTerm) {
-          // add in enrolment and response rate into course
+        if (courseName === enrolmentCourseName &&
+          courseID === enrolmentCourseID &&
+          section === enrolmentSection &&
+          year === enrolmentYear &&
+          term === enrolmentTerm) {
           course.enrolment = enrolment
           const responses = course.gender.Female + course.gender.Male
           const responseRate = calculate.toTwoDecimal(responses / enrolment)
