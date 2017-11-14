@@ -58,28 +58,47 @@ const getUniqTerms = (csv) => R.uniq(csv.map(x => getTerm(x)))
 
 const getUniqDepts = (csv) => R.uniq(csv.map(x => getDept(x)))
 
+// https://github.com/uxitten/polyfill/blob/master/string.polyfill.js
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
+if (!String.prototype.padStart) {
+  String.prototype.padStart = function padStart (targetLength, padString) {
+    targetLength = targetLength >> 0 // floor if number or convert non-number to 0;
+    padString = String(padString || ' ')
+    if (this.length > targetLength) {
+      return String(this)
+    }
+    else {
+      targetLength = targetLength - this.length
+      if (targetLength > padString.length) {
+        padString += padString.repeat(targetLength / padString.length) // append to original to ensure we are longer than needed
+      }
+      return padString.slice(0, targetLength) + String(this)
+    }
+  }
+}
+
 export {
-    getYear,
-    getTerm,
-    getCourse,
-    getSection,
-    getCourseName,
-    getDept,
-    getCourseLevel,
-    getInstructorName,
-    getPUID,
-    getUMI1,
-    getUMI2,
-    getUMI3,
-    getUMI4,
-    getUMI5,
-    getUMI6,
-    getGender,
-    getEnrolmentCourseNumber,
-    getEnrolmentSection,
-    getEnrolmentYear,
-    getEnrolmentTerm,
-    getUniqYears,
-    getUniqTerms,
-    getUniqDepts
+  getYear,
+  getTerm,
+  getCourse,
+  getSection,
+  getCourseName,
+  getDept,
+  getCourseLevel,
+  getInstructorName,
+  getPUID,
+  getUMI1,
+  getUMI2,
+  getUMI3,
+  getUMI4,
+  getUMI5,
+  getUMI6,
+  getGender,
+  getEnrolmentCourseNumber,
+  getEnrolmentSection,
+  getEnrolmentYear,
+  getEnrolmentTerm,
+  getUniqYears,
+  getUniqTerms,
+  getUniqDepts
 }
