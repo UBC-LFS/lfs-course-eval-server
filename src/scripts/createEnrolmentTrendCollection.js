@@ -28,13 +28,10 @@ const aggregateEnrolmentByCourse = (data) => {
         }
       })
     const groupedCourseObj = {}
-    const aggregatedCourseObj = R.map(crecord => {
-      const newObj = {
+    const aggregatedCourseObj = R.map(crecord => ({
         enrolment: sumEnrolment(crecord),
         year: crecord.YearTerm
-      }
-      return newObj
-    },
+    }),
            pairedYearTermCourseData)
     groupedCourseObj.Course = courseRecord.Course
     groupedCourseObj.Terms = aggregatedCourseObj
