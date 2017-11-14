@@ -3,18 +3,19 @@ import R from 'ramda'
 
 // *TODO* refactor this
 const addDeptData = (instructorCourseRecords, deptData) =>
-  R.map(course => {
+  instructorCourseRecords.map(course => {
     const deptFacultyRecord = R.find(deptRecord =>
       R.keys(deptRecord).includes(course.year.toString()))(deptData)
     course.facultyAverage = deptFacultyRecord[course.year].facultyAverage
     course.deptAverage = deptFacultyRecord[course.year][course.dept + 'Average']
     return course
-  }, instructorCourseRecords)
+  })
 
-const aggregateCP = (instructorData, deptFacultyData) => R.map(instructor => ({
-  PUID: instructor.PUID,
-  Courses: addDeptData(instructor.Courses, deptFacultyData)
-}), instructorData)
+const aggregateCP = (instructorData, deptFacultyData) =>
+  instructorData.map(instructor => ({
+    PUID: instructor.PUID,
+    Courses: addDeptData(instructor.Courses, deptFacultyData)
+  }))
 
 readDataByYear('2016', 'UMIInstructor', (res) => {
   const UMIInstructorData = res
