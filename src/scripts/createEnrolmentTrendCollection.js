@@ -19,23 +19,21 @@ const aggregateEnrolmentByCourse = (data) => {
   const result = R.map(courseRecord => {
     const courses = courseRecord.CourseSections
     const byYearandTerm = R.groupBy(course => course.year + course.term)(courses)
-    const pairedYearTermCourseData = Object.keys(byYearandTerm).map(key => {
-      const YearTerm = key
-      const CourseSections = byYearandTerm[key]
-      return {
-        YearTerm,
-        CourseSections
-      }
-    })
-    const groupedCourseObj = {}
-    const aggregatedCourseObj = R.map(crecord => ({
-        enrolment: sumEnrolment(crecord),
-        year: crecord.YearTerm
-    }),
-           pairedYearTermCourseData)
-    groupedCourseObj.Course = courseRecord.Course
-    groupedCourseObj.Terms = aggregatedCourseObj
-    return groupedCourseObj
+
+    const pairedYearTermCourseData = Object.keys(byYearandTerm).map(key => ({
+      YearTerm: key,
+      CourseSections: byYearandTerm[key]
+    }))
+
+    const aggregatedCourseObj = pairedYearTermCourseData.map(crecord => ({
+      enrolment: sumEnrolment(crecord),
+      year: crecord.YearTerm
+    }))
+
+    return {
+      Course: courseRecord.Course,
+      Terms: aggregatedCourseObj
+    }
   }, pairedCourseData)
   return result
 }
