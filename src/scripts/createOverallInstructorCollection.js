@@ -18,11 +18,11 @@ const sumCourseCount = (classes) =>
   R.reduce((acc, record) => (acc + 1), 0, classes)
 
 const concatenateDept = (instructorRecord) =>
-  R.uniq(instructorRecord[1].map(course => course.dept))
+  R.uniq(instructorRecord.map(course => course.dept))
 
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)(data)
-  const pairedInstructorData =  Object.keys(byInstructor).map(key => {
+  const pairedInstructorData = Object.keys(byInstructor).map(key => {
     const PUID = key
     const Courses = byInstructor[key]
     return {
@@ -30,7 +30,7 @@ const aggregateOverallInstructor = (data) => {
       Courses
     }
   })
-  const result = R.reduce((acc, instructorRecord)=> {
+  const result = R.reduce((acc, instructorRecord) => {
     const classes = instructorRecord.Courses
     const instructorObj = {
       instructorName: classes[0].instructorName,
