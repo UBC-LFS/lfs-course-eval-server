@@ -41,6 +41,7 @@ const createCourseObj = (csv) => {
 
     if (acc.some(x => uniqSectionInTerm(x))) {
       const index = acc.findIndex(x => uniqSectionInTerm(x))
+
       for (let i = 1; i <= 6; i++) {
         let getUMI
         let UMI = 'UMI' + i
