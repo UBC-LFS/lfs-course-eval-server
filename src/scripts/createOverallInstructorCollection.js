@@ -22,14 +22,11 @@ const concatenateDept = (instructorRecord) =>
 
 const aggregateOverallInstructor = (data) => {
   const byInstructor = R.groupBy((course) => course.PUID)(data)
-  const pairedInstructorData = Object.keys(byInstructor).map(key => {
-    const PUID = key
-    const Courses = byInstructor[key]
-    return {
-      PUID,
-      Courses
-    }
-  })
+  const pairedInstructorData = Object.keys(byInstructor).map(key => ({
+    PUID: key,
+    Courses: byInstructor[key]
+  }))
+
   const result = R.reduce((acc, instructorRecord) => {
     const classes = instructorRecord.Courses
     const instructorObj = {
