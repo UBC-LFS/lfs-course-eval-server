@@ -14,9 +14,6 @@ const sumEnrolment = (classes) =>
 const sumResponded = (classes) =>
   R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, classes)
 
-const sumCourseCount = (classes) =>
-  R.reduce((acc, record) => (acc + 1), 0, classes)
-
 const concatenateDept = (instructorRecord) =>
   R.uniq(instructorRecord.map(course => course.dept))
 

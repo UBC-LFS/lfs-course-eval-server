@@ -3,8 +3,6 @@ import R from 'ramda'
 
 const sumEnrolment = (courseRecord) =>
   R.reduce((acc, record) => (acc + record.enrolment), 0, courseRecord.CourseSections)
-const sumGender = (gen, courseRecord) =>
-  R.reduce((acc, record) => (acc + record.gender[gen]), 0, courseRecord.CourseSections)
 
 const aggregateEnrolmentByCourse = (data) => {
   const byCourse = R.groupBy(course => course.course)(data)
