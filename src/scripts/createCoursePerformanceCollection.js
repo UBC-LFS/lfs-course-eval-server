@@ -1,7 +1,7 @@
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 
-// *TODO* refactor this
+// currently faculty and dept averages are using the year's averages, not the terms. Maybe should change this to be terms later.
 const addDeptData = (instructorCourseRecords, deptData) =>
   instructorCourseRecords.map(course => {
     const deptFacultyRecord = R.find(deptRecord =>

@@ -5,6 +5,11 @@ require('dotenv').config()
 
 const routes = Router()
 
+const removeIDs = (arr) => arr.map(x => {
+  delete x['_id']
+  return x
+})
+
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
     res.render('index', { title: 'Courseval Visualization', append: '/courseval' })
@@ -12,27 +17,27 @@ routes.get('/', (req, res) => {
 })
 
 routes.get('/data/UMIDispersion', (req, res) => {
-  dataForUMIVSDispersion().then(data => res.send(data))
+  dataForUMIVSDispersion().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/data/UMIInstructor', (req, res) => {
-  dataForUMIInstructor().then(data => res.send(data))
+  dataForUMIInstructor().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/data/OverallInstructor', (req, res) => {
-  dataForOverallInstructor().then(data => res.send(data))
+  dataForOverallInstructor().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/data/CoursePerformance', (req, res) => {
-  dataForCoursePerformance().then(data => res.send(data))
+  dataForCoursePerformance().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/data/EnrolmentTrend', (req, res) => {
-  dataForEnrolmentTrend().then(data => res.send(data))
+  dataForEnrolmentTrend().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/data/FacultyDept', (req, res) => {
-  dataForFaculyAndDept().then(data => res.send(data))
+  dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/list', (req, res, next) => {
