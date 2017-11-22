@@ -141,6 +141,11 @@ input:checked + .slider:before {
 }
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke-width: 3px;
+  stroke: steelblue
+}
+
+.dynamicline {
+  fill: none;
   stroke-width: 3px;
 }
