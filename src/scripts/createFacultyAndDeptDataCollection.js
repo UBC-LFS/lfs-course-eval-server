@@ -27,7 +27,6 @@ const calculateAverage = (filteredArray) => {
 const createAverageByYear = (data) => {
   const depts = R.uniq(data.map(x => x.dept))
   const joinYearAndTerm = (year, term) => year + term
-  const separateYearAndTerm = (yearTerm) => [Number(yearTerm.slice(0, 4)), yearTerm.slice(4)]
   const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
 
   const groupedByDepts = depts.map(dept => data.filter(section => section.dept === dept))
@@ -39,124 +38,51 @@ const createAverageByYear = (data) => {
     ).filter(arr => arr.length > 0)
   )
 
-  groupedByDeptsThenYearAndTerm.map(depts => {
-    depts.map(yearAndTerm => {
-      const obj = yearAndTerm.reduce((acc, cur) => {
-        acc['UMI1'] = acc['UMI1'] || cur['UMI1'].count
-        acc['UMI2'] = acc['UMI2'] || cur['UMI2'].count
-        acc['UMI3'] = acc['UMI3'] || cur['UMI3'].count
-        acc['UMI4'] = acc['UMI4'] || cur['UMI4'].count
-        acc['UMI5'] = acc['UMI5'] || cur['UMI5'].count
-        acc['UMI6'] = acc['UMI6'] || cur['UMI6'].count
+  const result = []
 
-        acc['UMI1']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
-        acc['UMI1']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
-        acc['UMI1']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
-        acc['UMI1']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
-        acc['UMI1']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+  groupedByDeptsThenYearAndTerm.map(dept => {
+    const deptName = dept[0][0].dept
+    result.push({
+      department: deptName,
+      data: []
+    })
+    dept.map(yearAndTerm => {
+      const tempObj = yearAndTerm.reduce((acc, cur) => {
+        for (let i = 1; i <= 6; i++) {
+          acc['UMI' + i] = acc['UMI' + i] || cur['UMI' + i].count
+          
+          for (let s = 1; s <= 5; s++) {
+            acc['UMI' + i]['' + s] = acc['UMI' + i]['' + i] + cur['UMI' + i].count['' + s] || cur['UMI' + i].count['' + s]
+          }
 
-        acc['UMI2']['1'] = acc['UMI2']['1'] + cur['UMI2'].count['1'] || cur['UMI2'].count['1']
-        acc['UMI2']['2'] = acc['UMI2']['2'] + cur['UMI2'].count['2'] || cur['UMI2'].count['2']
-        acc['UMI2']['3'] = acc['UMI2']['3'] + cur['UMI2'].count['3'] || cur['UMI2'].count['3']
-        acc['UMI2']['4'] = acc['UMI2']['4'] + cur['UMI2'].count['4'] || cur['UMI2'].count['4']
-        acc['UMI2']['5'] = acc['UMI2']['5'] + cur['UMI2'].count['5'] || cur['UMI2'].count['5']
-
-        acc['UMI3']['1'] = acc['UMI3']['1'] + cur['UMI3'].count['1'] || cur['UMI3'].count['1']
-        acc['UMI3']['2'] = acc['UMI3']['2'] + cur['UMI3'].count['2'] || cur['UMI3'].count['2']
-        acc['UMI3']['3'] = acc['UMI3']['3'] + cur['UMI3'].count['3'] || cur['UMI3'].count['3']
-        acc['UMI3']['4'] = acc['UMI3']['4'] + cur['UMI3'].count['4'] || cur['UMI3'].count['4']
-        acc['UMI3']['5'] = acc['UMI3']['5'] + cur['UMI3'].count['5'] || cur['UMI3'].count['5']
-
-        acc['UMI4']['1'] = acc['UMI4']['1'] + cur['UMI4'].count['1'] || cur['UMI4'].count['1']
-        acc['UMI4']['2'] = acc['UMI4']['2'] + cur['UMI4'].count['2'] || cur['UMI4'].count['2']
-        acc['UMI4']['3'] = acc['UMI4']['3'] + cur['UMI4'].count['3'] || cur['UMI4'].count['3']
-        acc['UMI4']['4'] = acc['UMI4']['4'] + cur['UMI4'].count['4'] || cur['UMI4'].count['4']
-        acc['UMI4']['5'] = acc['UMI4']['5'] + cur['UMI4'].count['5'] || cur['UMI4'].count['5']
-
-        acc['UMI5']['1'] = acc['UMI5']['1'] + cur['UMI5'].count['1'] || cur['UMI5'].count['1']
-        acc['UMI5']['2'] = acc['UMI5']['2'] + cur['UMI5'].count['2'] || cur['UMI5'].count['2']
-        acc['UMI5']['3'] = acc['UMI5']['3'] + cur['UMI5'].count['3'] || cur['UMI5'].count['3']
-        acc['UMI5']['4'] = acc['UMI5']['4'] + cur['UMI5'].count['4'] || cur['UMI5'].count['4']
-        acc['UMI5']['5'] = acc['UMI5']['5'] + cur['UMI5'].count['5'] || cur['UMI5'].count['5']
-
-        acc['UMI6']['1'] = acc['UMI6']['1'] + cur['UMI6'].count['1'] || cur['UMI6'].count['1']
-        acc['UMI6']['2'] = acc['UMI6']['2'] + cur['UMI6'].count['2'] || cur['UMI6'].count['2']
-        acc['UMI6']['3'] = acc['UMI6']['3'] + cur['UMI6'].count['3'] || cur['UMI6'].count['3']
-        acc['UMI6']['4'] = acc['UMI6']['4'] + cur['UMI6'].count['4'] || cur['UMI6'].count['4']
-        acc['UMI6']['5'] = acc['UMI6']['5'] + cur['UMI6'].count['5'] || cur['UMI6'].count['5']
-
-        acc['UMI1Avg'] = umiAvg(acc['UMI1'])
-        acc['UMI2Avg'] = umiAvg(acc['UMI2'])
-        acc['UMI3Avg'] = umiAvg(acc['UMI3'])
-        acc['UMI4Avg'] = umiAvg(acc['UMI4'])
-        acc['UMI5Avg'] = umiAvg(acc['UMI5'])
-        acc['UMI6Avg'] = umiAvg(acc['UMI6'])
-
-        acc['length'] = acc['length'] + 1 || 1
+          acc['UMI' + i + 'Avg'] = umiAvg(acc['UMI' + i])
+        }
+        acc.length = acc.length + 1 || 1
+        acc.year = cur.year
+        acc.term = cur.term
         return acc
       }, {})
-      console.log(obj)
+      const finalObj = {
+        UMI1: tempObj.UMI1Avg,
+        UMI2: tempObj.UMI2Avg,
+        UMI3: tempObj.UMI3Avg,
+        UMI4: tempObj.UMI4Avg,
+        UMI5: tempObj.UMI5Avg,
+        UMI6: tempObj.UMI6Avg,
+        year: tempObj.year,
+        term: tempObj.term
+      }
+      const index = result.findIndex(x => x.department === deptName)
+      result[index].data.push(finalObj)
     })
   })
-  // const result = []
-
-  // groupedByDepts.map(allSectionsInDept => {
-  //   const termAndYears = allSectionsInDept.map(section => )
-  // })
-
-  // const averageUMI = []
-
-  // const uniqYears = getFromCSV.getUniqYears(csv)
-
-  // const hasYear = year => x => x.hasOwnProperty(String(year))
-
-  // uniqYears.map(year => {
-  //   const filteredByYear = filterCSV.byYear(year)(csv)
-  //   const uniqTerms = getFromCSV.getUniqTerms(filteredByYear)
-
-  //   uniqTerms.map(term => {
-  //     const filteredByYearAndTerm = filterCSV.byTerm(term)(filteredByYear)
-  //     const uniqDepts = getFromCSV.getUniqDepts(filteredByYearAndTerm)
-
-  //     uniqDepts.map(dept => {
-  //       const filteredByYearAndDept = filterCSV.byDept(dept)(filteredByYear)
-  //       const filteredByYearTermAndDept = filterCSV.byDept(dept)(filteredByYearAndTerm)
-
-  //       if (averageUMI.some(hasYear(year))) {
-  //         const yearIndex = averageUMI.findIndex(hasYear(year))
-  //         averageUMI[yearIndex][year]['facultyAverage'] = calculateAverage(filteredByYear)
-  //         averageUMI[yearIndex][year][dept + 'Average'] = calculateAverage(filteredByYearAndDept)
-  //         if (averageUMI[yearIndex][year][term]) {
-  //           averageUMI[yearIndex][year][term]['facultyAverage'] = calculateAverage(filteredByYearAndTerm)
-  //           averageUMI[yearIndex][year][term][dept + 'Average'] = calculateAverage(filteredByYearTermAndDept)
-  //         } else {
-  //           averageUMI[yearIndex][year][term] = {
-  //             'facultyAverage': calculateAverage(filteredByYearAndTerm),
-  //             [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
-  //           }
-  //         }
-  //       } else {
-  //         averageUMI.push({
-  //           [year]: {
-  //             'facultyAverage': calculateAverage(filteredByYear),
-  //             [dept + 'Average']: calculateAverage(filteredByYearAndDept),
-  //             [term]: {
-  //               'facultyAverage': calculateAverage(filteredByYearAndTerm),
-  //               [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
-  //             }
-  //           }
-  //         })
-  //       }
-  //     })
-  //   })
-  // })
-  // return averageUMI
+  return result
 }
 
 readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
   const toWrite = createAverageByYear(aggregatedData)
   clearCollection('facultyDeptData')
-  // writeToDB(toWrite, 'facultyDeptData')
+  writeToDB(toWrite, 'facultyDeptData')
 })
 
 export {
