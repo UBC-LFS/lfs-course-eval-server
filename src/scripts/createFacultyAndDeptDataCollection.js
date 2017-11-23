@@ -1,8 +1,8 @@
-import * as getFromCSV from './scriptUtils/getFromCSV'
 import * as filterCSV from './scriptUtils/filterCSV'
 import R from 'ramda'
 import readCSV from '../service/readCSV'
-import { writeToDB, clearCollection } from '../service/dbService'
+import { readDataByYear, writeToDB, clearCollection } from '../service/dbService'
+import { join } from 'path';
 
 const calculateAverage = (filteredArray) => {
   const UMI1 = filterCSV.byUMI1(filteredArray)
@@ -25,60 +25,81 @@ const calculateAverage = (filteredArray) => {
   })
 }
 
-const createAverageByYear = (csv) => {
-  const averageUMI = []
+const createAverageByYear = (data) => {
+  const depts = R.uniq(data.map(x => x.dept))
+  const joinYearAndTerm = (year, term) => year + term
+  const separateYearAndTerm = (yearTerm) => [Number(yearTerm.slice(0, 4)), yearTerm.slice(4)]
+  const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
 
-  const uniqYears = getFromCSV.getUniqYears(csv)
+  const groupedByDepts = depts.map(dept => data.filter(section => section.dept === dept))
 
-  const hasYear = year => x => x.hasOwnProperty(String(year))
+  const groupedByDeptsThenYearAndTerm = groupedByDepts.map(allSectionsInDept =>
+    yearAndTerms.map(yearAndTerm =>
+      allSectionsInDept.filter(section =>
+        joinYearAndTerm(section.year, section.term) === yearAndTerm)
+    ).filter(arr => arr.length > 0)
+  )
 
-  uniqYears.map(year => {
-    const filteredByYear = filterCSV.byYear(year)(csv)
-    const uniqTerms = getFromCSV.getUniqTerms(filteredByYear)
+  console.log(JSON.stringify(groupedByDeptsThenYearAndTerm, null, 2))
+  // const result = []
 
-    uniqTerms.map(term => {
-      const filteredByYearAndTerm = filterCSV.byTerm(term)(filteredByYear)
-      const uniqDepts = getFromCSV.getUniqDepts(filteredByYearAndTerm)
+  // groupedByDepts.map(allSectionsInDept => {
+  //   const termAndYears = allSectionsInDept.map(section => )
+  // })
 
-      uniqDepts.map(dept => {
-        const filteredByYearAndDept = filterCSV.byDept(dept)(filteredByYear)
-        const filteredByYearTermAndDept = filterCSV.byDept(dept)(filteredByYearAndTerm)
+  // const averageUMI = []
 
-        if (averageUMI.some(hasYear(year))) {
-          const yearIndex = averageUMI.findIndex(hasYear(year))
-          averageUMI[yearIndex][year]['facultyAverage'] = calculateAverage(filteredByYear)
-          averageUMI[yearIndex][year][dept + 'Average'] = calculateAverage(filteredByYearAndDept)
-          if (averageUMI[yearIndex][year][term]) {
-            averageUMI[yearIndex][year][term]['facultyAverage'] = calculateAverage(filteredByYearAndTerm)
-            averageUMI[yearIndex][year][term][dept + 'Average'] = calculateAverage(filteredByYearTermAndDept)
-          } else {
-            averageUMI[yearIndex][year][term] = {
-              'facultyAverage': calculateAverage(filteredByYearAndTerm),
-              [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
-            }
-          }
-        } else {
-          averageUMI.push({
-            [year]: {
-              'facultyAverage': calculateAverage(filteredByYear),
-              [dept + 'Average']: calculateAverage(filteredByYearAndDept),
-              [term]: {
-                'facultyAverage': calculateAverage(filteredByYearAndTerm),
-                [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
-              }
-            }
-          })
-        }
-      })
-    })
-  })
-  return averageUMI
+  // const uniqYears = getFromCSV.getUniqYears(csv)
+
+  // const hasYear = year => x => x.hasOwnProperty(String(year))
+
+  // uniqYears.map(year => {
+  //   const filteredByYear = filterCSV.byYear(year)(csv)
+  //   const uniqTerms = getFromCSV.getUniqTerms(filteredByYear)
+
+  //   uniqTerms.map(term => {
+  //     const filteredByYearAndTerm = filterCSV.byTerm(term)(filteredByYear)
+  //     const uniqDepts = getFromCSV.getUniqDepts(filteredByYearAndTerm)
+
+  //     uniqDepts.map(dept => {
+  //       const filteredByYearAndDept = filterCSV.byDept(dept)(filteredByYear)
+  //       const filteredByYearTermAndDept = filterCSV.byDept(dept)(filteredByYearAndTerm)
+
+  //       if (averageUMI.some(hasYear(year))) {
+  //         const yearIndex = averageUMI.findIndex(hasYear(year))
+  //         averageUMI[yearIndex][year]['facultyAverage'] = calculateAverage(filteredByYear)
+  //         averageUMI[yearIndex][year][dept + 'Average'] = calculateAverage(filteredByYearAndDept)
+  //         if (averageUMI[yearIndex][year][term]) {
+  //           averageUMI[yearIndex][year][term]['facultyAverage'] = calculateAverage(filteredByYearAndTerm)
+  //           averageUMI[yearIndex][year][term][dept + 'Average'] = calculateAverage(filteredByYearTermAndDept)
+  //         } else {
+  //           averageUMI[yearIndex][year][term] = {
+  //             'facultyAverage': calculateAverage(filteredByYearAndTerm),
+  //             [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
+  //           }
+  //         }
+  //       } else {
+  //         averageUMI.push({
+  //           [year]: {
+  //             'facultyAverage': calculateAverage(filteredByYear),
+  //             [dept + 'Average']: calculateAverage(filteredByYearAndDept),
+  //             [term]: {
+  //               'facultyAverage': calculateAverage(filteredByYearAndTerm),
+  //               [dept + 'Average']: calculateAverage(filteredByYearTermAndDept)
+  //             }
+  //           }
+  //         })
+  //       }
+  //     })
+  //   })
+  // })
+  // return averageUMI
 }
 
-readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  const toWrite = createAverageByYear(csv)
+readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
+  const toWrite = createAverageByYear(aggregatedData)
   clearCollection('facultyDeptData')
-  writeToDB(toWrite, 'facultyDeptData')
+  // writeToDB(toWrite, 'facultyDeptData')
 })
 
 export {
