@@ -2,7 +2,7 @@ import R from 'ramda'
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService'
 import { umiAvg } from '../utils/calculate'
 
-const createAverageByYear = (data) => {
+const createAverage = (data) => {
   const depts = R.uniq(data.map(x => x.dept))
   const joinYearAndTerm = (year, term) => year + term
   const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
@@ -30,7 +30,7 @@ const createAverageByYear = (data) => {
           acc['UMI' + i] = acc['UMI' + i] || cur['UMI' + i].count
 
           for (let s = 1; s <= 5; s++) {
-            acc['UMI' + i]['' + s] = acc['UMI' + i]['' + i] + cur['UMI' + i].count['' + s] || cur['UMI' + i].count['' + s]
+            acc['UMI' + i]['' + s] = acc['UMI' + i]['' + s] + cur['UMI' + i].count['' + s] || cur['UMI' + i].count['' + s]
           }
 
           acc['UMI' + i + 'Avg'] = umiAvg(acc['UMI' + i])
@@ -40,7 +40,8 @@ const createAverageByYear = (data) => {
         acc.term = cur.term
         return acc
       }, {})
-      const finalObj = {
+      const index = result.findIndex(x => x.department === deptName)
+      result[index].data.push({
         UMI1: tempObj.UMI1Avg,
         UMI2: tempObj.UMI2Avg,
         UMI3: tempObj.UMI3Avg,
@@ -49,20 +50,18 @@ const createAverageByYear = (data) => {
         UMI6: tempObj.UMI6Avg,
         year: tempObj.year,
         term: tempObj.term
-      }
-      const index = result.findIndex(x => x.department === deptName)
-      result[index].data.push(finalObj)
+      })
     })
   })
   return result
 }
 
 readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
-  const toWrite = createAverageByYear(aggregatedData)
+  const toWrite = createAverage(aggregatedData)
   clearCollection('facultyDeptData')
   writeToDB(toWrite, 'facultyDeptData')
 })
 
 export {
-  createAverageByYear
+  createAverage
 }

@@ -130,6 +130,9 @@ describe('calculateUMIAvg', () => {
 
     count = { '1': 100, '2': 0, '3': 0, '4': 0, '5': 0 }
     assert.deepEqual(calculate.umiAvg(count), 1)
+
+    count = { '1': 0, '2': 0, '3': 0, '4': 1, '5': 1 }
+    assert.deepEqual(calculate.umiAvg(count), 4.5)
   })
 
   it('can handle missing fields in count', () => {
