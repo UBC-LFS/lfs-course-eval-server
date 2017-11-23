@@ -199,6 +199,7 @@ describe('calculateAverage', () => {
         ]
       }
     ]
+    assert.deepEqual(createAverage(input), output)
 
     input = [
       {
@@ -278,6 +279,7 @@ describe('calculateAverage', () => {
         ]
       }
     ]
+    assert.deepEqual(createAverage(input), output)
 
     input = [
       {
@@ -362,7 +364,76 @@ describe('calculateAverage', () => {
         ]
       }
     ]
+    assert.deepEqual(createAverage(input), output)
+  })
 
+  it('should be able to correctly aggregate data if term, year, and dept are the same for multiple inputs', () => {
+    let input = [
+      {
+        'year': 2015,
+        'term': 'W1',
+        'dept': 'LFS',
+        'UMI1': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        },
+        'UMI2': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        },
+        'UMI3': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        },
+        'UMI4': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        },
+        'UMI5': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        },
+        'UMI6': {
+          'count': { '1': 0, '2': 0, '3': 0, '4': 0, '5': 5 }
+        }
+      },
+      {
+        'year': 2015,
+        'term': 'W1',
+        'dept': 'LFS',
+        'UMI1': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        },
+        'UMI2': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        },
+        'UMI3': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        },
+        'UMI4': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        },
+        'UMI5': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        },
+        'UMI6': {
+          'count': { '1': 5, '2': 0, '3': 0, '4': 0, '5': 0 }
+        }
+      }
+    ]
+    let output = [
+      {
+        'department': 'LFS',
+        'data': [
+          {
+            'term': 'W1',
+            'year': 2015,
+            'UMI1': 3,
+            'UMI2': 3,
+            'UMI3': 3,
+            'UMI4': 3,
+            'UMI5': 3,
+            'UMI6': 3,
+            'length': 2
+          }
+        ]
+      }
+    ]
     assert.deepEqual(createAverage(input), output)
   })
 })

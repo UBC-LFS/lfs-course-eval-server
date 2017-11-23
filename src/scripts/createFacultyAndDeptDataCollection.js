@@ -27,12 +27,11 @@ const createAverage = (data) => {
     dept.map(yearAndTerm => {
       const tempObj = yearAndTerm.reduce((acc, cur) => {
         for (let umiIndex = 1; umiIndex <= 6; umiIndex++) {
-          acc['UMI' + umiIndex] = acc['UMI' + umiIndex] || cur['UMI' + umiIndex].count
-
-          for (let scoreIndex = 1; scoreIndex <= 5; scoreIndex++) {
-            acc['UMI' + umiIndex]['' + scoreIndex] = acc['UMI' + umiIndex]['' + scoreIndex] + cur['UMI' + umiIndex].count['' + scoreIndex] || cur['UMI' + umiIndex].count['' + scoreIndex]
-          }
-
+          if (acc['UMI' + umiIndex]) {
+            for (let scoreIndex = 1; scoreIndex <= 5; scoreIndex++) {
+              acc['UMI' + umiIndex]['' + scoreIndex] = acc['UMI' + umiIndex]['' + scoreIndex] + cur['UMI' + umiIndex].count['' + scoreIndex] || cur['UMI' + umiIndex].count['' + scoreIndex]
+            }
+          } else acc['UMI' + umiIndex] = cur['UMI' + umiIndex].count
           acc['UMI' + umiIndex + 'Avg'] = umiAvg(acc['UMI' + umiIndex])
         }
         acc.length = acc.length + 1 || 1
