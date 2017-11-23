@@ -41,6 +41,57 @@ const createAverageByYear = (data) => {
   )
 
   console.log(JSON.stringify(groupedByDeptsThenYearAndTerm, null, 2))
+
+  groupedByDeptsThenYearAndTerm.map(depts => {
+    depts.map(yearAndTerm => {
+      const obj = yearAndTerm.reduce((acc, cur) => {
+        acc['UMI1'] = acc['UMI1'] || cur['UMI1'].count
+        acc['UMI2'] = acc['UMI2'] || cur['UMI2'].count
+        acc['UMI3'] = acc['UMI3'] || cur['UMI3'].count
+        acc['UMI4'] = acc['UMI4'] || cur['UMI4'].count
+        acc['UMI5'] = acc['UMI5'] || cur['UMI5'].count
+        acc['UMI6'] = acc['UMI6'] || cur['UMI6'].count
+
+        acc['UMI1']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI1']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI1']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI1']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI1']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+
+        acc['UMI2']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI2']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI2']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI2']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI2']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+
+        acc['UMI3']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI3']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI3']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI3']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI3']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+
+        acc['UMI4']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI4']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI4']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI4']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI4']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+
+        acc['UMI5']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI5']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI5']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI5']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI5']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+
+        acc['UMI6']['1'] = acc['UMI1']['1'] + cur['UMI1'].count['1'] || cur['UMI1'].count['1']
+        acc['UMI6']['2'] = acc['UMI1']['2'] + cur['UMI1'].count['2'] || cur['UMI1'].count['2']
+        acc['UMI6']['3'] = acc['UMI1']['3'] + cur['UMI1'].count['3'] || cur['UMI1'].count['3']
+        acc['UMI6']['4'] = acc['UMI1']['4'] + cur['UMI1'].count['4'] || cur['UMI1'].count['4']
+        acc['UMI6']['5'] = acc['UMI1']['5'] + cur['UMI1'].count['5'] || cur['UMI1'].count['5']
+        return acc
+      }, {})
+      console.log(obj)
+    })
+  })
   // const result = []
 
   // groupedByDepts.map(allSectionsInDept => {
