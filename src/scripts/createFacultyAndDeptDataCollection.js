@@ -1,28 +1,6 @@
-import * as filterCSV from './scriptUtils/filterCSV'
 import R from 'ramda'
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService'
 import { umiAvg } from '../utils/calculate'
-
-const calculateAverage = (filteredArray) => {
-  const UMI1 = filterCSV.byUMI1(filteredArray)
-  const UMI2 = filterCSV.byUMI2(filteredArray)
-  const UMI3 = filterCSV.byUMI3(filteredArray)
-  const UMI4 = filterCSV.byUMI4(filteredArray)
-  const UMI5 = filterCSV.byUMI5(filteredArray)
-  const UMI6 = filterCSV.byUMI6(filteredArray)
-
-  const averageLength = Math.round(R.mean([UMI1.length, UMI2.length, UMI3.length, UMI4.length, UMI5.length, UMI6.length]))
-
-  return ({
-    UMI1: R.mean(UMI1),
-    UMI2: R.mean(UMI2),
-    UMI3: R.mean(UMI3),
-    UMI4: R.mean(UMI4),
-    UMI5: R.mean(UMI5),
-    UMI6: R.mean(UMI6),
-    averageLength
-  })
-}
 
 const createAverageByYear = (data) => {
   const depts = R.uniq(data.map(x => x.dept))
@@ -50,7 +28,7 @@ const createAverageByYear = (data) => {
       const tempObj = yearAndTerm.reduce((acc, cur) => {
         for (let i = 1; i <= 6; i++) {
           acc['UMI' + i] = acc['UMI' + i] || cur['UMI' + i].count
-          
+
           for (let s = 1; s <= 5; s++) {
             acc['UMI' + i]['' + s] = acc['UMI' + i]['' + i] + cur['UMI' + i].count['' + s] || cur['UMI' + i].count['' + s]
           }
@@ -86,6 +64,5 @@ readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
 })
 
 export {
-  calculateAverage,
   createAverageByYear
 }
