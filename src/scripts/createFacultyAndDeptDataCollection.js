@@ -59,10 +59,11 @@ const createAverage = (data) => {
 }
 
 const outputFacultyDeptData = () => {
-  readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
+  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+    assert.equal(null, err)
     const file = './output/facultyAndDeptData.json'
-    const toWrite = createAverage(aggregatedData)
-    jsonfile.writeFile(file, toWrite, (err) => assert.equal(null, err))
+    const result = createAverage(json)
+    jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
   })
 }
 

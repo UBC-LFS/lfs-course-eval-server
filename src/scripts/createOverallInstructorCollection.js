@@ -1,4 +1,3 @@
-import { readDataByYear } from '../service/dbService.js'
 import R from 'ramda'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
@@ -61,9 +60,10 @@ const aggregateOverallInstructor = (data) => {
 }
 
 const outputOverallInstructorData = () => {
-  readDataByYear('2016', 'aggregatedData', (res) => {
+  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+    assert.equal(null, err)
     const file = './output/overallInstructorData.json'
-    const result = aggregateOverallInstructor(res)
+    const result = aggregateOverallInstructor(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
   })
 }
