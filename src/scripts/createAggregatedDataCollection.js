@@ -220,9 +220,6 @@ const outputAggregatedData = (cb) => {
         })
       })
       if (errorCheck(courseObjs)) {
-        // console.log(JSON.stringify(courseObjs, null, 2))
-        // clearCollection('aggregatedData')
-        // writeToDB(courseObjs, 'aggregatedData')
         const file = './output/aggregatedData.json'
         jsonfile.writeFile(file, courseObjs, (err) => {
           assert.equal(err, null)
