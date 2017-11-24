@@ -1,4 +1,3 @@
-import { readDataByYear } from '../service/dbService.js'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
 import R from 'ramda'

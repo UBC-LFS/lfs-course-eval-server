@@ -1,5 +1,4 @@
 import R from 'ramda'
-import { readDataByYear } from '../service/dbService'
 import { umiAvg } from '../utils/calculate'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
