@@ -1,4 +1,3 @@
-import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
@@ -12,9 +11,10 @@ const aggregateUMIInstructor = (data) => {
 }
 
 const outputUMIInstructor = () => {
-  readDataByYear('2016', 'aggregatedData', (res) => {
+  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+    assert.equal(null, err)
     const file = './output/UMIInstructorData.json'
-    const result = aggregateUMIInstructor(res)
+    const result = aggregateUMIInstructor(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
   })
 }

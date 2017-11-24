@@ -39,9 +39,10 @@ const aggregateEnrolmentByCourse = (data) => {
 }
 
 const outputEnrolmentTrendData = () => {
-  readDataByYear('2016', 'aggregatedData', (res) => {
+  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+    assert.equal(null, err)
+    const result = aggregateEnrolmentByCourse(json)
     const file = './output/enrolmentTrendData.json'
-    const result = aggregateEnrolmentByCourse(res)
     jsonfile.writeFile(file, result, (err) => {
       assert.equal(err, null)
     })

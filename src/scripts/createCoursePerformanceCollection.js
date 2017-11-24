@@ -17,6 +17,7 @@ const aggregateCP = (instructorData, deptFacultyData) =>
     Courses: addDeptData(instructor.Courses, deptFacultyData)
   }))
 
+// need to refactor this to use the generated JSON, will be tricky because I need to enforce the order
 readDataByYear('2016', 'UMIInstructor', (res) => {
   const UMIInstructorData = res
   readDataByYear('2016', 'facultyDeptData', (res) => {
