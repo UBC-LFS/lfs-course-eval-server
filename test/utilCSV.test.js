@@ -25,5 +25,4 @@ describe('sumCount', () => {
     output = { '1': 3, '2': 6, '3': 9, '4': 12, '5': 15 }
     assert.deepEqual(sumCount(input), output)
   })
-
 })

@@ -20,9 +20,10 @@ const byClassSize = (data) => {
 
   dataArray.map(arr =>
     console.log(
-      'UMI6 average: ' + umiAvg(sumCount(arr.map(section => section.UMI6.count))),
-      'Dispersion Index: ' + dispersionIndex(sumCount(arr.map(section => section.UMI6.count))),
-      'Number of Courses: ' + arr.length
+      arr.length
+      // 'UMI6 average: ' + umiAvg(sumCount(arr.map(section => section.UMI6.count))),
+      // 'Dispersion Index: ' + dispersionIndex(sumCount(arr.map(section => section.UMI6.count))),
+      // 'Number of Courses: ' + arr.length
     )
   )
 }
