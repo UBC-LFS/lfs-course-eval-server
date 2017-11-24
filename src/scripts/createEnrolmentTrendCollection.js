@@ -45,8 +45,6 @@ const outputEnrolmentTrendData = () => {
     jsonfile.writeFile(file, result, (err) => {
       assert.equal(err, null)
     })
-    // clearCollection('EnrolmentTrend')
-    // writeToDB(result, 'EnrolmentTrend')
   })
 }
 
