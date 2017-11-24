@@ -3,7 +3,7 @@ import { sumCount, filterByEnrolment } from './scriptUtils/aggDataUtil'
 import { umiAvg, dispersionIndex } from '../utils/calculate'
 import R from 'ramda'
 
-const umi6AvgByClassSize = (data) => {
+const byClassSize = (data) => {
   const tenAndUnder = filterByEnrolment(0, 10)(data)
   const tenToTwenty = filterByEnrolment(11, 20)(data)
   const twentyToThirty = filterByEnrolment(21, 30)(data)
@@ -27,12 +27,19 @@ const umi6AvgByClassSize = (data) => {
   )
 }
 
-const umi6AvgByDept = (data) => {
+const byDept = (data) => {
   const depts = R.uniq(data.map(section => section.dept))
-  console.log(depts)
+  const groupedByDepts = depts.map(dept => data.filter(section => section.dept === dept))
+  const sumCountByDept = groupedByDepts.map(aGroup => ({
+    avg: umiAvg(sumCount(aGroup.map(x => x.UMI6.count))),
+    dispersion: dispersionIndex(sumCount(aGroup.map(x => x.UMI6.count))),
+    length: aGroup.length,
+    dept: aGroup[0].dept
+  })).sort((a, b) => a.avg - b.avg)
+  console.log(sumCountByDept)
 }
 
 readDataByYear('2016', 'aggregatedData', (data) => {
-  // umi6AvgByClassSize(data)
-  umi6AvgByDept(data)
+  // byClassSize(data)
+  byDept(data)
 })
