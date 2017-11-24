@@ -124,10 +124,10 @@ const insertPercentileRanking = (courseObjs) => {
     let UMI = 'UMI' + i
     sortedByUMI = courseObjs.sort((a, b) => a[UMI].average - b[UMI].average)
     sortedByUMI.map((course) => {
-      const filteredByTerm = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
-      const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-      course[UMI].percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, UMI, filteredByTerm)
-      course[UMI].percentileRankingByDept = calculate.percentileRankingOfCourse(course, UMI, filteredByDept)
+      const filteredByTermAndYear = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
+      const filteredByTermYearAndDept = filteredByTermAndYear.filter(x => x.dept === course.dept)
+      course[UMI].percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, UMI, filteredByTermAndYear)
+      course[UMI].percentileRankingByDept = calculate.percentileRankingOfCourse(course, UMI, filteredByTermYearAndDept)
     })
   }
   return sortedByUMI

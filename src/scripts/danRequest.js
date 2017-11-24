@@ -9,5 +9,8 @@ readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
   const sumOfUMI6Counts = sumCount(justUMI6Counts)
   // console.log(sumOfUMI6Counts)
 
-  console.log(umiAvg(sumOfUMI6Counts), dispersionIndex(sumOfUMI6Counts))
+  // console.log(umiAvg(sumOfUMI6Counts), dispersionIndex(sumOfUMI6Counts))
+
+  const LFS250 = aggregatedData.filter(x => x.course === 'LFS 250')
+  console.log(JSON.stringify(LFS250, null, 2))
 })
