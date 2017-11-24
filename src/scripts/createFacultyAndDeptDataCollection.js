@@ -1,6 +1,8 @@
 import R from 'ramda'
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService'
 import { umiAvg } from '../utils/calculate'
+import assert from 'assert'
+import jsonfile from 'jsonfile'
 
 const createAverage = (data) => {
   const depts = R.uniq(data.map(x => x.dept))
@@ -56,12 +58,15 @@ const createAverage = (data) => {
   return result
 }
 
-readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
-  const toWrite = createAverage(aggregatedData)
-  clearCollection('facultyDeptData')
-  writeToDB(toWrite, 'facultyDeptData')
-})
+const outputFacultyDeptData = () => {
+  readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
+    const file = './output/facultyAndDeptData.json'
+    const toWrite = createAverage(aggregatedData)
+    jsonfile.writeFile(file, toWrite, (err) => assert.equal(null, err))
+  })
+}
 
 export {
-  createAverage
+  createAverage,
+  outputFacultyDeptData
 }

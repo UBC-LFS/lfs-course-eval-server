@@ -1,4 +1,6 @@
-import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
+import { readDataByYear } from '../service/dbService.js'
+import assert from 'assert'
+import jsonfile from 'jsonfile'
 import R from 'ramda'
 
 const sumEnrolment = (courseRecord) =>
@@ -36,12 +38,19 @@ const aggregateEnrolmentByCourse = (data) => {
   return result
 }
 
-readDataByYear('2016', 'aggregatedData', (res) => {
-  const result = aggregateEnrolmentByCourse(res)
-  clearCollection('EnrolmentTrend')
-  writeToDB(result, 'EnrolmentTrend')
-})
+const outputEnrolmentTrendData = () => {
+  readDataByYear('2016', 'aggregatedData', (res) => {
+    const file = './output/enrolmentTrendData.json'
+    const result = aggregateEnrolmentByCourse(res)
+    jsonfile.writeFile(file, result, (err) => {
+      assert.equal(err, null)
+    })
+    // clearCollection('EnrolmentTrend')
+    // writeToDB(result, 'EnrolmentTrend')
+  })
+}
 
 export {
-  aggregateEnrolmentByCourse
+  aggregateEnrolmentByCourse,
+  outputEnrolmentTrendData
 }
