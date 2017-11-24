@@ -1,6 +1,6 @@
 /* global describe, it */
 import assert from 'assert'
-import { sumCount } from '../src/scripts/scriptUtils/utilCSV'
+import { sumCount } from '../src/scripts/scriptUtils/aggDataUtil'
 
 describe('sumCount', () => {
   it('takes an array of counts and returns the sum of that array', () => {

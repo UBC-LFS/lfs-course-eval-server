@@ -1,3 +1,5 @@
+import R from 'ramda'
+
 const sumCount = (counts) => {
   return counts.reduce((acc, cur) => {
     for (let scoreIndex = 1; scoreIndex <= 5; scoreIndex++) {
@@ -9,6 +11,9 @@ const sumCount = (counts) => {
   }, {})
 }
 
+const filterByEnrolment = (lower, upper) => R.filter(section => section.enrolment >= lower && section.enrolment <= upper)
+
 export {
-  sumCount
+  sumCount,
+  filterByEnrolment
 }

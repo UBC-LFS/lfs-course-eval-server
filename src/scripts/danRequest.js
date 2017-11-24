@@ -1,5 +1,5 @@
 import { readDataByYear } from '../service/dbService'
-import { sumCount } from './scriptUtils/utilCSV'
+import { sumCount } from './scriptUtils/aggDataUtil'
 import { umiAvg, dispersionIndex } from '../utils/calculate'
 
 readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
