@@ -1,6 +1,7 @@
 import { readDataByYear } from '../service/dbService'
 import { sumCount, filterByEnrolment } from './scriptUtils/aggDataUtil'
 import { umiAvg, dispersionIndex } from '../utils/calculate'
+import R from 'ramda'
 
 const umi6AvgByClassSize = (data) => {
   const tenAndUnder = filterByEnrolment(0, 10)(data)
@@ -18,10 +19,20 @@ const umi6AvgByClassSize = (data) => {
   const dataArray = [tenAndUnder, tenToTwenty, twentyToThirty, thirtyToFourty, fourtyToFifty, fiftyToSixty, sixtyToSeventy, seventyToEighty, eightyToNinety, ninetyToOneHundred, over100]
 
   dataArray.map(arr =>
-    console.log(umiAvg(sumCount(arr.map(section => section.UMI6.count))), dispersionIndex(sumCount(arr.map(section => section.UMI6.count))), arr.length)
+    console.log(
+      'UMI6 average: ' + umiAvg(sumCount(arr.map(section => section.UMI6.count))),
+      'Dispersion Index: ' + dispersionIndex(sumCount(arr.map(section => section.UMI6.count))),
+      'Number of Courses: ' + arr.length
+    )
   )
 }
 
+const umi6AvgByDept = (data) => {
+  const depts = R.uniq(data.map(section => section.dept))
+  console.log(depts)
+}
+
 readDataByYear('2016', 'aggregatedData', (data) => {
-  umi6AvgByClassSize(data)
+  // umi6AvgByClassSize(data)
+  umi6AvgByDept(data)
 })
