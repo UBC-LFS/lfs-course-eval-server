@@ -9,13 +9,15 @@ const addDeptData = (instructorCourseRecords, deptData) =>
     course.facultyAverage = deptFacultyRecord[course.year].facultyAverage
     course.deptAverage = deptFacultyRecord[course.year][course.dept + 'Average']
     return course
-  })
+  }
+)
 
 const aggregateCP = (instructorData, deptFacultyData) =>
   instructorData.map(instructor => ({
     PUID: instructor.PUID,
     Courses: addDeptData(instructor.Courses, deptFacultyData)
-  }))
+  })
+)
 
 // need to refactor this to use the generated JSON, will be tricky because I need to enforce the order
 readDataByYear('2016', 'UMIInstructor', (res) => {
