@@ -37,12 +37,10 @@ const addDeptData = (courses, facultyDeptData) => {
     const dept = course.dept
 
     const deptData = facultyDeptData
-      .filter(x => x.department === dept)[0].data
-      .filter(x => x.year === year && x.term === term)[0]
+      .find(x => x.department === dept).data
+      .find(x => x.year === year && x.term === term)
 
     course.deptAverage = deptData
-    // course.deptAverage = 
-    //   .filter(x => x.data.year === year && x.data.term === term)
 
     return course
   })
