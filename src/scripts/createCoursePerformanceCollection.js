@@ -1,5 +1,7 @@
 import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
+import jsonfile from 'jsonfile'
+import assert from 'assert'
 
 // currently faculty and dept averages are using the year's averages, not the terms. Maybe should change this to be terms later.
 const addDeptData = (instructorCourseRecords, deptData) =>
@@ -29,7 +31,17 @@ readDataByYear('2016', 'UMIInstructor', (res) => {
   })
 })
 
+const outputCoursePerformance = () => {
+  jsonfile.readFile('./output/UMIInstructorData.json', (err, json) => {
+    assert.equal(null, err)
+    
+    jsonfile.readFile('./output/facultyAndDeptData.json', (err, json) => {
+      assert.equal(null, err)
+      
+    })
+  })
+}
+
 export {
-  aggregateCP,
-  addDeptData
+  outputCoursePerformance
 }
