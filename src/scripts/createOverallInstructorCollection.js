@@ -1,5 +1,6 @@
-import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
+import assert from 'assert'
+import jsonfile from 'jsonfile'
 import * as calculate from '../utils/calculate'
 
 const sumCount = (umi, val, classes) =>
@@ -58,12 +59,16 @@ const aggregateOverallInstructor = (data) => {
   return result
 }
 
-readDataByYear('2016', 'aggregatedData', (res) => {
-  const result = aggregateOverallInstructor(res)
-  clearCollection('OverallInstructor')
-  writeToDB(result, 'OverallInstructor')
-})
+const outputOverallInstructorData = () => {
+  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+    assert.equal(null, err)
+    const file = './output/overallInstructorData.json'
+    const result = aggregateOverallInstructor(json)
+    jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+  })
+}
 
 export {
-  aggregateOverallInstructor
+  aggregateOverallInstructor,
+  outputOverallInstructorData
 }

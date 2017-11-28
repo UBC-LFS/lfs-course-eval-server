@@ -1,8 +1,9 @@
 import * as calculate from '../utils/calculate'
 import * as getFromCSV from './scriptUtils/getFromCSV'
+import assert from 'assert'
 import R from 'ramda'
-import { writeToDB, clearCollection } from '../service/dbService'
 import readCSV from '../service/readCSV'
+import jsonfile from 'jsonfile'
 
 const getProperties = (ev) => ({
   year: getFromCSV.getYear(ev),
@@ -124,10 +125,10 @@ const insertPercentileRanking = (courseObjs) => {
     let UMI = 'UMI' + i
     sortedByUMI = courseObjs.sort((a, b) => a[UMI].average - b[UMI].average)
     sortedByUMI.map((course) => {
-      const filteredByTerm = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
-      const filteredByDept = filteredByTerm.filter(x => x.dept === course.dept)
-      course[UMI].percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, UMI, filteredByTerm)
-      course[UMI].percentileRankingByDept = calculate.percentileRankingOfCourse(course, UMI, filteredByDept)
+      const filteredByTermAndYear = sortedByUMI.filter(x => x.year === course.year && x.term === course.term)
+      const filteredByTermYearAndDept = filteredByTermAndYear.filter(x => x.dept === course.dept)
+      course[UMI].percentileRankingByFaculty = calculate.percentileRankingOfCourse(course, UMI, filteredByTermAndYear)
+      course[UMI].percentileRankingByDept = calculate.percentileRankingOfCourse(course, UMI, filteredByTermYearAndDept)
     })
   }
   return sortedByUMI
@@ -170,61 +171,64 @@ const errorCheck = (courseObjs) => {
   return true
 }
 
-readCSV('../scripts/source/rawDataAll.csv', (csv) => {
-  let courseObjs = createCourseObj(csv)
+const outputAggregatedData = (cb) => {
+  readCSV('../scripts/source/rawDataAll.csv', (csv) => {
+    let courseObjs = createCourseObj(csv)
 
-  courseObjs.map(courseObj => R.pipe(
-    x => removeIncorrectCounts(x),
-    x => insertDispersionIndex(x),
-    x => insertAvg(x),
-    x => insertPercentFav(x)
-  )(courseObj))
+    courseObjs.map(courseObj => R.pipe(
+      x => removeIncorrectCounts(x),
+      x => insertDispersionIndex(x),
+      x => insertAvg(x),
+      x => insertPercentFav(x)
+    )(courseObj))
 
-  courseObjs = insertPercentileRanking(courseObjs)
+    courseObjs = insertPercentileRanking(courseObjs)
 
-  // this adds in the enrolment data from another CSV
-  readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', (csv) => {
-    csv.map(enrolmentCourse => {
-      const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
-        {
-          enrolmentCourseName: enrolmentCourse.crsname,
-          enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
-          enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
-          enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
-          enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
-          enrolment: enrolmentCourse.no_enrolled
-        }
-
-      courseObjs.map(course => {
-        const { courseName, courseID, section, year, term } =
+    // this adds in the enrolment data from another CSV
+    readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', (csv) => {
+      csv.map(enrolmentCourse => {
+        const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
           {
-            courseName: course.courseName,
-            courseID: course.course,
-            section: course.section,
-            year: course.year,
-            term: course.term
+            enrolmentCourseName: enrolmentCourse.crsname,
+            enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
+            enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
+            enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
+            enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
+            enrolment: enrolmentCourse.no_enrolled
           }
-        if (courseName === enrolmentCourseName &&
-          courseID === enrolmentCourseID &&
-          section === enrolmentSection &&
-          year === enrolmentYear &&
-          term === enrolmentTerm) {
-          course.enrolment = enrolment
-          const responses = course.gender.Female + course.gender.Male
-          const responseRate = calculate.toTwoDecimal(responses / enrolment)
-          course.responseRate = responseRate
-          course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
-        }
-      })
-    })
 
-    if (errorCheck(courseObjs)) {
-      // console.log(JSON.stringify(courseObjs, null, 2))
-      clearCollection('aggregatedData')
-      writeToDB(courseObjs, 'aggregatedData')
-    }
+        courseObjs.map(course => {
+          const { courseName, courseID, section, year, term } =
+            {
+              courseName: course.courseName,
+              courseID: course.course,
+              section: course.section,
+              year: course.year,
+              term: course.term
+            }
+          if (courseName === enrolmentCourseName &&
+            courseID === enrolmentCourseID &&
+            section === enrolmentSection &&
+            year === enrolmentYear &&
+            term === enrolmentTerm) {
+            course.enrolment = enrolment
+            const responses = course.gender.Female + course.gender.Male
+            const responseRate = calculate.toTwoDecimal(responses / enrolment)
+            course.responseRate = responseRate
+            course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
+          }
+        })
+      })
+      if (errorCheck(courseObjs)) {
+        const file = './output/aggregatedData.json'
+        jsonfile.writeFile(file, courseObjs, (err) => {
+          assert.equal(err, null)
+          cb()
+        })
+      }
+    })
   })
-})
+}
 
 export {
   createCourseObj,
@@ -232,5 +236,6 @@ export {
   insertAvg,
   insertPercentFav,
   insertPercentileRanking,
-  removeIncorrectCounts
+  removeIncorrectCounts,
+  outputAggregatedData
 }

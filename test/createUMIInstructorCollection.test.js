@@ -14,13 +14,7 @@ describe('createUMIInstructorObj', () => {
       'enrolment': 20,
       'responseRate': 0.45,
       'UMI1': {
-        'count': {
-          '1': 0,
-          '2': 2,
-          '3': 3,
-          '4': 7,
-          '5': 5
-        }
+        'count': { '1': 0, '2': 2, '3': 3, '4': 7, '5': 5 }
       },
       'UMI2': {
         'count': {
@@ -58,13 +52,7 @@ describe('createUMIInstructorObj', () => {
       'enrolment': 20,
       'responseRate': 0.45,
       'UMI1': {
-        'count': {
-          '1': 5,
-          '2': 2,
-          '3': 3,
-          '4': 7,
-          '5': 5
-        }
+        'count': { '1': 5, '2': 2, '3': 3, '4': 7, '5': 5 }
       },
       'UMI2': {
         'count': {
@@ -102,13 +90,7 @@ describe('createUMIInstructorObj', () => {
       'enrolment': 20,
       'responseRate': 0.45,
       'UMI1': {
-        'count': {
-          '1': 1,
-          '2': 2,
-          '3': 3,
-          '4': 7,
-          '5': 5
-        }
+        'count': { '1': 1, '2': 2, '3': 3, '4': 7, '5': 5 }
       },
       'UMI2': {
         'count': {
@@ -190,13 +172,7 @@ describe('createUMIInstructorObj', () => {
       'enrolment': 20,
       'responseRate': 0.45,
       'UMI1': {
-        'count': {
-          '1': 3,
-          '2': 4,
-          '3': 1,
-          '4': 7,
-          '5': 5
-        }
+        'count': { '1': 3, '2': 4, '3': 1, '4': 7, '5': 5 }
       },
       'UMI2': {
         'count': {
@@ -237,13 +213,7 @@ describe('createUMIInstructorObj', () => {
           'enrolment': 20,
           'responseRate': 0.45,
           'UMI1': {
-            'count': {
-              '1': 0,
-              '2': 2,
-              '3': 3,
-              '4': 7,
-              '5': 5
-            }
+            'count': { '1': 0, '2': 2, '3': 3, '4': 7, '5': 5 }
           },
           'UMI2': {
             'count': {
@@ -280,13 +250,7 @@ describe('createUMIInstructorObj', () => {
           'enrolment': 20,
           'responseRate': 0.45,
           'UMI1': {
-            'count': {
-              '1': 5,
-              '2': 2,
-              '3': 3,
-              '4': 9,
-              '5': 3
-            }
+            'count': { '1': 5, '2': 2, '3': 3, '4': 9, '5': 3 }
           },
           'UMI2': {
             'count': {
@@ -324,13 +288,7 @@ describe('createUMIInstructorObj', () => {
           'enrolment': 20,
           'responseRate': 0.45,
           'UMI1': {
-            'count': {
-              '1': 3,
-              '2': 4,
-              '3': 1,
-              '4': 7,
-              '5': 5
-            }
+            'count': { '1': 3, '2': 4, '3': 1, '4': 7, '5': 5 }
           },
           'UMI2': {
             'count': {
@@ -372,13 +330,7 @@ describe('createUMIInstructorObj', () => {
             'enrolment': 20,
             'responseRate': 0.45,
             'UMI1': {
-              'count': {
-                '1': 5,
-                '2': 2,
-                '3': 3,
-                '4': 7,
-                '5': 5
-              }
+              'count': { '1': 5, '2': 2, '3': 3, '4': 7, '5': 5 }
             },
             'UMI2': {
               'count': {
@@ -416,13 +368,7 @@ describe('createUMIInstructorObj', () => {
             'enrolment': 20,
             'responseRate': 0.45,
             'UMI1': {
-              'count': {
-                '1': 1,
-                '2': 2,
-                '3': 3,
-                '4': 7,
-                '5': 5
-              }
+              'count': { '1': 1, '2': 2, '3': 3, '4': 7, '5': 5 }
             },
             'UMI2': {
               'count': {
