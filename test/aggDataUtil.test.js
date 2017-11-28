@@ -16,7 +16,7 @@ describe('sumCount', () => {
     ]
     output = { '1': 2, '2': 4, '3': 6, '4': 8, '5': 10 }
     assert.deepEqual(sumCount(input), output)
-    
+
     input = [
       { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 },
       { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 },

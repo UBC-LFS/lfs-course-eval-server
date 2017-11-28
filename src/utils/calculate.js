@@ -89,6 +89,15 @@ const percentFavourable = (count) => {
   return toTwoDecimal(numberOf4and5s / numberOfResponses)
 }
 
+const expandCount = (count) => {
+  let result = []
+  Object.keys(count).map(x => {
+    const temp = Array(count[x]).fill(Number(x))
+    result = [...result, ...temp]
+  })
+  return result
+}
+
 const meetsMinimum = (classSize, responseRate) => {
   if (classSize <= 10 && responseRate >= 0.75) return true
   if (classSize >= 11 && classSize <= 19 && responseRate >= 0.65) return true
@@ -114,5 +123,6 @@ export {
   umiAvg,
   percentFavourable,
   percentileRankingOfCourse,
-  meetsMinimum
+  meetsMinimum,
+  expandCount
 }

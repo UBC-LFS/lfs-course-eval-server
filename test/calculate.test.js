@@ -231,3 +231,25 @@ describe('meetsMinimum', () => {
     assert.deepEqual(calculate.meetsMinimum(10000, 0.04), false)
   })
 })
+
+describe('expandCount', () => {
+  it('takes a count and expands it into its distribution', () => {
+    let count = {
+      '1': 5,
+      '2': 5,
+      '3': 5,
+      '4': 5,
+      '5': 5
+    }
+    let output = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+    assert.deepEqual(calculate.expandCount(count), output)
+
+    count = {
+      '1': 1,
+      '2': 2,
+      '3': 3
+    }
+    output = [1, 2, 2, 3, 3, 3]
+    assert.deepEqual(calculate.expandCount(count), output)
+  })
+})
