@@ -24,14 +24,15 @@ const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
   }
 )
 
-const outputCoursePerformance = () => {
+const outputCoursePerformance = (cb) => {
   jsonfile.readFile('./output/UMIInstructorData.json', (err, UMIData) => {
     assert.equal(null, err)
     jsonfile.readFile('./output/facultyAndDeptData.json', (err, facultyDeptData) => {
       assert.equal(null, err)
       const result = addDeptAndFacultyAvgIntoUMIInstructorData(UMIData, facultyDeptData)
-      const file = './output/coursePerformanceCollection.json'
+      const file = './output/coursePerformanceData.json'
       jsonfile.writeFile(file, result, (err) => assert.equal(err, null))
+      cb()
     })
   })
 }
