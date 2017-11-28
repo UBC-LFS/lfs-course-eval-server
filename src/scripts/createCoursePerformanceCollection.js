@@ -1,7 +1,7 @@
 import jsonfile from 'jsonfile'
 import assert from 'assert'
 
-const addDeptData = (courses, facultyDeptData) => 
+const addDeptData = (courses, facultyDeptData) =>
   courses.map(course => {
     const year = course.year
     const term = course.term
