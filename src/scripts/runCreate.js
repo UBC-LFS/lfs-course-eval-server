@@ -3,10 +3,14 @@ import { outputEnrolmentTrendData } from './createEnrolmentTrendCollection'
 import { outputFacultyDeptData } from './createFacultyAndDeptDataCollection'
 import { outputOverallInstructorData } from './createOverallInstructorCollection'
 import { outputUMIInstructor } from './createUMIInstructorCollection'
+import { outputCoursePerformance } from './createCoursePerformanceCollection'
 
 outputAggregatedData(() => {
   outputEnrolmentTrendData()
-  outputFacultyDeptData()
   outputOverallInstructorData()
-  outputUMIInstructor()
+  outputUMIInstructor(() => {
+    outputFacultyDeptData(() => {
+      outputCoursePerformance()
+    })
+  })
 })

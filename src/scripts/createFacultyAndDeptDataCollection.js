@@ -57,12 +57,13 @@ const createAverage = (data) => {
   return result
 }
 
-const outputFacultyDeptData = () => {
+const outputFacultyDeptData = (cb) => {
   jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
     assert.equal(null, err)
     const file = './output/facultyAndDeptData.json'
     const result = createAverage(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+    cb()
   })
 }
 

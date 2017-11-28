@@ -10,12 +10,13 @@ const aggregateUMIInstructor = (data) => {
   }))
 }
 
-const outputUMIInstructor = () => {
+const outputUMIInstructor = (cb) => {
   jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
     assert.equal(null, err)
     const file = './output/UMIInstructorData.json'
     const result = aggregateUMIInstructor(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+    cb()
   })
 }
 
