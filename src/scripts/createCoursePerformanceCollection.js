@@ -1,4 +1,3 @@
-import { readDataByYear, writeToDB, clearCollection } from '../service/dbService.js'
 import R from 'ramda'
 import jsonfile from 'jsonfile'
 import assert from 'assert'
@@ -22,22 +21,22 @@ const aggregateCP = (instructorData, deptFacultyData) =>
 )
 
 // need to refactor this to use the generated JSON, will be tricky because I need to enforce the order
-readDataByYear('2016', 'UMIInstructor', (res) => {
-  const UMIInstructorData = res
-  readDataByYear('2016', 'facultyDeptData', (res) => {
-    const result = aggregateCP(UMIInstructorData, res)
-    clearCollection('CoursePerformance')
-    writeToDB(result, 'CoursePerformance')
-  })
-})
+// readDataByYear('2016', 'UMIInstructor', (res) => {
+//   const UMIInstructorData = res
+//   readDataByYear('2016', 'facultyDeptData', (res) => {
+//     const result = aggregateCP(UMIInstructorData, res)
+//     clearCollection('CoursePerformance')
+//     writeToDB(result, 'CoursePerformance')
+//   })
+// })
 
 const outputCoursePerformance = () => {
   jsonfile.readFile('./output/UMIInstructorData.json', (err, json) => {
     assert.equal(null, err)
-    
+    console.log(json)
     jsonfile.readFile('./output/facultyAndDeptData.json', (err, json) => {
       assert.equal(null, err)
-      
+      console.log(json)
     })
   })
 }
