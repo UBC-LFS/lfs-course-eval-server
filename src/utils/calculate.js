@@ -110,7 +110,7 @@ const standardDeviation = (values) => {
   const avgSquareDiff = R.mean(squareDiffs)
 
   const stdDev = Math.sqrt(avgSquareDiff)
-  return stdDev
+  return toTwoDecimal(stdDev)
 }
 
 const meetsMinimum = (classSize, responseRate) => {

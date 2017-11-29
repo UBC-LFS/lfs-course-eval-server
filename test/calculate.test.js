@@ -259,7 +259,13 @@ describe('expandCount', () => {
 describe('standardDeviation', () => {
   it('takes an array as input and returns the standard deviation for those values', () => {
     let input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    let output = 3.02765
+    let output = 2.87
     assert.deepEqual(calculate.standardDeviation(input), output)
+
+    input = [1, 2, 3]
+    output = 0.67
+
+    input = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+    output = 1.41
   })
 })
