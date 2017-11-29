@@ -8,7 +8,8 @@ const createAverage = (data) => {
   const joinYearAndTerm = (year, term) => year + term
   const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
 
-  const groupedByDepts = depts.map(dept => data.filter(section => section.dept === dept))
+  const groupedByDepts = depts.map(dept =>
+    data.filter(section => section.dept === dept))
 
   const groupedByDeptsThenYearAndTerm = groupedByDepts.map(allSectionsInDept =>
     yearAndTerms.map(yearAndTerm =>

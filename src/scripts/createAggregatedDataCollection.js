@@ -34,7 +34,7 @@ const createCourseObj = (csv) => {
   return filteredCSV.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
 
-    const uniqSectionInTerm = (x) => (x.year === year &&
+    const uniqSectionInTerm = x => (x.year === year &&
       x.course === course &&
       x.term === term &&
       x.section === section &&
