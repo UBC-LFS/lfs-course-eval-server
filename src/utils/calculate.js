@@ -98,6 +98,21 @@ const expandCount = (count) => {
   return result
 }
 
+const standardDeviation = (values) => {
+  const mean = R.mean(values)
+
+  const squareDiffs = values.map(val => {
+    const diff = val - mean
+    const sqrDiff = diff * diff
+    return sqrDiff
+  })
+
+  const avgSquareDiff = R.mean(squareDiffs)
+
+  const stdDev = Math.sqrt(avgSquareDiff)
+  return stdDev
+}
+
 const meetsMinimum = (classSize, responseRate) => {
   if (classSize <= 10 && responseRate >= 0.75) return true
   if (classSize >= 11 && classSize <= 19 && responseRate >= 0.65) return true
@@ -124,5 +139,6 @@ export {
   percentFavourable,
   percentileRankingOfCourse,
   meetsMinimum,
-  expandCount
+  expandCount,
+  standardDeviation
 }

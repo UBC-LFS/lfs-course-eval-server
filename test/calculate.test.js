@@ -164,7 +164,7 @@ describe('calculatePercentFavourable', () => {
 
 describe('calculatePercentileRanking', () => {
   it('can handle a single input', () => {
-    let courses = [ { UMI6: { average: 1 } } ]
+    let courses = [{ UMI6: { average: 1 } }]
     assert.deepEqual(calculate.percentileRankingOfCourse({ UMI6: { average: 1 } }, 'UMI6', courses), 0.5)
   })
 
@@ -181,7 +181,8 @@ describe('calculatePercentileRanking', () => {
       { UMI6: { average: 4 } }
     ]
     assert.deepEqual(calculate.percentileRankingOfCourse({
-      UMI6: { average: 2 } }, 'UMI6', courses), 0.38)
+      UMI6: { average: 2 }
+    }, 'UMI6', courses), 0.38)
   })
 })
 describe('meetsMinimum', () => {
@@ -243,13 +244,22 @@ describe('expandCount', () => {
     }
     let output = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
     assert.deepEqual(calculate.expandCount(count), output)
-
-    count = {
+  })
+  it('can work when properties are missing', () => {
+    let count = {
       '1': 1,
       '2': 2,
       '3': 3
     }
-    output = [1, 2, 2, 3, 3, 3]
+    let output = [1, 2, 2, 3, 3, 3]
     assert.deepEqual(calculate.expandCount(count), output)
+  })
+})
+
+describe('standardDeviation', () => {
+  it('takes an array as input and returns the standard deviation for those values', () => {
+    let input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    let output = 3.02765
+    assert.deepEqual(calculate.standardDeviation(input), output)
   })
 })
