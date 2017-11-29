@@ -3,7 +3,7 @@ import { umiAvg } from '../utils/calculate'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
 
-const createAverage = (data) => {
+const createAverage = data => {
   const depts = R.uniq(data.map(x => x.dept))
   const joinYearAndTerm = (year, term) => year + term
   const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
@@ -58,7 +58,7 @@ const createAverage = (data) => {
   return result
 }
 
-const outputFacultyDeptData = (cb) => {
+const outputFacultyDeptData = cb => {
   jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
     assert.equal(null, err)
     const file = './output/facultyAndDeptData.json'

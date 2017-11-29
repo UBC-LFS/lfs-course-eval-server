@@ -24,7 +24,7 @@ const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
   }
 )
 
-const outputCoursePerformance = (cb) => {
+const outputCoursePerformance = cb => {
   jsonfile.readFile('./output/UMIInstructorData.json', (err, UMIData) => {
     assert.equal(null, err)
     jsonfile.readFile('./output/facultyAndDeptData.json', (err, facultyDeptData) => {

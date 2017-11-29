@@ -2,10 +2,10 @@ import assert from 'assert'
 import jsonfile from 'jsonfile'
 import R from 'ramda'
 
-const sumEnrolment = (courseRecord) =>
+const sumEnrolment = courseRecord =>
   R.reduce((acc, record) => (acc + record.enrolment), 0, courseRecord.CourseSections)
 
-const aggregateEnrolmentByCourse = (data) => {
+const aggregateEnrolmentByCourse = data => {
   const byCourse = R.groupBy(course => course.course)(data)
   const pairedCourseData = Object.keys(byCourse).map(key => {
     const Course = key

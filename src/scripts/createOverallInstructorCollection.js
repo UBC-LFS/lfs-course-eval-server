@@ -9,16 +9,16 @@ const sumCount = (umi, val, classes) =>
 const sumGender = (gen, classes) =>
   R.reduce((acc, record) => (acc + record.gender[gen]), 0, classes)
 
-const sumEnrolment = (classes) =>
+const sumEnrolment = classes =>
   R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
 
-const sumResponded = (classes) =>
+const sumResponded = classes =>
   R.reduce((acc, record) => (acc + (record.responseRate * record.enrolment)), 0, classes)
 
-const concatenateDept = (instructorRecord) =>
+const concatenateDept = instructorRecord =>
   R.uniq(instructorRecord.map(course => course.dept))
 
-const aggregateOverallInstructor = (data) => {
+const aggregateOverallInstructor = data => {
   const byInstructor = R.groupBy((course) => course.PUID)(data)
   const pairedInstructorData = Object.keys(byInstructor).map(key => ({
     PUID: key,
