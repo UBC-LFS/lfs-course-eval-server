@@ -5,7 +5,7 @@ import R from 'ramda'
 import readCSV from '../service/readCSV'
 import jsonfile from 'jsonfile'
 
-const getProperties = (ev) => ({
+const getProperties = ev => ({
   year: getFromCSV.getYear(ev),
   term: getFromCSV.getTerm(ev),
   course: getFromCSV.getCourse(ev),
@@ -19,7 +19,7 @@ const getProperties = (ev) => ({
 })
 
 // filter out any rows in the csv with all 0 UMI ratings
-const filterAll0s = (csv) => csv.filter(ev => {
+const filterAll0s = csv => csv.filter(ev => {
   if (getFromCSV.getUMI1(ev) === 0 &&
     getFromCSV.getUMI2(ev) === 0 &&
     getFromCSV.getUMI3(ev) === 0 &&
@@ -29,7 +29,7 @@ const filterAll0s = (csv) => csv.filter(ev => {
   else return true
 })
 
-const createCourseObj = (csv) => {
+const createCourseObj = csv => {
   const filteredCSV = filterAll0s(csv)
   return filteredCSV.reduce((acc, ev) => {
     const { year, term, course, section, courseName, courseLevel, dept, instructorName, PUID, gender } = getProperties(ev)
@@ -85,7 +85,7 @@ const createCourseObj = (csv) => {
   }, [])
 }
 
-const removeIncorrectCounts = (courseObj) => {
+const removeIncorrectCounts = courseObj => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
     const countObj = courseObj[UMI].count
@@ -95,7 +95,7 @@ const removeIncorrectCounts = (courseObj) => {
   return courseObj
 }
 
-const insertDispersionIndex = (courseObj) => {
+const insertDispersionIndex = courseObj => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
     courseObj[UMI].dispersionIndex = calculate.dispersionIndex(courseObj[UMI].count)
@@ -103,7 +103,7 @@ const insertDispersionIndex = (courseObj) => {
   return courseObj
 }
 
-const insertAvg = (courseObj) => {
+const insertAvg = courseObj => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
     courseObj[UMI].average = calculate.umiAvg(courseObj[UMI].count)
@@ -111,7 +111,7 @@ const insertAvg = (courseObj) => {
   return courseObj
 }
 
-const insertPercentFav = (courseObj) => {
+const insertPercentFav = courseObj => {
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
     courseObj[UMI].percentFavourable = calculate.percentFavourable(courseObj[UMI].count)
@@ -119,7 +119,7 @@ const insertPercentFav = (courseObj) => {
   return courseObj
 }
 
-const insertPercentileRanking = (courseObjs) => {
+const insertPercentileRanking = courseObjs => {
   let sortedByUMI
   for (let i = 1; i <= 6; i++) {
     let UMI = 'UMI' + i
@@ -135,7 +135,7 @@ const insertPercentileRanking = (courseObjs) => {
 }
 
 // errorChecks
-const errorCheck = (courseObjs) => {
+const errorCheck = courseObjs => {
   // check to make sure enrolments are all there:
   const courseObjMissingEnrolment = courseObjs.filter(course => !course.hasOwnProperty('enrolment'))
   if (courseObjMissingEnrolment.length !== 0) {
@@ -171,7 +171,7 @@ const errorCheck = (courseObjs) => {
   return true
 }
 
-const outputAggregatedData = (cb) => {
+const outputAggregatedData = cb => {
   readCSV('../scripts/source/rawDataAll.csv', (csv) => {
     let courseObjs = createCourseObj(csv)
 
@@ -185,7 +185,7 @@ const outputAggregatedData = (cb) => {
     courseObjs = insertPercentileRanking(courseObjs)
 
     // this adds in the enrolment data from another CSV
-    readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', (csv) => {
+    readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', csv => {
       csv.map(enrolmentCourse => {
         const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
           {
