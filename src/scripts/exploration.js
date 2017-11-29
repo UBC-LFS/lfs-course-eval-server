@@ -3,7 +3,7 @@ import { sumCount, filterByEnrolment } from './scriptUtils/aggDataUtil'
 import { umiAvg, dispersionIndex } from '../utils/calculate'
 import R from 'ramda'
 
-const byClassSize = (data) => {
+const byClassSize = data => {
   const tenAndUnder = filterByEnrolment(0, 10)(data)
   const tenToTwenty = filterByEnrolment(11, 20)(data)
   const twentyToThirty = filterByEnrolment(21, 30)(data)
@@ -28,7 +28,7 @@ const byClassSize = (data) => {
   )
 }
 
-const byDept = (data) => {
+const byDept = data => {
   const depts = R.uniq(data.map(section => section.dept))
   const groupedByDepts = depts.map(dept => data.filter(section => section.dept === dept))
   const sumCountByDept = groupedByDepts.map(aGroup => ({
