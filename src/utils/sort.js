@@ -1,7 +1,7 @@
 import R from 'ramda'
 import * as get from './get'
 
-const byYearThenTerm = (arr) => {
+const byYearThenTerm = arr => {
   const order = {
     'S1': 0,
     'SA': 1,
@@ -19,7 +19,7 @@ const byYearThenTerm = (arr) => {
   }, arr)
 }
 
-const byInstructorLastName = (arr) => arr.sort((a, b) => {
+const byInstructorLastName = arr => arr.sort((a, b) => {
   const aLastName = get.instructorLastName(a.instructor).toLowerCase()
   const bLastName = get.instructorLastName(b.instructor).toLowerCase()
   if (aLastName < bLastName) return -1

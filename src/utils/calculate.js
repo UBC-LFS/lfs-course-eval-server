@@ -1,8 +1,8 @@
 import R from 'ramda'
 
-const toTwoDecimal = (decimal) => Math.round(decimal * 100) / 100
+const toTwoDecimal = decimal => Math.round(decimal * 100) / 100
 
-const questionAvg = (arr) => {
+const questionAvg = arr => {
   const sumOfRatings = R.reduce((total, x) => total + (x.percentResponses * x.classSize * x.Avg), 0)(arr)
   const sumOfClassSize = R.reduce((sum, x) => sum + (x.percentResponses * x.classSize), 0)(arr)
   return parseFloat(sumOfRatings / sumOfClassSize).toFixed(2)
@@ -13,9 +13,9 @@ const avgByField = (arr, field) => {
   return parseFloat(R.mean(fieldArray)).toFixed(1)
 }
 
-const avg = (arr) => R.mean(arr)
+const avg = arr => R.mean(arr)
 
-const median = (arr) => R.median(arr)
+const median = arr => R.median(arr)
 
 const percentGender = (gender, arr) => {
   const countOfSpecifiedGender = arr.filter(x => x.gender === gender).length
@@ -39,7 +39,7 @@ const percentileRankingOfCourse = (course, umi, allCoursesSortedByUMI) => {
 }
 
 // this 'fills in' any missing counts with 0
-const fillInMissingCounts = (count) => {
+const fillInMissingCounts = count => {
   for (let i = 1; i <= 5; i++) {
     const key = String(i)
     if (!count.hasOwnProperty(key)) count[key] = 0
@@ -47,7 +47,7 @@ const fillInMissingCounts = (count) => {
   return count
 }
 
-const dispersionIndex = (count) => {
+const dispersionIndex = count => {
   count = fillInMissingCounts(count)
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
@@ -70,7 +70,7 @@ const dispersionIndex = (count) => {
   return toTwoDecimal(Object.keys(dispersionObj).reduce((acc, key) => (acc += dispersionObj[key].finalF), 0))
 }
 
-const umiAvg = (count) => {
+const umiAvg = count => {
   count = fillInMissingCounts(count)
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
@@ -80,7 +80,7 @@ const umiAvg = (count) => {
   return toTwoDecimal(UMITimesCount / numberOfResponses)
 }
 
-const percentFavourable = (count) => {
+const percentFavourable = count => {
   count = fillInMissingCounts(count)
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
@@ -89,7 +89,7 @@ const percentFavourable = (count) => {
   return toTwoDecimal(numberOf4and5s / numberOfResponses)
 }
 
-const expandCount = (count) => {
+const expandCount = count => {
   let result = []
   Object.keys(count).map(x => {
     const temp = Array(count[x]).fill(Number(x))
@@ -98,7 +98,7 @@ const expandCount = (count) => {
   return result
 }
 
-const sumCount = (counts) => {
+const sumCount = counts => {
   return counts.reduce((acc, cur) => {
     for (let scoreIndex = 1; scoreIndex <= 5; scoreIndex++) {
       if (acc[scoreIndex + '']) {
@@ -109,7 +109,7 @@ const sumCount = (counts) => {
   }, {})
 }
 
-const standardDeviation = (values) => {
+const standardDeviation = values => {
   const mean = R.mean(values)
 
   const squareDiffs = values.map(val => {
