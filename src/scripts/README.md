@@ -10,9 +10,13 @@ Then use courseval db
 
 `use courseval`
 
-Then run createAggregatedData.js 
+Then run runCreate.js 
 
-`babel-node createaAggregatedData.js`
+`babel-node runCreate.js`
+
+Then run writeToMongo.js
+
+`babel-node writeToMongo.js`
 
 Then show
 

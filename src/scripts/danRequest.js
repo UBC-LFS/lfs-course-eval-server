@@ -4,8 +4,8 @@ import { filterByYears } from './scriptUtils/aggDataUtil'
 import { umiAvg, dispersionIndex, standardDeviation, expandCount, sumCount } from '../utils/calculate'
 
 readDataByYear('2016', 'aggregatedData', (aggregatedData) => {
-  // const between2013And2016 = filterByYears(2014, 2016)(aggregatedData)
-  const between2013And2016 = aggregatedData
+  const between2013And2016 = filterByYears(2014, 2016)(aggregatedData)
+  // const between2013And2016 = aggregatedData
   console.log('there are ', between2013And2016.length, 'sections between 2013 and 2016')
 
   const UMI6Counts = sumCount(between2013And2016.map(section => section.UMI6.count))
