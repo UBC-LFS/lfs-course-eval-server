@@ -254,6 +254,14 @@ describe('expandCount', () => {
     let output = [1, 2, 2, 3, 3, 3]
     assert.deepEqual(calculate.expandCount(count), output)
   })
+  it('can handle 0', () => {
+    let count = {
+      '1': 0,
+      '2': 2
+    }
+    let output = [2, 2]
+    assert.deepEqual(calculate.expandCount(count), output)
+  })
 })
 
 describe('standardDeviation', () => {
@@ -263,10 +271,24 @@ describe('standardDeviation', () => {
     assert.deepEqual(calculate.standardDeviation(input), output)
 
     input = [1, 2, 3]
-    output = 0.67
+    output = 0.82
+    assert.deepEqual(calculate.standardDeviation(input), output)
 
     input = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
     output = 1.41
+    assert.deepEqual(calculate.standardDeviation(input), output)
+
+    input = [1, 1, 1]
+    output = 0
+    assert.deepEqual(calculate.standardDeviation(input), output)
+    
+    input = [1]
+    output = 0
+    assert.deepEqual(calculate.standardDeviation(input), output)
+    
+    input = [1, 2]
+    output = 0.5
+    assert.deepEqual(calculate.standardDeviation(input), output)
   })
 })
 
