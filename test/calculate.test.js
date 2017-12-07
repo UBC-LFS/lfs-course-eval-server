@@ -281,11 +281,11 @@ describe('standardDeviation', () => {
     input = [1, 1, 1]
     output = 0
     assert.deepEqual(calculate.standardDeviation(input), output)
-    
+
     input = [1]
     output = 0
     assert.deepEqual(calculate.standardDeviation(input), output)
-    
+
     input = [1, 2]
     output = 0.5
     assert.deepEqual(calculate.standardDeviation(input), output)
@@ -313,6 +313,15 @@ describe('sumCount', () => {
       { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 }
     ]
     output = { '1': 3, '2': 6, '3': 9, '4': 12, '5': 15 }
+    assert.deepEqual(calculate.sumCount(input), output)
+  })
+  it('can handle missing property/values', () => {
+    let input = [
+      { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 },
+      { '1': 1, '2': 2, '3': 3, '4': 4, '5': 5 },
+      { '2': 2, '3': 3, '4': 4, '5': 5 }
+    ]
+    let output = { '1': 2, '2': 6, '3': 9, '4': 12, '5': 15 }
     assert.deepEqual(calculate.sumCount(input), output)
   })
 })

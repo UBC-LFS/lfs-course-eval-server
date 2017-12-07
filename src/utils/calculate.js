@@ -99,6 +99,7 @@ const expandCount = count => {
 }
 
 const sumCount = counts => counts.reduce((acc, cur) => {
+  cur = fillInMissingCounts(cur)
   for (let scoreIndex = 1; scoreIndex <= 5; scoreIndex++) {
     if (acc[scoreIndex + '']) {
       acc[scoreIndex + ''] = acc[scoreIndex + ''] + cur[scoreIndex + '']
