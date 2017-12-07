@@ -76,8 +76,7 @@ const dataForStats = (fromYear, toYear, dept) => {
   const conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
   return new Promise((resolve, reject) => {
     db.readData('aggregatedData', conditions, (data) => {
-      analyzeAggregatedData(data)
-      if (data) resolve(data)
+      if (data) resolve(analyzeAggregatedData(data))
       else reject(Error('db returned no result'))
     })
   })
