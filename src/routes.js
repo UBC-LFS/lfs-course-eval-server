@@ -49,8 +49,7 @@ routes.get('/data/FacultyDept', (req, res) => {
 })
 
 routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
-  console.log(req.params)
-  dataForStats().then(data => console.log(data))
+  dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => console.log(data))
 })
 
 routes.get('/list', (req, res, next) => {

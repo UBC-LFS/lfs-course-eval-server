@@ -20,10 +20,11 @@ const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   db.close()
 })
 
-const readData = (collectionName, cb) => MongoClient.connect(url, (err, db) => {
+const readData = (collectionName, conditions, cb) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
   const collection = db.collection(collectionName)
-  collection.find().toArray((err, result) => {
+  console.log(conditions)
+  collection.find(conditions).toArray((err, result) => {
     assert.equal(null, err)
     cb(result)
     db.close()
