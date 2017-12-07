@@ -1,4 +1,12 @@
 import * as db from './dbService'
+import { 
+  umiAvg,
+  expandCount,
+  standardDeviation,
+  sumCount,
+  percentFavourable,
+  dispersionIndex
+} from '../utils/calculate'
 
 const dataForOverallInstructor = (year) => {
   return new Promise((resolve, reject) => {
@@ -53,11 +61,23 @@ const dataForFaculyAndDept = (year) => {
   })
 }
 
+const analyzeAggregatedData = (data) => {
+  const UMI6Count = sumCount(data.map(section => section.UMI6.count))
+  return {
+    standardDeviation: standardDeviation(expandCount(UMI6Count)),
+    percentFavourable: percentFavourable(UMI6Count),
+    dispersionIndex: dispersionIndex(UMI6Count),
+    average: umiAvg(UMI6Count),
+    length: data.length
+  }
+}
+
 const dataForStats = (fromYear, toYear, dept) => {
   const conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
   return new Promise((resolve, reject) => {
-    db.readData('aggregatedData', conditions, (res) => {
-      if (res) resolve(res)
+    db.readData('aggregatedData', conditions, (data) => {
+      analyzeAggregatedData(data)
+      if (data) resolve(data)
       else reject(Error('db returned no result'))
     })
   })

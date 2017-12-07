@@ -27,7 +27,6 @@ const createAverage = data => {
       data: []
     })
     dept.map(yearAndTerm => {
-      console.log(yearAndTerm)
       const tempObj = yearAndTerm.reduce((acc, cur) => {
         for (let umiIndex = 1; umiIndex <= 6; umiIndex++) {
           if (acc['UMI' + umiIndex]) {
