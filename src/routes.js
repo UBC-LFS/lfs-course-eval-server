@@ -1,5 +1,13 @@
 import { Router } from 'express'
-import { dataForEnrolmentTrend, dataForOverallInstructor, dataForCoursePerformance, dataForUMIVSDispersion, dataForUMIInstructor, dataForFaculyAndDept } from './service/dataService'
+import {
+  dataForEnrolmentTrend,
+  dataForOverallInstructor,
+  dataForCoursePerformance,
+  dataForUMIVSDispersion,
+  dataForUMIInstructor,
+  dataForFaculyAndDept,
+  dataForStats
+} from './service/dataService'
 
 require('dotenv').config()
 
@@ -38,6 +46,11 @@ routes.get('/data/EnrolmentTrend', (req, res) => {
 
 routes.get('/data/FacultyDept', (req, res) => {
   dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
+})
+
+routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
+  console.log(req.params)
+  dataForStats().then(data => console.log(data))
 })
 
 routes.get('/list', (req, res, next) => {

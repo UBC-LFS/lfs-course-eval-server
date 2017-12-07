@@ -20,9 +20,9 @@ const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   db.close()
 })
 
-const readDataByYear = (year, name, cb) => MongoClient.connect(url, (err, db) => {
+const readData = (collectionName, cb) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
-  const collection = db.collection(name)
+  const collection = db.collection(collectionName)
   collection.find().toArray((err, result) => {
     assert.equal(null, err)
     cb(result)
@@ -41,6 +41,6 @@ const clearCollection = (name) => MongoClient.connect(url, (err, db) => {
 
 export {
     writeToDB,
-    readDataByYear,
+    readData,
     clearCollection
 }
