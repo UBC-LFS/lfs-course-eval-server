@@ -109,7 +109,7 @@ const sumCount = counts => counts.reduce((acc, cur) => {
 }, {})
 
 const standardDeviation = values => {
-  const mean = R.mean(values)
+  const mean = values.reduce((acc, cur) => (acc + cur)) / values.length
 
   const squareDiffs = values.map(val => {
     const diff = val - mean
@@ -117,7 +117,7 @@ const standardDeviation = values => {
     return sqrDiff
   })
 
-  const avgSquareDiff = R.mean(squareDiffs)
+  const avgSquareDiff = squareDiffs.reduce((acc, cur) => (acc + cur)) / squareDiffs.length
 
   const stdDev = Math.sqrt(avgSquareDiff)
   return toTwoDecimal(stdDev)
