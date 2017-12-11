@@ -154,3 +154,9 @@ body {
   color: #72777a;
   background-color: #f9fafb !important;
 }
+
+.card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+}
