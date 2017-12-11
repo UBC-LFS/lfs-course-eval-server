@@ -2,84 +2,35 @@ extends layout
 
 block content
   <div class="container-fluid">
-    h1= title
-    <div class="settings-panel" style="display: none;">
-      <div id="spinner"></div>
-      <div class="row" id="settings-panel">
-        <div class="col-md-6">
-          <div>
-            Time Period
-            <select id="yearSelection">
-
-            </select>
-            <select id="termSelection">
-
-            </select>
-          </div>
-          <div>
-            Course Level
-            <select id="courseLevelSelection">
-
-            </select>
-          </div>
-          <div>
-            Department
-            <select id="deptSelection">
-
-            </select>
-          </div>
-          <div>
-            Question Code
-            <select id="questionCodeSelection" style="width:300px;">
-
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div>
-            Toggle below minimum <input type="checkbox" id="toggleBelowMinSelection">
-          </div>
-          <div>
-            Filter by minimum class size 
-            <form><input style="width: 50%;" type="range" id="classSizeMin" min="0" max="300" value="0" oninput="classSizeMin.value = classSizeMin.value"><output id="classSizeMin"></output></form>
-          </div>
-          <div>
-            Filter by maximum class size 
-            <form><input style="width: 50%;" type="range" id="classSizeMax" min="0" max="300" value="300" oninput="classSizeMin.value = classSizeMin.value"><output id="classSizeMax"></output></form>
-          </div>
-        </div>
-      </div>
-    </div>
-    h2="Overview"
     <div class="row">
       <div class="col-md-3">
         <div class="card"> 
           <div class="card-block" id="card-umi">
-            <h4 class="card-title">Card title</h4>
+            <h4 class="card-title">Mean UMI6</h4>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card" id="card-enrolment"> 
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
+        <div class="card"> 
+          <div class="card-block" id="card-enrolment">
+            <h4 class="card-title">Enrolment</h4>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card" id="card-response-rate"> 
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
+        <div class="card"> 
+          <div class="card-block" id="card-response-rate">
+            <h4 class="card-title">Response Rate</h4>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="card" id="card-number-of-courses"> 
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
+        <div class="card"> 
+          <div class="card-block" id="card-number-of-courses">
+            <h4 class="card-title">Number of Sections</h4>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
           </div>
         </div>
