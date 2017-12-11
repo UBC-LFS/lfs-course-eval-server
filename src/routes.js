@@ -52,6 +52,15 @@ routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
   dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
 })
 
+routes.get('/data/Overview', (req, res) => {
+  res.send({
+    umi: 4.1,
+    enrolment: 4000,
+    responseRate: '71%',
+    sections: 100
+  })
+})
+
 routes.get('/list', (req, res, next) => {
   const { title } = req.query
 

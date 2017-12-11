@@ -160,3 +160,13 @@ body {
   padding: 20px;
   margin-bottom: 20px;
 }
+
+.card-title {
+  text-align: center;
+}
+
+.card-stats {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+}
