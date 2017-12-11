@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  <div class="container">
+  <div class="container-fluid">
     h1= title
     <div class="settings-panel" style="display: none;">
       <div id="spinner"></div>
@@ -50,12 +50,19 @@ block content
         </div>
       </div>
     </div>
-    <div id="umiTrendLine"></div>
+    h2="Overview"
+    <div class="row">
+      <div class="col-md-2">.col-md-2</div>
+      <div class="col-md-2">.col-md-2</div>
+      <div class="col-md-2">.col-md-2</div>
+      <div class="col-md-2">.col-md-2</div>
+      <div class="col-md-2">.col-md-2</div>
+      <div class="col-md-2">.col-md-2</div>
+    </div>
 
-    h2="Faculty UMI6 Trend"
-    <div id="facultyUMITrend">
-      <select class="selectpicker" id="facultyFilter" data-live-search="true" multiple></select>
-      <select class="selectpicker" id="termFilter" data-live-search="true"></select>
+    h2="High-Level Stats"
+    <div id="stats">
+      <select class="selectpicker" id="deptSelector" data-live-search="true"></select>
     </div>
 
     h2="Faculty UMI6 Trend"

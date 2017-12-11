@@ -149,3 +149,8 @@ input:checked + .slider:before {
   fill: none;
   stroke-width: 3px;
 }
+
+body {
+  color: #72777a;
+  background-color: #f9fafb !important;
+}
