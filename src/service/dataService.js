@@ -5,11 +5,13 @@ import {
   standardDeviation,
   sumCount,
   percentFavourable,
-  dispersionIndex
+  dispersionIndex,
+  toTwoDecimal
 } from '../utils/calculate'
+import { calculateEnrolment } from '../utils/aggregatedDataUtils'
 import * as collection from '../utils/constants'
 
-const dataForOverallInstructor = (year) => {
+const dataForOverallInstructor = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.overallInstructor, {}, (res) => {
       if (res) resolve(res)
@@ -18,7 +20,7 @@ const dataForOverallInstructor = (year) => {
   })
 }
 
-const dataForUMIInstructor = (year) => {
+const dataForUMIInstructor = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.umiInstructor, {}, (res) => {
       if (res) resolve(res)
@@ -26,7 +28,7 @@ const dataForUMIInstructor = (year) => {
     })
   })
 }
-const dataForCoursePerformance = (year) => {
+const dataForCoursePerformance = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.coursePerformance, {}, (res) => {
       if (res) resolve(res)
@@ -35,7 +37,7 @@ const dataForCoursePerformance = (year) => {
   })
 }
 
-const dataForUMIVSDispersion = (year) => {
+const dataForUMIVSDispersion = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, {}, (res) => {
       if (res) resolve(res)
@@ -44,7 +46,7 @@ const dataForUMIVSDispersion = (year) => {
   })
 }
 
-const dataForEnrolmentTrend = (year) => {
+const dataForEnrolmentTrend = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.enrolmentTrend, {}, (res) => {
       if (res) resolve(res)
@@ -53,7 +55,7 @@ const dataForEnrolmentTrend = (year) => {
   })
 }
 
-const dataForFaculyAndDept = (year) => {
+const dataForFaculyAndDept = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.facultyDeptData, {}, (res) => {
       if (res) resolve(res)
@@ -62,7 +64,7 @@ const dataForFaculyAndDept = (year) => {
   })
 }
 
-const analyzeAggregatedData = (data) => {
+const analyzeAggregatedData = data => {
   const UMI6Count = sumCount(data.map(section => section.UMI6.count))
   return {
     standardDeviation: standardDeviation(expandCount(UMI6Count)),
@@ -83,11 +85,22 @@ const dataForStats = (fromYear, toYear, dept) => {
   })
 }
 
-const dataForOverview = () => {
-  const conditions = { year: 2017 }
+const overviewStats = data => {
+  const umi6Count = sumCount(data.map(section => section.UMI6.count))
+  return {
+    umi6: umiAvg(umi6Count),
+    enrolment: calculateEnrolment(data),
+    responseRate: toTwoDecimal(expandCount(umi6Count).length / calculateEnrolment(data)),
+    sections: data.length
+  }
+}
+
+const dataForOverview = (year) => {
+  const conditions = { year: Number(year) }
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, conditions, (data) => {
-      
+      if (data) resolve(overviewStats(data))
+      else reject(Error('db returned no result'))
     })
   })
 }
@@ -99,5 +112,6 @@ export {
     dataForCoursePerformance,
     dataForEnrolmentTrend,
     dataForFaculyAndDept,
-    dataForStats
+    dataForStats,
+    dataForOverview
 }

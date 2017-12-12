@@ -1,6 +1,5 @@
-import R from 'ramda'
 import { readDataByYear } from '../service/dbService'
-import { filterByYears } from './scriptUtils/aggDataUtil'
+import { filterByYears } from '../utils/aggregatedDataUtils'
 import { umiAvg, dispersionIndex, standardDeviation, expandCount, sumCount } from '../utils/calculate'
 
 readDataByYear('2016', 'aggregatedData', (aggregatedData) => {

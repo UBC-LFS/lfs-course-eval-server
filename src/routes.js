@@ -6,7 +6,8 @@ import {
   dataForUMIVSDispersion,
   dataForUMIInstructor,
   dataForFaculyAndDept,
-  dataForStats
+  dataForStats,
+  dataForOverview
 } from './service/dataService'
 
 require('dotenv').config()
@@ -52,7 +53,8 @@ routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
   dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
 })
 
-routes.get('/data/Overview', (req, res) => {
+routes.get('/overview/:year', (req, res) => {
+  dataForOverview(req.params.year).then(data => console.log(data))
   res.send({
     umi: 4.1,
     enrolment: 4000,
