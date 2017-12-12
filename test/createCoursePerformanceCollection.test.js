@@ -471,5 +471,6 @@ describe('addDeptData', () => {
         }
       }
     ]
+    assert.deepEqual(addDeptData(courses, deptAvg), output)
   })
 })
