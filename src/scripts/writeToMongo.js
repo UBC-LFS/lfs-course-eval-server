@@ -1,6 +1,7 @@
 import jsonfile from 'jsonfile'
 import assert from 'assert'
 import { writeToDB, clearCollection } from '../service/dbService'
+import * as collection from '../utils/constants'
 
 const clearAndWrite = (data, collectionName) => {
   clearCollection(collectionName)
@@ -9,30 +10,30 @@ const clearAndWrite = (data, collectionName) => {
 
 jsonfile.readFile('./output/aggregatedData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'aggregatedData')
+  clearAndWrite(data, collection.aggregatedData)
 })
 
 jsonfile.readFile('./output/coursePerformanceData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'CoursePerformance')
+  clearAndWrite(data, collection.coursePerformance)
 })
 
 jsonfile.readFile('./output/enrolmentTrendData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'EnrolmentTrend')
+  clearAndWrite(data, collection.enrolmentTrend)
 })
 
 jsonfile.readFile('./output/facultyAndDeptData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'facultyDeptData')
+  clearAndWrite(data, collection.facultyDeptData)
 })
 
 jsonfile.readFile('./output/overallInstructorData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'OverallInstructor')
+  clearAndWrite(data, collection.overallInstructor)
 })
 
 jsonfile.readFile('./output/UMIInstructorData.json', (err, data) => {
   assert.equal(null, err)
-  clearAndWrite(data, 'UMIInstructor')
+  clearAndWrite(data, collection.umiInstructor)
 })
