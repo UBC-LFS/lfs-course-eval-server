@@ -1,5 +1,5 @@
 import * as db from './dbService'
-import { 
+import {
   umiAvg,
   expandCount,
   standardDeviation,
@@ -7,10 +7,11 @@ import {
   percentFavourable,
   dispersionIndex
 } from '../utils/calculate'
+import * as collection from '../utils/constants'
 
 const dataForOverallInstructor = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('OverallInstructor', {}, (res) => {
+    db.readData(collection.overallInstructor, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -19,7 +20,7 @@ const dataForOverallInstructor = (year) => {
 
 const dataForUMIInstructor = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('UMIInstructor', {}, (res) => {
+    db.readData(collection.umiInstructor, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -27,7 +28,7 @@ const dataForUMIInstructor = (year) => {
 }
 const dataForCoursePerformance = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('CoursePerformance', {}, (res) => {
+    db.readData(collection.coursePerformance, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -36,7 +37,7 @@ const dataForCoursePerformance = (year) => {
 
 const dataForUMIVSDispersion = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('aggregatedData', {}, (res) => {
+    db.readData(collection.aggregatedData, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -45,7 +46,7 @@ const dataForUMIVSDispersion = (year) => {
 
 const dataForEnrolmentTrend = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('EnrolmentTrend', {}, (res) => {
+    db.readData(collection.enrolmentTrend, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -54,7 +55,7 @@ const dataForEnrolmentTrend = (year) => {
 
 const dataForFaculyAndDept = (year) => {
   return new Promise((resolve, reject) => {
-    db.readData('facultyDeptData', {}, (res) => {
+    db.readData(collection.facultyDeptData, {}, (res) => {
       if (res) resolve(res)
       else reject(Error('db returned no result'))
     })
@@ -75,9 +76,18 @@ const analyzeAggregatedData = (data) => {
 const dataForStats = (fromYear, toYear, dept) => {
   const conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
   return new Promise((resolve, reject) => {
-    db.readData('aggregatedData', conditions, (data) => {
+    db.readData(collection.aggregatedData, conditions, (data) => {
       if (data) resolve(analyzeAggregatedData(data))
       else reject(Error('db returned no result'))
+    })
+  })
+}
+
+const dataForOverview = () => {
+  const conditions = { year: 2017 }
+  return new Promise((resolve, reject) => {
+    db.readData(collection.aggregatedData, conditions, (data) => {
+      
     })
   })
 }

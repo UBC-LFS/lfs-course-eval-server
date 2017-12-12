@@ -1,0 +1,6 @@
+export const aggregatedData = 'aggregatedData'
+export const umiInstructor = 'UMIInstructor'
+export const overallInstructor = 'OverallInstructor'
+export const coursePerformance = 'CoursePerformance'
+export const enrolmentTrend = 'EnrolmentTrend'
+export const facultyDeptData = 'facultyDeptData'

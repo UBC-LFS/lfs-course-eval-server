@@ -289,7 +289,7 @@ describe('standardDeviation', () => {
     input = [1, 2]
     output = 0.5
     assert.deepEqual(calculate.standardDeviation(input), output)
-    
+
     input = [1, 2, 3, 4, 5]
     output = 1.41
     assert.deepEqual(calculate.standardDeviation(input), output)
