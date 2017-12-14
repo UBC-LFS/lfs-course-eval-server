@@ -10,7 +10,6 @@ import {
 } from '../utils/calculate'
 import { calculateEnrolment } from '../utils/aggregatedDataUtils'
 import * as collection from '../utils/constants'
-import R from 'ramda'
 
 const dataForOverallInstructor = year => {
   return new Promise((resolve, reject) => {
