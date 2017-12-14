@@ -89,7 +89,7 @@ const dataForStats = (fromYear, toYear, dept) => {
 const overviewStats = (year, data) => {
   const curYearSections = data.filter(section => section.year === Number(year))
   const prevYearSections = data.filter(section => section.year !== Number(year))
-  
+
   const curUMI6Count = sumCount(curYearSections.map(section => section.UMI6.count))
   const prevUMI6Count = sumCount(prevYearSections.map(section => section.UMI6.count))
   return {
