@@ -54,13 +54,7 @@ routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
 })
 
 routes.get('/overview/:year', (req, res) => {
-  dataForOverview(req.params.year).then(data => console.log(data))
-  res.send({
-    umi: 4.1,
-    enrolment: 4000,
-    responseRate: '71%',
-    sections: 100
-  })
+  dataForOverview(req.params.year).then(data => res.send(data))
 })
 
 routes.get('/list', (req, res, next) => {
