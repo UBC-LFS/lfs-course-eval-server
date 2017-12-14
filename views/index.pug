@@ -38,62 +38,78 @@ block content
       </div>
     </div>
   </div>
-
-  h2="High-Level Stats"
-  <div id="stats">
-    <select class="selectpicker" id="deptSelector" data-live-search="true"></select>
+  </div>
   </div>
 
-  h2="Faculty UMI6 Trend"
-  <div id="facultyUMILineChart">
-    <select class="selectpicker" id="UMIDeptFilter" name="UMIDeptFilter" multiple></select>
-    <select class="selectpicker" id="UMITermFilter" name="UMITermFilter" data-live-search="true"></select>
-    <canvas id="UMILineChartCanvas" height="450" width="800"></canvas>
+  //- h2="High-Level Stats"
+  //- <div id="stats">
+  //-   <select class="selectpicker" id="deptSelector" data-live-search="true"></select>
+  //- </div>
+
+  <div class="container-fluid">
+    h2="Faculty UMI6 Trend"
+    <div id="facultyUMILineChart">
+      <select class="selectpicker" id="UMIDeptFilter" name="UMIDeptFilter" multiple></select>
+      <select class="selectpicker" id="UMITermFilter" name="UMITermFilter" data-live-search="true"></select>
+      <canvas id="UMILineChartCanvas" height="450" width="800"></canvas>
+    </div>
   </div>
 
-  h2="Course Enrolment Trend"
-  <div id="enrolmentTrendLine">
-    <select class="selectpicker" id="enrolmentTrendCourse" data-live-search="true"></select>
-    <select class="selectpicker" id="enrolmentTrendTerm" data-live-search="true"></select>
+  <div class="container-fluid">
+    h2="Course Enrolment Trend"
+    <div id="enrolmentTrendLine">
+      <select class="selectpicker" id="enrolmentTrendCourse" data-live-search="true"></select>
+      <select class="selectpicker" id="enrolmentTrendTerm" data-live-search="true"></select>
+    </div>
   </div>
 
-  h2="Course Enrolment Line Chart"
-  <div id="enrolmentLineChart">
-    <select class="selectpicker" id="enrolmentCourse" data-live-search="true"></select>
-    <select class="selectpicker" id="enrolmentTerm" data-live-search="true"></select>
-    <canvas id="enrolmentLineChartCanvas" height="450" width="800"></canvas>
+  <div class="container-fluid">
+    h2="Course Enrolment Line Chart"
+    <div id="enrolmentLineChart">
+      <select class="selectpicker" id="enrolmentCourse" data-live-search="true"></select>
+      <select class="selectpicker" id="enrolmentTerm" data-live-search="true"></select>
+      <canvas id="enrolmentLineChartCanvas" height="450" width="800"></canvas>
+    </div>
   </div>
 
-  h2="umiVSDispersion"
-  <div id="UMIvsDispersionGraph">
-    <select class="selectpicker" id="umiVsDispersionDept" data-live-search="true"></select>
-    <select class="selectpicker" id="umiVsDispersionYear" data-live-search="true"></select>
-    <select class="selectpicker" id="umiVsDispersionTerm" data-live-search="true"></select>
-    <select class="selectpicker" id="umiVsDispersionUMI" data-live-search="true"></select>
-    <select class="selectpicker" id="umiVsDispersionBelowMin" data-live-search="true">
-      <option value="true">Remove Below Minimum</option>
-      <option value="false">Don't Remove Below Minimum</option>
+  <div class="container-fluid">
+    h2="umiVSDispersion"
+    <div id="UMIvsDispersionGraph">
+      <select class="selectpicker" id="umiVsDispersionDept" data-live-search="true"></select>
+      <select class="selectpicker" id="umiVsDispersionYear" data-live-search="true"></select>
+      <select class="selectpicker" id="umiVsDispersionTerm" data-live-search="true"></select>
+      <select class="selectpicker" id="umiVsDispersionUMI" data-live-search="true"></select>
+      <select class="selectpicker" id="umiVsDispersionBelowMin" data-live-search="true">
+        <option value="true">Remove Below Minimum</option>
+        <option value="false">Don't Remove Below Minimum</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    h2="overallInstructor"
+    <table id="OverallInstructors" class="display" cellspacing="0"></table>
+  </div>
+
+  <div class="container-fluid">
+    h2="umiInstructor"
+    <select id="umiInstructorFilter" class="selectpicker" data-live-search="true">
     </select>
+    <table id="UMIInstructors" class="display" cellspacing="0"></table>
   </div>
 
-  h2="overallInstructor"
-  <table id="OverallInstructors" class="display" cellspacing="0"></table>
-
-  h2="umiInstructor"
-  <select id="umiInstructorFilter" class="selectpicker" data-live-search="true">
-  </select>
-  <table id="UMIInstructors" class="display" cellspacing="0"></table>
-
-  h2="coursePerformance"
-  <select id="cpInstructorFilter" class="selectpicker" data-live-search="true">
-  </select>
-  <select id="cpQuestionFilter" class="selectpicker">
-    <option>UMI1</option>
-    <option>UMI2</option>
-    <option>UMI3</option>
-    <option>UMI4</option>
-    <option>UMI5</option>
-    <option>UMI6</option>
-  </select>
-  <table id="CoursePerformance" class="display" cellspacing="0"></table>
+  <div class="container-fluid">
+    h2="coursePerformance"
+    <select id="cpInstructorFilter" class="selectpicker" data-live-search="true">
+    </select>
+    <select id="cpQuestionFilter" class="selectpicker">
+      <option>UMI1</option>
+      <option>UMI2</option>
+      <option>UMI3</option>
+      <option>UMI4</option>
+      <option>UMI5</option>
+      <option>UMI6</option>
+    </select>
+    <table id="CoursePerformance" class="display" cellspacing="0"></table>
+    </div>
   </div>
