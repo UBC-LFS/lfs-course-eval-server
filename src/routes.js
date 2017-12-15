@@ -21,8 +21,26 @@ const removeIDs = (arr) => arr.map(x => {
 
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
-    res.render('index', { title: 'Courseval Visualization', append: '/courseval' })
-  } else res.render('index', { title: 'Courseval Visualization' })
+    res.render('index', { append: '/courseval' })
+  } else res.render('index')
+})
+
+routes.get('/course', (req, res) => {
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.render('course', { append: '/courseval' })
+  } else res.render('course')
+})
+
+routes.get('/instructor', (req, res) => {
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.render('instructor', { append: '/courseval' })
+  } else res.render('instructor')
+})
+
+routes.get('/export', (req, res) => {
+  if (process.env.BUILD === 'PRODUCTION') {
+    res.render('export', { append: '/courseval' })
+  } else res.render('export')
 })
 
 routes.get('/overview/UMIDispersion', (req, res) => {
