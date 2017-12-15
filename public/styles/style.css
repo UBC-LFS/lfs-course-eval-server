@@ -170,3 +170,7 @@ body {
   font-size: 40px;
   font-weight: 600;
 }
+
+.card-comparison {
+  text-align: center;
+}
