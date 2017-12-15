@@ -67,12 +67,12 @@ routes.get('/overview/FacultyDept', (req, res) => {
   dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/overview/:fromYear/:toYear/:dept', (req, res) => {
-  dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
-})
-
 routes.get('/overview/:year', (req, res) => {
   dataForOverview(req.params.year).then(data => res.send(data))
+})
+
+routes.get('/export/:fromYear/:toYear/:dept', (req, res) => {
+  dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
 })
 
 routes.get('/list', (req, res, next) => {
