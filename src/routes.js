@@ -25,31 +25,31 @@ routes.get('/', (req, res) => {
   } else res.render('index', { title: 'Courseval Visualization' })
 })
 
-routes.get('/data/UMIDispersion', (req, res) => {
+routes.get('/overview/UMIDispersion', (req, res) => {
   dataForUMIVSDispersion().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/UMIInstructor', (req, res) => {
+routes.get('/overview/UMIInstructor', (req, res) => {
   dataForUMIInstructor().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/OverallInstructor', (req, res) => {
+routes.get('/overview/OverallInstructor', (req, res) => {
   dataForOverallInstructor().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/CoursePerformance', (req, res) => {
+routes.get('/overview/CoursePerformance', (req, res) => {
   dataForCoursePerformance().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/EnrolmentTrend', (req, res) => {
+routes.get('/overview/EnrolmentTrend', (req, res) => {
   dataForEnrolmentTrend().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/FacultyDept', (req, res) => {
+routes.get('/overview/FacultyDept', (req, res) => {
   dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/data/:fromYear/:toYear/:dept', (req, res) => {
+routes.get('/overview/:fromYear/:toYear/:dept', (req, res) => {
   dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
 })
 
