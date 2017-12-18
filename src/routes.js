@@ -60,11 +60,11 @@ routes.get('/overview/FacultyDept', (req, res) => {
 })
 
 routes.get('/overview/Overview/:year', (req, res) => {
-  overviewDS.dataForOverview(req.params.year).then(data => res.send(data))
+  overviewDS.dataForOverview(req.params.year).then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/export/options', (req, res) => {
-  exportDS.dataForOverview().then(data => res.send(data))
+  exportDS.dataForOptions().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/export/:fromYear/:toYear/:dept', (req, res) => {
