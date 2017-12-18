@@ -2,7 +2,7 @@ import assert from 'assert'
 import jsonfile from 'jsonfile'
 import R from 'ramda'
 
-const createMetaData = json => ({
+const createMetaData = json => ([{
   years: R.uniq(json
     .map(section => section.year)
     .sort((a, b) => a - b)
@@ -11,7 +11,7 @@ const createMetaData = json => ({
     .map(section => section.dept)
     .sort()
   )
-})
+}])
 
 const outputMetaData = () => {
   jsonfile.readFile('./output/aggregatedData.json', (err, json) => {

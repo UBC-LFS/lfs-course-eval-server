@@ -38,7 +38,7 @@ jsonfile.readFile('./output/UMIInstructorData.json', (err, data) => {
   clearAndWrite(data, collection.umiInstructor)
 })
 
-// jsonfile.readFile('./output/metaData.json', (err, data) => {
-//   assert.equal(null, err)
-//   clearAndWrite(data, collection.metaData)
-// })
+jsonfile.readFile('./output/metaData.json', (err, data) => {
+  assert.equal(null, err)
+  clearAndWrite(data, collection.metaData)
+})

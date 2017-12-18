@@ -1,14 +1,6 @@
 import { Router } from 'express'
-import {
-  dataForEnrolmentTrend,
-  dataForOverallInstructor,
-  dataForCoursePerformance,
-  dataForUMIVSDispersion,
-  dataForUMIInstructor,
-  dataForFaculyAndDept,
-  dataForStats,
-  dataForOverview
-} from './service/overviewDataService'
+import * as overviewDS from './service/overviewDataService'
+import * as exportDS from './service/exportDataService'
 
 require('dotenv').config()
 
@@ -44,39 +36,39 @@ routes.get('/export', (req, res) => {
 })
 
 routes.get('/overview/UMIDispersion', (req, res) => {
-  dataForUMIVSDispersion().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForUMIVSDispersion().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/UMIInstructor', (req, res) => {
-  dataForUMIInstructor().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForUMIInstructor().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/OverallInstructor', (req, res) => {
-  dataForOverallInstructor().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForOverallInstructor().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/CoursePerformance', (req, res) => {
-  dataForCoursePerformance().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForCoursePerformance().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/EnrolmentTrend', (req, res) => {
-  dataForEnrolmentTrend().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForEnrolmentTrend().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/FacultyDept', (req, res) => {
-  dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
 })
 
 routes.get('/overview/Overview/:year', (req, res) => {
-  dataForOverview(req.params.year).then(data => res.send(data))
+  overviewDS.dataForOverview(req.params.year).then(data => res.send(data))
 })
 
 routes.get('/export/options', (req, res) => {
-
+  exportDS.dataForOverview().then(data => res.send(data))
 })
 
 routes.get('/export/:fromYear/:toYear/:dept', (req, res) => {
-  dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
+  exportDS.dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
 })
 
 routes.get('/list', (req, res, next) => {
