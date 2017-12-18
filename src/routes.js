@@ -68,7 +68,6 @@ routes.get('/overview/FacultyDept', (req, res) => {
 })
 
 routes.get('/overview/Overview/:year', (req, res) => {
-  console.log('hit overview')
   dataForOverview(req.params.year).then(data => res.send(data))
 })
 
