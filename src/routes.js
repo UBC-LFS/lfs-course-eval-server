@@ -67,7 +67,8 @@ routes.get('/overview/FacultyDept', (req, res) => {
   dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
 })
 
-routes.get('/overview/:year', (req, res) => {
+routes.get('/overview/Overview/:year', (req, res) => {
+  console.log('hit overview')
   dataForOverview(req.params.year).then(data => res.send(data))
 })
 
