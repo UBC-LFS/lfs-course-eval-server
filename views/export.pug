@@ -3,8 +3,13 @@ extends layout
 block content
   <div class="container-fluid">
     <p>Export Report</p>
-    input(type="text" id="export-from-year" placeholder="Start Year")
-    input(type="text" id="export-to-year" placeholder="End Year")
-    input(type="text" id="export-dept" placeholder="Dept")
-    button(id="export-button")
+    <div class="form-group">
+      <select id="export-from-year">
+      </select>
+      <select id="export-to-year">
+      </select>
+      <select id="export-dept">
+      </select>
+    <button type="button" class="btn btn-default" id="export-button">Get Data</button>
+    </div>
   </div>

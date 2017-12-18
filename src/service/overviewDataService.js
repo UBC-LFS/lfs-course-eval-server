@@ -2,10 +2,7 @@ import * as db from './dbService'
 import {
   umiAvg,
   expandCount,
-  standardDeviation,
   sumCount,
-  percentFavourable,
-  dispersionIndex,
   toTwoDecimal
 } from '../utils/calculate'
 import { calculateEnrolment } from '../utils/aggregatedDataUtils'
@@ -64,27 +61,6 @@ const dataForFaculyAndDept = year => {
   })
 }
 
-const analyzeAggregatedData = data => {
-  const UMI6Count = sumCount(data.map(section => section.UMI6.count))
-  return {
-    standardDeviation: standardDeviation(expandCount(UMI6Count)),
-    percentFavourable: percentFavourable(UMI6Count),
-    dispersionIndex: dispersionIndex(UMI6Count),
-    average: umiAvg(UMI6Count),
-    length: data.length
-  }
-}
-
-const dataForStats = (fromYear, toYear, dept) => {
-  const conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
-  return new Promise((resolve, reject) => {
-    db.readData(collection.aggregatedData, conditions, (data) => {
-      if (data) resolve(analyzeAggregatedData(data))
-      else reject(Error('db returned no result'))
-    })
-  })
-}
-
 const dataForOverview = (year) => {
   const conditions = { $or: [{ year: Number(year) }, { year: Number(year - 1) }] }
 
@@ -125,6 +101,5 @@ export {
     dataForCoursePerformance,
     dataForEnrolmentTrend,
     dataForFaculyAndDept,
-    dataForStats,
     dataForOverview
 }
