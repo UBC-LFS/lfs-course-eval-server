@@ -1,6 +1,6 @@
 /* global describe, it */
 import assert from 'assert'
-import { addDeptData, addDeptAndFacultyAvgIntoUMIInstructorData } from '../src/scripts/createCoursePerformanceCollection.js'
+import { addDeptData } from '../src/scripts/createCoursePerformanceCollection.js'
 
 describe('addDeptData', () => {
   let deptAvg = [

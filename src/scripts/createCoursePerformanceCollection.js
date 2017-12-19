@@ -16,12 +16,10 @@ const addDeptData = (courses, facultyDeptData) =>
 )
 
 const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
-  UMIData.map(instructor => {
-    return {
-      PUID: instructor.PUID,
-      Courses: addDeptData(instructor.Courses, facultyDeptData)
-    }
-  }
+  UMIData.map(instructor => ({
+    PUID: instructor.PUID,
+    Courses: addDeptData(instructor.Courses, facultyDeptData)
+  })
 )
 
 const outputCoursePerformance = cb => {
