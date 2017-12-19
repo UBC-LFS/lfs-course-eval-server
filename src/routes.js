@@ -8,8 +8,8 @@ const routes = Router()
 
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
-    res.render('index', { append: '/courseval' })
-  } else res.render('index')
+    res.render('overview', { append: '/courseval' })
+  } else res.render('overview')
 })
 
 routes.get('/course', (req, res) => {
@@ -78,7 +78,7 @@ routes.get('/list', (req, res, next) => {
     return
   }
 
-  res.render('index', { title })
+  res.render('overview', { title })
 })
 
 export default routes
