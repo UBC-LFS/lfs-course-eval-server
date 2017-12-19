@@ -6,11 +6,6 @@ require('dotenv').config()
 
 const routes = Router()
 
-const removeIDs = (arr) => arr.map(x => {
-  delete x['_id']
-  return x
-})
-
 routes.get('/', (req, res) => {
   if (process.env.BUILD === 'PRODUCTION') {
     res.render('index', { append: '/courseval' })
@@ -36,27 +31,27 @@ routes.get('/export', (req, res) => {
 })
 
 routes.get('/overview/UMIDispersion', (req, res) => {
-  overviewDS.dataForUMIVSDispersion().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForUMIVSDispersion().then(data => res.send(data))
 })
 
 routes.get('/overview/UMIInstructor', (req, res) => {
-  overviewDS.dataForUMIInstructor().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForUMIInstructor().then(data => res.send(data))
 })
 
 routes.get('/overview/OverallInstructor', (req, res) => {
-  overviewDS.dataForOverallInstructor().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForOverallInstructor().then(data => res.send(data))
 })
 
 routes.get('/overview/CoursePerformance', (req, res) => {
-  overviewDS.dataForCoursePerformance().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForCoursePerformance().then(data => res.send(data))
 })
 
 routes.get('/overview/EnrolmentTrend', (req, res) => {
-  overviewDS.dataForEnrolmentTrend().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForEnrolmentTrend().then(data => res.send(data))
 })
 
 routes.get('/overview/FacultyDept', (req, res) => {
-  overviewDS.dataForFaculyAndDept().then(data => res.send(removeIDs(data)))
+  overviewDS.dataForFaculyAndDept().then(data => res.send(data))
 })
 
 routes.get('/overview/Overview/:year', (req, res) => {
@@ -64,7 +59,7 @@ routes.get('/overview/Overview/:year', (req, res) => {
 })
 
 routes.get('/export/options', (req, res) => {
-  exportDS.dataForOptions().then(data => res.send(removeIDs(data)))
+  exportDS.dataForOptions().then(data => res.send(data))
 })
 
 routes.get('/export/:fromYear/:toYear/:dept', (req, res) => {

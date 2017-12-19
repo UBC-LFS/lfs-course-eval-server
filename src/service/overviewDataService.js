@@ -6,12 +6,13 @@ import {
   toTwoDecimal
 } from '../utils/calculate'
 import { calculateEnrolment } from '../utils/aggregatedDataUtils'
+import { removeIDs } from '../utils/filter'
 import * as collection from '../utils/constants'
 
 const dataForOverallInstructor = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.overallInstructor, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -20,7 +21,7 @@ const dataForOverallInstructor = year => {
 const dataForUMIInstructor = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.umiInstructor, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -28,7 +29,7 @@ const dataForUMIInstructor = year => {
 const dataForCoursePerformance = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.coursePerformance, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -37,7 +38,7 @@ const dataForCoursePerformance = year => {
 const dataForUMIVSDispersion = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -46,7 +47,7 @@ const dataForUMIVSDispersion = year => {
 const dataForEnrolmentTrend = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.enrolmentTrend, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -55,7 +56,7 @@ const dataForEnrolmentTrend = year => {
 const dataForFaculyAndDept = year => {
   return new Promise((resolve, reject) => {
     db.readData(collection.facultyDeptData, {}, (res) => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -88,7 +89,7 @@ const dataForOverview = (year) => {
 
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, conditions, (data) => {
-      if (data) resolve(overviewStats(year, data))
+      if (data) resolve(overviewStats(year, removeIDs(data)))
       else reject(Error('db returned no result'))
     })
   })
