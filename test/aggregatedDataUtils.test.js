@@ -27,6 +27,37 @@ describe('filterbByEnrolment', () => {
   })
 })
 
+describe('filterByYears', () => {
+  it('takes an array of sections and returns the sections filtered by specified by start and end years', () => {
+    let input = [
+      { year: 2000 },
+      { year: 2001 },
+      { year: 2002 },
+      { year: 2003 },
+      { year: 2004 }
+    ]
+    let output = [
+      { year: 2000 }
+    ]
+    assert.deepEqual(utils.filterByYears(2000, 2000)(input), output)
+
+    output = [
+      { year: 2003 },
+      { year: 2004 }
+    ]
+    assert.deepEqual(utils.filterByYears(2003, 2004)(input), output)
+    
+    output = [
+      { year: 2000 },
+      { year: 2001 },
+      { year: 2002 },
+      { year: 2003 },
+      { year: 2004 }
+    ]
+    assert.deepEqual(utils.filterByYears(2000, 2004)(input), output)
+  })
+})
+
 describe('calculateEnrolment', () => {
   it('takes an array of sections and returns the sum of the enrolments', () => {
     let input = [
