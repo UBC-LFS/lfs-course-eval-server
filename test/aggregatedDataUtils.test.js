@@ -16,6 +16,14 @@ describe('filterbByEnrolment', () => {
       { enrolment: 12 }
     ]
     assert.deepEqual(utils.filterByEnrolment(10, 12)(input), output)
+
+    output = [
+      { enrolment: 24 }
+    ]
+    assert.deepEqual(utils.filterByEnrolment(24, 100)(input), output)
+
+    output = []
+    assert.deepEqual(utils.filterByEnrolment(25, 100)(input), output)
   })
 })
 
