@@ -13,10 +13,6 @@ const avgByField = (arr, field) => {
   return parseFloat(R.mean(fieldArray)).toFixed(1)
 }
 
-const avg = arr => R.mean(arr)
-
-const median = arr => R.median(arr)
-
 const percentGender = (gender, arr) => {
   const countOfSpecifiedGender = arr.filter(x => x.gender === gender).length
   if (arr.length === 0) return 0
@@ -51,7 +47,6 @@ const dispersionIndex = count => {
   count = fillInMissingCounts(count)
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
-
   const dispersionObj = {}
 
   for (let i = 1; i <= 5; i++) {
@@ -74,7 +69,6 @@ const umiAvg = count => {
   count = fillInMissingCounts(count)
 
   const numberOfResponses = Object.keys(count).reduce((acc, curKey) => (acc += count[curKey]), 0)
-
   const UMITimesCount = Object.keys(count).reduce((acc, key) => (acc += count[key] * Number(key)), 0)
 
   return toTwoDecimal(UMITimesCount / numberOfResponses)
@@ -138,8 +132,6 @@ const meetsMinimum = (classSize, responseRate) => {
 }
 
 export {
-  avg,
-  median,
   percentGender,
   toTwoDecimal,
   dispersionIndex,
