@@ -175,6 +175,10 @@ body {
   text-align: center;
 }
 
-/* .container-fluid {
-  background-color: white;
-} */
+.fa-caret-up {
+  color: green;
+}
+
+.fa-caret-down {
+  color: red;
+}
