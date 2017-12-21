@@ -8,11 +8,12 @@ import {
   expandCount,
   umiAvg
 } from '../utils/calculate'
+import { removeIDs } from '../utils/filter'
 
 const dataForOptions = () => {
   return new Promise((resolve, reject) => {
     db.readData(collection.metaData, {}, res => {
-      if (res) resolve(res)
+      if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
   })
@@ -36,7 +37,7 @@ const dataForStats = ({fromYear, toYear, dept}) => {
 
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, conditions, (data) => {
-      if (data) resolve(analyzeAggregatedData(data))
+      if (data) resolve(analyzeAggregatedData(removeIDs(data)))
       else reject(Error('db returned no result'))
     })
   })

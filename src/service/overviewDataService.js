@@ -35,6 +35,15 @@ const dataForCoursePerformance = () => {
   })
 }
 
+const dataForUMIVSDispersionOptions = () => {
+  return new Promise((resolve, reject) => {
+    db.readData(collection.metaData, {}, (res) => {
+      if (res) resolve(removeIDs(res))
+      else reject(Error('db returned no result'))
+    })
+  })
+}
+
 const dataForUMIVSDispersion = ({ year, term, dept, UMI, meetsMin }) => {
   let conditions = { year: Number(year), term, dept, meetsMin: meetsMin === 'true' }
   if (term === 'all') delete conditions.term
@@ -102,6 +111,7 @@ const dataForOverview = year => {
 export {
     dataForOverallInstructor,
     dataForUMIVSDispersion,
+    dataForUMIVSDispersionOptions,
     dataForUMIInstructor,
     dataForCoursePerformance,
     dataForEnrolmentTrend,
