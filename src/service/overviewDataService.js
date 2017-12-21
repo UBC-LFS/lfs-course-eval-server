@@ -44,7 +44,7 @@ const dataForUMIVSDispersionOptions = () => {
   })
 }
 
-const dataForUMIVSDispersion = ({ year, term, dept, UMI, meetsMin }) => {
+const dataForUMIVSDispersion = ({ year, term, dept, meetsMin }) => {
   let conditions = { year: Number(year), term, dept, meetsMin: meetsMin === 'true' }
   if (term === 'all') delete conditions.term
   if (dept === 'all') delete conditions.dept
