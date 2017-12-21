@@ -21,8 +21,8 @@ const dataForOptions = () => {
 const dataForStats = ({fromYear, toYear, dept}) => {
   console.log('in dataForStats')
   let conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
-  console.log(conditions)
-  if (dept === 'all') conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) } }
+  if (dept === 'all') delete conditions.dept
+
   const analyzeAggregatedData = data => {
     const UMI6Count = sumCount(data.map(section => section.UMI6.count))
     return {
