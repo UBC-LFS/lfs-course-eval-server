@@ -7,6 +7,10 @@ const createMetaData = json => ([{
     .map(section => section.year)
     .sort((a, b) => a - b)
   ),
+  terms: R.uniq(json
+    .map(section => section.term)
+    .sort()
+  ),
   depts: R.uniq(json
     .map(section => section.dept)
     .sort()
