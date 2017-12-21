@@ -48,6 +48,7 @@ const dataForUMIVSDispersion = ({ year, term, dept, meetsMin }) => {
   let conditions = { year: Number(year), term, dept, meetsMin: meetsMin === 'true' }
   if (term === 'all') delete conditions.term
   if (dept === 'all') delete conditions.dept
+  if (meetsMin === 'false') delete conditions.meetsMin
 
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, conditions, (res) => {
