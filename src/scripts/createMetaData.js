@@ -10,6 +10,10 @@ const createMetaData = json => ([{
   depts: R.uniq(json
     .map(section => section.dept)
     .sort()
+  ),
+  instructors: R.uniq(json
+    .map(section => section.instructorName)
+    .sort()
   )
 }])
 
