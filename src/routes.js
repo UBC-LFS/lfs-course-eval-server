@@ -29,9 +29,14 @@ routes.get('/export', (req, res) => {
     res.render('export', { append: '/courseval' })
   } else res.render('export')
 })
-
-routes.get('/overview/UMIDispersion', (req, res) => {
-  overviewDS.dataForUMIVSDispersion().then(data => res.send(data))
+// old version
+// routes.get('/overview/UMIVsDispersion', (req, res) => {
+//   overviewDS.dataForUMIVSDispersion().then(data => res.send(data))
+// })
+// new version that dynamically fetches data depending on filter selection
+routes.get('/overview/UMIVsDispersion/:year/:term/:dept/:UMI/:meetsMin', (req, res) => {
+  console.log(req.params)
+  overviewDS.dataForUMIVSDispersion(req.params).then(data => res.send(data))
 })
 
 routes.get('/overview/UMIInstructor', (req, res) => {
@@ -63,7 +68,7 @@ routes.get('/export/options', (req, res) => {
 })
 
 routes.get('/export/:fromYear/:toYear/:dept', (req, res) => {
-  exportDS.dataForStats(req.params.fromYear, req.params.toYear, req.params.dept).then(data => res.send(data))
+  exportDS.dataForStats(req.params).then(data => res.send(data))
 })
 
 routes.get('/list', (req, res, next) => {

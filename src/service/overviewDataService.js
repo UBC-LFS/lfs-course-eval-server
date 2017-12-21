@@ -9,7 +9,7 @@ import { calculateEnrolment } from '../utils/aggregatedDataUtils'
 import { removeIDs } from '../utils/filter'
 import * as collection from '../utils/constants'
 
-const dataForOverallInstructor = year => {
+const dataForOverallInstructor = () => {
   return new Promise((resolve, reject) => {
     db.readData(collection.overallInstructor, {}, (res) => {
       if (res) resolve(removeIDs(res))
@@ -18,7 +18,7 @@ const dataForOverallInstructor = year => {
   })
 }
 
-const dataForUMIInstructor = year => {
+const dataForUMIInstructor = () => {
   return new Promise((resolve, reject) => {
     db.readData(collection.umiInstructor, {}, (res) => {
       if (res) resolve(removeIDs(res))
@@ -26,7 +26,7 @@ const dataForUMIInstructor = year => {
     })
   })
 }
-const dataForCoursePerformance = year => {
+const dataForCoursePerformance = () => {
   return new Promise((resolve, reject) => {
     db.readData(collection.coursePerformance, {}, (res) => {
       if (res) resolve(removeIDs(res))
@@ -35,9 +35,13 @@ const dataForCoursePerformance = year => {
   })
 }
 
-const dataForUMIVSDispersion = year => {
+const dataForUMIVSDispersion = ({ year, term, dept, UMI, meetsMin }) => {
+  let conditions = { year: Number(year), term, dept, meetsMin: meetsMin === 'true' }
+  if (term === 'all') delete conditions.term
+  if (dept === 'all') delete conditions.dept
+
   return new Promise((resolve, reject) => {
-    db.readData(collection.aggregatedData, {}, (res) => {
+    db.readData(collection.aggregatedData, conditions, (res) => {
       if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })
@@ -62,7 +66,7 @@ const dataForFaculyAndDept = year => {
   })
 }
 
-const dataForOverview = (year) => {
+const dataForOverview = year => {
   const conditions = { $or: [{ year: Number(year) }, { year: Number(year - 1) }] }
 
   const overviewStats = (year, data) => {
