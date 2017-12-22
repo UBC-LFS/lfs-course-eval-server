@@ -4,6 +4,7 @@ import assert from 'assert'
 import R from 'ramda'
 import readCSV from '../service/readCSV'
 import jsonfile from 'jsonfile'
+import * as collection from '../utils/constants'
 
 const getProperties = ev => ({
   year: getFromCSV.getYear(ev),
@@ -220,7 +221,7 @@ const outputAggregatedData = cb => {
         })
       })
       if (errorCheck(courseObjs)) {
-        const file = './output/aggregatedData.json'
+        const file = './output/' + collection.aggregatedData + '.json'
         jsonfile.writeFile(file, courseObjs, (err) => {
           assert.equal(err, null)
           cb()

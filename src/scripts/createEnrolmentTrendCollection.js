@@ -1,6 +1,7 @@
 import assert from 'assert'
 import jsonfile from 'jsonfile'
 import R from 'ramda'
+import * as collection from '../utils/constants'
 
 const sumEnrolment = courseRecord =>
   R.reduce((acc, record) => (acc + record.enrolment), 0, courseRecord.CourseSections)
@@ -38,10 +39,10 @@ const aggregateEnrolmentByCourse = data => {
 }
 
 const outputEnrolmentTrendData = () => {
-  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+  jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, json) => {
     assert.equal(null, err)
     const result = aggregateEnrolmentByCourse(json)
-    const file = './output/enrolmentTrendData.json'
+    const file = './output/' + collection.enrolmentTrend + '.json'
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
   })
 }

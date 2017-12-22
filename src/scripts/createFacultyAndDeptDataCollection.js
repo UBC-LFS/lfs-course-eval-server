@@ -2,6 +2,7 @@ import R from 'ramda'
 import { umiAvg } from '../utils/calculate'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
+import * as collection from '../utils/constants'
 
 const createAverage = data => {
   const depts = R.uniq(data.map(x => x.dept))
@@ -59,9 +60,9 @@ const createAverage = data => {
 }
 
 const outputFacultyDeptData = cb => {
-  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+  jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, json) => {
     assert.equal(null, err)
-    const file = './output/facultyAndDeptData.json'
+    const file = './output/' + collection.facultyDeptData + '.json'
     const result = createAverage(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
     cb()

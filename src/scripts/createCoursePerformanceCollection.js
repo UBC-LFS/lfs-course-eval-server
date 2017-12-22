@@ -1,5 +1,6 @@
 import jsonfile from 'jsonfile'
 import assert from 'assert'
+import * as collection from '../utils/constants'
 
 const addDeptData = (courses, facultyDeptData) =>
   courses.map(course => {
@@ -23,12 +24,12 @@ const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
 )
 
 const outputCoursePerformance = cb => {
-  jsonfile.readFile('./output/UMIInstructorData.json', (err, UMIData) => {
+  jsonfile.readFile('./output/' + collection.umiInstructor + '.json', (err, UMIData) => {
     assert.equal(null, err)
-    jsonfile.readFile('./output/facultyAndDeptData.json', (err, facultyDeptData) => {
+    jsonfile.readFile('./output/' + collection.facultyDeptData + '.json', (err, facultyDeptData) => {
       assert.equal(null, err)
       const result = addDeptAndFacultyAvgIntoUMIInstructorData(UMIData, facultyDeptData)
-      const file = './output/coursePerformanceData.json'
+      const file = './output/' + collection.coursePerformance + '.json'
       jsonfile.writeFile(file, result, (err) => assert.equal(err, null))
       cb()
     })
