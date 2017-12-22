@@ -2,6 +2,7 @@ import R from 'ramda'
 import assert from 'assert'
 import jsonfile from 'jsonfile'
 import * as calculate from '../utils/calculate'
+import * as collection from '../utils/constants'
 
 const sumCount = (umi, val, classes) =>
   R.reduce((acc, record) => (acc + record[umi].count[val]), 0, classes)
@@ -60,9 +61,9 @@ const aggregateOverallInstructor = data => {
 }
 
 const outputOverallInstructorData = () => {
-  jsonfile.readFile('./output/aggregatedData.json', (err, json) => {
+  jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, json) => {
     assert.equal(null, err)
-    const file = './output/overallInstructorData.json'
+    const file = './output/' + collection.overallInstructor + '.json'
     const result = aggregateOverallInstructor(json)
     jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
   })
