@@ -1,4 +1,4 @@
-const removeIDs = (arr) => arr.map(x => {
+const removeIDs = arr => arr.map(x => {
   delete x['_id']
   return x
 })

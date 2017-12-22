@@ -30,7 +30,7 @@ const outputCoursePerformance = cb => {
       assert.equal(null, err)
       const result = addDeptAndFacultyAvgIntoUMIInstructorData(UMIData, facultyDeptData)
       const file = './output/' + collection.coursePerformance + '.json'
-      jsonfile.writeFile(file, result, (err) => assert.equal(err, null))
+      jsonfile.writeFile(file, result, err => assert.equal(err, null))
       cb()
     })
   })
