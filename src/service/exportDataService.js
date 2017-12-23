@@ -36,7 +36,7 @@ const dataForStats = ({fromYear, toYear, dept}) => {
   }
 
   return new Promise((resolve, reject) => {
-    db.readData(collection.aggregatedData, conditions, (data) => {
+    db.readData(collection.aggregatedData, conditions, data => {
       if (data) resolve(analyzeAggregatedData(removeIDs(data)))
       else reject(Error('db returned no result'))
     })

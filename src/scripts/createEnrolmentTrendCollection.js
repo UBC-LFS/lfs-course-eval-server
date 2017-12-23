@@ -43,7 +43,7 @@ const outputEnrolmentTrendData = () => {
     assert.equal(null, err)
     const result = aggregateEnrolmentByCourse(json)
     const file = './output/' + collection.enrolmentTrend + '.json'
-    jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+    jsonfile.writeFile(file, result, err => assert.equal(null, err))
   })
 }
 

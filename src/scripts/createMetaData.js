@@ -27,7 +27,7 @@ const outputMetaData = () => {
     assert.equal(null, err)
     const metaData = createMetaData(json)
     const file = './output/' + collection.metaData + '.json'
-    jsonfile.writeFile(file, metaData, (err) => assert.equal(null, err))
+    jsonfile.writeFile(file, metaData, err => assert.equal(null, err))
   })
 }
 

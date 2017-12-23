@@ -102,7 +102,7 @@ const dataForOverview = year => {
   }
 
   return new Promise((resolve, reject) => {
-    db.readData(collection.aggregatedData, conditions, (data) => {
+    db.readData(collection.aggregatedData, conditions, data => {
       if (data) resolve(overviewStats(year, removeIDs(data)))
       else reject(Error('db returned no result'))
     })
