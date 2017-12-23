@@ -35,7 +35,7 @@ const dataForCoursePerformance = () => {
   })
 }
 
-const dataForUMIVSDispersionOptions = () => {
+const dataForOptions = () => {
   return new Promise((resolve, reject) => {
     db.readData(collection.metaData, {}, (res) => {
       if (res) resolve(removeIDs(res))
@@ -112,7 +112,7 @@ const dataForOverview = year => {
 export {
     dataForOverallInstructor,
     dataForUMIVSDispersion,
-    dataForUMIVSDispersionOptions,
+    dataForOptions,
     dataForUMIInstructor,
     dataForCoursePerformance,
     dataForEnrolmentTrend,

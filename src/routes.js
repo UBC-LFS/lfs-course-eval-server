@@ -38,8 +38,8 @@ routes.get('/overview/UMIVsDispersion/:year/:term/:dept/:meetsMin', (req, res) =
   overviewDS.dataForUMIVSDispersion(req.params).then(data => res.send(data))
 })
 
-routes.get('/overview/UMIVsDispersion/options', (req, res) => {
-  overviewDS.dataForUMIVSDispersionOptions().then(data => res.send(data))
+routes.get('/overview/options', (req, res) => {
+  overviewDS.dataForOptions().then(data => res.send(data))
 })
 
 routes.get('/overview/UMIInstructor', (req, res) => {
