@@ -182,3 +182,6 @@ body {
 .fa-caret-down {
   color: red;
 }
+
+.align-left{ float: left;width:50%; }
+.align-right{float: right;width:50%}

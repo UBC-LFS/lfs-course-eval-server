@@ -1,6 +1,51 @@
 extends layout
 
 block content
+  <div class="container-fluid" align="right">
+    <label> Select an Instructor:
+      <select id="instructor-select" class="selectpicker">
+      </select>
+    </label>
+  </div>
   <div class="container-fluid">
-    <p>Instructor page!</p>
+  <div class="row">
+    <h2 id="instructor-title" style="text-align: center">Instructor Overview</h2>
+      <div class="col-md-3">
+        <div class="card"> 
+          <div class="card-block">
+            <h4 class="card-title">Mean UMI6</h4>
+            <div class="card-stats" id="instructor-umi"></div>
+            <div class="card-comparison"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card"> 
+          <div class="card-block">
+            <h4 class="card-title">Percent Favourable</h4>
+            <div class="card-stats" id="instructor-pf"></div>
+            <div class="card-comparison"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card"> 
+          <div class="card-block">
+            <h4 class="card-title">Number of Courses Taught</h4>
+            <div class="card-stats" id="instructor-courses-count"></div>
+            <div class="card-comparison"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card"> 
+          <div class="card-block">
+            <h4 class="card-title">Number of Students Taught</h4>
+            <div class="card-stats" id="instructor-students-count"></div>
+            <div class="card-comparison"></div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
   </div>
