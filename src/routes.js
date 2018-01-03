@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import * as overviewDS from './service/overviewDataService'
 import * as exportDS from './service/exportDataService'
+import * as instructorDS from './service/instructorDataService'
+
 
 require('dotenv').config()
 
@@ -64,6 +66,10 @@ routes.get('/overview/FacultyDept', (req, res) => {
 
 routes.get('/overview/Overview/:year', (req, res) => {
   overviewDS.dataForOverview(req.params.year).then(data => res.send(data))
+})
+
+routes.get('/instructor/instructorOverview/:instructor', (req, res) => {
+  instructorDS.dataForOverview(req.params.instructor).then(data => res.send(data))
 })
 
 routes.get('/export/options', (req, res) => {
