@@ -17,8 +17,8 @@ const createMetaData = json => ([{
     .sort()
   ),
   instructors: R.uniq(json
-    .map(section => section.instructorName)
-    .sort()
+    .map(section => ({ name: section.instructorName, PUID: section.PUID }))
+    .sort((a, b) => a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)
   )
 }])
 
