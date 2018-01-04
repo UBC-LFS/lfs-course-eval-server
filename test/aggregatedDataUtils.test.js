@@ -46,7 +46,7 @@ describe('filterByYears', () => {
       { year: 2004 }
     ]
     assert.deepEqual(utils.filterByYears(2003, 2004)(input), output)
-    
+
     output = [
       { year: 2000 },
       { year: 2001 },
