@@ -30,11 +30,7 @@ routes.get('/export', (req, res) => {
     res.render('export', { append: '/courseval' })
   } else res.render('export')
 })
-// old version
-// routes.get('/overview/UMIVsDispersion', (req, res) => {
-//   overviewDS.dataForUMIVSDispersion().then(data => res.send(data))
-// })
-// new version that dynamically fetches data depending on filter selection
+
 routes.get('/overview/UMIVsDispersion/:year/:term/:dept/:meetsMin', (req, res) => {
   overviewDS.dataForUMIVSDispersion(req.params).then(data => res.send(data))
 })
