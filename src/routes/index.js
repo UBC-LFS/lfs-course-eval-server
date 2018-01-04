@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import * as overviewDS from './service/overviewDataService'
-import * as exportDS from './service/exportDataService'
-import * as instructorDS from './service/instructorDataService'
+import * as overviewDS from '../service/overviewDataService'
+import * as exportDS from '../service/exportDataService'
+import * as instructorDS from '../service/instructorDataService'
 
 require('dotenv').config()
 
