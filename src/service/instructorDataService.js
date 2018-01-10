@@ -8,7 +8,6 @@ import {
 } from '../utils/calculate'
 import R from 'ramda'
 
-<<<<<<< HEAD
 const sumEnrolment = classes =>
     R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
 
@@ -43,14 +42,6 @@ const dataForOverview = (instructor, year) => {
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, condition, data => {
       if (data) resolve(overviewStats(year, removeIDs(data)))
-=======
-const dataForOverview = instructor => {
-  const condition = { 'instructorName': instructor }
-
-  return new Promise((resolve, reject) => {
-    db.readData(collection.overallInstructor, condition, data => {
-      if (data) resolve(removeIDs(data))
->>>>>>> e3c6b58aebb76a7ccd8e164531536815bddda721
       else reject(Error('db returned no result'))
     })
   })
