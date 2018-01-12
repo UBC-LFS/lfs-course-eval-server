@@ -11,9 +11,9 @@ import R from 'ramda'
 const sumEnrolment = classes =>
     R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
 
-const dataForOverview = (instructor, year) => {
+const dataForOverview = (puid, year) => {
   const condition = {
-    $and: [{ 'instructorName': instructor },
+    $and: [{ 'PUID': puid },
         { $or: [{ year: Number(year) }, { year: Number(year - 1) }] }]
   }
 

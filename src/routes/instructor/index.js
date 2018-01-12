@@ -9,8 +9,8 @@ routes.get('/', (req, res) => {
   } else res.render('instructor')
 })
 
-routes.get('/instructorOverview/:instructor', (req, res) => {
-  instructorDS.dataForOverview(req.params.instructor).then(data => res.send(data))
+routes.get('/instructorOverview/:puid/:year', (req, res) => {
+  instructorDS.dataForOverview(req.params.puid, req.params.year).then(data => res.send(data))
 })
 
 export default routes
