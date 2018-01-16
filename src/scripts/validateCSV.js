@@ -7,7 +7,10 @@ readCSV('../scripts/source/rawDataAll.csv', csv => {
   const noDeptMatch = csv.filter(ev => {
     return getFromCSV.getDept(ev) !== getFromCSV.getCourse(ev).split(' ')[0]
   })
-  console.log(noDeptMatch)
+  const allTerms = R.uniq(
+    csv.map(ev => getFromCSV.getTerm(ev))
+  )
+  console.log(allTerms)
 })
 
 const errorCheck = courseObjs => {

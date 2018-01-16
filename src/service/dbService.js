@@ -14,7 +14,7 @@ const insertDocuments = (db, dataToWrite, src, cb) => {
 
 const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
-  insertDocuments(db, dataToWrite, src, (result) => {
+  insertDocuments(db, dataToWrite, src, result => {
     db.close()
   })
   db.close()
