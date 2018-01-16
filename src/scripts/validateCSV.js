@@ -7,7 +7,10 @@ const checkCourseCodeAndDeptMatch = csv =>
   csv.filter(ev => R.not(getFromCSV.getDeptFromCourseNum(ev).includes(getFromCSV.getDept(ev))))
 
 readCSV('../scripts/source/rawDataAll.csv', csv => {
-  console.log(checkCourseCodeAndDeptMatch(csv))
+  const courseCodeDeptMatch = checkCourseCodeAndDeptMatch(csv)
+  if (courseCodeDeptMatch.length > 0) {
+    console.log('The course numbers and the departments of the following courses do not match', courseCodeDeptMatch.map(x => [x.crsnum, x.deptname]))
+  }
 })
 
 // const errorCheck = courseObjs => {
