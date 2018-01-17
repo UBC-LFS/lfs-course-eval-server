@@ -6,16 +6,40 @@ const byYearThenTerm = arr => {
     'S1': 0,
     'SA': 1,
     'S2': 2,
-    'W1': 3,
-    'WA': 4,
-    'W2': 5,
-    'WC': 6
+    'S': 3,
+    'W1': 4,
+    'WA': 5,
+    'W2': 6,
+    'WC': 7,
+    'W': 8
   }
   return R.sort((a, b) => {
     if (get.sliceYear(a) === get.sliceYear(b)) {
       return (order[get.sliceTerm(a)] < order[get.sliceTerm(b)]) ? -1
            : (order[get.sliceTerm(a)] > order[get.sliceTerm(b)]) ? 1 : 0
     } else return (get.sliceYear(a) < get.sliceYear(b) ? -1 : 1)
+  }, arr)
+}
+
+const sortByYearTerm = arr => {
+  const order = {
+    'S1': 0,
+    'SA': 1,
+    'S2': 2,
+    'S': 3,
+    'W1': 4,
+    'WA': 5,
+    'W2': 6,
+    'WC': 7,
+    'W': 8
+  }
+  return R.sort((a, b) => {
+    if (a.yearTerm.slice(0, 4) === b.yearTerm.slice(0, 4)) {
+      return (order[a.yearTerm.slice(4, 6)] < order[b.yearTerm.slice(4, 6)]) ? -1
+        : (order[a.yearTerm.slice(4, 6)] > order[b.yearTerm.slice(4, 6)]) ? 1 : 0
+    } else {
+      return (a.yearTerm.slice(0, 4) < b.yearTerm.slice(0, 4) ? -1 : 1)
+    }
   }, arr)
 }
 
@@ -29,5 +53,6 @@ const byInstructorLastName = arr => arr.sort((a, b) => {
 
 export {
     byYearThenTerm,
-    byInstructorLastName
+    byInstructorLastName,
+    sortByYearTerm
 }
