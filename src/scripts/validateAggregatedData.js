@@ -7,5 +7,4 @@ const checkForEnrolmentsThatAreNotNumbers = data => data.filter(section => !Numb
 
 jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data) => {
   assert.equal(null, err)
-  
 })

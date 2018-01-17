@@ -11,6 +11,7 @@ readCSV('../scripts/source/rawDataAll.csv', csv => {
   if (courseCodeDeptMatch.length > 0) {
     console.log('The course numbers and the departments of the following courses do not match', courseCodeDeptMatch.map(x => [x.crsnum, x.deptname]))
   }
+  console.log(csv[0])
 })
 
 // const errorCheck = courseObjs => {
