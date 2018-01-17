@@ -24,6 +24,14 @@ const getSection = ev => {
   return arr[length - 1]
 }
 
+const getDeptFromCourseNum = ev => {
+  const course = getCourse(ev)
+  if (course.split(' ')[1].length === 3) {
+    return [course.split(' ')[0]]
+  }
+  return [course.split(' ')[0], course.split(' ')[1].split('/')[1]]
+}
+
 const getCourseName = ev => ev.crsname
 
 const getCourseLevel = ev => ev.crsyear
@@ -99,5 +107,6 @@ export {
   getEnrolmentTerm,
   getUniqYears,
   getUniqTerms,
-  getUniqDepts
+  getUniqDepts,
+  getDeptFromCourseNum
 }

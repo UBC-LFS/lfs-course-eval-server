@@ -4,8 +4,7 @@ import { writeToDB, clearCollection } from '../service/dbService'
 import * as collection from '../utils/constants'
 
 const clearAndWrite = (data, collectionName) => {
-  clearCollection(collectionName)
-  writeToDB(data, collectionName)
+  clearCollection(collectionName, () => writeToDB(data, collectionName))
 }
 
 jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data) => {

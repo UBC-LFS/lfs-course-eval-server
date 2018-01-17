@@ -37,7 +37,7 @@ const dataForCoursePerformance = () => {
 
 const dataForOptions = () => {
   return new Promise((resolve, reject) => {
-    db.readData(collection.metaData, {}, (res) => {
+    db.readData(collection.metaData, {}, res => {
       if (res) resolve(removeIDs(res))
       else reject(Error('db returned no result'))
     })

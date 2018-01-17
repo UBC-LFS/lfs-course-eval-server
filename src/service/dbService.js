@@ -14,7 +14,7 @@ const insertDocuments = (db, dataToWrite, src, cb) => {
 
 const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
-  insertDocuments(db, dataToWrite, src, (result) => {
+  insertDocuments(db, dataToWrite, src, result => {
     db.close()
   })
   db.close()
@@ -30,12 +30,13 @@ const readData = (collectionName, conditions, cb) => MongoClient.connect(url, (e
   })
 })
 
-const clearCollection = name => MongoClient.connect(url, (err, db) => {
+const clearCollection = (name, cb) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
   const collection = db.collection(name)
   collection.remove({}, (err, result) => {
     assert.equal(null, err)
     db.close()
+    cb()
   })
 })
 
