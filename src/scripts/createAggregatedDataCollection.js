@@ -183,9 +183,6 @@ const outputAggregatedData = cb => {
           }
         })
       })
-      const tmpFile = './output/FNHdata.json'
-      jsonfile.writeFile(tmpFile, courseObjs.filter(section => section.dept === 'FNH', err => assert.equal(err, null)))
-
       const file = './output/' + collection.aggregatedData + '.json'
       jsonfile.writeFile(file, courseObjs, (err) => {
         assert.equal(err, null)
