@@ -2,7 +2,6 @@ import { Router } from 'express'
 import overview from './overview'
 import exportReport from './exportReport'
 import instructor from './instructor'
-import course from './course'
 
 require('dotenv').config()
 
@@ -13,8 +12,6 @@ routes.get('/', (req, res) => {
     res.render('overview', { append: '/courseval' })
   } else res.render('overview')
 })
-
-routes.use('/course', course)
 
 routes.use('/overview', overview)
 
