@@ -4,7 +4,7 @@ To show in mongo:
 
 First start mongo
 
-`mongod`
+`sudo mongod`
 
 Then use courseval db
 
