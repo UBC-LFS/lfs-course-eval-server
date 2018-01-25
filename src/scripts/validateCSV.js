@@ -1,7 +1,6 @@
 import R from 'ramda'
 import readCSV from '../service/readCSV'
 import * as getFromCSV from './scriptUtils/getFromCSV'
-import assert from 'assert'
 
 const checkCourseCodeAndDeptMatch = csv =>
   csv.filter(ev => R.not(getFromCSV.getDeptFromCourseNum(ev).includes(getFromCSV.getDept(ev))))
