@@ -6,12 +6,20 @@ import assert from 'assert'
 const checkCourseCodeAndDeptMatch = csv =>
   csv.filter(ev => R.not(getFromCSV.getDeptFromCourseNum(ev).includes(getFromCSV.getDept(ev))))
 
+const checkDept = csv => {
+  const dept = ['APBI', 'ECON', 'FNH', 'FOOD', 'FRE', 'GRS', 'HUNU', 'LFS', 'PLNT', 'RMES', 'SOIL']
+  return csv.filter(ev => !dept.includes(ev.deptname)).map(ev => ev.deptname)
+}
+
 readCSV('../scripts/source/rawDataAll.csv', csv => {
   const courseCodeDeptMatch = checkCourseCodeAndDeptMatch(csv)
   if (courseCodeDeptMatch.length > 0) {
     console.log('The course numbers and the departments of the following courses do not match', courseCodeDeptMatch.map(x => [x.crsnum, x.deptname]))
   }
-  console.log(csv[0])
+  const depts = checkDept(csv)
+  if (checkDept.length > 0) {
+    console.log('There are unexpected Depts included in the CSV', depts)
+  }
 })
 
 // const errorCheck = courseObjs => {
