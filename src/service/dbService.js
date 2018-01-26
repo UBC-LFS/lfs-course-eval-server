@@ -17,7 +17,6 @@ const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
   insertDocuments(db, dataToWrite, src, result => {
     db.close()
   })
-  db.close()
 })
 
 const readData = (collectionName, conditions, cb) => MongoClient.connect(url, (err, db) => {

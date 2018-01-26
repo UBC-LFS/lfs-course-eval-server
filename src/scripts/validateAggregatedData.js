@@ -14,6 +14,28 @@ const checkForOnePUID = data => {
   }
   return false
 }
+const checkMissingProperties = data => data.filter(section => {
+  return R.not(section.hasOwnProperty('PUID') &&
+    section.hasOwnProperty('UMI1') &&
+    section.hasOwnProperty('UMI1') &&
+    section.hasOwnProperty('UMI2') &&
+    section.hasOwnProperty('UMI3') &&
+    section.hasOwnProperty('UMI4') &&
+    section.hasOwnProperty('UMI5') &&
+    section.hasOwnProperty('UMI6') &&
+    section.hasOwnProperty('course') &&
+    section.hasOwnProperty('courseLevel') &&
+    section.hasOwnProperty('courseName') &&
+    section.hasOwnProperty('dept') &&
+    section.hasOwnProperty('enrolment') &&
+    section.hasOwnProperty('gender') &&
+    section.hasOwnProperty('instructorName') &&
+    section.hasOwnProperty('meetsMin') &&
+    section.hasOwnProperty('responseRate') &&
+    section.hasOwnProperty('section') &&
+    section.hasOwnProperty('term') &&
+    section.hasOwnProperty('year'))
+})
 
 jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data) => {
   assert.equal(null, err)
@@ -21,8 +43,10 @@ jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data)
   const missingEnrolments = checkForMissingEnrolments(data)
   const NaNEnrolments = checkForEnrolmentsThatAreNotNumbers(data)
   const onePUID = checkForOnePUID(data)
+  const missingProperties = checkMissingProperties(data)
 
   if (missingEnrolments.length > 0 || NaNEnrolments.length > 0) console.log('These courses are missing enrolment information: ', missingEnrolments, NaNEnrolments)
   if (onePUID) console.log('The following instructors has multiple PUIDs: ', onePUID)
+  if (missingProperties.length > 0) console.log('These courses are missing some properties', missingProperties)
   else console.log('No errors were detected!')
 })

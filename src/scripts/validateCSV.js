@@ -16,7 +16,7 @@ readCSV('../scripts/source/rawDataAll.csv', csv => {
     console.log('The course numbers and the departments of the following courses do not match', courseCodeDeptMatch.map(x => [x.crsnum, x.deptname]))
   }
   const depts = checkDept(csv)
-  if (checkDept.length > 0) {
+  if (depts.length > 0) {
     console.log('There are unexpected Depts included in the CSV', depts)
   }
 })
