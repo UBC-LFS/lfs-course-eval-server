@@ -18,7 +18,6 @@ const createMetaData = json => {
     const instructor = R.prop(instructorArray[i].PUID, groupInstructorsBySections)
     instructorArray[i].terms = sort.byYearThenTerm(R.uniq(instructor.map(x => x.year + x.term)))
   }
-  console.log(instructorArray)
   return ([{
     years: R.uniq(json
       .map(section => section.year)

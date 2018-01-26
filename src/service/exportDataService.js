@@ -20,7 +20,6 @@ const dataForOptions = () => {
 }
 
 const dataForStats = ({fromYear, toYear, dept}) => {
-  console.log('in dataForStats')
   let conditions = { year: { $gte: Number(fromYear), $lte: Number(toYear) }, dept: dept }
   if (dept === 'all') delete conditions.dept
 

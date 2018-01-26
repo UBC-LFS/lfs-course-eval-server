@@ -1,6 +1,7 @@
 import jsonfile from 'jsonfile'
 import * as collection from '../utils/constants'
 import R from 'ramda'
+import assert from 'assert'
 
 const checkForMissingEnrolments = data => data.filter(section => !section.hasOwnProperty('enrolment'))
 const checkForEnrolmentsThatAreNotNumbers = data => data.filter(section => !Number.isInteger(section.enrolment))
@@ -23,5 +24,5 @@ jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data)
 
   if (missingEnrolments.length > 0 || NaNEnrolments.length > 0) console.log('These courses are missing enrolment information: ', missingEnrolments, NaNEnrolments)
   if (onePUID) console.log('The following instructors has multiple PUIDs: ', onePUID)
-
+  else console.log('No errors were detected!')
 })
