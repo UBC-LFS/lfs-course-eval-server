@@ -3,6 +3,8 @@ import * as collection from '../utils/constants'
 import R from 'ramda'
 import assert from 'assert'
 
+const notBetween0and1 = number => R.not(number >= 0 && number <= 1)
+
 const checkForMissingEnrolments = data => data.filter(section => !section.hasOwnProperty('enrolment'))
 const checkForEnrolmentsThatAreNotNumbers = data => data.filter(section => !Number.isInteger(section.enrolment))
 const checkForOnePUID = data => {
@@ -37,7 +39,8 @@ const checkMissingProperties = data => data.filter(section => {
     section.hasOwnProperty('year'))
 })
 
-const checkResponseRate = data => data.filter(section => section.responseRate <= 0 || section.responseRate > 1)
+const checkResponseRate = data => data.filter(section => notBetween0and1(section.responseRate))
+const checkDispersion = UMIs => UMIs.filter(UMI => notBetween0and1(UMI.dispersionIndex) || notBetween0and1(UMI.percentFavourable) || notBetween0and1(UMI.percentileRankingByDept) || notBetween0and1(UMI.percentileRankingByFaculty))
 
 jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data) => {
   assert.equal(null, err)
