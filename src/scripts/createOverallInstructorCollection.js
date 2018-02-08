@@ -65,7 +65,7 @@ const outputOverallInstructorData = () => {
     assert.equal(null, err)
     const file = './output/' + collection.overallInstructor + '.json'
     const result = aggregateOverallInstructor(json)
-    jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+    jsonfile.writeFile(file, result, err => assert.equal(null, err))
   })
 }
 

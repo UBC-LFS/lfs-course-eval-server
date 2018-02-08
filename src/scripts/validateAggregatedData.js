@@ -51,7 +51,9 @@ jsonfile.readFile('./output/' + collection.aggregatedData + '.json', (err, data)
   const missingProperties = checkMissingProperties(data)
   const responseRate = checkResponseRate(data)
 
-  if (missingEnrolments.length > 0 || NaNEnrolments.length > 0) console.log('These courses are missing enrolment information: ', missingEnrolments, NaNEnrolments)
+  if (missingEnrolments.length > 0 || NaNEnrolments.length > 0) {
+    console.log('These courses are missing enrolment information: ', missingEnrolments, NaNEnrolments)
+  }
   if (onePUID) console.log('The following instructors has multiple PUIDs: ', onePUID)
   if (missingProperties.length > 0) console.log('These courses are missing some properties', missingProperties)
   if (responseRate.length > 0) console.log('These courses have invalid response rates', responseRate)
