@@ -46,7 +46,7 @@ block content
   <div class="container-fluid">
     <div class="card"> 
       <div class="card-block">
-        h2="umiVSDispersion"
+        h2="UMI Vs Dispersion"
         <div id="UMIvsDispersionGraph">
           <select class="selectpicker" id="umiVsDispersionDept" data-live-search="true"></select>
           <select class="selectpicker" id="umiVsDispersionYear" data-live-search="true"></select>
@@ -56,6 +56,7 @@ block content
             <option value="true">Remove Below Minimum</option>
             <option value="false">Don't Remove Below Minimum</option>
           </select>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#umiVsDispersionModal">Launch demo modal</button>
         </div>
       </div>
     </div>
@@ -93,7 +94,89 @@ block content
   </div>
 
   <div class="container-fluid">
-    h2="overallInstructor"
+    h2="Overall Instructor"
     <table id="OverallInstructors" class="display" cellspacing="0"></table>
+  </div>
+
+  <div class="modal fade" id="umiVsDispersionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Visualization Summary</h5>
+        </div>
+        <div class="modal-body">
+          <p>Each circle in the above visualization represents a section offered in the selected year/term. Each circle is plotted by its UMI rating on the Y-axis and Dispersion Index on the X-axis.</p>
+          <p>A higher dispersion indicates higher variability in the score. If each student in a section gave an instructor the same rating (e.g. 4), then the dispersion will be 0. Conversely, if half the students gave an instructor the lowest score of 1, and the other half of the students gave the same instructor the highest score of 5, the dispersion index would equal 1, the theoretical maximum. In practice, most dispersion indexes are lower than 0.8.</p>
+          <p>The size of the circle represents class size. The larger the circle, the larger the class size.</p>
+          <p>The colour of the circle represents the Percent Favourable, which is the percentage of students who rated the instructor a 4 or 5. Green circles indicate that 90%+ students rated the instructor favourably, lighter green indicates 80%+, yellowish green indicates 70%+, yellow indicates 60%+, and orange indicates 50%+, and red indicates below 50%.</p>
+          <p>The "Remove Below Minimum" option removes sections that fail to meet the minimum response rates to make the ratings meaningful. Switching the option to "Don't Remove Below Minimum" will show every section.</p>
+          <p>Hovering over any given circle shows details about the particular section, such as the instructor name, course, UMI average, dispersion index, and percent favourable. At the bottom is a histogram displaying the distribution of ratings from 1-5.</p>
+          <p>Clicking on a circle will cause all sections taught by the same instructor to become highlighted, which will give an overview of the general performance of a given instructor.</p>
+          <h3>Dispersion Index</h3>
+          <p>Dispersion index is a measure used to quantify whether a set of observed occurrences are clustered or dispersed compared to a standard statistical model. The dispersion index is calculated as the ratio of the variance to the mean (D = Variance/Mean).</p>
+          <h3>Percentile Ranking</h3>
+          <p>Percentile rank is the percentage of the scores that fall at or below a given score. For example, if we have N instructors in a department, school or faculty and we have the percentile rank of instructor Joe. First we count how many instructors scored below Joe, let us call that number “B for below”. Now, we count how many scored at Joe level (including Joe score), let us call that number “A for At Joe score”. The formula for percentile rank will be:</p>
+          <p>((B+(0.5*A))/N)*100</p>
+          <p>So, if out of 20 instructors, 13 scored below Joe and no one scored the same (only Joe scored 4.3), then B=13 and A=1 (only Joe)</p>
+          <p>Joe’s Percentile rank = ((13+(0.5*1))/20)*100 = (13.5/20)*100 = 68th percentile</p>
+          <p>Furthermore, percentile ranks are rounded to the nearest one. But, please note that percentiles less than 1 round upÎ to the 1st percentile, i.e. there should be no zero percentile. For example both 0.2 and 0.8 round up to the 1st percentile.</p>
+          <p>Also, percentiles greater than the 99th round down to the 99th percentile rank, e.g. 99.4 or 99.9 round down to the 99th, i.e. there should be no 100th percentile.</p>
+          <h3>Response Rate</h3>
+          <p>The response rate is found by dividing the number of students that completed the survey with the number of students enrolled in the class. RR = (# of students that completed survey)/(# of students enrolled in the class)</p>
+          <h3>Meets Minimum</h3>
+          <p>The UBC Centre for Teaching and Learning Technology (CTLT) has developed a table of minimum response rates by class size. If the response rate of a given evaluation is above the minimum recommended, then the evaluation meets minimum.</p>
+          <table>
+            <thead>
+              <tr>
+                <th align="center">Class Size</th>
+                <th align="center">Recommended Minimum Response Rates based on 80% confidence &amp; ±10% margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="center">&lt;= 10</td>
+                <td align="center">75%</td>
+              </tr>
+              <tr>
+                <td align="center">11 - 19</td>
+                <td align="center">65%</td>
+              </tr>
+              <tr>
+                <td align="center">20 - 34</td>
+                <td align="center">55%</td>
+              </tr>
+              <tr>
+                <td align="center">35 - 49</td>
+                <td align="center">40%</td>
+              </tr>
+              <tr>
+                <td align="center">50 - 74</td>
+                <td align="center">35%</td>
+              </tr>
+              <tr>
+                <td align="center">75 - 99</td>
+                <td align="center">25%</td>
+              </tr>
+              <tr>
+                <td align="center">100 - 149</td>
+                <td align="center">20%</td>
+              </tr>
+              <tr>
+                <td align="center">150 - 299</td>
+                <td align="center">15%</td>
+              </tr>
+              <tr>
+                <td align="center">300 - 499</td>
+                <td align="center">10%</td>
+              </tr>
+              <tr>
+                <td align="center">&gt;= 500</td>
+                <td align="center">5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
