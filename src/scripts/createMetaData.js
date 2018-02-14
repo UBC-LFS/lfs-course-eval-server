@@ -5,9 +5,9 @@ import * as collection from '../utils/constants'
 import * as sort from '../utils/sort'
 
 const createMetaData = json => {
-  const groupInstructorsBySections = (R.groupBy(function (section) {
+  const groupInstructorsBySections = R.groupBy(function (section) {
     return section.PUID
-  })(json))
+  })(json)
   const instructorArray = R.uniq(json
     .map(section => {
       return ({ name: section.instructorName, PUID: section.PUID })
