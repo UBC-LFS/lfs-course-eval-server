@@ -149,7 +149,7 @@ const outputAggregatedData = cb => {
     courseObjs = insertPercentileRanking(courseObjs)
 
     // this adds in the enrolment data from another CSV
-    readCSV('../scripts/source/course_eval_enrollments-2009-2017WA.csv', csv => {
+    readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', csv => {
       csv.map(enrolmentCourse => {
         const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
           {
