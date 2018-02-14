@@ -53,7 +53,6 @@ const createFacultyAverage = data => {
   return result
 }
 const createDeptAverage = data => {
-  // console.log(JSON.stringify(data))
   const depts = R.uniq(data.map(x => x.dept))
   const joinYearAndTerm = (year, term) => year + term
   const yearAndTerms = R.uniq(data.map(x => joinYearAndTerm(x.year, x.term)))
@@ -110,11 +109,11 @@ const createDeptAverage = data => {
 }
 
 const createAverage = data => {
-  //TODO: prevent data from being mutated!!!!!
-  console.log(JSON.stringify(data))
+  const newArr = R.clone(data)
+
   const facultyAverage = createFacultyAverage(data)
-  console.log(JSON.stringify(data))
-  const deptAverage = createDeptAverage(data)
+
+  const deptAverage = createDeptAverage(newArr)
   return [...facultyAverage, ...deptAverage]
 }
 
