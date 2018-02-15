@@ -40,6 +40,49 @@ describe('byYearThenTerm', () => {
   })
 })
 
+describe('sortSectionsByYearThenTerm', () => {
+  it('takes sections and returns sections sorted by year and term', () => {
+    const input = [
+      { year: 2017, term: 'WC' },
+      { year: 2015, term: 'WC' },
+      { year: 2011, term: 'WC' },
+      { year: 2013, term: 'WC' }
+    ]
+    const output = [
+      { year: 2011, term: 'WC' },
+      { year: 2013, term: 'WC' },
+      { year: 2015, term: 'WC' },
+      { year: 2017, term: 'WC' }
+    ]
+    assert.deepEqual(sort.sortSectionsByYearThenTerm(input), output)
+  })
+  it('can handle complex cases', () => {
+    const input = [
+      { year: 2015, term: 'W1' },
+      { year: 2009, term: 'WC' },
+      { year: 2016, term: 'W1' },
+      { year: 2020, term: 'W1' },
+      { year: 2016, term: 'W2' },
+      { year: 2011, term: 'S2' },
+      { year: 2009, term: 'WA' },
+      { year: 2017, term: 'S2' },
+      { year: 2011, term: 'S1' }
+    ]
+    const output = [
+      { year: 2009, term: 'WA' },
+      { year: 2009, term: 'WC' },
+      { year: 2011, term: 'S1' },
+      { year: 2011, term: 'S2' },
+      { year: 2015, term: 'W1' },
+      { year: 2016, term: 'W1' },
+      { year: 2016, term: 'W2' },
+      { year: 2017, term: 'S2' },
+      { year: 2020, term: 'W1' }
+    ]
+    assert.deepEqual(sort.sortSectionsByYearThenTerm(input), output)
+  })
+})
+
 describe('byInstructorLastName', () => {
   it('sorts an array of objects by instructor last name', () => {
     const input = [
