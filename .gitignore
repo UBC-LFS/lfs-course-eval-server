@@ -70,6 +70,4 @@ dist
 
 /public/scripts
 
-/src/scripts/seot-requests
-
 .DS_Store
