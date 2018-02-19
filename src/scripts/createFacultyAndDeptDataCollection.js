@@ -70,7 +70,7 @@ const outputFacultyDeptData = () => {
     assert.equal(null, err)
     const file = './output/' + collection.facultyDeptData + '.json'
     const result = createAverage(json)
-    jsonfile.writeFile(file, result, (err) => assert.equal(null, err))
+    jsonfile.writeFile(file, result, err => assert.equal(null, err))
   })
 }
 
