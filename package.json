@@ -48,6 +48,7 @@
     "express": "^4.16.2",
     "json2csv": "^3.11.5",
     "jsonfile": "^4.0.0",
+    "markdown-table": "^1.1.1",
     "material-components-web": "^0.24.0",
     "mongodb": "^2.2.34",
     "morgan": "^1.9.0",

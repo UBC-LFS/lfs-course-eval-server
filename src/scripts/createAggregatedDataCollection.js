@@ -148,6 +148,9 @@ const outputAggregatedData = cb => {
 
     courseObjs = insertPercentileRanking(courseObjs)
 
+    // filters courses with null umi6 averages (rarely happens)
+    courseObjs = courseObjs.filter(courseObj => courseObj.UMI6.average)
+
     // this adds in the enrolment data from another CSV
     readCSV('../scripts/source/course_eval_enrollments-2009-2017SA.csv', csv => {
       csv.map(enrolmentCourse => {
