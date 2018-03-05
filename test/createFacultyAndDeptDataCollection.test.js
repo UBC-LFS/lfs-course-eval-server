@@ -309,7 +309,6 @@ describe('calculateAverage', () => {
         }
       }
     ]
-
     output = [
       {
         'department': 'LFS',
