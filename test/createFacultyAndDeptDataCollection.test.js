@@ -2,7 +2,6 @@
 
 import assert from 'assert'
 import { createAverage } from '../src/scripts/createFacultyAndDeptDataCollection'
-import { createCipher } from 'crypto';
 
 describe('calculateAverage', () => {
   it('takes as input sections and returns an array of dept objects with averages separated by terms, should work for array with only one section', () => {
@@ -259,8 +258,7 @@ describe('calculateAverage', () => {
         ]
       }
     ]
-    console.log("result" + JSON.stringify(createAverage(input)))
-    console.log("expected" + output)
+
     assert.deepEqual(createAverage(input), output)
 
     input = [
@@ -667,4 +665,4 @@ describe('calculateAverage', () => {
     ]
     assert.deepEqual(createAverage(input), output)
   })
- })
+})

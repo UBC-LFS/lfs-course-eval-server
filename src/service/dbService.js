@@ -22,6 +22,7 @@ const writeToDB = (dataToWrite, src) => MongoClient.connect(url, (err, db) => {
 const readData = (collectionName, conditions, cb) => MongoClient.connect(url, (err, db) => {
   assert.equal(null, err)
   const collection = db.collection(collectionName)
+  console.log(db)
   collection.find(conditions).toArray((err, result) => {
     assert.equal(null, err)
     cb(result)
@@ -40,7 +41,7 @@ const clearCollection = (name, cb) => MongoClient.connect(url, (err, db) => {
 })
 
 export {
-    writeToDB,
-    readData,
-    clearCollection
+  writeToDB,
+  readData,
+  clearCollection
 }
