@@ -51,19 +51,35 @@ block content
   </div>
 
   <div class="container-fluid">
-    h2="Course Performance"
-    <div class="container-fluid" align="right">
-      <label> Select UMI Question Code(s):
-        <select id="cpQuestionFilter" class="selectpicker" multiple>
-          <option>UMI1</option>
-          <option>UMI2</option>
-          <option>UMI3</option>
-          <option>UMI4</option>
-          <option>UMI5</option>
-          <option>UMI6</option>
-        </select>
-    </label>
+    <div class="card"> 
+      <div class="card-block">
+        h2="Instructor Ranking"
+        <div id="instructorRankingGraph">
+                  <select class="selectpicker" id="instructorRankingTerm"></select>
+        </div>
       </div>
-    <table id="CoursePerformance" class="display" cellspacing="0"></table>
     </div>
   </div>
+
+  <div class="container-fluid">
+    <div class="card"> 
+      <div class="card-block">
+        h2="Course Performance"
+        <div class="container-fluid" align="right">
+          <label> Select UMI Question Code(s):
+            <select id="cpQuestionFilter" class="selectpicker" multiple>
+              <option>UMI1</option>
+              <option>UMI2</option>
+              <option>UMI3</option>
+              <option>UMI4</option>
+              <option>UMI5</option>
+              <option>UMI6</option>
+            </select>
+        </label>
+          </div>
+        <table id="CoursePerformance" class="display" cellspacing="0"></table>
+        </div>
+          </div>
+      </div>
+    </div>
+    </div>
