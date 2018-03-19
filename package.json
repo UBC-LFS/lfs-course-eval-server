@@ -60,6 +60,7 @@
     "babel-eslint": "^7.2.3",
     "babel-jest": "^21.2.0",
     "babel-register": "^6.24.1",
+    "bootstrap-slider": "^10.0.0",
     "cypress": "^1.4.2",
     "dotenv": "^4.0.0",
     "eslint": "^4.17.0",

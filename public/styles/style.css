@@ -187,3 +187,8 @@ body {
 
 .align-left{ float: left;width:50%; }
 .align-right{float: right;width:50%}
+
+#wrapper {width:850px; height:300px; position:relative;}
+.float { height:300px; margin:0; padding:0;}
+.left {float:left; width:400px;}
+.right {float:left; width:400px;}
