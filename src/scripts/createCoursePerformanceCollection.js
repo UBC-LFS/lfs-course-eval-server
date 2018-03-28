@@ -2,7 +2,7 @@ import jsonfile from 'jsonfile'
 import assert from 'assert'
 import * as collection from '../utils/constants'
 
-const addDeptData = (courses, facultyDeptData) =>
+const addFacultyDeptData = (courses, facultyDeptData) =>
   courses.map(course => {
     const year = course.year
     const term = course.term
@@ -12,6 +12,10 @@ const addDeptData = (courses, facultyDeptData) =>
       .find(x => x.department === dept).data
       .find(x => x.year === year && x.term === term)
 
+      course.facultyAverage = facultyDeptData
+      .find(x => x.department === 'faculty').data
+      .find(x => x.year === year && x.term === term)
+
     return course
   }
 )
@@ -19,7 +23,7 @@ const addDeptData = (courses, facultyDeptData) =>
 const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
   UMIData.map(instructor => ({
     PUID: instructor.PUID,
-    Courses: addDeptData(instructor.Courses, facultyDeptData)
+    Courses: addFacultyDeptData(instructor.Courses, facultyDeptData)
   })
 )
 
@@ -37,7 +41,7 @@ const outputCoursePerformance = cb => {
 }
 
 export {
-  addDeptData,
+  addFacultyDeptData,
   addDeptAndFacultyAvgIntoUMIInstructorData,
   outputCoursePerformance
 }

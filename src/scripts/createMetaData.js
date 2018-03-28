@@ -4,7 +4,19 @@ import R from 'ramda'
 import * as collection from '../utils/constants'
 import * as sort from '../utils/sort'
 
-const createMetaData = json => {
+const minClassSize = array => {
+  return array.reduce(function (prev, curr) {
+    return prev.enrolment < curr.enrolment ? prev : curr
+  }, array[0]).enrolment
+}
+
+const maxClassSize = array => {
+  return array.reduce(function (prev, curr) {
+    return prev.enrolment > curr.enrolment ? prev : curr
+  }, array[0]).enrolment
+}
+
+const createInstructorData = json => {
   const groupInstructorsBySections = R.groupBy(function (section) {
     return section.PUID
   })(json)
@@ -18,11 +30,32 @@ const createMetaData = json => {
     const instructor = R.prop(instructorArray[i].PUID, groupInstructorsBySections)
     instructorArray[i].terms = sort.byYearThenTerm(R.uniq(instructor.map(x => x.year + x.term)))
   }
+  return instructorArray
+}
+
+const createYearData = json => {
+  const groupCoursesByYear = R.groupBy(function (section) {
+    return section.year
+  })(json)
+
+  const years = Object.keys(groupCoursesByYear).sort((a, b) => a - b)
+  const yearArray = []
+  for (let i = 0; i < years.length; i++) {
+    const year = {
+      "year": years[i],
+      "minClassSize": minClassSize(groupCoursesByYear[years[i]]),
+      "maxClassSize": maxClassSize(groupCoursesByYear[years[i]])
+    }
+    yearArray.push(year)
+  }
+  return yearArray
+}
+
+const createMetaData = json => {
+  const instructorArray = createInstructorData(json)
+  const yearArray = createYearData(json)
   return ([{
-    years: R.uniq(json
-      .map(section => section.year)
-      .sort((a, b) => a - b)
-    ),
+    years: yearArray,
     terms: R.uniq(json
       .map(section => section.term)
       .sort()
@@ -45,5 +78,8 @@ const outputMetaData = () => {
 }
 
 export {
-  outputMetaData
+  outputMetaData,
+  createInstructorData,
+  createYearData,
+  createMetaData
 }
