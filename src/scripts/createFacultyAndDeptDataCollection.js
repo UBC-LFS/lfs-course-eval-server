@@ -76,6 +76,6 @@ const outputFacultyDeptData = cb => {
 }
 
 export {
-    createAverage,
-    outputFacultyDeptData
+  createAverage,
+  outputFacultyDeptData
 }
