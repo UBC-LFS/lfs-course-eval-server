@@ -12,20 +12,20 @@ const addFacultyDeptData = (courses, facultyDeptData) =>
       .find(x => x.department === dept).data
       .find(x => x.year === year && x.term === term)
 
-      course.facultyAverage = facultyDeptData
+    course.facultyAverage = facultyDeptData
       .find(x => x.department === 'faculty').data
       .find(x => x.year === year && x.term === term)
 
     return course
   }
-)
+  )
 
 const addDeptAndFacultyAvgIntoUMIInstructorData = (UMIData, facultyDeptData) =>
   UMIData.map(instructor => ({
     PUID: instructor.PUID,
     Courses: addFacultyDeptData(instructor.Courses, facultyDeptData)
   })
-)
+  )
 
 const outputCoursePerformance = cb => {
   jsonfile.readFile('./output/' + collection.umiInstructor + '.json', (err, UMIData) => {

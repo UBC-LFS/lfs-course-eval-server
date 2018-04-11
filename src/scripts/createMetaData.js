@@ -42,9 +42,9 @@ const createYearData = json => {
   const yearArray = []
   for (let i = 0; i < years.length; i++) {
     const year = {
-      "year": years[i],
-      "minClassSize": minClassSize(groupCoursesByYear[years[i]]),
-      "maxClassSize": maxClassSize(groupCoursesByYear[years[i]])
+      'year': years[i],
+      'minClassSize': minClassSize(groupCoursesByYear[years[i]]),
+      'maxClassSize': maxClassSize(groupCoursesByYear[years[i]])
     }
     yearArray.push(year)
   }
