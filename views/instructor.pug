@@ -57,9 +57,21 @@ block content
         <div id="instructorRankingGraph">
           <div class="row">
             <div class="col-md-3"><select class="selectpicker" id="instructorRankingYearFilter"></select></div>
+            <div class="col-md-3">
+            <select id="irQuestionFilter" class="selectpicker">
+              <option>UMI1</option>
+              <option>UMI2</option>
+              <option>UMI3</option>
+              <option>UMI4</option>
+              <option>UMI5</option>
+              <option>UMI6</option>
+            </select>
+            </div>
+            <div class="col-sm-2"><label>Filter by Class Size:</label></div>
             <div class="col-md-3" id="slider"></div>
           </div>
-      </div>
+          <canvas id="instructorRankingChartCanvas"></canvas>
+        </div>
       </div>
     </div>
   </div>

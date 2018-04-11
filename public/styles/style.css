@@ -192,3 +192,7 @@ body {
 .float { height:300px; margin:0; padding:0;}
 .left {float:left; width:400px;}
 .right {float:left; width:400px;}
+
+#slider .noUi-connect {
+	background: #4682b4;
+}

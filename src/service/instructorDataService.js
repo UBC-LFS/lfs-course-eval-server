@@ -47,6 +47,17 @@ const dataForOverview = (puid, year) => {
   })
 }
 
+const dataForInstructorRanking = ({ year, minClassSize, maxClassSize }) => {
+  let conditions = { year: Number(year), $and: [{"enrolment": {$gte: Number(minClassSize)} },{"enrolment": {$lte: Number(maxClassSize)} }]  }
+  return new Promise((resolve, reject) => {
+    db.readData(collection.aggregatedData, conditions, (res) => {
+      if (res) resolve(removeIDs(res))
+      else reject(Error('db returned no result'))
+    })
+  })
+}
+
 export {
-    dataForOverview
+    dataForOverview,
+    dataForInstructorRanking
 }
