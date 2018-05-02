@@ -191,7 +191,7 @@ const outputAggregatedData = cb => {
           })
         })
       })
-    } else {
+    } else { // use an arbitrary value for class size
       courseObjs.map(course => {
         const enrolment = 200
         course.enrolment = enrolment
