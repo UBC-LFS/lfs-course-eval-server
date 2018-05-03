@@ -1,10 +1,21 @@
-Run using babel-node.
+Run using babel-node. 
+You can install babel-node using
+
+`npm install -g babel-cli`
+
+And run scripts in this folder using
+
+`babel-node <script name>` for Mac
+
+`babel-node .\<script name>` for Windows
 
 To show in mongo:
 
 First start mongo
 
-`sudo mongod`
+`sudo mongod` for Mac
+
+`"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"` for Windows
 
 Then use courseval db
 
