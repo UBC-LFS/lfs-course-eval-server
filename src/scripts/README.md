@@ -1,9 +1,8 @@
-Run using babel-node. 
-You can install babel-node using
+The scripts in this directory require babel-cli. You can install it using
 
 `npm install -g babel-cli`
 
-And run scripts in this folder using
+And run scripts in this directory using
 
 `babel-node <script name>` for Mac
 
@@ -21,11 +20,9 @@ Then use courseval db
 
 `use courseval`
 
-Then run runCreate.js 
+Populate the database with these commands:
 
 `babel-node runCreate.js`
-
-Then run writeToMongo.js
 
 `babel-node writeToMongo.js`
 
