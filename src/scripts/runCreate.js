@@ -13,7 +13,7 @@ outputAggregatedData(() => {
   outputUMIInstructor(() => {
     outputFacultyDeptData(() => {
       outputCoursePerformance(() =>
-        console.log('All files created successfully! Now run the writeToMongo.js file to write to Mongo!'))
+        console.log('All files created successfully!'))
     })
   })
   outputMetaData()
