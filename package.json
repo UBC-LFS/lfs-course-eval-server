@@ -24,7 +24,8 @@
     "test-coverage": "jest --coverage",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "test-server": "jest",
-    "lint": "esw -w src test"
+    "lint": "esw -w src test",
+    "create-db": "cd src/scripts && babel-node runCreate.js && babel-node writeToMongo.js"
   },
   "keywords": [
     "express",
