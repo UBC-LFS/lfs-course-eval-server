@@ -1,12 +1,10 @@
 import * as calculate from '../utils/calculate'
 import * as getFromCSV from './scriptUtils/getFromCSV'
-import * as fs from 'fs'
 import assert from 'assert'
 import R from 'ramda'
 import readCSV from '../service/readCSV'
 import jsonfile from 'jsonfile'
 import * as collection from '../utils/constants'
-
 
 const getProperties = ev => ({
   year: getFromCSV.getYear(ev),
@@ -153,59 +151,46 @@ const outputAggregatedData = cb => {
     // filters courses with null umi6 averages (rarely happens)
     courseObjs = courseObjs.filter(courseObj => courseObj.UMI6.average)
 
-    // check directory for enrollment data file
-    if (fs.existsSync('../scripts/source/course_eval_enrollments-2009-2017WA.csv')) {
-      // this adds in the enrolment data from another CSV
-      readCSV('../scripts/source/course_eval_enrollments-2009-2017WA.csv', csv => {
-        csv.map(enrolmentCourse => {
-          const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
-            {
-              enrolmentCourseName: enrolmentCourse.crsname,
-              enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
-              enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
-              enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
-              enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
-              enrolment: enrolmentCourse.no_enrolled
-            }
+    // this adds in the enrolment data from another CSV
+    readCSV('../scripts/source/course_eval_enrollments-2009-2017WA.csv', csv => {
+      csv.map(enrolmentCourse => {
+        const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
+          {
+            enrolmentCourseName: enrolmentCourse.crsname,
+            enrolmentCourseID: getFromCSV.getEnrolmentCourseNumber(enrolmentCourse.crsnum),
+            enrolmentSection: getFromCSV.getEnrolmentSection(enrolmentCourse.section),
+            enrolmentYear: getFromCSV.getEnrolmentYear(enrolmentCourse.period),
+            enrolmentTerm: getFromCSV.getEnrolmentTerm(enrolmentCourse.period),
+            enrolment: enrolmentCourse.no_enrolled
+          }
 
-          courseObjs.map(course => {
-            const { courseName, courseID, section, year, term } =
-              {
-                courseName: course.courseName,
-                courseID: course.course,
-                section: course.section,
-                year: course.year,
-                term: course.term
-              }
-            if (courseName === enrolmentCourseName &&
-              courseID === enrolmentCourseID &&
-              section === enrolmentSection &&
-              year === enrolmentYear &&
-              term === enrolmentTerm) {
-              course.enrolment = enrolment
-              const responses = course.gender.Female + course.gender.Male
-              const responseRate = calculate.toTwoDecimal(responses / enrolment)
-              course.responseRate = responseRate
-              course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
+        courseObjs.map(course => {
+          const { courseName, courseID, section, year, term } =
+            {
+              courseName: course.courseName,
+              courseID: course.course,
+              section: course.section,
+              year: course.year,
+              term: course.term
             }
-          })
+          if (courseName === enrolmentCourseName &&
+            courseID === enrolmentCourseID &&
+            section === enrolmentSection &&
+            year === enrolmentYear &&
+            term === enrolmentTerm) {
+            course.enrolment = enrolment
+            const responses = course.gender.Female + course.gender.Male
+            const responseRate = calculate.toTwoDecimal(responses / enrolment)
+            course.responseRate = responseRate
+            course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
+          }
         })
       })
-    } else { // use an arbitrary value for class size
-      courseObjs.map(course => {
-        const enrolment = 200
-        course.enrolment = enrolment
-        const responses = course.gender.Female + course.gender.Male
-        const responseRate = calculate.toTwoDecimal(responses / enrolment)
-        course.responseRate = responseRate
-        course.meetsMin = calculate.meetsMinimum(enrolment, responseRate)
+      const file = './output/' + collection.aggregatedData + '.json'
+      jsonfile.writeFile(file, courseObjs, (err) => {
+        assert.equal(err, null)
+        cb()
       })
-    }
-
-    const file = './output/' + collection.aggregatedData + '.json'
-    jsonfile.writeFile(file, courseObjs, (err) => {
-      assert.equal(err, null)
-      cb()
     })
   })
 }
