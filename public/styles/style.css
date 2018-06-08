@@ -185,6 +185,10 @@ body {
   color: red;
 }
 
+.s {
+  z-index: 1;
+}
+
 .align-left{ float: left;width:50%; }
 .align-right{float: right;width:50%}
 
