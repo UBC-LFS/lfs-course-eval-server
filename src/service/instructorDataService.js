@@ -2,19 +2,19 @@ import * as db from './dbService'
 import { removeIDs } from '../utils/filter'
 import * as collection from '../utils/constants'
 import {
-    umiAvg,
-    sumCount,
-    percentFavourable
+  umiAvg,
+  sumCount,
+  percentFavourable
 } from '../utils/calculate'
 import R from 'ramda'
 
 const sumEnrolment = classes =>
-    R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
+  R.reduce((acc, record) => (acc + record.enrolment), 0, classes)
 
 const dataForOverview = (puid, year) => {
   const condition = {
     $and: [{ 'PUID': puid },
-        { $or: [{ year: Number(year) }, { year: Number(year - 1) }] }]
+      { $or: [{ year: Number(year) }, { year: Number(year - 1) }] }]
   }
 
   const overviewStats = (year, data) => {
@@ -48,7 +48,7 @@ const dataForOverview = (puid, year) => {
 }
 
 const dataForInstructorRanking = ({ year, minClassSize, maxClassSize }) => {
-  let conditions = { year: Number(year), $and: [{"enrolment": {$gte: Number(minClassSize)} },{"enrolment": {$lte: Number(maxClassSize)} }]  }
+  let conditions = { year: Number(year), $and: [{'enrolment': {$gte: Number(minClassSize)} }, {'enrolment': {$lte: Number(maxClassSize)} }] }
   return new Promise((resolve, reject) => {
     db.readData(collection.aggregatedData, conditions, (res) => {
       if (res) resolve(removeIDs(res))
@@ -58,6 +58,6 @@ const dataForInstructorRanking = ({ year, minClassSize, maxClassSize }) => {
 }
 
 export {
-    dataForOverview,
-    dataForInstructorRanking
+  dataForOverview,
+  dataForInstructorRanking
 }

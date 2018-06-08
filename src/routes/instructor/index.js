@@ -24,7 +24,7 @@ routes.get('/instructorOverview/:puid', (req, res) => {
 })
 
 routes.get('/instructorRanking/:year/:minClassSize/:maxClassSize', (req, res) => {
-  instructorDS.dataForInstructorRanking(req.params).then(data=> {
+  instructorDS.dataForInstructorRanking(req.params).then(data => {
     res.send(data)
   })
 })

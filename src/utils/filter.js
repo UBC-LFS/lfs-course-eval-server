@@ -4,5 +4,5 @@ const removeIDs = arr => arr.map(x => {
 })
 
 export {
-    removeIDs
+  removeIDs
 }

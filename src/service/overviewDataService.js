@@ -110,12 +110,12 @@ const dataForOverview = year => {
 }
 
 export {
-    dataForOverallInstructor,
-    dataForUMIVSDispersion,
-    dataForOptions,
-    dataForUMIInstructor,
-    dataForCoursePerformance,
-    dataForEnrolmentTrend,
-    dataForFaculyAndDept,
-    dataForOverview
+  dataForOverallInstructor,
+  dataForUMIVSDispersion,
+  dataForOptions,
+  dataForUMIInstructor,
+  dataForCoursePerformance,
+  dataForEnrolmentTrend,
+  dataForFaculyAndDept,
+  dataForOverview
 }

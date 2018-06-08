@@ -152,7 +152,7 @@ const outputAggregatedData = cb => {
     courseObjs = courseObjs.filter(courseObj => courseObj.UMI6.average)
 
     // this adds in the enrolment data from another CSV
-    readCSV('../scripts/source/course_eval_enrollments-2009-2017WA.csv', csv => {
+    readCSV('../scripts/source/enrolments.csv', csv => {
       csv.map(enrolmentCourse => {
         const { enrolmentCourseName, enrolmentCourseID, enrolmentSection, enrolmentYear, enrolmentTerm, enrolment } =
           {

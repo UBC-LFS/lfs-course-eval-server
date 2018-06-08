@@ -86,45 +86,45 @@ describe('sortSectionsByYearThenTerm', () => {
 describe('byInstructorLastName', () => {
   it('sorts an array of objects by instructor last name', () => {
     const input = [
-            { instructor: 'Abe, John' },
-            { instructor: 'Boe, John' },
-            { instructor: 'Boe, John' },
-            { instructor: 'Coe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Eoe, John' },
-            { instructor: 'Foe, John' },
-            { instructor: 'Goe, John' },
-            { instructor: 'Hoe, John' },
-            { instructor: 'Ioe, John' }
+      { instructor: 'Abe, John' },
+      { instructor: 'Boe, John' },
+      { instructor: 'Boe, John' },
+      { instructor: 'Coe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Eoe, John' },
+      { instructor: 'Foe, John' },
+      { instructor: 'Goe, John' },
+      { instructor: 'Hoe, John' },
+      { instructor: 'Ioe, John' }
     ]
     const output = [
-            { instructor: 'Abe, John' },
-            { instructor: 'Boe, John' },
-            { instructor: 'Boe, John' },
-            { instructor: 'Coe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Eoe, John' },
-            { instructor: 'Foe, John' },
-            { instructor: 'Goe, John' },
-            { instructor: 'Hoe, John' },
-            { instructor: 'Ioe, John' }
+      { instructor: 'Abe, John' },
+      { instructor: 'Boe, John' },
+      { instructor: 'Boe, John' },
+      { instructor: 'Coe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Eoe, John' },
+      { instructor: 'Foe, John' },
+      { instructor: 'Goe, John' },
+      { instructor: 'Hoe, John' },
+      { instructor: 'Ioe, John' }
     ]
     assert.deepEqual(sort.byInstructorLastName(input), output)
 
     const input2 = [
-            { instructor: 'Ioe, John' },
-            { instructor: 'Goe, John' },
-            { instructor: 'Hoe, John' },
-            { instructor: 'Coe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Doe, John' },
-            { instructor: 'Eoe, John' },
-            { instructor: 'Foe, John' },
-            { instructor: 'Abe, John' },
-            { instructor: 'Boe, John' },
-            { instructor: 'Boe, John' }
+      { instructor: 'Ioe, John' },
+      { instructor: 'Goe, John' },
+      { instructor: 'Hoe, John' },
+      { instructor: 'Coe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Doe, John' },
+      { instructor: 'Eoe, John' },
+      { instructor: 'Foe, John' },
+      { instructor: 'Abe, John' },
+      { instructor: 'Boe, John' },
+      { instructor: 'Boe, John' }
     ]
     assert.deepEqual(sort.byInstructorLastName(input2), output)
   })
