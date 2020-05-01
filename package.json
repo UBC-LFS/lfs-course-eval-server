@@ -25,7 +25,9 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "test-server": "jest",
     "lint": "esw -w src test",
-    "create-db": "cd src/scripts && babel-node runCreate.js && babel-node writeToMongo.js"
+    "create-db": "cd src/scripts && babel-node runCreate.js && babel-node writeToMongo.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "express",
@@ -54,7 +56,8 @@
     "morgan": "^1.9.0",
     "pug": "^2.0.3",
     "ramda": "^0.24.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -119,5 +122,6 @@
   "homepage": "https://github.com/vmasto/express-babel#readme",
   "directories": {
     "test": "test"
-  }
+  },
+  "snyk": true
 }
