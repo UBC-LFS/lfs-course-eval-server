@@ -45,7 +45,7 @@
     "body-parser": "^1.18.3",
     "csv-parse": "^4.4.6",
     "csv-stringify": "^2.1.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "json2csv": "^3.11.5",
     "jsonfile": "^4.0.0",
     "markdown-table": "^1.1.2",
